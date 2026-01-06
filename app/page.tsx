@@ -22,7 +22,38 @@ export default function HomePage() {
       {/* Services - 不使用 StickySection，完全由 GSAP 控制 */}
       <ServicesSection />
 
-      <StickySection id="process" zIndex={30} transitionType="mask-diagonal" className="bg-white text-black" fitContent={true}>
+      <StickySection
+        id="process"
+        zIndex={30}
+        transitionType="mask-diagonal"
+        className="bg-white text-black"
+        fitContent={true}
+        peekBackground={
+          <div className="absolute inset-0 bg-[#0a0a0a]">
+            {/* 装饰性图案背景 */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `
+                  radial-gradient(circle at 70% 60%, rgba(234, 179, 8, 0.15) 0%, transparent 50%),
+                  linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)
+                `,
+                backgroundSize: '100% 100%, 60px 60px, 60px 60px'
+              }}
+            />
+            {/* 大文字装饰 */}
+            <div className="absolute bottom-20 right-20 text-[20vw] font-bold text-white/[0.02] leading-none select-none pointer-events-none">
+              04
+            </div>
+            {/* 提示文字 */}
+            <div className="absolute bottom-1/3 right-1/4 text-right">
+              <span className="text-xs font-mono text-yellow-500/60 block mb-2">NEXT_SECTION</span>
+              <span className="text-4xl md:text-6xl font-serif text-white/10">The Method</span>
+            </div>
+          </div>
+        }
+      >
         <ProcessSection />
       </StickySection>
 

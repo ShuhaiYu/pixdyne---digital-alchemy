@@ -62,7 +62,7 @@ export default async function BlogPostPage({ params }: Props) {
 
   const breadcrumbs = [
     { name: 'Home', url: 'https://pixdyne.com' },
-    { name: 'Blog', url: 'https://pixdyne.com/#insights' },
+    { name: 'Blog', url: 'https://pixdyne.com/blog' },
     { name: post.title, url: `https://pixdyne.com/blog/${slug}` }
   ];
 
@@ -86,7 +86,7 @@ export default async function BlogPostPage({ params }: Props) {
       <article className="min-h-screen bg-white text-black pt-24 pb-20 px-6 md:px-12">
         <div className="max-w-3xl mx-auto">
           <Link
-            href="/#insights"
+            href="/blog"
             className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-yellow-600 mb-12 transition-colors w-fit"
           >
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -121,7 +121,7 @@ export default async function BlogPostPage({ params }: Props) {
                 <p className="text-lg font-bold">Pixdyne Team</p>
               </div>
               <Link
-                href="/#insights"
+                href="/blog"
                 className="text-sm font-mono uppercase text-yellow-600 hover:text-black transition-colors"
               >
                 More Articles →

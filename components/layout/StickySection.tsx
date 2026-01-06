@@ -18,9 +18,11 @@ export const StickySection: React.FC<SectionProps> = ({
   zIndex,
   bgImage,
   fitContent = false,
-  pinnable = false
+  pinnable = false,
+  peekBackground
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
@@ -50,19 +52,24 @@ export const StickySection: React.FC<SectionProps> = ({
       }
 
       if (transitionType === 'mask-diagonal') {
-        gsap.fromTo(container,
-          { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 100%)' },
-          {
-            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: container,
-              start: 'top bottom',
-              end: 'center center',
-              scrub: 0.5,
+        // 如果有 peekBackground，clipPath 应用在 innerRef 上
+        const clipTarget = peekBackground ? innerRef.current : container;
+        if (clipTarget) {
+          gsap.fromTo(clipTarget,
+            // 起始状态：右下角大面积截掉，露出更多 peekBackground
+            { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 50%)' },
+            {
+              clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
+              ease: 'power1.inOut',
+              scrollTrigger: {
+                trigger: container,
+                start: 'top 80%',  // 更早开始
+                end: 'top 10%',    // 更晚结束，延长过渡时间
+                scrub: 0.8,
+              }
             }
-          }
-        );
+          );
+        }
       }
 
       if (transitionType === 'pixel-glitch') {
@@ -85,8 +92,47 @@ export const StickySection: React.FC<SectionProps> = ({
     ScrollTrigger.refresh();
 
     return () => ctx.revert();
-  }, [transitionType, pathname]);
+  }, [transitionType, pathname, peekBackground]);
 
+  // 如果有 peekBackground，使用特殊布局
+  if (peekBackground) {
+    return (
+      <section
+        id={id}
+        ref={containerRef}
+        className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden ${fitContent ? '' : 'min-h-screen'}`}
+        style={{ zIndex }}
+      >
+        {/* peekBackground 在 clipPath 之外，当 mask-diagonal 展开时会露出 */}
+        <div className="absolute inset-0 z-0">
+          {peekBackground}
+        </div>
+
+        {/* 内部容器 - clipPath 应用在这里 */}
+        <div
+          ref={innerRef}
+          className={`relative z-10 ${className}`}
+        >
+          {bgImage && (
+            <div className="absolute inset-0 z-0">
+              <img
+                src={bgImage}
+                alt={`${id} section background`}
+                className="w-full h-full object-cover opacity-40 grayscale"
+              />
+              <div className="absolute inset-0 bg-black/40" />
+            </div>
+          )}
+
+          <div ref={contentRef} className="relative z-10 w-full">
+            {children}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  // 默认布局（无 peekBackground）
   return (
     <section
       id={id}

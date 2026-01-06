@@ -45,9 +45,11 @@ export const Navigation: React.FC = () => {
     <>
       <nav className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 mix-blend-difference text-white px-6 py-6 flex justify-between items-center ${scrolled ? 'py-4' : 'py-6'}`}>
         <Link href="/" className="flex items-center gap-4 group">
-          <div className="w-10 h-10 border border-white flex items-center justify-center font-bold text-xl tracking-tighter bg-white text-black group-hover:bg-yellow-500 transition-colors">
-            P
-          </div>
+          <img
+            src="/logo.jpeg"
+            alt="Pixdyne"
+            className="w-10 h-10 object-cover"
+          />
           <span className="text-xl font-bold tracking-widest hidden sm:block">PIXDYNE</span>
         </Link>
 

@@ -16,6 +16,7 @@ export interface SectionProps {
   bgImage?: string;
   fitContent?: boolean;
   pinnable?: boolean;
+  peekBackground?: React.ReactNode;
 }
 
 export interface ServiceItem {

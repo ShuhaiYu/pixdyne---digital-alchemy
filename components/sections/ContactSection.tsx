@@ -70,6 +70,15 @@ export const ContactSection: React.FC = () => {
               <p>San Jose, CA 94089</p>
             </div>
           </div>
+
+          {/* Logo */}
+          <div className="mt-12">
+            <img
+              src="/logo_full.jpeg"
+              alt="Pixdyne"
+              className="h-12 w-auto opacity-60"
+            />
+          </div>
         </div>
 
         {/* Right Column: Form */}

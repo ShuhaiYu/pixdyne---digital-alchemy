@@ -7,6 +7,7 @@ import ScrollTrigger from 'gsap/ScrollTrigger';
 import { getAllServices } from '@/lib/data/services';
 import ShinyText from '@/components/ShinyText';
 import CountUp from '@/components/CountUp';
+import SpotlightCard from '@/components/SpotlightCard';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -94,12 +95,17 @@ export const ServicesSection: React.FC = () => {
             className="flex flex-row h-full"
           >
             {services.map((service, index) => (
-              <Link
+              <SpotlightCard
                 key={service.id}
-                href={`/services/${service.slug}`}
-                className="service-item group relative h-full flex-shrink-0 flex flex-col justify-center p-8 md:p-12 border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer overflow-hidden"
+                spotlightColor="rgba(234, 179, 8, 0.15)"
+                className="service-item group h-full flex-shrink-0 flex flex-col justify-center p-8 md:p-12 border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer"
                 style={{ width: 'calc(66.67vw)' }}
               >
+                <Link
+                  href={`/services/${service.slug}`}
+                  className="absolute inset-0 z-20"
+                  aria-label={`View ${service.title} service`}
+                />
                 {/* 背景网格装饰 */}
                 <div className="absolute inset-0 opacity-100 pointer-events-none">
                   <div
@@ -194,7 +200,7 @@ export const ServicesSection: React.FC = () => {
                     />
                   </div>
                 </div>
-              </Link>
+              </SpotlightCard>
             ))}
           </div>
         </div>

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { getAllCaseStudies } from '@/lib/data/case-studies';
+import SpotlightCard from '@/components/SpotlightCard';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -43,11 +44,16 @@ export const CaseStudySection: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-full pb-20">
         {cases.map((project) => (
-          <Link
+          <SpotlightCard
             key={project.id}
-            href={`/work/${project.slug}`}
-            className="case-card group relative overflow-hidden bg-gray-900 cursor-pointer h-[40vh] md:h-[50vh]"
+            spotlightColor="rgba(234, 179, 8, 0.15)"
+            className="case-card group bg-gray-900 cursor-pointer h-[40vh] md:h-[50vh]"
           >
+            <Link
+              href={`/work/${project.slug}`}
+              className="absolute inset-0 z-20"
+              aria-label={`View ${project.name} case study`}
+            />
             <Image
               src={project.img}
               alt={`${project.name} - ${project.category} case study by Pixdyne`}
@@ -62,7 +68,7 @@ export const CaseStudySection: React.FC = () => {
                 VIEW_CASE_STUDY
               </span>
             </div>
-          </Link>
+          </SpotlightCard>
         ))}
       </div>
     </div>

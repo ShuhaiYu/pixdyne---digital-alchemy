@@ -12,7 +12,8 @@
       "mcp__chrome-devtools__evaluate_script",
       "mcp__shadcn__list_items_in_registries",
       "mcp__chrome-devtools__navigate_page",
-      "mcp__shadcn__view_items_in_registries"
+      "mcp__shadcn__view_items_in_registries",
+      "mcp__shadcn__get_item_examples_from_registries"
     ]
   },
   "enableAllProjectMcpServers": true,

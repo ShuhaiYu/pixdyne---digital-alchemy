@@ -19,7 +19,7 @@ const logos = [
 export const ClientLogosSection: React.FC = () => {
   return (
     <div className="w-full flex flex-col justify-center bg-[#111] text-white overflow-hidden relative py-20 md:py-24">
-      <div className="absolute top-0 left-0 w-full px-8 md:px-12 py-6 flex justify-between items-baseline border-b border-white/10 z-10">
+      <div className="absolute top-20 md:top-24 left-0 w-full px-8 md:px-12 py-6 flex justify-between items-baseline border-b border-white/10 z-10">
         <h2 className="text-sm font-mono text-yellow-500 tracking-widest uppercase">/// Trusted_By</h2>
         <p className="text-xs text-gray-500 font-mono hidden md:block">GLOBAL PARTNERS</p>
       </div>

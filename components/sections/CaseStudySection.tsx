@@ -35,7 +35,7 @@ export const CaseStudySection: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="h-full w-full p-4 md:p-12 flex flex-col">
+    <div ref={containerRef} className="h-full w-full p-4 pt-24 md:p-12 md:pt-28 flex flex-col">
       <div className="flex justify-between items-end mb-12 border-b border-white/20 pb-6">
         <h2 className="text-4xl md:text-6xl font-serif">Selected Works</h2>
         <Link href="#work" className="text-sm font-mono uppercase hover:text-yellow-500 transition-colors">View Archive -&gt;</Link>

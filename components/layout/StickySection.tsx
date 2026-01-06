@@ -17,7 +17,8 @@ export const StickySection: React.FC<SectionProps> = ({
   transitionType = 'curtain',
   zIndex,
   bgImage,
-  fitContent = false
+  fitContent = false,
+  pinnable = false
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -90,7 +91,7 @@ export const StickySection: React.FC<SectionProps> = ({
     <section
       id={id}
       ref={containerRef}
-      className={`sticky top-0 w-full overflow-hidden flex flex-col ${fitContent ? 'h-auto min-h-0' : 'min-h-screen'} ${className}`}
+      className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden flex flex-col ${fitContent ? 'h-auto min-h-0' : 'min-h-screen'} ${className}`}
       style={{ zIndex }}
     >
       {bgImage && (

@@ -15,6 +15,7 @@ export interface SectionProps {
   zIndex: number;
   bgImage?: string;
   fitContent?: boolean;
+  pinnable?: boolean;
 }
 
 export interface ServiceItem {
@@ -29,6 +30,11 @@ export interface ServiceItem {
   features: string[];
   seoTitle?: string;
   seoDescription?: string;
+  stats: {
+    projects: number;
+    satisfaction: number;
+    support: string;
+  };
 }
 
 export interface CaseStudyItem {

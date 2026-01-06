@@ -36,7 +36,7 @@ export const BlogSection: React.FC = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="h-full w-full flex flex-col p-8 md:p-12 bg-white text-black">
+    <div ref={sectionRef} className="h-full w-full flex flex-col p-8 pt-24 md:p-12 md:pt-28 bg-white text-black">
       <div className="flex justify-between items-end mb-16">
         <div>
           <span className="text-yellow-600 font-mono text-xs uppercase tracking-widest mb-2 block">/// Insights_Log</span>

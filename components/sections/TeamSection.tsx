@@ -35,7 +35,7 @@ export const TeamSection: React.FC = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="h-full w-full flex flex-col p-8 md:p-12 bg-[#111] text-white">
+    <div ref={sectionRef} className="h-full w-full flex flex-col p-8 pt-24 md:p-12 md:pt-28 bg-[#111] text-white">
       <div className="flex justify-between items-end mb-12 border-b border-white/10 pb-6">
         <div>
           <span className="font-mono text-xs text-yellow-500 tracking-widest">/// THE_COLLECTIVE</span>

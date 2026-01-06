@@ -5,7 +5,13 @@
       "mcp__shadcn__search_items_in_registries",
       "mcp__shadcn__get_add_command_for_items",
       "WebFetch(domain:reactbits.dev)",
-      "Bash(npx shadcn@latest add:*)"
+      "Bash(npx shadcn@latest add:*)",
+      "WebSearch",
+      "WebFetch(domain:gsap.com)",
+      "mcp__chrome-devtools__take_screenshot",
+      "mcp__chrome-devtools__evaluate_script",
+      "mcp__shadcn__list_items_in_registries",
+      "mcp__chrome-devtools__navigate_page"
     ]
   },
   "enableAllProjectMcpServers": true,

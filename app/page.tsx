@@ -19,9 +19,8 @@ export default function HomePage() {
         <ClientLogosSection />
       </StickySection>
 
-      <StickySection id="services" zIndex={20} transitionType="curtain" className="bg-[#050505]">
-        <ServicesSection />
-      </StickySection>
+      {/* Services - 不使用 StickySection，完全由 GSAP 控制 */}
+      <ServicesSection />
 
       <StickySection id="process" zIndex={30} transitionType="mask-diagonal" className="bg-white text-black" fitContent={true}>
         <ProcessSection />

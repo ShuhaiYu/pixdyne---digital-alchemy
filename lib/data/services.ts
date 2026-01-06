@@ -12,7 +12,12 @@ export const services: ServiceItem[] = [
     features: ['Headless CMS Integration', 'Performance Optimization', 'Accessibility (WCAG)', 'Interactive WebGL'],
     price: 'From $2,000',
     seoTitle: 'Web Development Services',
-    seoDescription: 'High-performance React & Next.js web development. Custom web applications, e-commerce solutions, and enterprise platforms built for scale.'
+    seoDescription: 'High-performance React & Next.js web development. Custom web applications, e-commerce solutions, and enterprise platforms built for scale.',
+    stats: {
+      projects: 150,
+      satisfaction: 98,
+      support: '24/7'
+    }
   },
   {
     id: '02',
@@ -25,7 +30,12 @@ export const services: ServiceItem[] = [
     features: ['Offline First Architecture', 'Biometric Auth', 'Real-time Sync', 'App Store Optimization'],
     price: 'From $3,500',
     seoTitle: 'Mobile App Development Services',
-    seoDescription: 'Native iOS and Android app development. Cross-platform solutions with React Native and Flutter for seamless mobile experiences.'
+    seoDescription: 'Native iOS and Android app development. Cross-platform solutions with React Native and Flutter for seamless mobile experiences.',
+    stats: {
+      projects: 80,
+      satisfaction: 96,
+      support: '24/7'
+    }
   },
   {
     id: '03',
@@ -38,7 +48,12 @@ export const services: ServiceItem[] = [
     features: ['Site Speed Audit', 'Competitor Analysis', 'Schema Implementation', 'Local SEO'],
     price: 'From $1,200/mo',
     seoTitle: 'Technical SEO Services',
-    seoDescription: 'Expert technical SEO optimization. Core Web Vitals, schema markup, site audits, and content strategy to dominate search rankings.'
+    seoDescription: 'Expert technical SEO optimization. Core Web Vitals, schema markup, site audits, and content strategy to dominate search rankings.',
+    stats: {
+      projects: 200,
+      satisfaction: 94,
+      support: 'Mon-Fri'
+    }
   },
   {
     id: '04',
@@ -51,7 +66,12 @@ export const services: ServiceItem[] = [
     features: ['24/7 Monitoring', 'Cloud Migration', 'Security Hardening', 'Disaster Recovery'],
     price: 'From $800/mo',
     seoTitle: 'IT Support & Infrastructure Services',
-    seoDescription: '24/7 IT infrastructure monitoring and support. Cloud migration, cybersecurity, and enterprise-grade maintenance solutions.'
+    seoDescription: '24/7 IT infrastructure monitoring and support. Cloud migration, cybersecurity, and enterprise-grade maintenance solutions.',
+    stats: {
+      projects: 500,
+      satisfaction: 99,
+      support: '24/7'
+    }
   }
 ];
 

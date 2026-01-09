@@ -51,6 +51,10 @@ export interface CaseStudyItem {
   stack: string[];
   seoTitle?: string;
   seoDescription?: string;
+  featured?: boolean;
+  cardSize?: 'small' | 'wide' | 'featured';
+  accentColor?: string;
+  shortDescription?: string;
 }
 
 export interface TeamMember {

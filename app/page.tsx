@@ -57,7 +57,7 @@ export default function HomePage() {
         <ProcessSection />
       </StickySection>
 
-      <StickySection id="work" zIndex={40} transitionType="curtain" className="bg-[#111]">
+      <StickySection id="work" zIndex={40} transitionType="curtain" className="bg-black">
         <CaseStudySection />
       </StickySection>
 

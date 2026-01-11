@@ -72,14 +72,14 @@ export const CaseStudySection: React.FC = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="h-screen w-full p-4 pt-16 md:p-6 md:pt-20 flex flex-col bg-black overflow-hidden">
+    <div ref={containerRef} className="min-h-screen md:h-screen w-full p-3 pt-20 sm:p-4 sm:pt-16 md:p-6 md:pt-20 flex flex-col bg-black overflow-hidden">
       {/* Header */}
-      <div className="flex justify-between items-end mb-4 border-b border-white/20 pb-3 flex-shrink-0">
+      <div className="flex justify-between items-end mb-3 sm:mb-4 border-b border-white/20 pb-2 sm:pb-3 flex-shrink-0">
         <div>
-          <span className="text-yellow-500 text-xs font-mono tracking-wider mb-1 block">
+          <span className="text-yellow-500 text-[10px] sm:text-xs font-mono tracking-wider mb-1 block">
             PORTFOLIO
           </span>
-          <h2 className="text-2xl md:text-4xl font-serif text-white">Selected Works</h2>
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif text-white">Selected Works</h2>
         </div>
         <Link
           href="/work"
@@ -100,8 +100,8 @@ export const CaseStudySection: React.FC = () => {
       {/* Bento Grid - 经典不对称布局 */}
       <div
         ref={gridRef}
-        className="relative flex-1 grid grid-cols-12 gap-3 md:gap-4"
-        style={{ gridTemplateRows: 'repeat(3, 1fr)' }}
+        className="relative flex-1 grid grid-cols-12 gap-2 sm:gap-3 md:gap-4 auto-rows-fr"
+        style={{ gridTemplateRows: 'repeat(3, minmax(100px, 1fr))' }}
       >
         {/* Global Spotlight Effect */}
         {isHovering && (

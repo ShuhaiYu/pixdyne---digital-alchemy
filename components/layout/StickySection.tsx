@@ -100,7 +100,7 @@ export const StickySection: React.FC<SectionProps> = ({
       <section
         id={id}
         ref={containerRef}
-        className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden ${fitContent ? '' : 'min-h-screen'}`}
+        className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden ${fitContent ? '' : 'min-h-dvh'}`}
         style={{ zIndex }}
       >
         {/* peekBackground 在 clipPath 之外，当 mask-diagonal 展开时会露出 */}
@@ -137,7 +137,7 @@ export const StickySection: React.FC<SectionProps> = ({
     <section
       id={id}
       ref={containerRef}
-      className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden flex flex-col ${fitContent ? 'h-auto min-h-0' : 'min-h-screen'} ${className}`}
+      className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden flex flex-col ${fitContent ? 'h-auto min-h-0' : 'min-h-dvh'} ${className}`}
       style={{ zIndex }}
     >
       {bgImage && (

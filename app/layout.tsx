@@ -1,10 +1,18 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import { generateOrganizationSchema } from '@/lib/seo/schema';
 import { Navigation } from '@/components/layout/Navigation';
 import PixelTrail from '@/components/PixelTrail';
 import './globals.css';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#050505',
+};
 
 const playfair = Playfair_Display({
   subsets: ['latin'],

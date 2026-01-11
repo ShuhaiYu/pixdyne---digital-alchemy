@@ -57,7 +57,7 @@ const SpotlightCard: React.FC<SpotlightCardProps> = ({
       onBlur={handleBlur}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`relative overflow-hidden ${className}`}
+      className={`relative overflow-visible ${className}`}
       style={style}
     >
       <div

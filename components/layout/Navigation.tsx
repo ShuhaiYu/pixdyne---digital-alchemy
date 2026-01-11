@@ -75,11 +75,11 @@ export const Navigation: React.FC = () => {
           <X size={32} />
         </div>
 
-        <div className="h-full flex flex-col justify-center items-center gap-8 p-4">
+        <div className="h-full flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 p-4">
           {menuItems.map((item) => (
             <button
               key={item.id}
-              className="text-5xl md:text-7xl font-serif italic text-transparent hover:text-yellow-500 hover:tracking-wide transition-all duration-300 stroke-text cursor-pointer uppercase"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-yellow-500 hover:tracking-wide transition-all duration-300 stroke-text cursor-pointer uppercase"
               style={{ WebkitTextStroke: '1px white' }}
               onClick={() => scrollToSection(item.id)}
             >

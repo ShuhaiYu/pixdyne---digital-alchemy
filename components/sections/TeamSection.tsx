@@ -42,7 +42,7 @@ export const TeamSection: React.FC = () => {
   return (
     <div
       ref={sectionRef}
-      className="min-h-screen w-full flex flex-col justify-center relative overflow-hidden bg-[#111] text-white"
+      className="w-full min-h-screen flex flex-col justify-center relative bg-[#111] text-white overflow-x-hidden overflow-y-visible"
     >
       {/* Background Layer - Aurora */}
       <div className="absolute inset-0 z-0 opacity-20">
@@ -60,12 +60,12 @@ export const TeamSection: React.FC = () => {
       </div>
 
       {/* Content Layer */}
-      <div className="relative z-10 px-4 py-16 md:px-8 md:py-20 lg:px-12 lg:py-24">
+      <div className="relative z-10 px-4 pt-20 pb-12 sm:pt-16 sm:pb-16 md:px-8 md:py-20 lg:px-12 lg:py-24">
         {/* Header */}
-        <div className="team-header flex flex-col md:flex-row justify-between items-start md:items-end mb-8 md:mb-12 border-b border-white/10 pb-6 max-w-7xl mx-auto w-full">
+        <div className="team-header flex flex-col md:flex-row justify-between items-start md:items-end mb-6 sm:mb-8 md:mb-12 border-b border-white/10 pb-4 sm:pb-6 max-w-7xl mx-auto w-full">
           <div>
-            <span className="font-mono text-xs text-yellow-500 tracking-widest">/// THE_COLLECTIVE</span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif mt-2">The Architects</h2>
+            <span className="font-mono text-[10px] sm:text-xs text-yellow-500 tracking-widest">/// THE_COLLECTIVE</span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-serif mt-2">The Architects</h2>
           </div>
           <div className="hidden md:block text-right mt-4 md:mt-0">
             <p className="font-sans text-sm max-w-xs text-white/60">
@@ -74,8 +74,61 @@ export const TeamSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
+        {/* Mobile: 横向滚动 / Desktop: Grid 布局 */}
+        {/* Mobile horizontal scroll */}
+        <div className="lg:hidden overflow-x-auto overflow-y-visible scrollbar-hide pt-2 pb-6">
+          <div className="flex gap-4 px-4 w-max">
+            {/* Card 1 */}
+            <div className="w-[260px] flex-shrink-0 pb-4">
+              <SpotlightCard
+                className="rounded-3xl"
+                spotlightColor="rgba(234, 179, 8, 0.12)"
+              >
+                <ProfileCard
+                  avatarUrl={team[0]?.img}
+                  name={team[0]?.name}
+                  title={team[0]?.role}
+                  showUserInfo={true}
+                  handle={team[0]?.name?.toLowerCase().replace(/[\s.]+/g, '')}
+                  status="Available"
+                  contactText="Connect"
+                  onContactClick={() => window.open(team[0]?.linkedin, '_blank')}
+                  enableTilt={true}
+                  behindGlowEnabled={true}
+                  behindGlowColor="rgba(234, 179, 8, 0.55)"
+                  behindGlowSize="55%"
+                  innerGradient="linear-gradient(145deg, rgba(96, 73, 110, 0.5) 0%, rgba(234, 179, 8, 0.15) 100%)"
+                />
+              </SpotlightCard>
+            </div>
+            {/* Card 2 */}
+            <div className="w-[260px] flex-shrink-0 pb-4">
+              <SpotlightCard
+                className="rounded-3xl"
+                spotlightColor="rgba(168, 85, 247, 0.12)"
+              >
+                <ProfileCard
+                  avatarUrl={team[1]?.img}
+                  name={team[1]?.name}
+                  title={team[1]?.role}
+                  showUserInfo={true}
+                  handle={team[1]?.name?.toLowerCase().replace(/[\s.]+/g, '')}
+                  status="Available"
+                  contactText="Connect"
+                  onContactClick={() => window.open(team[1]?.linkedin, '_blank')}
+                  enableTilt={true}
+                  behindGlowEnabled={true}
+                  behindGlowColor="rgba(168, 85, 247, 0.5)"
+                  behindGlowSize="55%"
+                  innerGradient="linear-gradient(145deg, rgba(168, 85, 247, 0.3) 0%, rgba(34, 211, 238, 0.15) 100%)"
+                />
+              </SpotlightCard>
+            </div>
+          </div>
+        </div>
+
+        {/* Desktop Grid Layout */}
+        <div className="hidden lg:grid lg:grid-cols-[1fr_auto_1fr] gap-12 items-center max-w-7xl mx-auto">
 
           {/* Left Profile Card */}
           <AnimatedContent
@@ -83,9 +136,8 @@ export const TeamSection: React.FC = () => {
             direction="horizontal"
             reverse={true}
             duration={0.8}
-            className="order-1 lg:order-1"
           >
-            <div className="w-full max-w-[320px] mx-auto lg:mx-0 lg:ml-auto">
+            <div className="w-full max-w-[320px] ml-auto">
               <SpotlightCard
                 className="rounded-3xl"
                 spotlightColor="rgba(234, 179, 8, 0.12)"
@@ -110,7 +162,7 @@ export const TeamSection: React.FC = () => {
           </AnimatedContent>
 
           {/* Center Bios */}
-          <div className="flex flex-col justify-center gap-10 max-w-md px-4 lg:px-8 order-3 lg:order-2">
+          <div className="flex flex-col justify-center gap-10 max-w-md px-8">
             <div className="text-center lg:text-left">
               <ShinyText
                 text={team[0]?.name || ''}
@@ -154,9 +206,8 @@ export const TeamSection: React.FC = () => {
             direction="horizontal"
             duration={0.8}
             delay={0.15}
-            className="order-2 lg:order-3"
           >
-            <div className="w-full max-w-[320px] mx-auto lg:mx-0 lg:mr-auto">
+            <div className="w-full max-w-[320px] mr-auto">
               <SpotlightCard
                 className="rounded-3xl"
                 spotlightColor="rgba(168, 85, 247, 0.12)"

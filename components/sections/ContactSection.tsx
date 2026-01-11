@@ -34,31 +34,31 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <div className="w-full flex flex-col p-8 md:p-12 relative overflow-hidden py-20 md:py-32">
+    <div className="w-full flex flex-col p-4 sm:p-6 md:p-8 lg:p-12 relative overflow-hidden py-16 sm:py-20 md:py-24 lg:py-32">
       {/* Animated Noise Background */}
       <div className="absolute inset-0 opacity-[0.05] pointer-events-none mix-blend-overlay"
         style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}>
       </div>
 
-      <div className="flex justify-between items-start mb-8 md:mb-12">
-        <span className="text-yellow-500 font-mono text-sm">/// INITIALIZE_CONTACT_PROTOCOL</span>
+      <div className="flex justify-between items-start mb-6 sm:mb-8 md:mb-12">
+        <span className="text-yellow-500 font-mono text-[10px] sm:text-xs md:text-sm">/// INITIALIZE_CONTACT_PROTOCOL</span>
         <span className="hidden md:block text-xs font-mono text-gray-500">EST_TIME: 1 MIN</span>
       </div>
 
-      <div className="flex-grow flex flex-col md:flex-row gap-12 md:gap-24">
+      <div className="flex-grow flex flex-col md:flex-row gap-8 sm:gap-10 md:gap-16 lg:gap-24">
 
         {/* Left Column: Heading & Info */}
         <div className="w-full md:w-1/2 flex flex-col justify-between">
           <div>
-            <h2 className="text-6xl md:text-8xl font-serif italic mb-8 hover:text-yellow-500 transition-colors duration-500">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-serif italic mb-6 sm:mb-8 hover:text-yellow-500 transition-colors duration-500">
               Let&apos;s Talk.
             </h2>
-            <p className="text-gray-400 text-lg max-w-sm mb-8">
+            <p className="text-gray-400 text-base sm:text-lg max-w-sm mb-6 sm:mb-8">
               Ready to upgrade your digital infrastructure? Tell us about your project, timeline, and budget.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm font-mono text-gray-400 mt-8 md:mt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-sm font-mono text-gray-400 mt-6 sm:mt-8 md:mt-0">
             <div>
               <h3 className="text-white font-bold mb-2 uppercase tracking-widest">Contact</h3>
               <a href="mailto:hello@pixdyne.com" className="hover:text-yellow-500 transition-colors block">hello@pixdyne.com</a>
@@ -123,7 +123,7 @@ export const ContactSection: React.FC = () => {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="mt-4 border border-white/20 text-white font-mono text-sm uppercase py-4 px-8 hover:bg-yellow-500 hover:text-black hover:border-yellow-500 transition-all duration-300 flex justify-between items-center group disabled:opacity-50"
+              className="mt-4 border border-white/20 text-white font-mono text-xs sm:text-sm uppercase py-3 sm:py-4 px-6 sm:px-8 hover:bg-yellow-500 hover:text-black hover:border-yellow-500 transition-all duration-300 flex justify-between items-center group disabled:opacity-50"
             >
               <span>{status === 'loading' ? 'Transmitting...' : status === 'success' ? 'Message Sent!' : 'Transmit Message'}</span>
               <span className="group-hover:translate-x-2 transition-transform">-&gt;</span>

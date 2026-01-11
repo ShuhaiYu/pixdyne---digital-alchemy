@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -13,14 +13,31 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// 自定义 hook 检测是否为移动端
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  return isMobile;
+};
+
 export const ServicesSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const services = getAllServices();
+  const isMobile = useIsMobile();
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+    // 移动端不使用水平滚动动画
+    if (isMobile) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -61,20 +78,20 @@ export const ServicesSection: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <section
       ref={sectionRef}
       id="services"
-      className="relative w-full h-screen bg-[#050505] text-white overflow-hidden"
+      className={`relative w-full bg-[#050505] text-white ${isMobile ? 'min-h-screen h-auto overflow-visible' : 'h-screen overflow-hidden'}`}
       style={{ zIndex: 20 }}
     >
-      <div className="w-full h-full flex flex-col md:flex-row">
-        {/* 左侧 - 固定 */}
-        <div className="w-full md:w-1/3 h-auto md:h-full pt-24 p-8 md:pt-28 md:p-12 border-r border-white/20 flex flex-col justify-between flex-shrink-0">
+      <div className={`w-full ${isMobile ? 'flex flex-col' : 'h-full flex flex-row'}`}>
+        {/* 左侧 - 标题区域 */}
+        <div className={`w-full ${isMobile ? 'p-6 pt-24 pb-8' : 'md:w-1/3 h-full pt-28 p-12'} border-b md:border-b-0 md:border-r border-white/20 flex flex-col justify-between flex-shrink-0`}>
           <div>
-            <h2 className="text-4xl md:text-6xl font-serif italic mb-6">Capabilities</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif italic mb-4 md:mb-6">Capabilities</h2>
             <p className="font-sans text-sm text-gray-400 max-w-xs leading-relaxed">
               We bridge the gap between aesthetic excellence and technical robustness.
               Our toolkit is vast, our precision is absolute.
@@ -85,21 +102,21 @@ export const ServicesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* 右侧 - 水平滚动容器 */}
+        {/* 右侧 - 服务列表 */}
         <div
           ref={containerRef}
-          className="w-full md:w-2/3 h-[calc(100vh-6rem)] md:h-full overflow-hidden pt-24 md:pt-0"
+          className={`w-full ${isMobile ? 'flex-1' : 'md:w-2/3 h-full overflow-hidden'}`}
         >
           <div
             ref={listRef}
-            className="flex flex-row h-full"
+            className={`${isMobile ? 'flex flex-col' : 'flex flex-row h-full'}`}
           >
             {services.map((service, index) => (
               <SpotlightCard
                 key={service.id}
                 spotlightColor="rgba(234, 179, 8, 0.15)"
-                className="service-item group h-full flex-shrink-0 flex flex-col justify-center p-8 md:p-12 border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer"
-                style={{ width: 'calc(66.67vw)' }}
+                className={`service-item group flex-shrink-0 flex flex-col justify-center p-6 sm:p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer ${isMobile ? 'w-full min-h-[70vh]' : 'h-full'}`}
+                style={isMobile ? undefined : { width: 'calc(66.67vw)' }}
               >
                 <Link
                   href={`/services/${service.slug}`}
@@ -126,10 +143,10 @@ export const ServicesSection: React.FC = () => {
                 {/* 内容区域 */}
                 <div className="relative z-10">
                   {/* 标题行 */}
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex items-baseline gap-6">
+                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4">
+                    <div className="flex items-baseline gap-3 sm:gap-6">
                       <span className="text-xs font-mono text-yellow-500">({service.number})</span>
-                      <h3 className="text-4xl md:text-6xl font-bold uppercase tracking-tight">
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold uppercase tracking-tight">
                         <ShinyText
                           text={service.title}
                           speed={3}
@@ -139,34 +156,34 @@ export const ServicesSection: React.FC = () => {
                         />
                       </h3>
                     </div>
-                    <span className="font-mono text-sm text-white/50 border border-white/20 px-3 py-1 rounded group-hover:bg-yellow-500 group-hover:text-black group-hover:border-yellow-500 transition-all">
+                    <span className="font-mono text-xs sm:text-sm text-white/50 border border-white/20 px-2 sm:px-3 py-1 rounded group-hover:bg-yellow-500 group-hover:text-black group-hover:border-yellow-500 transition-all w-fit">
                       {service.price}
                     </span>
                   </div>
 
                   {/* 描述 */}
-                  <p className="text-base md:text-lg text-gray-400 max-w-lg mb-8 ml-12 group-hover:text-white transition-colors">
+                  <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-lg mb-6 sm:mb-8 ml-0 sm:ml-8 md:ml-12 group-hover:text-white transition-colors">
                     {service.description}
                   </p>
 
                   {/* 统计数据 */}
-                  <div className="flex gap-12 ml-12 mb-8">
+                  <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-12 ml-0 sm:ml-8 md:ml-12 mb-6 sm:mb-8">
                     <div>
-                      <div className="text-2xl md:text-3xl font-bold text-white flex items-baseline">
+                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
                         <CountUp to={service.stats.projects} duration={2} className="tabular-nums" />
                         <span className="text-yellow-500">+</span>
                       </div>
                       <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-1">Projects Delivered</div>
                     </div>
                     <div>
-                      <div className="text-2xl md:text-3xl font-bold text-white flex items-baseline">
+                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
                         <CountUp to={service.stats.satisfaction} duration={2} className="tabular-nums" />
                         <span className="text-yellow-500">%</span>
                       </div>
                       <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-1">Client Satisfaction</div>
                     </div>
                     <div>
-                      <div className="text-2xl md:text-3xl font-bold text-white">
+                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
                         {service.stats.support}
                       </div>
                       <div className="text-[10px] text-gray-500 uppercase tracking-wider mt-1">Support Available</div>
@@ -174,22 +191,22 @@ export const ServicesSection: React.FC = () => {
                   </div>
 
                   {/* 标签 */}
-                  <div className="flex flex-wrap gap-2 ml-12 mb-4">
+                  <div className="flex flex-wrap gap-2 ml-0 sm:ml-8 md:ml-12 mb-4">
                     {service.tags.map(tag => (
-                      <span key={tag} className="text-xs uppercase border border-white/20 px-3 py-1 rounded-full hover:border-yellow-500/50 transition-colors">
+                      <span key={tag} className="text-xs uppercase border border-white/20 px-2 sm:px-3 py-1 rounded-full hover:border-yellow-500/50 transition-colors">
                         {tag}
                       </span>
                     ))}
                   </div>
 
                   {/* CTA */}
-                  <span className="text-xs font-mono text-yellow-500 ml-12 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="text-xs font-mono text-yellow-500 ml-0 sm:ml-8 md:ml-12 opacity-0 group-hover:opacity-100 transition-opacity">
                     EXPLORE_SERVICE →
                   </span>
                 </div>
 
                 {/* 进度指示器 */}
-                <div className="absolute bottom-8 left-12 flex items-center gap-2">
+                <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-12 flex items-center gap-2">
                   <span className="text-xs font-mono text-white/30">
                     {String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
                   </span>

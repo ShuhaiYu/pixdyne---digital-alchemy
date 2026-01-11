@@ -136,7 +136,7 @@ export const ProcessSection: React.FC = () => {
   return (
     <div
       ref={sectionRef}
-      className="w-full flex items-center justify-center p-8 py-24 relative overflow-hidden"
+      className="w-full flex items-center justify-center p-4 sm:p-6 md:p-8 py-16 sm:py-20 md:py-24 relative overflow-hidden"
     >
       {/* 背景网格 */}
       <div
@@ -181,18 +181,18 @@ export const ProcessSection: React.FC = () => {
       </div>
 
       {/* 主内容 */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-16 w-full max-w-6xl my-12 relative z-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 w-full max-w-6xl my-8 sm:my-12 relative z-10">
         {/* 左侧 - 标题区 */}
         <div className="flex flex-col justify-center">
           <AnimatedContent distance={30} duration={0.6}>
             <span className="text-yellow-600 font-mono text-sm mb-4 block">/// THE_METHOD</span>
           </AnimatedContent>
 
-          <div className="mb-8">
+          <div className="mb-6 sm:mb-8">
             <SplitText
               text="Calculated"
               tag="h2"
-              className="text-5xl md:text-7xl font-serif text-black leading-none"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-black leading-none"
               textAlign="left"
               splitType="chars"
               delay={30}
@@ -203,7 +203,7 @@ export const ProcessSection: React.FC = () => {
             <SplitText
               text="Chaos."
               tag="h2"
-              className="text-5xl md:text-7xl font-serif italic text-yellow-600 leading-none"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-yellow-600 leading-none"
               textAlign="left"
               splitType="chars"
               delay={40}
@@ -235,7 +235,7 @@ export const ProcessSection: React.FC = () => {
         </div>
 
         {/* 右侧 - 混沌卡片网格 */}
-        <div className="relative h-[400px] md:h-[500px]">
+        <div className="relative h-[320px] sm:h-[380px] md:h-[450px] lg:h-[500px]">
           {/* SVG 连接线 */}
           <svg
             className="absolute inset-0 w-full h-full pointer-events-none z-0"
@@ -271,7 +271,7 @@ export const ProcessSection: React.FC = () => {
               <div
                 key={i}
                 ref={(node) => { cardsRef.current[i] = node; }}
-                className="absolute w-[42%] aspect-square bg-black text-white p-6 flex flex-col justify-between cursor-pointer transition-all duration-500 ease-out group hover:z-20"
+                className="absolute w-[44%] sm:w-[43%] md:w-[42%] aspect-square bg-black text-white p-3 sm:p-4 md:p-6 flex flex-col justify-between cursor-pointer transition-all duration-500 ease-out group hover:z-20"
                 style={{
                   top: pos.top,
                   left: pos.left,
@@ -307,20 +307,20 @@ export const ProcessSection: React.FC = () => {
 
                 {/* 编号 */}
                 <div className="flex items-start justify-between">
-                  <span className="text-[10px] font-mono text-yellow-500 border border-yellow-500/30 px-2 py-0.5">
+                  <span className="text-[8px] sm:text-[10px] font-mono text-yellow-500 border border-yellow-500/30 px-1.5 sm:px-2 py-0.5">
                     {step.time}
                   </span>
-                  <span className="text-4xl font-bold text-white/10 group-hover:text-yellow-500/30 transition-colors">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/10 group-hover:text-yellow-500/30 transition-colors">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
 
                 {/* 内容 */}
                 <div>
-                  <span className="text-xl md:text-2xl font-bold block mb-1 group-hover:text-yellow-500 transition-colors">
+                  <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold block mb-1 group-hover:text-yellow-500 transition-colors">
                     {step.label}
                   </span>
-                  <span className="text-xs text-white/50 font-mono">
+                  <span className="text-[10px] sm:text-xs text-white/50 font-mono">
                     {step.desc}
                   </span>
                 </div>

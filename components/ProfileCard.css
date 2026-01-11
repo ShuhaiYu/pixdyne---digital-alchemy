@@ -72,7 +72,7 @@
   transform: translateZ(0) rotateX(0deg) rotateY(0deg);
   background: transparent;
   backface-visibility: hidden;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .pc-card:hover,

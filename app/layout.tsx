@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     default: 'Pixdyne | Digital Alchemy',
     template: '%s | Pixdyne'
   },
-  description: 'Premium IT Services: Web Development, App Development, Technical SEO, and IT Support. San Jose-based digital engineering agency.',
-  keywords: ['web development', 'app development', 'SEO', 'IT services', 'San Jose', 'React', 'Next.js', 'mobile app', 'digital agency'],
+  description: 'Premium IT Services: Web Development, App Development, Technical SEO, and IT Support. Melbourne-based digital engineering agency.',
+  keywords: ['web development', 'app development', 'SEO', 'IT services', 'Melbourne', 'React', 'Next.js', 'mobile app', 'digital agency'],
   authors: [{ name: 'Pixdyne' }],
   creator: 'Pixdyne',
   publisher: 'Pixdyne',

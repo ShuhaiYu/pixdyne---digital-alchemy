@@ -10,17 +10,17 @@ export function generateOrganizationSchema() {
     description: 'Premium IT Services: Web Development, App Development, Technical SEO, and IT Support.',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '1200 Technology Dr',
-      addressLocality: 'San Jose',
-      addressRegion: 'CA',
-      postalCode: '94089',
-      addressCountry: 'US'
+      streetAddress: '52 Monet Drive',
+      addressLocality: 'Truganina',
+      addressRegion: 'VIC',
+      postalCode: '3029',
+      addressCountry: 'AU'
     },
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+1-555-012-3456',
+      telephone: '+61-410-510-751',
       contactType: 'customer service',
-      email: 'hello@pixdyne.com'
+      email: 'info@pixdyne.com'
     },
     sameAs: [
       'https://twitter.com/pixdyne',
@@ -28,7 +28,7 @@ export function generateOrganizationSchema() {
     ],
     areaServed: {
       '@type': 'Country',
-      name: 'United States'
+      name: 'Australia'
     },
     priceRange: '$$$',
     foundingDate: '2024'

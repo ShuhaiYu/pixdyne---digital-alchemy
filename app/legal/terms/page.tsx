@@ -88,7 +88,7 @@ export default function TermsPage() {
             For questions about these Terms of Service, please contact us at:
             <br /><br />
             <strong>Email:</strong> legal@pixdyne.com<br />
-            <strong>Address:</strong> 1200 Technology Dr, San Jose, CA 94089
+            <strong>Address:</strong> 52 Monet Drive, Truganina, VIC 3029
           </p>
         </div>
 

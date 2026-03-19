@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     // Example: Send email using a service (uncomment and configure as needed)
     /*
     await sendEmail({
-      to: 'hello@pixdyne.com',
+      to: 'info@pixdyne.com',
       subject: `New Contact Form Submission from ${data.name}`,
       html: `
         <h2>New Contact Form Submission</h2>

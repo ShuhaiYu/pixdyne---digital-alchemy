@@ -61,13 +61,13 @@ export const ContactSection: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-sm font-mono text-gray-400 mt-6 sm:mt-8 md:mt-0">
             <div>
               <h3 className="text-white font-bold mb-2 uppercase tracking-widest">Contact</h3>
-              <a href="mailto:hello@pixdyne.com" className="hover:text-yellow-500 transition-colors block">hello@pixdyne.com</a>
-              <a href="tel:+15550123456" className="hover:text-yellow-500 transition-colors block">+1 (555) 012-3456</a>
+              <a href="mailto:info@pixdyne.com" className="hover:text-yellow-500 transition-colors block">info@pixdyne.com</a>
+              <a href="tel:+61410510751" className="hover:text-yellow-500 transition-colors block">+61 410 510 751</a>
             </div>
             <div>
               <h3 className="text-white font-bold mb-2 uppercase tracking-widest">Base</h3>
-              <p>1200 Technology Dr</p>
-              <p>San Jose, CA 94089</p>
+              <p>52 Monet Drive</p>
+              <p>Truganina, VIC 3029</p>
             </div>
           </div>
 

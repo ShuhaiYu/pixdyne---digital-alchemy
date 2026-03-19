@@ -15,6 +15,7 @@ export const CaseStudySection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const allCases = getAllCaseStudies();
+  const [isMobile, setIsMobile] = useState(false);
 
   // 选择6个项目用于 Bento 布局
   const featuredCase = allCases.find(c => c.slug === 'jusn-design')!;
@@ -25,6 +26,13 @@ export const CaseStudySection: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
+  useEffect(() => {
+    // Skip mouse tracking on mobile - no mouse, wastes performance
+    if (isMobile) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       if (!gridRef.current) return;
       const rect = gridRef.current.getBoundingClientRect();
@@ -48,13 +56,39 @@ export const CaseStudySection: React.FC = () => {
         grid.removeEventListener('mouseleave', () => setIsHovering(false));
       }
     };
-  }, []);
+  }, [isMobile]);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
     gsap.registerPlugin(ScrollTrigger);
 
+    const container = containerRef.current;
+    if (!container) return;
+
+    if (isMobile) {
+      // On mobile, use IntersectionObserver for reliable animation triggering
+      const cards = container.querySelectorAll('.bento-card');
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            gsap.from(cards, {
+              y: 40,
+              opacity: 0,
+              stagger: 0.08,
+              duration: 0.6,
+              ease: 'power3.out',
+            });
+            observer.unobserve(container);
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(container);
+      return () => observer.disconnect();
+    }
+
+    // Desktop: use ScrollTrigger
     const ctx = gsap.context(() => {
       gsap.from('.bento-card', {
         y: 40,
@@ -69,7 +103,7 @@ export const CaseStudySection: React.FC = () => {
       });
     }, containerRef);
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <div ref={containerRef} className="min-h-screen md:h-screen w-full p-3 pt-20 sm:p-4 sm:pt-16 md:p-6 md:pt-20 flex flex-col bg-black overflow-hidden">

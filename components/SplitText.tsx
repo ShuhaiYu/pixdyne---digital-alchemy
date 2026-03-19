@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SplitText as GSAPSplitText } from 'gsap/SplitText';
@@ -41,6 +41,7 @@ const SplitText: React.FC<SplitTextProps> = ({
   const animationCompletedRef = useRef(false);
   const onCompleteRef = useRef(onLetterAnimationComplete);
   const [fontsLoaded, setFontsLoaded] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Keep callback ref updated
   useEffect(() => {
@@ -48,6 +49,7 @@ const SplitText: React.FC<SplitTextProps> = ({
   }, [onLetterAnimationComplete]);
 
   useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
     if (document.fonts.status === 'loaded') {
       setFontsLoaded(true);
     } else {
@@ -56,6 +58,27 @@ const SplitText: React.FC<SplitTextProps> = ({
       });
     }
   }, []);
+
+  // Shared split setup logic
+  const setupSplit = useCallback((el: HTMLElement & { _rbsplitInstance?: GSAPSplitText }) => {
+    if (el._rbsplitInstance) {
+      try {
+        el._rbsplitInstance.revert();
+      } catch (_) {}
+      el._rbsplitInstance = undefined;
+    }
+
+    let targets: Element[] = [];
+    const assignTargets = (self: GSAPSplitText) => {
+      if (splitType.includes('chars') && (self as GSAPSplitText).chars?.length)
+        targets = (self as GSAPSplitText).chars;
+      if (!targets.length && splitType.includes('words') && self.words.length) targets = self.words;
+      if (!targets.length && splitType.includes('lines') && self.lines.length) targets = self.lines;
+      if (!targets.length) targets = self.chars || self.words || self.lines;
+    };
+
+    return { assignTargets, getTargets: () => targets };
+  }, [splitType]);
 
   useGSAP(
     () => {
@@ -66,13 +89,60 @@ const SplitText: React.FC<SplitTextProps> = ({
         _rbsplitInstance?: GSAPSplitText;
       };
 
-      if (el._rbsplitInstance) {
-        try {
-          el._rbsplitInstance.revert();
-        } catch (_) {}
-        el._rbsplitInstance = undefined;
+      const { assignTargets, getTargets } = setupSplit(el);
+
+      if (isMobile) {
+        // On mobile: use IntersectionObserver instead of ScrollTrigger
+        const splitInstance = new GSAPSplitText(el, {
+          type: splitType,
+          smartWrap: true,
+          autoSplit: splitType === 'lines',
+          linesClass: 'split-line',
+          wordsClass: 'split-word',
+          charsClass: 'split-char',
+          reduceWhiteSpace: false,
+          onSplit: (self: GSAPSplitText) => {
+            assignTargets(self);
+            const targets = getTargets();
+            // Set initial state
+            gsap.set(targets, { ...from });
+          }
+        });
+        el._rbsplitInstance = splitInstance;
+
+        const observer = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting && !animationCompletedRef.current) {
+              const targets = getTargets();
+              gsap.to(targets, {
+                ...to,
+                duration,
+                ease,
+                stagger: delay / 1000,
+                onComplete: () => {
+                  animationCompletedRef.current = true;
+                  onCompleteRef.current?.();
+                },
+                willChange: 'transform, opacity',
+                force3D: true
+              });
+              observer.unobserve(el);
+            }
+          },
+          { threshold: 0.1 }
+        );
+        observer.observe(el);
+
+        return () => {
+          observer.disconnect();
+          try {
+            splitInstance.revert();
+          } catch (_) {}
+          el._rbsplitInstance = undefined;
+        };
       }
 
+      // Desktop: use ScrollTrigger
       const startPct = (1 - threshold) * 100;
       const marginMatch = /^(-?\d+(?:\.\d+)?)(px|em|rem|%)?$/.exec(rootMargin);
       const marginValue = marginMatch ? parseFloat(marginMatch[1]) : 0;
@@ -84,14 +154,6 @@ const SplitText: React.FC<SplitTextProps> = ({
             ? `-=${Math.abs(marginValue)}${marginUnit}`
             : `+=${marginValue}${marginUnit}`;
       const start = `top ${startPct}%${sign}`;
-      let targets: Element[] = [];
-      const assignTargets = (self: GSAPSplitText) => {
-        if (splitType.includes('chars') && (self as GSAPSplitText).chars?.length)
-          targets = (self as GSAPSplitText).chars;
-        if (!targets.length && splitType.includes('words') && self.words.length) targets = self.words;
-        if (!targets.length && splitType.includes('lines') && self.lines.length) targets = self.lines;
-        if (!targets.length) targets = self.chars || self.words || self.lines;
-      };
       const splitInstance = new GSAPSplitText(el, {
         type: splitType,
         smartWrap: true,
@@ -102,6 +164,7 @@ const SplitText: React.FC<SplitTextProps> = ({
         reduceWhiteSpace: false,
         onSplit: (self: GSAPSplitText) => {
           assignTargets(self);
+          const targets = getTargets();
           return gsap.fromTo(
             targets,
             { ...from },
@@ -149,7 +212,9 @@ const SplitText: React.FC<SplitTextProps> = ({
         JSON.stringify(to),
         threshold,
         rootMargin,
-        fontsLoaded
+        fontsLoaded,
+        isMobile,
+        setupSplit
       ],
       scope: ref
     }

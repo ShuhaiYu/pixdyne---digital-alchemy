@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -46,11 +46,52 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
   ...props
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
+    // On mobile, use IntersectionObserver instead of ScrollTrigger
+    // to avoid issues with sticky containers blocking trigger detection
+    if (isMobile) {
+      const axis = direction === 'horizontal' ? 'x' : 'y';
+      const offset = reverse ? -distance : distance;
+
+      gsap.set(el, {
+        [axis]: offset,
+        scale,
+        opacity: animateOpacity ? initialOpacity : 1,
+        visibility: 'visible'
+      });
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            gsap.to(el, {
+              [axis]: 0,
+              scale: 1,
+              opacity: 1,
+              duration,
+              delay,
+              ease,
+              onComplete: () => onComplete?.()
+            });
+            observer.unobserve(el);
+          }
+        },
+        { threshold: 0.1 }
+      );
+
+      observer.observe(el);
+      return () => observer.disconnect();
+    }
+
+    // Desktop: use ScrollTrigger
     let scrollerTarget: Element | string | null = container || document.getElementById('snap-main-container') || null;
 
     if (typeof scrollerTarget === 'string') {
@@ -108,6 +149,7 @@ const AnimatedContent: React.FC<AnimatedContentProps> = ({
       tl.kill();
     };
   }, [
+    isMobile,
     container,
     distance,
     direction,

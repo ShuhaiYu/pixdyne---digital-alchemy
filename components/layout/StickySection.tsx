@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { usePathname } from 'next/navigation';
@@ -25,9 +25,19 @@ export const StickySection: React.FC<SectionProps> = ({
   const innerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+    // Skip complex GSAP transitions on mobile - they cause jank and trigger issues
+    if (isMobile) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -92,7 +102,7 @@ export const StickySection: React.FC<SectionProps> = ({
     ScrollTrigger.refresh();
 
     return () => ctx.revert();
-  }, [transitionType, pathname, peekBackground]);
+  }, [transitionType, pathname, peekBackground, isMobile]);
 
   // 如果有 peekBackground，使用特殊布局
   if (peekBackground) {
@@ -104,9 +114,12 @@ export const StickySection: React.FC<SectionProps> = ({
         style={{ zIndex }}
       >
         {/* peekBackground 在 clipPath 之外，当 mask-diagonal 展开时会露出 */}
-        <div className="absolute inset-0 z-0">
-          {peekBackground}
-        </div>
+        {/* On mobile, hide peekBackground since mask-diagonal is disabled */}
+        {!isMobile && (
+          <div className="absolute inset-0 z-0">
+            {peekBackground}
+          </div>
+        )}
 
         {/* 内部容器 - clipPath 应用在这里 */}
         <div

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { getAllTeamMembers } from '@/lib/data/team';
@@ -19,9 +19,35 @@ if (typeof window !== 'undefined') {
 export const TeamSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const team = getAllTeamMembers();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    if (isMobile) {
+      // On mobile, use IntersectionObserver
+      const header = section.querySelector('.team-header');
+      if (!header) return;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            gsap.from(header, { y: 30, opacity: 0, duration: 0.8 });
+            observer.unobserve(section);
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(section);
+      return () => observer.disconnect();
+    }
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -37,22 +63,24 @@ export const TeamSection: React.FC = () => {
       });
     }, sectionRef);
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <div
       ref={sectionRef}
       className="w-full min-h-screen flex flex-col justify-center relative bg-[#111] text-white overflow-x-hidden overflow-y-visible"
     >
-      {/* Background Layer - Aurora */}
-      <div className="absolute inset-0 z-0 opacity-20">
-        <Aurora
-          colorStops={['#eab308', '#a855f7', '#0ea5e9']}
-          speed={0.4}
-          amplitude={1.2}
-          blend={0.6}
-        />
-      </div>
+      {/* Background Layer - Aurora (desktop only, heavy WebGL) */}
+      {!isMobile && (
+        <div className="absolute inset-0 z-0 opacity-20">
+          <Aurora
+            colorStops={['#eab308', '#a855f7', '#0ea5e9']}
+            speed={0.4}
+            amplitude={1.2}
+            blend={0.6}
+          />
+        </div>
+      )}
 
       {/* Background Layer - Noise */}
       <div className="absolute inset-0 z-[1] pointer-events-none">

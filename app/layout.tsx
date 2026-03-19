@@ -3,7 +3,7 @@ import { Playfair_Display, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import { generateOrganizationSchema } from '@/lib/seo/schema';
 import { Navigation } from '@/components/layout/Navigation';
-import PixelTrail from '@/components/PixelTrail';
+import PixelTrailWrapper from '@/components/PixelTrailWrapper';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -105,13 +105,7 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
-        <PixelTrail
-          gridSize={60}
-          trailSize={0.05}
-          maxAge={300}
-          color="#eab308"
-          gooeyFilter={{ id: 'goo-filter', strength: 3 }}
-        />
+        <PixelTrailWrapper />
         <Navigation />
         {children}
       </body>

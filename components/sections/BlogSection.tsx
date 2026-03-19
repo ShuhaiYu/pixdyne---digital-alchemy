@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -14,9 +14,38 @@ if (typeof window !== 'undefined') {
 export const BlogSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const posts = getAllBlogPosts();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+
+    const section = sectionRef.current;
+    if (!section) return;
+
+    if (isMobile) {
+      // On mobile, use IntersectionObserver
+      const rows = section.querySelectorAll('.blog-row');
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            gsap.from(rows, {
+              y: 30,
+              opacity: 0,
+              stagger: 0.08,
+              duration: 0.6,
+            });
+            observer.unobserve(section);
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(section);
+      return () => observer.disconnect();
+    }
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -33,7 +62,7 @@ export const BlogSection: React.FC = () => {
       });
     }, sectionRef);
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <div ref={sectionRef} className="h-full w-full flex flex-col p-4 pt-20 sm:p-6 sm:pt-24 md:p-8 md:pt-24 lg:p-12 lg:pt-28 bg-white text-black">

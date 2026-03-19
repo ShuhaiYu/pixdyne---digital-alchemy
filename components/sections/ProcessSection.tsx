@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useLayoutEffect } from 'react';
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import SplitText from '@/components/SplitText';
@@ -44,18 +44,69 @@ export const ProcessSection: React.FC = () => {
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const pathRef = useRef<SVGPathElement>(null);
   const dotsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
+    const section = sectionRef.current;
+    const cards = cardsRef.current.filter(Boolean);
+    const path = pathRef.current;
+    const dots = dotsRef.current.filter(Boolean);
+
+    if (!section || cards.length === 0) return;
+
+    if (isMobile) {
+      // On mobile, use IntersectionObserver for reliable triggering
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            // Animate dots
+            dots.forEach((dot, i) => {
+              gsap.fromTo(dot,
+                { scale: 0, opacity: 0 },
+                { scale: 1, opacity: 0.3, duration: 0.5, delay: i * 0.1, ease: 'back.out(2)' }
+              );
+            });
+
+            // Animate cards
+            cards.forEach((card, i) => {
+              const transform = chaosTransforms[i];
+              gsap.fromTo(card,
+                { y: 60, opacity: 0, scale: 0.9 },
+                {
+                  y: transform.y,
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.8,
+                  delay: i * 0.12,
+                  ease: 'power3.out',
+                }
+              );
+            });
+
+            // SVG path
+            if (path) {
+              const pathLength = path.getTotalLength();
+              gsap.set(path, { strokeDasharray: pathLength, strokeDashoffset: pathLength });
+              gsap.to(path, { strokeDashoffset: 0, duration: 2, delay: 0.5, ease: 'power2.inOut' });
+            }
+
+            observer.unobserve(section);
+          }
+        },
+        { threshold: 0.15 }
+      );
+      observer.observe(section);
+      return () => observer.disconnect();
+    }
+
+    // Desktop: use ScrollTrigger
     const ctx = gsap.context(() => {
-      const section = sectionRef.current;
-      const cards = cardsRef.current.filter(Boolean);
-      const path = pathRef.current;
-      const dots = dotsRef.current.filter(Boolean);
-
-      if (!section || cards.length === 0) return;
-
       // 装饰点动画
       dots.forEach((dot, i) => {
         gsap.fromTo(dot,
@@ -131,7 +182,7 @@ export const ProcessSection: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <div

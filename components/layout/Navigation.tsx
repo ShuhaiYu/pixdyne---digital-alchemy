@@ -119,7 +119,7 @@ export const Navigation: React.FC = () => {
     <>
       <nav
         aria-label="Main navigation"
-        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 mix-blend-difference text-white px-6 py-6 flex justify-between items-center ${scrolled ? 'py-4' : 'py-6'}`}
+        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 text-white px-6 flex justify-between items-center bg-brand-black/60 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:mix-blend-difference ${scrolled ? 'py-4' : 'py-6'}`}
       >
         <Link href="/" className="flex items-center gap-4 group">
           <img
@@ -161,9 +161,8 @@ export const Navigation: React.FC = () => {
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className={`fixed inset-0 bg-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}
+        className={`fixed inset-0 bg-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] ${isOpen ? 'translate-y-0 visible' : '-translate-y-full invisible'}`}
         aria-hidden={!isOpen}
-        inert={!isOpen ? true : undefined}
       >
         <button
           ref={closeButtonRef}

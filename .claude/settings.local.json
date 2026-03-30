@@ -19,7 +19,9 @@
       "mcp__chrome-devtools__take_snapshot",
       "Bash(powershell:*)",
       "Bash(npm run:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "mcp__chrome-devtools__emulate",
+      "mcp__chrome-devtools__click"
     ]
   },
   "enableAllProjectMcpServers": true,

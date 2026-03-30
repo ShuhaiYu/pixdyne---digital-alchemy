@@ -24,7 +24,7 @@ export const services: ServiceItem[] = [
     slug: 'app-dev',
     number: '02',
     title: 'App Dev',
-    description: 'Native and cross-platform mobile experiences that feel like magic.',
+    description: 'Native and cross-platform mobile apps built for performance and polish.',
     fullDescription: 'Our mobile development team crafts fluid, native-feeling applications for iOS and Android. Whether you need a React Native cross-platform solution or pure Swift/Kotlin, we deliver.',
     tags: ['iOS', 'Android', 'React Native', 'Flutter'],
     features: ['Offline First Architecture', 'Biometric Auth', 'Real-time Sync', 'App Store Optimization'],

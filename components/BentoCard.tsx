@@ -1,7 +1,9 @@
 'use client';
 
 import { CaseStudyItem } from '@/types';
+import { brand } from '@/lib/brand';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'motion/react';
 import DecryptedText from './DecryptedText';
 
@@ -12,7 +14,7 @@ interface BentoCardProps {
 
 export default function BentoCard({ caseStudy, className = '' }: BentoCardProps) {
   const size = caseStudy.cardSize || 'small';
-  const accentColor = '#EAB308'; // 统一使用品牌黄色
+  const accentColor = brand.yellow;
 
   return (
     <Link href={`/work/${caseStudy.slug}`} className={`block ${className}`}>
@@ -23,13 +25,13 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
       >
         {/* Background Image with Overlay */}
         <div className="absolute inset-0">
-          <motion.img
+          <Image
             src={caseStudy.img}
             alt={caseStudy.name}
-            className="h-full w-full object-cover"
-            initial={{ scale: 1 }}
-            whileHover={{ scale: 1.1 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            fill
+            sizes="(max-width: 768px) 50vw, 33vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            loading="lazy"
           />
           <div
             className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"
@@ -95,12 +97,6 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
             <p className="text-white/50 text-xs mt-3">{caseStudy.year}</p>
           )}
         </div>
-
-        {/* Corner Accent */}
-        <div
-          className="absolute top-4 right-4 w-3 h-3 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"
-          style={{ backgroundColor: accentColor }}
-        />
 
         {/* Hover Arrow */}
         <motion.div

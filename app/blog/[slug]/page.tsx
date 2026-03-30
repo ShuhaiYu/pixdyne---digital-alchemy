@@ -87,16 +87,16 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="max-w-3xl mx-auto">
           <Link
             href="/blog"
-            className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-yellow-600 mb-12 transition-colors w-fit"
+            className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
           >
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-            BACK_TO_JOURNAL
+            Back to Journal
           </Link>
 
           <header className="mb-12 border-b border-black/10 pb-8">
             <div className="flex items-center gap-4 mb-4">
               <span className="font-mono text-xs text-gray-500">{post.date}</span>
-              <span className="font-mono text-[10px] text-yellow-600 border border-yellow-600/30 px-2 py-0.5 rounded">
+              <span className="font-mono text-xs text-brand-yellow border border-brand-yellow/30 px-2 py-0.5 rounded">
                 {post.category}
               </span>
               <span className="text-xs text-gray-400">{post.readTime}</span>
@@ -110,7 +110,7 @@ export default async function BlogPostPage({ params }: Props) {
           </header>
 
           <div
-            className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:italic prose-a:text-yellow-600 prose-a:no-underline hover:prose-a:underline"
+            className="prose prose-lg max-w-[65ch] prose-headings:font-serif prose-headings:italic prose-a:text-brand-yellow prose-a:no-underline hover:prose-a:underline"
             dangerouslySetInnerHTML={{ __html: post.content || '' }}
           />
 
@@ -122,7 +122,7 @@ export default async function BlogPostPage({ params }: Props) {
               </div>
               <Link
                 href="/blog"
-                className="text-sm font-mono uppercase text-yellow-600 hover:text-black transition-colors"
+                className="text-sm font-mono uppercase text-brand-yellow hover:text-black transition-colors"
               >
                 More Articles →
               </Link>

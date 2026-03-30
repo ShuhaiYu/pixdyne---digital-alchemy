@@ -3,7 +3,6 @@ import { Playfair_Display, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import { generateOrganizationSchema } from '@/lib/seo/schema';
 import { Navigation } from '@/components/layout/Navigation';
-import PixelTrailWrapper from '@/components/PixelTrailWrapper';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -11,7 +10,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   viewportFit: 'cover',
-  themeColor: '#050505',
+  themeColor: '#0B0A08',
 };
 
 const playfair = Playfair_Display({
@@ -105,9 +104,16 @@ export default function RootLayout({
         />
       </head>
       <body className="font-sans antialiased">
-        <PixelTrailWrapper />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-brand-yellow focus:text-black focus:px-4 focus:py-2 focus:text-sm focus:font-mono focus:rounded"
+        >
+          Skip to main content
+        </a>
         <Navigation />
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
       </body>
     </html>
   );

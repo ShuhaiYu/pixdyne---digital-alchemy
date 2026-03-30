@@ -24,15 +24,15 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
   }, [work]);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-black text-white pb-20 pt-20">
+    <div ref={containerRef} className="min-h-screen bg-brand-black text-white pb-20 pt-20">
       {/* Sub-navigation */}
       <div className="w-full px-6 md:px-12 py-6 flex justify-between items-center z-40 relative">
         <Link
           href="/#work"
-          className="flex items-center gap-2 text-sm font-mono text-white hover:text-yellow-500 transition-colors"
+          className="flex items-center gap-2 text-sm font-mono text-white hover:text-brand-yellow-hover transition-colors"
         >
           <ArrowLeft size={16} />
-          BACK_TO_ARCHIVE
+          Back to Work
         </Link>
       </div>
 
@@ -48,7 +48,7 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
 
         <div className="absolute bottom-0 left-0 w-full p-6 md:p-12">
-          <span className="work-content block text-yellow-500 font-mono text-sm mb-2">{work.category}</span>
+          <span className="work-content block text-brand-yellow font-mono text-sm mb-2">{work.category}</span>
           <h1 className="work-content text-5xl md:text-8xl font-serif italic">{work.name}</h1>
         </div>
       </div>
@@ -76,7 +76,7 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
               </div>
             </div>
 
-            <a href="#" className="flex items-center gap-2 text-yellow-500 hover:text-white transition-colors mt-4">
+            <a href="#" className="flex items-center gap-2 text-brand-yellow hover:text-white transition-colors mt-4">
               VISIT LIVE SITE <ArrowUpRight size={14} />
             </a>
           </div>

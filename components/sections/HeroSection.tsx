@@ -14,7 +14,7 @@ export const HeroSection: React.FC = () => {
 
       if (chars && chars.length > 0) {
         tl.from(chars, {
-          y: 200,
+          y: 80,
           opacity: 0,
           stagger: 0.05,
           duration: 1,
@@ -48,13 +48,10 @@ export const HeroSection: React.FC = () => {
       </div>
 
       <div className="flex justify-between items-start pt-20">
-        <div ref={subRef} className="text-black font-sans uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[10px] sm:text-xs md:text-sm font-bold flex flex-col gap-1 sm:gap-2">
+        <div ref={subRef} className="text-black font-sans uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm font-bold flex flex-col gap-1 sm:gap-2">
           <span className="block w-16 sm:w-24 h-[1px] bg-black mb-1 sm:mb-2"></span>
           <span>Digital Alchemy</span>
           <span>Est. 2024</span>
-        </div>
-        <div className="hidden md:block text-black font-sans text-right text-xs uppercase tracking-widest font-bold">
-          Scroll to Explore <br /> ↓
         </div>
       </div>
 
@@ -65,9 +62,9 @@ export const HeroSection: React.FC = () => {
         </h1>
       </div>
 
-      {/* 旋转圆形徽章 - 移动端缩小并调整位置 */}
-      <div className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-black flex items-center justify-center animate-spin-slow">
-        <svg viewBox="0 0 100 100" className="w-full h-full fill-yellow-500 p-1 sm:p-2">
+      {/* Rotating badge - smaller on mobile */}
+      <div aria-hidden="true" className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center animate-spin-slow">
+        <svg viewBox="0 0 100 100" className="w-full h-full fill-brand-yellow p-1 sm:p-2">
           <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />
           <text>
             <textPath xlinkHref="#curve" className="text-[12px] uppercase tracking-[0.1em]">

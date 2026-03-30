@@ -131,30 +131,29 @@ const Masonry: React.FC<MasonryProps> = ({
 
     grid.forEach((item, index) => {
       const selector = `[data-masonry-key="${item.id}"]`;
-      const animProps = { x: item.x, y: item.y, width: item.w, height: item.h };
 
       if (!hasMounted.current) {
+        // Entrance: set width/height immediately, animate only transform + opacity
         const start = getInitialPosition(item);
+        gsap.set(selector, { width: item.w, height: item.h });
         gsap.fromTo(
           selector,
-          {
-            opacity: 0,
-            x: start.x,
-            y: start.y,
-            width: item.w,
-            height: item.h,
-          },
+          { opacity: 0, x: start.x, y: start.y },
           {
             opacity: 1,
-            ...animProps,
+            x: item.x,
+            y: item.y,
             duration: 0.8,
             ease: 'power3.out',
             delay: index * stagger
           }
         );
       } else {
+        // Reflow: set width/height instantly, animate position
+        gsap.set(selector, { width: item.w, height: item.h });
         gsap.to(selector, {
-          ...animProps,
+          x: item.x,
+          y: item.y,
           duration,
           ease,
           overwrite: 'auto'
@@ -172,7 +171,7 @@ const Masonry: React.FC<MasonryProps> = ({
           key={item.id}
           data-masonry-key={item.id}
           className="absolute"
-          style={{ willChange: 'transform, width, height, opacity' }}
+          style={{ willChange: 'transform, opacity' }}
         >
           {item.content}
         </div>

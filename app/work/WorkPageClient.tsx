@@ -41,7 +41,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
   }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-brand-black text-white">
       {/* Header */}
       <div className="pt-32 pb-12 px-4 md:px-12">
         <Link
@@ -55,7 +55,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
         </Link>
 
         <div className="border-b border-white/20 pb-8">
-          <span className="text-yellow-500 text-xs font-mono tracking-wider mb-2 block">
+          <span className="text-brand-yellow text-xs font-mono tracking-wider mb-2 block">
             COMPLETE PORTFOLIO
           </span>
           <h1 className="text-5xl md:text-7xl font-serif mb-4">Our Work</h1>
@@ -91,7 +91,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
         </p>
         <Link
           href="/#contact"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-yellow-500 text-black font-medium rounded-full hover:bg-yellow-400 transition-colors"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-brand-yellow text-black font-medium rounded-full hover:bg-brand-yellow-hover transition-colors"
         >
           Start a Conversation
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

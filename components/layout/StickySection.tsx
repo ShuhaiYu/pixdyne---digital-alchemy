@@ -19,7 +19,8 @@ export const StickySection: React.FC<SectionProps> = ({
   bgImage,
   fitContent = false,
   pinnable = false,
-  peekBackground
+  peekBackground,
+  'aria-label': ariaLabel
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
@@ -62,19 +63,19 @@ export const StickySection: React.FC<SectionProps> = ({
       }
 
       if (transitionType === 'mask-diagonal') {
-        // 如果有 peekBackground，clipPath 应用在 innerRef 上
+        // If peekBackground exists, apply clipPath to innerRef
         const clipTarget = peekBackground ? innerRef.current : container;
         if (clipTarget) {
           gsap.fromTo(clipTarget,
-            // 起始状态：右下角大面积截掉，露出更多 peekBackground
+            // Initial state: large diagonal clip revealing peekBackground
             { clipPath: 'polygon(0 0, 100% 0, 100% 0, 0 50%)' },
             {
               clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)',
               ease: 'power1.inOut',
               scrollTrigger: {
                 trigger: container,
-                start: 'top 80%',  // 更早开始
-                end: 'top 10%',    // 更晚结束，延长过渡时间
+                start: 'top 80%',  // Start earlier
+                end: 'top 10%',    // End later for longer transition
                 scrub: 0.8,
               }
             }
@@ -104,16 +105,17 @@ export const StickySection: React.FC<SectionProps> = ({
     return () => ctx.revert();
   }, [transitionType, pathname, peekBackground, isMobile]);
 
-  // 如果有 peekBackground，使用特殊布局
+  // Use special layout when peekBackground is provided
   if (peekBackground) {
     return (
       <section
         id={id}
         ref={containerRef}
+        aria-label={ariaLabel}
         className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden ${fitContent ? '' : 'min-h-dvh'}`}
         style={{ zIndex }}
       >
-        {/* peekBackground 在 clipPath 之外，当 mask-diagonal 展开时会露出 */}
+        {/* peekBackground sits outside clipPath, revealed as mask-diagonal expands */}
         {/* On mobile, hide peekBackground since mask-diagonal is disabled */}
         {!isMobile && (
           <div className="absolute inset-0 z-0">
@@ -121,7 +123,7 @@ export const StickySection: React.FC<SectionProps> = ({
           </div>
         )}
 
-        {/* 内部容器 - clipPath 应用在这里 */}
+        {/* Inner container - clipPath applied here */}
         <div
           ref={innerRef}
           className={`relative z-10 ${className}`}
@@ -145,11 +147,12 @@ export const StickySection: React.FC<SectionProps> = ({
     );
   }
 
-  // 默认布局（无 peekBackground）
+  // Default layout (no peekBackground)
   return (
     <section
       id={id}
       ref={containerRef}
+      aria-label={ariaLabel}
       className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden flex flex-col ${fitContent ? 'h-auto min-h-0' : 'min-h-dvh'} ${className}`}
       style={{ zIndex }}
     >

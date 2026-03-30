@@ -1,5 +1,5 @@
 import type { SpringOptions } from 'motion/react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { motion, useMotionValue, useSpring } from 'motion/react';
 
 interface TiltedCardProps {
@@ -52,28 +52,36 @@ export default function TiltedCard({
     mass: 1
   });
 
-  const [lastY, setLastY] = useState(0);
+  const lastYRef = useRef(0);
+  const rafRef = useRef(0);
 
-  function handleMouse(e: React.MouseEvent<HTMLElement>) {
+  const handleMouse = useCallback((e: React.MouseEvent<HTMLElement>) => {
     if (!ref.current) return;
 
-    const rect = ref.current.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left - rect.width / 2;
-    const offsetY = e.clientY - rect.top - rect.height / 2;
+    const clientX = e.clientX;
+    const clientY = e.clientY;
 
-    const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
-    const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+    cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const offsetX = clientX - rect.left - rect.width / 2;
+      const offsetY = clientY - rect.top - rect.height / 2;
 
-    rotateX.set(rotationX);
-    rotateY.set(rotationY);
+      const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
+      const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
 
-    x.set(e.clientX - rect.left);
-    y.set(e.clientY - rect.top);
+      rotateX.set(rotationX);
+      rotateY.set(rotationY);
 
-    const velocityY = offsetY - lastY;
-    rotateFigcaption.set(-velocityY * 0.6);
-    setLastY(offsetY);
-  }
+      x.set(clientX - rect.left);
+      y.set(clientY - rect.top);
+
+      const velocityY = offsetY - lastYRef.current;
+      rotateFigcaption.set(-velocityY * 0.6);
+      lastYRef.current = offsetY;
+    });
+  }, [rotateAmplitude, rotateX, rotateY, x, y, rotateFigcaption]);
 
   function handleMouseEnter() {
     scale.set(scaleOnHover);
@@ -135,7 +143,7 @@ export default function TiltedCard({
 
       {showTooltip && (
         <motion.figcaption
-          className="pointer-events-none absolute left-0 top-0 rounded-[4px] bg-white px-[10px] py-[4px] text-[10px] text-[#2d2d2d] opacity-0 z-[3] hidden sm:block"
+          className="pointer-events-none absolute left-0 top-0 rounded-[4px] bg-white px-[10px] py-[4px] text-xs text-[#2d2d2d] opacity-0 z-[3] hidden sm:block"
           style={{
             x,
             y,

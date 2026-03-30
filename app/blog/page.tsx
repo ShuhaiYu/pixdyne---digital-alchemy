@@ -21,20 +21,20 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-white text-black pt-24 pb-20 px-6 md:px-12">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-4xl mx-auto">
         {/* Back Link */}
         <Link
           href="/"
-          className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-yellow-600 mb-12 transition-colors w-fit"
+          className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-          BACK_TO_HOME
+          Back to Home
         </Link>
 
         {/* Header */}
         <div className="mb-16">
-          <span className="text-yellow-600 font-mono text-xs uppercase tracking-widest mb-2 block">
-            /// Insights_Log
+          <span className="text-brand-yellow font-mono text-xs uppercase tracking-wider mb-2 block">
+            Blog
           </span>
           <h1 className="text-5xl md:text-7xl font-serif italic">Journal</h1>
           <p className="mt-4 text-lg text-gray-600 max-w-2xl">
@@ -52,13 +52,13 @@ export default function BlogPage() {
             >
               <div className="w-full md:w-1/4 mb-4 md:mb-0">
                 <span className="font-mono text-xs text-gray-500 block mb-1">{post.date}</span>
-                <span className="font-mono text-[10px] text-yellow-600 border border-yellow-600/30 px-2 py-0.5 rounded">
+                <span className="font-mono text-xs text-brand-yellow border border-brand-yellow/30 px-2 py-0.5 rounded">
                   {post.category}
                 </span>
               </div>
 
               <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                <h2 className="text-2xl md:text-4xl font-serif group-hover:text-yellow-600 transition-colors duration-300">
+                <h2 className="text-2xl md:text-4xl font-serif group-hover:text-brand-yellow-hover transition-colors duration-300">
                   {post.title}
                 </h2>
                 <p className="mt-2 text-gray-500 text-sm line-clamp-2">
@@ -68,8 +68,8 @@ export default function BlogPage() {
 
               <div className="w-full md:w-1/4 flex justify-between md:justify-end items-center gap-4">
                 <span className="text-xs font-sans text-gray-400">{post.readTime}</span>
-                <div className="w-8 h-8 rounded-full border border-black/20 flex items-center justify-center group-hover:bg-yellow-500 group-hover:border-yellow-500 group-hover:text-white transition-all transform group-hover:-rotate-45">
-                  <ArrowRight size={14} />
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-black/20 flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-white transition-all transform group-hover:-rotate-45">
+                  <ArrowRight size={16} />
                 </div>
               </div>
             </Link>

@@ -1,7 +1,9 @@
 'use client';
 
 import { CaseStudyItem } from '@/types';
+import { brand } from '@/lib/brand';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'motion/react';
 import DecryptedText from './DecryptedText';
 
@@ -10,7 +12,7 @@ interface MasonryCardProps {
 }
 
 export default function MasonryCard({ caseStudy }: MasonryCardProps) {
-  const accentColor = '#EAB308'; // 品牌黄色
+  const accentColor = brand.yellow;
 
   return (
     <Link href={`/work/${caseStudy.slug}`} className="block w-full">
@@ -20,14 +22,14 @@ export default function MasonryCard({ caseStudy }: MasonryCardProps) {
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
         {/* Image Container - Natural aspect ratio */}
-        <div className="relative w-full overflow-hidden">
-          <motion.img
+        <div className="relative w-full overflow-hidden aspect-[4/3]">
+          <Image
             src={caseStudy.img}
             alt={caseStudy.name}
-            className="w-full h-auto block"
-            initial={{ scale: 1 }}
-            whileHover={{ scale: 1.08 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            fill
+            sizes="(max-width: 768px) 100vw, 50vw"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            loading="lazy"
           />
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
@@ -42,7 +44,7 @@ export default function MasonryCard({ caseStudy }: MasonryCardProps) {
         <div className="absolute bottom-0 left-0 right-0 p-4">
           {/* Category Badge */}
           <div
-            className="inline-flex w-fit px-2 py-0.5 rounded-full text-[10px] font-medium mb-2 backdrop-blur-sm"
+            className="inline-flex w-fit px-2 py-0.5 rounded-full text-xs font-medium mb-2 backdrop-blur-sm"
             style={{
               backgroundColor: `${accentColor}20`,
               color: accentColor,
@@ -67,12 +69,6 @@ export default function MasonryCard({ caseStudy }: MasonryCardProps) {
           {/* Year */}
           <p className="text-white/50 text-xs mt-1">{caseStudy.year}</p>
         </div>
-
-        {/* Corner Accent Dot */}
-        <div
-          className="absolute top-3 right-3 w-2 h-2 rounded-full opacity-60 group-hover:opacity-100 transition-opacity"
-          style={{ backgroundColor: accentColor }}
-        />
 
         {/* Hover Arrow */}
         <motion.div

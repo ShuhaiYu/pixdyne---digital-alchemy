@@ -26,20 +26,20 @@ export default function TermsPage() {
         <p className="text-sm font-mono text-gray-500 mb-12">LAST UPDATED: DECEMBER 2024</p>
 
         <div className="prose prose-lg">
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">1. Acceptance of Terms</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">1. Acceptance of Terms</h2>
           <p className="mb-8 text-gray-700">
             By accessing and using Pixdyne&apos;s website and services, you agree to be bound by these Terms
             of Service. If you do not agree to these terms, please do not use our services.
           </p>
 
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">2. Services</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">2. Services</h2>
           <p className="mb-8 text-gray-700">
             Pixdyne provides web development, mobile application development, technical SEO, and IT support
             services. The specific scope of work, deliverables, and timelines will be outlined in a separate
             Master Services Agreement (MSA) or Statement of Work (SOW) for each project.
           </p>
 
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">3. Intellectual Property</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">3. Intellectual Property</h2>
           <p className="mb-8 text-gray-700">
             All code, designs, and strategies developed by Pixdyne remain our intellectual property until
             full payment is received. Upon completion of payment, rights are transferred to the client as
@@ -47,14 +47,14 @@ export default function TermsPage() {
             third-party licenses remain with their respective owners.
           </p>
 
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">4. Payment Terms</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">4. Payment Terms</h2>
           <p className="mb-8 text-gray-700">
             Payment terms will be specified in the project agreement. Generally, we require a deposit before
             work begins, with remaining payments due upon milestone completion or project delivery. Late
             payments may incur interest charges as specified in the agreement.
           </p>
 
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">5. Limitation of Liability</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">5. Limitation of Liability</h2>
           <p className="mb-8 text-gray-700">
             Pixdyne is not liable for indirect, incidental, special, consequential, or punitive damages,
             including but not limited to loss of profits, data, or business opportunities arising from
@@ -62,28 +62,28 @@ export default function TermsPage() {
             specific service in question.
           </p>
 
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">6. Warranties and Disclaimers</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">6. Warranties and Disclaimers</h2>
           <p className="mb-8 text-gray-700">
             We provide rigorous testing and quality assurance, but services are provided &quot;as is&quot; without
             warranties of any kind, either express or implied. Final deployment responsibility and ongoing
             maintenance lie with the client&apos;s internal IT protocols unless otherwise specified.
           </p>
 
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">7. Termination</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">7. Termination</h2>
           <p className="mb-8 text-gray-700">
             Either party may terminate the service agreement with written notice as specified in the MSA.
             Upon termination, you are responsible for payment for all work completed up to the termination
             date.
           </p>
 
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">8. Governing Law</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">8. Governing Law</h2>
           <p className="mb-8 text-gray-700">
             These terms shall be governed by and construed in accordance with the laws of the State of
             California, without regard to its conflict of law provisions. Any disputes shall be resolved
             in the courts of Santa Clara County, California.
           </p>
 
-          <h3 className="font-bold uppercase tracking-widest text-sm mb-4">9. Contact</h3>
+          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">9. Contact</h2>
           <p className="mb-8 text-gray-700">
             For questions about these Terms of Service, please contact us at:
             <br /><br />
@@ -93,7 +93,7 @@ export default function TermsPage() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-black/10">
-          <Link href="/legal/privacy" className="text-sm font-mono text-yellow-600 hover:text-black transition-colors">
+          <Link href="/legal/privacy" className="text-sm font-mono text-brand-yellow hover:text-black transition-colors">
             View Privacy Policy →
           </Link>
         </div>

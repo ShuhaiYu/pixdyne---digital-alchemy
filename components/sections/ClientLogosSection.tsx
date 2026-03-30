@@ -18,10 +18,10 @@ const logos = [
 
 export const ClientLogosSection: React.FC = () => {
   return (
-    <div className="w-full flex flex-col justify-center bg-[#111] text-white overflow-hidden relative py-16 sm:py-20 md:py-24">
+    <div className="w-full flex flex-col justify-center bg-brand-surface text-white overflow-hidden relative py-16 sm:py-20 md:py-24">
       <div className="absolute top-16 sm:top-20 md:top-24 left-0 w-full px-4 sm:px-8 md:px-12 py-4 sm:py-6 flex justify-between items-baseline border-b border-white/10 z-10">
-        <h2 className="text-xs sm:text-sm font-mono text-yellow-500 tracking-widest uppercase">/// Trusted_By</h2>
-        <p className="text-[10px] sm:text-xs text-gray-500 font-mono hidden sm:block">GLOBAL PARTNERS</p>
+        <h2 className="text-xs sm:text-sm font-mono font-bold text-brand-yellow tracking-widest uppercase">Trusted By</h2>
+        <p className="text-xs text-brand-muted font-mono hidden sm:block">GLOBAL PARTNERS</p>
       </div>
 
       <div className="w-full relative py-8 sm:py-10 md:py-12 bg-black/50 backdrop-blur-sm border-y border-white/10 my-6 sm:my-8">
@@ -33,7 +33,7 @@ export const ClientLogosSection: React.FC = () => {
           gap={40}
           pauseOnHover
           fadeOut
-          fadeOutColor="#111"
+          fadeOutColor="var(--color-brand-surface)"
           className="[&_img]:invert [&_img]:opacity-60 hover:[&_img]:opacity-100 md:[&_img]:h-12 [&_img]:h-9"
         />
       </div>
@@ -47,13 +47,13 @@ export const ClientLogosSection: React.FC = () => {
           gap={32}
           pauseOnHover
           fadeOut
-          fadeOutColor="#111"
+          fadeOutColor="var(--color-brand-surface)"
           className="[&_img]:invert [&_img]:opacity-40 md:[&_img]:h-8 [&_img]:h-6"
         />
       </div>
 
       <div className="w-full px-4 sm:px-8 md:px-12 flex justify-end">
-        <p className="text-right text-gray-500 text-xs sm:text-sm max-w-xs font-sans">
+        <p className="text-right text-brand-muted text-xs sm:text-sm max-w-xs font-sans">
           Powering digital infrastructure for industry leaders across finance, tech, and healthcare.
         </p>
       </div>

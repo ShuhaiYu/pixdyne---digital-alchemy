@@ -17,6 +17,7 @@ export interface SectionProps {
   fitContent?: boolean;
   pinnable?: boolean;
   peekBackground?: React.ReactNode;
+  'aria-label'?: string;
 }
 
 export interface ServiceItem {

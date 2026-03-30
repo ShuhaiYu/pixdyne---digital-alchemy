@@ -27,22 +27,22 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
   }, [service]);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-[#050505] text-white pt-24 pb-20 px-6 md:px-12 flex flex-col">
+    <div ref={containerRef} className="min-h-screen bg-brand-black text-white pt-24 pb-20 px-6 md:px-12 flex flex-col">
       <Link
         href="/#services"
-        className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-yellow-500 mb-12 transition-colors w-fit"
+        className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-        RETURN_TO_BASE
+        Back to Services
       </Link>
 
       <div className="detail-anim border-b border-white/20 pb-8 mb-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <span className="text-yellow-500 font-mono text-xs tracking-widest block mb-2">SERVICE_PROTOCOL_{service.number}</span>
+            <span className="text-brand-yellow font-mono text-xs tracking-widest block mb-2">SERVICE_PROTOCOL_{service.number}</span>
             <h1 className="text-6xl md:text-8xl font-serif italic text-white">{service.title}</h1>
           </div>
-          <div className="font-mono text-xl md:text-2xl text-yellow-500">
+          <div className="font-mono text-xl md:text-2xl text-brand-yellow">
             {service.price}
           </div>
         </div>
@@ -63,7 +63,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {service.features.map((feat, i) => (
               <div key={i} className="flex items-center gap-4 border border-white/10 p-4 bg-white/5">
-                <span className="text-yellow-500"><Check size={16} /></span>
+                <span className="text-brand-yellow"><Check size={16} /></span>
                 <span className="font-mono text-sm">{feat}</span>
               </div>
             ))}
@@ -71,7 +71,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
         </div>
 
         <div className="detail-anim col-span-1">
-          <div className="bg-[#111] p-8 border border-white/10 sticky top-32">
+          <div className="bg-brand-surface p-8 border border-white/10 sticky top-32">
             <h4 className="text-sm font-mono text-gray-500 uppercase tracking-widest mb-6">Technologies</h4>
             <div className="flex flex-wrap gap-2 mb-12">
               {service.tags.map(tag => (
@@ -88,7 +88,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
               </p>
               <Link
                 href="/#contact"
-                className="block w-full bg-yellow-500 text-black font-bold py-4 uppercase tracking-widest hover:bg-white transition-colors text-center"
+                className="block w-full bg-brand-yellow text-black font-bold py-4 uppercase tracking-widest hover:bg-white transition-colors text-center"
               >
                 Start Project
               </Link>

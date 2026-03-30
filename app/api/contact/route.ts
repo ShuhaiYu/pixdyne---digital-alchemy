@@ -32,28 +32,7 @@ export async function POST(request: Request) {
     // 2. Store the submission in a database
     // 3. Add to a CRM system
 
-    // For now, we'll just log and return success
-    console.log('Contact form submission:', {
-      name: data.name,
-      email: data.email,
-      message: data.message,
-      timestamp: new Date().toISOString()
-    });
-
-    // Example: Send email using a service (uncomment and configure as needed)
-    /*
-    await sendEmail({
-      to: 'info@pixdyne.com',
-      subject: `New Contact Form Submission from ${data.name}`,
-      html: `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Message:</strong></p>
-        <p>${data.message}</p>
-      `
-    });
-    */
+    // TODO: integrate email service (SendGrid, Resend) or CRM
 
     return NextResponse.json(
       {

@@ -265,7 +265,7 @@
   align-items: center;
   justify-content: space-between;
   background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(30px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: calc(max(0px, var(--card-radius) - var(--ui-inset) + var(--ui-radius-bias)));
   padding: 12px 14px;
@@ -323,7 +323,7 @@
   color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(6px);
 }
 
 .pc-contact-btn:hover {

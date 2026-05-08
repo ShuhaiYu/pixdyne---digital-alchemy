@@ -42,34 +42,12 @@ const logos = [
   { src: '/logos/googlegemini.svg', alt: 'Google Gemini' }
 ];
 
-// Tailwind arbitrary-property classes:
-// - Each <img> renders white by default via brightness(0) invert(1)
-//   filter plus reduced opacity, so coloured and monochrome SVGs look
-//   uniform.
-// - On individual <img> hover, the filter is removed and opacity goes
-//   to full, revealing the source brand colours from the SVG.
-// - A short transition keeps the colour-in feel intentional.
-const logoLoopClasses = [
-  '[&_img]:[filter:brightness(0)_invert(1)]',
-  '[&_img]:opacity-70',
-  '[&_img]:transition-all',
-  '[&_img]:duration-300',
-  '[&_img:hover]:[filter:none]',
-  '[&_img:hover]:opacity-100',
-  'md:[&_img]:h-12',
-  '[&_img]:h-9'
-].join(' ');
-
-const logoLoopClassesSecondary = [
-  '[&_img]:[filter:brightness(0)_invert(1)]',
-  '[&_img]:opacity-50',
-  '[&_img]:transition-all',
-  '[&_img]:duration-300',
-  '[&_img:hover]:[filter:none]',
-  '[&_img:hover]:opacity-100',
-  'md:[&_img]:h-8',
-  '[&_img]:h-6'
-].join(' ');
+// Visual treatment is defined in globals.css under .platform-marquee /
+// .platform-marquee--secondary. Each <img> renders white by default and
+// reveals its source brand colour when individually hovered.
+const logoLoopClasses = 'platform-marquee md:[&_img]:h-12 [&_img]:h-9';
+const logoLoopClassesSecondary =
+  'platform-marquee--secondary md:[&_img]:h-8 [&_img]:h-6';
 
 export const ClientLogosSection: React.FC = () => {
   return (
@@ -113,9 +91,9 @@ export const ClientLogosSection: React.FC = () => {
 
       <div className="w-full px-4 sm:px-8 md:px-12 flex justify-end">
         <p className="text-right text-brand-muted text-xs sm:text-sm max-w-md font-sans leading-relaxed">
-          From WordPress storefronts to NetSuite rollouts and bespoke systems on
-          Node.js — we build on the platforms your team can keep using long
-          after launch.
+          E-commerce stores, ERP and CRM rollouts, internal systems, and the
+          ongoing operations that keep them running — we build on platforms
+          your team can keep using long after launch.
         </p>
       </div>
     </div>

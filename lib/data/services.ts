@@ -1,77 +1,151 @@
 import { ServiceItem } from '@/types';
 
+// Service architecture canonicalised in CLAUDE.md §5.
+// Three service lines (Web Development, System Development, Operations) plus
+// one product line (OnlyPixAI). Stats and prices are intentionally omitted
+// until the owner confirms real numbers — see CLAUDE.md §6 (Content Constraints).
+
 export const services: ServiceItem[] = [
   {
     id: '01',
-    slug: 'web-dev',
+    slug: 'web-development',
     number: '01',
-    title: 'Web Dev',
-    description: 'High-performance React & Next.js architectures built for scale and speed.',
-    fullDescription: 'We specialize in building bespoke web applications using the latest modern stacks. From high-conversion marketing sites to complex SaaS dashboards, our code is clean, semantic, and performant.',
-    tags: ['React', 'Next.js', 'WebGL', 'Shopify'],
-    features: ['Headless CMS Integration', 'Performance Optimization', 'Accessibility (WCAG)', 'Interactive WebGL'],
-    price: 'From $2,000',
-    seoTitle: 'Web Development Services',
-    seoDescription: 'High-performance React & Next.js web development. Custom web applications, e-commerce solutions, and enterprise platforms built for scale.',
-    stats: {
-      projects: 150,
-      satisfaction: 98,
-      support: '24/7'
-    }
+    title: 'Web Development',
+    tier: 'service',
+    description:
+      'Websites built and launched for Melbourne SMBs — designed, developed, and deployed end-to-end.',
+    fullDescription:
+      'From WordPress and Shopify storefronts to bespoke React and Next.js builds, we deliver websites that work for the business behind them. Design, development, deployment, and the handover that lets your team take it from there.',
+    tags: ['Next.js', 'React', 'WordPress', 'Shopify', 'Tailwind'],
+    features: [
+      'Design and UI',
+      'Frontend build (React / Next.js)',
+      'Headless CMS integration',
+      'WordPress and Shopify',
+      'Performance and Core Web Vitals',
+      'Accessibility'
+    ],
+    seoTitle: 'Web Development Services Melbourne',
+    seoDescription:
+      'Pixdyne builds and deploys websites for Melbourne SMBs — WordPress, Shopify, and bespoke Next.js builds. Design through launch and beyond.'
   },
   {
     id: '02',
-    slug: 'app-dev',
+    slug: 'system-development',
     number: '02',
-    title: 'App Dev',
-    description: 'Native and cross-platform mobile apps built for performance and polish.',
-    fullDescription: 'Our mobile development team crafts fluid, native-feeling applications for iOS and Android. Whether you need a React Native cross-platform solution or pure Swift/Kotlin, we deliver.',
-    tags: ['iOS', 'Android', 'React Native', 'Flutter'],
-    features: ['Offline First Architecture', 'Biometric Auth', 'Real-time Sync', 'App Store Optimization'],
-    price: 'From $3,500',
-    seoTitle: 'Mobile App Development Services',
-    seoDescription: 'Native iOS and Android app development. Cross-platform solutions with React Native and Flutter for seamless mobile experiences.',
-    stats: {
-      projects: 80,
-      satisfaction: 96,
-      support: '24/7'
-    }
+    title: 'System Development',
+    tier: 'service',
+    description:
+      'Custom internal systems and apps built around how your business actually works.',
+    fullDescription:
+      'ERP and CRM rollouts, internal tooling, dashboards, and mobile apps. We design systems that fit the workflow, rather than asking the business to bend around the software. Working ground includes NetSuite, Salesforce, custom Node and Postgres backends, React Native, and native iOS / Android.',
+    tags: [
+      'NetSuite',
+      'CRM',
+      'Node.js',
+      'PostgreSQL',
+      'React Native',
+      'iOS',
+      'Android'
+    ],
+    features: [
+      'ERP and CRM implementation',
+      'Custom internal tooling',
+      'API and integration work',
+      'Mobile apps (iOS / Android)',
+      'Database design',
+      'Authentication and access control'
+    ],
+    seoTitle: 'Custom System Development Melbourne — ERP, CRM, Apps',
+    seoDescription:
+      'NetSuite implementations, bespoke CRMs, internal tools, and mobile apps for Melbourne SMBs. Pixdyne builds systems that fit the way your team actually works.'
   },
   {
     id: '03',
-    slug: 'technical-seo',
+    slug: 'operations',
     number: '03',
-    title: 'Technical SEO',
-    description: 'Data-driven optimization to dominate search rankings organically.',
-    fullDescription: 'Forget keyword stuffing. We focus on technical excellence—improving core web vitals, implementing semantic schema markup, and building high-authority backlink profiles.',
-    tags: ['Audit', 'Content Strategy', 'Backlinking'],
-    features: ['Site Speed Audit', 'Competitor Analysis', 'Schema Implementation', 'Local SEO'],
-    price: 'From $1,200/mo',
-    seoTitle: 'Technical SEO Services',
-    seoDescription: 'Expert technical SEO optimization. Core Web Vitals, schema markup, site audits, and content strategy to dominate search rankings.',
-    stats: {
-      projects: 200,
-      satisfaction: 94,
-      support: 'Mon-Fri'
-    }
+    title: 'Operations',
+    tier: 'service',
+    description:
+      'Post-launch services that keep your site, system, and search presence working — pick what you need.',
+    fullDescription:
+      "Most projects don't end at launch. Operations is the bundle of services that keep things running afterwards: hosting and uptime monitoring, ongoing SEO and content, and continuous development on what we've already built. Take it as a single retainer, or pick the individual services you need.",
+    tags: ['Vercel', 'Cloudflare', 'GA4', 'Search Console', 'Sentry'],
+    features: [
+      'Hosting, SSL, backups',
+      'Uptime and security monitoring',
+      'Incident response',
+      'Technical SEO maintenance',
+      'Content production',
+      'GA4 and Search Console reporting',
+      'Bug fixes and feature work',
+      'Third-party integration upkeep'
+    ],
+    subServices: [
+      {
+        slug: 'managed-it',
+        title: 'Managed IT',
+        description:
+          'Hosting, SSL, monitoring, backups, and incident response for the sites and systems we have shipped — or for ones you have inherited.',
+        features: [
+          'Hosting and DNS',
+          'SSL and domain management',
+          'Uptime and security monitoring',
+          'Automated backups',
+          'Incident response'
+        ]
+      },
+      {
+        slug: 'seo-content',
+        title: 'SEO & Content',
+        description:
+          'Ongoing technical SEO and content production for Melbourne-focused growth. We maintain rankings rather than promising them.',
+        features: [
+          'Technical SEO maintenance',
+          'On-page optimisation',
+          'Content production',
+          'Local SEO and Google Business Profile',
+          'GA4 and Search Console reporting'
+        ]
+      },
+      {
+        slug: 'devops',
+        title: 'DevOps',
+        description:
+          "The technical team you don't have to hire. Bug fixes, new features, integrations, and the steady iteration that keeps a system useful.",
+        features: [
+          'Bug fixes and patching',
+          'New feature work',
+          'Third-party integration maintenance',
+          'Database and migration upkeep',
+          'CI/CD and release management'
+        ]
+      }
+    ],
+    seoTitle: 'Managed IT, SEO & DevOps for Melbourne SMBs',
+    seoDescription:
+      'Operations from Pixdyne: managed IT, ongoing SEO and content, and continuous development. Pick a single service or take the lot as a retainer.'
   },
   {
-    id: '04',
-    slug: 'it-support',
-    number: '04',
-    title: 'IT Support',
-    description: '24/7 infrastructure monitoring and enterprise-grade security.',
-    fullDescription: 'Your digital infrastructure needs to be bulletproof. We provide round-the-clock monitoring, automated backups, and rapid incident response to ensure 99.99% uptime.',
-    tags: ['Cloud', 'Cybersecurity', 'Maintenance'],
-    features: ['24/7 Monitoring', 'Cloud Migration', 'Security Hardening', 'Disaster Recovery'],
-    price: 'From $800/mo',
-    seoTitle: 'IT Support & Infrastructure Services',
-    seoDescription: '24/7 IT infrastructure monitoring and support. Cloud migration, cybersecurity, and enterprise-grade maintenance solutions.',
-    stats: {
-      projects: 500,
-      satisfaction: 99,
-      support: '24/7'
-    }
+    id: 'PX',
+    slug: 'onlypixai',
+    number: 'PX',
+    title: 'OnlyPixAI',
+    tier: 'product',
+    externalUrl: 'https://www.onlypixai.com/',
+    description:
+      "Pixdyne's own AI product — proof we can deliver AI to end users, not just code with it.",
+    fullDescription:
+      "OnlyPixAI is a Pixdyne product, not a service. It is a public demonstration of how we approach AI: we don't sell AI as an internal productivity tool — we build AI products and capabilities that real people actually use. Visit OnlyPixAI to see what that looks like in production.",
+    tags: ['Product', 'AI', 'Live'],
+    features: [
+      'Live, production AI product',
+      'Built and operated by Pixdyne',
+      'Visit to see our approach to AI delivery'
+    ],
+    seoTitle: 'OnlyPixAI — Pixdyne AI Product',
+    seoDescription:
+      'OnlyPixAI is a Pixdyne product showcasing how we deliver AI to end users. Visit onlypixai.com to see our approach to AI in production.'
   }
 ];
 
@@ -80,9 +154,9 @@ export function getAllServices(): ServiceItem[] {
 }
 
 export function getServiceBySlug(slug: string): ServiceItem | undefined {
-  return services.find(s => s.slug === slug);
+  return services.find((s) => s.slug === slug);
 }
 
 export function getServiceSlugs(): string[] {
-  return services.map(s => s.slug);
+  return services.map((s) => s.slug);
 }

@@ -24,17 +24,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // TBD: per-service OG images at /og/services/${slug}.jpg are not yet
+  // produced. Falling back to the site-wide logo so social cards render
+  // instead of 404'ing. Replace once an OG generator is in place.
   return {
-    title: service.seoTitle || `${service.title} Services`,
-    description: service.seoDescription || service.fullDescription,
+    title: service.seoTitle || service.title,
+    description: service.seoDescription || service.description,
     openGraph: {
-      title: `${service.title} Services | Pixdyne`,
+      title: `${service.title} | Pixdyne`,
       description: service.description,
       url: `https://pixdyne.com/services/${slug}`,
       images: [{
-        url: `/og/services/${slug}.jpg`,
-        width: 1200,
-        height: 630
+        url: '/logo_full.jpeg',
+        width: 1024,
+        height: 1024,
+        alt: `${service.title} — Pixdyne`
       }]
     },
     alternates: {

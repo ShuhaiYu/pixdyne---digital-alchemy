@@ -43,24 +43,40 @@ export function generateOrganizationSchema() {
 }
 
 export function generateServiceSchema(service: ServiceItem) {
-  return {
+  const base = {
     '@context': 'https://schema.org',
     '@type': 'Service',
     name: service.title,
     description: service.fullDescription,
     provider: {
       '@type': 'ProfessionalService',
+      '@id': 'https://pixdyne.com/#organization',
       name: 'Pixdyne',
       url: 'https://pixdyne.com'
     },
     serviceType: service.title,
-    offers: {
-      '@type': 'Offer',
-      price: service.price.replace(/[^0-9]/g, ''),
-      priceCurrency: 'USD',
-      availability: 'https://schema.org/InStock'
-    }
+    areaServed: [
+      { '@type': 'City', name: 'Melbourne' },
+      { '@type': 'AdministrativeArea', name: 'Victoria' }
+    ]
   };
+
+  // Only emit Offer when a real price exists. Inventing "$0" or stripping
+  // a "Get a quote" string into "" would mislead structured-data consumers.
+  const numericPrice = service.price?.replace(/[^0-9]/g, '');
+  if (numericPrice) {
+    return {
+      ...base,
+      offers: {
+        '@type': 'Offer',
+        price: numericPrice,
+        priceCurrency: 'AUD',
+        availability: 'https://schema.org/InStock'
+      }
+    };
+  }
+
+  return base;
 }
 
 export function generateCaseStudySchema(work: CaseStudyItem) {

@@ -109,90 +109,109 @@ export const ServicesSection: React.FC = () => {
             ref={listRef}
             className={`${isMobile ? 'flex flex-col' : 'flex flex-row h-full'}`}
           >
-            {services.map((service, index) => (
-              <SpotlightCard
-                key={service.id}
-                spotlightColor={`rgba(${brandRGB.yellow}, 0.15)`}
-                className={`service-item group flex-shrink-0 flex flex-col justify-center p-6 sm:p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer ${isMobile ? 'w-full min-h-[70vh]' : 'h-full'}`}
-                style={isMobile ? undefined : { width: 'calc(66.67vw)' }}
-              >
-                <Link
-                  href={`/services/${service.slug}`}
-                  className="absolute inset-0 z-20"
-                  aria-label={`View ${service.title} service`}
-                />
-                {/* Gradient glow decoration */}
-                <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand-yellow/3 rounded-full blur-2xl pointer-events-none group-hover:bg-brand-yellow/5 transition-colors duration-700" />
+            {services.map((service, index) => {
+              const isProduct = service.tier === 'product';
+              const tagLabel = isProduct
+                ? 'Product'
+                : service.price ?? 'Get a quote';
+              return (
+                <SpotlightCard
+                  key={service.id}
+                  spotlightColor={`rgba(${brandRGB.yellow}, 0.15)`}
+                  className={`service-item group flex-shrink-0 flex flex-col justify-center p-6 sm:p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer ${isMobile ? 'w-full min-h-[70vh]' : 'h-full'}`}
+                  style={isMobile ? undefined : { width: 'calc(66.67vw)' }}
+                >
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="absolute inset-0 z-20"
+                    aria-label={`View ${service.title} ${isProduct ? 'product' : 'service'}`}
+                  />
+                  {/* Gradient glow decoration */}
+                  <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand-yellow/3 rounded-full blur-2xl pointer-events-none group-hover:bg-brand-yellow/5 transition-colors duration-700" />
 
-                {/* Content area */}
-                <div className="relative z-10">
-                  {/* Title row */}
-                  <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4">
-                    <div className="flex items-baseline gap-3 sm:gap-6">
-                      <span className="text-xs font-mono text-brand-yellow">({service.number})</span>
-                      <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold uppercase tracking-tight text-white group-hover:text-brand-yellow-hover transition-colors duration-300">
-                        {service.title}
-                      </h3>
-                    </div>
-                    <span className="font-mono text-xs sm:text-sm text-white/50 border border-white/20 px-2 sm:px-3 py-1.5 rounded group-hover:bg-brand-yellow-hover group-hover:text-black group-hover:border-brand-yellow-hover transition-all w-fit">
-                      {service.price}
-                    </span>
-                  </div>
-
-                  {/* Description */}
-                  <p className="text-sm sm:text-base md:text-lg text-brand-muted max-w-lg mb-6 sm:mb-8 ml-0 sm:ml-8 md:ml-12 group-hover:text-white transition-colors">
-                    {service.description}
-                  </p>
-
-                  {/* Stats */}
-                  <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-12 ml-0 sm:ml-8 md:ml-12 mb-6 sm:mb-8">
-                    <div>
-                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
-                        <CountUp to={service.stats.projects} duration={2} className="tabular-nums" />
-                        <span className="text-brand-yellow">+</span>
+                  {/* Content area */}
+                  <div className="relative z-10">
+                    {/* Title row */}
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4">
+                      <div className="flex items-baseline gap-3 sm:gap-6">
+                        <span className="text-xs font-mono text-brand-yellow">({service.number})</span>
+                        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold uppercase tracking-tight text-white group-hover:text-brand-yellow-hover transition-colors duration-300">
+                          {service.title}
+                        </h3>
                       </div>
-                      <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Projects Delivered</div>
-                    </div>
-                    <div>
-                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
-                        <CountUp to={service.stats.satisfaction} duration={2} className="tabular-nums" />
-                        <span className="text-brand-yellow">%</span>
-                      </div>
-                      <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Client Satisfaction</div>
-                    </div>
-                    <div>
-                      <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
-                        {service.stats.support}
-                      </div>
-                      <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Support Available</div>
-                    </div>
-                  </div>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 ml-0 sm:ml-8 md:ml-12 mb-4">
-                    {service.tags.map(tag => (
-                      <span key={tag} className="text-xs uppercase border border-white/20 px-2 sm:px-3 py-1.5 rounded-full hover:border-brand-yellow/50 transition-colors">
-                        {tag}
+                      <span className={`font-mono text-xs sm:text-sm px-2 sm:px-3 py-1.5 rounded group-hover:bg-brand-yellow-hover group-hover:text-black group-hover:border-brand-yellow-hover transition-all w-fit border ${isProduct ? 'border-brand-yellow/60 text-brand-yellow' : 'border-white/20 text-white/50'}`}>
+                        {tagLabel}
                       </span>
-                    ))}
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-sm sm:text-base md:text-lg text-brand-muted max-w-lg mb-6 sm:mb-8 ml-0 sm:ml-8 md:ml-12 group-hover:text-white transition-colors">
+                      {service.description}
+                    </p>
+
+                    {/* Stats — render with em-dash placeholder when real numbers
+                        are not yet provided by the owner (CLAUDE.md §6). */}
+                    <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-12 ml-0 sm:ml-8 md:ml-12 mb-6 sm:mb-8">
+                      <div>
+                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
+                          {service.stats?.projects !== undefined ? (
+                            <>
+                              <CountUp to={service.stats.projects} duration={2} className="tabular-nums" />
+                              <span className="text-brand-yellow">+</span>
+                            </>
+                          ) : (
+                            <span className="text-brand-muted">—</span>
+                          )}
+                        </div>
+                        <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Projects Delivered</div>
+                      </div>
+                      <div>
+                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
+                          {service.stats?.satisfaction !== undefined ? (
+                            <>
+                              <CountUp to={service.stats.satisfaction} duration={2} className="tabular-nums" />
+                              <span className="text-brand-yellow">%</span>
+                            </>
+                          ) : (
+                            <span className="text-brand-muted">—</span>
+                          )}
+                        </div>
+                        <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Client Satisfaction</div>
+                      </div>
+                      <div>
+                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                          {service.stats?.support ?? <span className="text-brand-muted">—</span>}
+                        </div>
+                        <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Support Available</div>
+                      </div>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 ml-0 sm:ml-8 md:ml-12 mb-4">
+                      {service.tags.map(tag => (
+                        <span key={tag} className="text-xs uppercase border border-white/20 px-2 sm:px-3 py-1.5 rounded-full hover:border-brand-yellow/50 transition-colors">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
                   </div>
 
-                </div>
-
-                {/* Progress indicator */}
-                <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-12 flex items-center gap-2">
-                  <span className="text-xs font-mono text-white/30">
-                    {String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
-                  </span>
-                  <div className="w-16 h-[1px] bg-white/20">
-                    <div
-                      className="h-full bg-brand-yellow"
-                      style={{ width: `${((index + 1) / services.length) * 100}%` }}
-                    />
+                  {/* Progress indicator */}
+                  <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-12 flex items-center gap-2">
+                    <span className="text-xs font-mono text-white/30">
+                      {String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
+                    </span>
+                    <div className="w-16 h-[1px] bg-white/20">
+                      <div
+                        className="h-full bg-brand-yellow"
+                        style={{ width: `${((index + 1) / services.length) * 100}%` }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </SpotlightCard>
-            ))}
+                </SpotlightCard>
+              );
+            })}
           </div>
         </div>
       </div>

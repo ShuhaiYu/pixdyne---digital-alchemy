@@ -31,8 +31,20 @@ export const metadata: Metadata = {
     default: 'Pixdyne | Digital Alchemy',
     template: '%s | Pixdyne'
   },
-  description: 'Premium IT Services: Web Development, App Development, Technical SEO, and IT Support. Melbourne-based digital engineering agency.',
-  keywords: ['web development', 'app development', 'SEO', 'IT services', 'Melbourne', 'React', 'Next.js', 'mobile app', 'digital agency'],
+  description:
+    'Melbourne technology partner for SMBs since 2018. Pixdyne builds and operates websites, custom systems and AI-enabled products — and stays with you long after launch.',
+  keywords: [
+    'web development Melbourne',
+    'system development Melbourne',
+    'custom CRM development',
+    'ERP implementation Melbourne',
+    'managed IT Melbourne',
+    'technology partner SMB',
+    'WordPress development Melbourne',
+    'Shopify Melbourne',
+    'NetSuite implementation',
+    'AI for business'
+  ],
   authors: [{ name: 'Pixdyne' }],
   creator: 'Pixdyne',
   publisher: 'Pixdyne',
@@ -49,24 +61,29 @@ export const metadata: Metadata = {
   manifest: '/site.webmanifest',
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'en_AU',
     url: 'https://pixdyne.com',
     siteName: 'Pixdyne',
     title: 'Pixdyne | Digital Alchemy',
-    description: 'Premium IT Services: Web, App, SEO, and Support.',
+    description:
+      'Melbourne technology partner for SMBs since 2018. Web, custom systems, ongoing operations — plus real AI capability for your business.',
+    // TBD: replace with a dedicated 1200x630 OG image generated via
+    // app/opengraph-image.tsx. logo_full.jpeg (1024x1024) is a temporary
+    // placeholder so social cards render instead of 404'ing.
     images: [{
-      url: '/og/default.jpg',
-      width: 1200,
-      height: 630,
-      alt: 'Pixdyne - Digital Alchemy'
+      url: '/logo_full.jpeg',
+      width: 1024,
+      height: 1024,
+      alt: 'Pixdyne'
     }]
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Pixdyne | Digital Alchemy',
-    description: 'Premium IT Services for modern enterprises.',
-    images: ['/og/default.jpg'],
-    creator: '@pixdyne'
+    description:
+      'Melbourne technology partner for SMBs since 2018. Web, custom systems, operations — and real AI for your business.',
+    images: ['/logo_full.jpeg']
+    // TBD: re-add `creator` once the @pixdyne handle on X/Twitter is verified.
   },
   robots: {
     index: true,
@@ -79,9 +96,8 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'google-site-verification-code',
-  },
+  // TBD: add `verification.google` once Google Search Console verification
+  // code is issued. Shipping the placeholder string fails verification.
   alternates: {
     canonical: 'https://pixdyne.com'
   }

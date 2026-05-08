@@ -1,13 +1,21 @@
 import { ServiceItem, CaseStudyItem, BlogPost } from '@/types';
 
 export function generateOrganizationSchema() {
+  // ProfessionalService is a subtype of LocalBusiness, so it covers local-SEO
+  // signals while remaining accurate to what Pixdyne actually is.
+  // sameAs and priceRange are intentionally omitted until the owner has
+  // verified the underlying social handles and pricing positioning.
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
+    '@id': 'https://pixdyne.com/#organization',
     name: 'Pixdyne',
     url: 'https://pixdyne.com',
-    logo: 'https://pixdyne.com/logo.png',
-    description: 'Premium IT Services: Web Development, App Development, Technical SEO, and IT Support.',
+    logo: 'https://pixdyne.com/logo.jpeg',
+    image: 'https://pixdyne.com/logo_full.jpeg',
+    description:
+      'Melbourne-based long-term technology partner for SMBs. Since 2018, Pixdyne has built and operated websites, custom systems, and ongoing operations for Australian businesses, and brings real AI capability into client products.',
+    foundingDate: '2018',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '52 Monet Drive',
@@ -20,18 +28,17 @@ export function generateOrganizationSchema() {
       '@type': 'ContactPoint',
       telephone: '+61-410-510-751',
       contactType: 'customer service',
-      email: 'info@pixdyne.com'
+      email: 'info@pixdyne.com',
+      areaServed: 'AU',
+      availableLanguage: ['English']
     },
-    sameAs: [
-      'https://twitter.com/pixdyne',
-      'https://linkedin.com/company/pixdyne'
-    ],
-    areaServed: {
-      '@type': 'Country',
-      name: 'Australia'
-    },
-    priceRange: '$$$',
-    foundingDate: '2024'
+    areaServed: [
+      { '@type': 'City', name: 'Melbourne' },
+      { '@type': 'AdministrativeArea', name: 'Victoria' },
+      { '@type': 'Country', name: 'Australia' }
+    ]
+    // TBD: sameAs (verified social handles), priceRange, openingHoursSpecification,
+    // aggregateRating — all pending owner confirmation. Do not invent.
   };
 }
 
@@ -90,7 +97,7 @@ export function generateBlogPostSchema(post: BlogPost) {
       name: 'Pixdyne',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://pixdyne.com/logo.png'
+        url: 'https://pixdyne.com/logo.jpeg'
       }
     },
     mainEntityOfPage: {

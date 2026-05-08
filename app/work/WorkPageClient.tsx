@@ -17,6 +17,7 @@ interface WorkPageClientProps {
 
 export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const isEmpty = caseStudies.length === 0;
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
@@ -24,7 +25,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      gsap.from('.work-card', {
+      gsap.from('.work-card, .work-empty', {
         y: 40,
         opacity: 0,
         stagger: 0.08,
@@ -32,7 +33,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
         ease: 'power3.out',
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top 80%',
+          start: 'top 80%'
         }
       });
     }, containerRef);
@@ -56,38 +57,63 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
 
         <div className="border-b border-white/20 pb-8">
           <span className="text-brand-yellow text-xs font-mono tracking-wider mb-2 block">
-            COMPLETE PORTFOLIO
+            SELECTED CASE STUDIES
           </span>
-          <h1 className="text-5xl md:text-7xl font-serif mb-4">Our Work</h1>
-          <p className="text-white/60 text-lg max-w-2xl">
-            A collection of projects that showcase our expertise in digital transformation,
-            web development, app design, and creative solutions.
+          <h1 className="text-5xl md:text-7xl font-serif italic mb-4">Our Work</h1>
+          <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
+            Selected projects from Pixdyne — websites, custom systems, and ongoing
+            operations for Melbourne SMBs. Built and operated since 2018.
           </p>
         </div>
       </div>
 
-      {/* Projects Grid */}
+      {/* Body — empty state vs. grid */}
       <div ref={containerRef} className="px-4 md:px-12 pb-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {caseStudies.map((project) => (
-            <div key={project.id} className="work-card">
-              <BentoCard
-                caseStudy={{
-                  ...project,
-                  cardSize: 'small', // Uniform size for the grid
-                }}
-                className="h-[350px]"
-              />
-            </div>
-          ))}
-        </div>
+        {isEmpty ? (
+          <div className="work-empty mx-auto max-w-2xl text-center border border-white/10 bg-white/[0.02] rounded-2xl p-10 md:p-16 mt-8">
+            <span className="text-brand-yellow text-xs font-mono tracking-widest uppercase block mb-3">
+              Coming soon
+            </span>
+            <h2 className="text-2xl md:text-3xl font-serif italic text-white mb-4 leading-tight">
+              Real client work, on the way
+            </h2>
+            <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto">
+              We are putting together a set of case studies that fairly represent
+              the work, the constraints, and the people involved. Until that is
+              ready, we would rather show nothing than show filler.
+            </p>
+            <Link
+              href="/#contact"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow font-mono text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-black transition-colors"
+            >
+              Talk to us in the meantime
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {caseStudies.map((project) => (
+              <div key={project.id} className="work-card">
+                <BentoCard
+                  caseStudy={{
+                    ...project,
+                    cardSize: 'small'
+                  }}
+                  className="h-[350px]"
+                />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Contact CTA */}
       <div className="border-t border-white/20 px-4 md:px-12 py-16 text-center">
-        <h2 className="text-3xl md:text-4xl font-serif mb-4">Have a project in mind?</h2>
+        <h2 className="text-3xl md:text-4xl font-serif italic mb-4">Have a project in mind?</h2>
         <p className="text-white/60 mb-8 max-w-xl mx-auto">
-          Let&apos;s collaborate and create something extraordinary together.
+          Send us a brief and we will come back with a scope, timeline, and quote.
         </p>
         <Link
           href="/#contact"

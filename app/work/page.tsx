@@ -3,8 +3,9 @@ import { getAllCaseStudies } from '@/lib/data/case-studies';
 import WorkPageClient from './WorkPageClient';
 
 export const metadata: Metadata = {
-  title: 'Our Work | Pixdyne Digital Alchemy',
-  description: 'Explore our portfolio of digital projects including web development, app design, SEO campaigns, and brand identity work.',
+  title: 'Our Work',
+  description:
+    'Selected case studies from Pixdyne — websites, custom systems, and ongoing operations for Melbourne SMBs since 2018.'
 };
 
 export default function WorkPage() {

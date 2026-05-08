@@ -40,7 +40,7 @@ export default function HomePage() {
         <CaseStudySection />
       </StickySection>
 
-      <StickySection id="team" zIndex={45} transitionType="curtain" className="bg-brand-light text-black" aria-label="Team">
+      <StickySection id="approach" zIndex={45} transitionType="curtain" className="bg-brand-light text-black" aria-label="How we work">
         <TeamSection />
       </StickySection>
 

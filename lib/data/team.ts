@@ -1,21 +1,12 @@
 import { TeamMember } from '@/types';
 
-export const team: TeamMember[] = [
-  {
-    name: 'Felix Y.',
-    role: 'Founder & Lead Arch',
-    img: '/people/Felix_Yu.png',
-    bio: 'Former Google engineer with 15 years of experience building scalable systems.',
-    linkedin: 'https://linkedin.com/in/felixy'
-  },
-  {
-    name: 'Edgar T.',
-    role: 'Creative Director',
-    img: '/people/Edgar_Tang.png',
-    bio: 'Award-winning designer specializing in digital brand experiences.',
-    linkedin: 'https://linkedin.com/in/edgart'
-  }
-];
+// Team identities are intentionally not published.
+// See CLAUDE.md §6 (Content Constraints, rule 1) and AGENTS.md §2.1.
+// The homepage section formerly populated from this list has been
+// repurposed as "How we work" — see components/sections/TeamSection.tsx.
+// Leave as an empty array. Do not add personal names, photos, or bios
+// without explicit owner approval.
+export const team: TeamMember[] = [];
 
 export function getAllTeamMembers(): TeamMember[] {
   return team;

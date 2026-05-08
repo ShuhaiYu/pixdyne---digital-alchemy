@@ -62,7 +62,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
           <h1 className="text-5xl md:text-7xl font-serif italic mb-4">Our Work</h1>
           <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
             Selected projects from Pixdyne — websites, custom systems, and ongoing
-            operations for Melbourne SMBs. Built and operated since 2018.
+            operations. Built and operated alongside our clients since 2018.
           </p>
         </div>
       </div>

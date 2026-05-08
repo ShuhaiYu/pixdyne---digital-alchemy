@@ -62,8 +62,8 @@ export const ContactSection: React.FC = () => {
             </div>
             <div>
               <h3 className="text-white font-bold mb-2 uppercase tracking-widest">Base</h3>
-              <p>52 Monet Drive</p>
-              <p>Truganina, VIC 3029</p>
+              <p>294 Clayton Rd</p>
+              <p>Clayton, VIC 3169</p>
             </div>
           </div>
 

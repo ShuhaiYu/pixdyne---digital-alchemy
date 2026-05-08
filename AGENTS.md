@@ -149,11 +149,15 @@ If the audit fails, do **not** silently fix and commit. Report the violations an
 
 **Good:**
 
-> Pixdyne has built and operated business systems for Melbourne SMBs since 2018 — from WordPress storefronts to NetSuite rollouts and bespoke CRMs.
+> Pixdyne has built and operated business systems since 2018 — from WordPress storefronts to NetSuite rollouts and bespoke CRMs.
 
 **Good:**
 
 > When the project ships, we don't disappear. Operations covers hosting, monitoring, SEO, and ongoing development — pick what you need.
+
+**Good (audience framing — growth narrative, not size segmentation):**
+
+> The companies we work with usually start with a website and end up running NetSuite, a custom CRM, and a handful of internal tools. We grow into that with them.
 
 **Bad (boastful):**
 
@@ -167,16 +171,27 @@ If the audit fails, do **not** silently fix and commit. Report the violations an
 
 > Our AI-augmented engineers ship features 5× faster than traditional teams.
 
+**Bad (downward audience segmentation — CLAUDE.md §6 rule 9):**
+
+> Pixdyne is the technology partner for Melbourne small and medium businesses since 2018.
+
+**Bad (engineer-only tech vocabulary — CLAUDE.md §6 rule 10):**
+
+> Our stack: Next.js 16, React Server Components, Tailwind 4, Vercel edge runtime, PostgreSQL with Prisma, Sentry monitoring, GSAP for motion.
+
 ### 3.3 Word lists
 
 **Use:**
 
 - Long-term partner / partnership
 - Built and operated / build and operate
-- Local team / Melbourne team
+- Local team / Melbourne team / Australian
 - Since 2018
 - Real client outcomes
 - AI capability for your business
+- Grow with us / grow alongside / from idea to operating system
+- Ambitious teams / growing companies / the businesses we partner with
+- Tech vocabulary your audience knows: WordPress, Shopify, Webflow, Squarespace, NetSuite, Salesforce, HubSpot, ERP, CRM, Node.js, iOS, Android, hosting, monitoring, SEO, analytics
 - Web Development / System Development / Operations / OnlyPixAI (canonical names)
 
 **Avoid:**
@@ -189,6 +204,8 @@ If the audit fails, do **not** silently fix and commit. Report the violations an
 - "24/7" claims unless we have actual 24/7 support
 - "100% satisfaction", "trusted by industry leaders", "millions of users" (unless true and provable)
 - "We are passionate about..." (filler)
+- **Downward audience segmentation (CLAUDE.md §6 rule 9):** "for SMBs", "small business", "small and medium businesses", "Melbourne SMBs", "small to medium", any size-based targeting language
+- **Engineer-only tech names in user-facing copy (CLAUDE.md §6 rule 10):** Next.js, React, Tailwind, GSAP, TypeScript, PostgreSQL, Sentry, Vercel, Cloudflare. (Fine inside CLAUDE.md, code comments, internal docs.)
 
 ### 3.4 Punctuation and formatting
 
@@ -227,6 +244,6 @@ These will be filled in as the owner provides direction. Do not act on these unt
 - `<!-- TBD: blog topic plan and writing cadence -->`
 - `<!-- TBD: top navigation structure -->`
 - `<!-- TBD: OnlyPixAI presentation on pixdyne.com -->`
-- `<!-- TBD: contact / address verification — confirm 52 Monet Drive Truganina is correct as a public address -->`
+- ~~`TBD: contact / address verification`~~ — resolved 2026-05-08, address is 294 Clayton Rd, Clayton VIC 3169.
 - `<!-- TBD: social handles — verify @pixdyne on Twitter/X and linkedin.com/company/pixdyne exist -->`
 - `<!-- TBD: testimonial / review acquisition strategy -->`

@@ -32,14 +32,14 @@ export const metadata: Metadata = {
     template: '%s | Pixdyne'
   },
   description:
-    'Melbourne technology partner for SMBs since 2018. Pixdyne builds and operates websites, custom systems and AI-enabled products — and stays with you long after launch.',
+    'Melbourne technology partner since 2018. Pixdyne builds and operates websites, custom systems, and AI-enabled products — and stays with you long after launch.',
   keywords: [
     'web development Melbourne',
     'system development Melbourne',
     'custom CRM development',
     'ERP implementation Melbourne',
     'managed IT Melbourne',
-    'technology partner SMB',
+    'long-term technology partner',
     'WordPress development Melbourne',
     'Shopify Melbourne',
     'NetSuite implementation',
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     siteName: 'Pixdyne',
     title: 'Pixdyne | Digital Alchemy',
     description:
-      'Melbourne technology partner for SMBs since 2018. Web, custom systems, ongoing operations — plus real AI capability for your business.',
+      'Melbourne technology partner since 2018. Websites, custom systems, ongoing operations — and real AI capability for your business.',
     // TBD: replace with a dedicated 1200x630 OG image generated via
     // app/opengraph-image.tsx. logo_full.jpeg (1024x1024) is a temporary
     // placeholder so social cards render instead of 404'ing.
@@ -81,7 +81,7 @@ export const metadata: Metadata = {
     card: 'summary',
     title: 'Pixdyne | Digital Alchemy',
     description:
-      'Melbourne technology partner for SMBs since 2018. Web, custom systems, operations — and real AI for your business.',
+      'Melbourne technology partner since 2018. Websites, custom systems, operations — and real AI for your business.',
     images: ['/logo_full.jpeg']
     // TBD: re-add `creator` once the @pixdyne handle on X/Twitter is verified.
   },

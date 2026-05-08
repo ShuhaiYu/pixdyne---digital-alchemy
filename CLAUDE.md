@@ -41,7 +41,7 @@ Pixdyne is a Melbourne-based IT services company that has operated since **2018*
 
 **One-line summary** (use as the anchor for all copy):
 
-> Pixdyne is a Melbourne-based long-term technology partner for SMBs. Since 2018, we have grown alongside our clients — delivering web, custom systems, and ongoing operations, and bringing real AI capability into their businesses.
+> Pixdyne is a Melbourne-based long-term technology partner. Since 2018, we have grown alongside our clients — delivering web, custom systems, and ongoing operations, and bringing real AI capability into their businesses.
 
 **Differentiation anchors:**
 
@@ -113,6 +113,8 @@ These rules override any default agent behaviour. Violating them is a blocking q
 | 6 | Geographic anchor is **Melbourne, Victoria, Australia**. Use local context where genuinely relevant. | Local SEO and customer fit. |
 | 7 | AI positioning: AI is a capability we deliver to clients, not a tool we use internally for coding. Reject any copy that frames AI as our internal accelerator. | See Section 3. |
 | 8 | When real content is missing, leave a visible placeholder (`<!-- TBD: ... -->` in code, "Coming soon" in UI) rather than fabricating. | Truthfulness. |
+| 9 | **Audience framing.** Do not segment downward in user-facing copy. Banned: "for SMBs", "small business", "small and medium businesses", "Melbourne SMBs", any phrasing that targets by company size. Audience targeting (Melbourne SMBs) is internal positioning only — see Section 4. Use growth-narrative framing instead: "businesses we partner with", "ambitious teams", "growing companies", "from idea to operating system". Local presence ("Melbourne", "Australian") is fine when it serves proximity / accessibility, never size. | Stating "we serve small businesses" reads as a low-confidence positioning. The brand goal is partnership and growth, not segmentation by client size. |
+| 10 | **Technical vocabulary in user-facing copy.** Default to vocabulary a non-technical business owner recognises. Use: WordPress, Shopify, Webflow, Squarespace, NetSuite, Salesforce, HubSpot, ERP, CRM, Node.js, iOS, Android, hosting, monitoring, SEO, analytics. Avoid (in user-facing copy): Next.js, React, Tailwind, GSAP, TypeScript, PostgreSQL, Sentry, Vercel, Cloudflare. Engineer-level vocabulary is fine in CLAUDE.md, code comments, and internal documentation. | Decision-makers shop on names they know. Engineer-only stack names register as noise to the audience. |
 
 **Visible placeholders are preferred over fabricated content.** They are a feature, not a bug — they signal to the owner what still needs filling.
 
@@ -259,7 +261,10 @@ For any non-trivial change, follow this protocol:
 - **2026-05-08** — Truth Auditor agent role accepted.
 - **2026-05-08** — Team identities, client names, and partner names: not to be published.
 - **2026-05-08** — AI positioning anchored as "capability for clients", not "internal coding tool". OnlyPixAI is the public proof.
-- **TBD** — OnlyPixAI placement strategy on pixdyne.com.
+- **2026-05-08** — Added Section 6 rules 9 (audience framing — never target downward by size in copy) and 10 (technical vocabulary — business-owner names only in user-facing copy).
+- **2026-05-08** — Office address: **294 Clayton Rd, Clayton VIC 3169** (replaces previous Truganina address).
+- **2026-05-08** — OnlyPixAI confirmed as a Unified AI API Gateway product. To be presented as the flagship product on the homepage in a dedicated section, placed mid-flow (not above the fold).
+- **2026-05-08** — Case study taxonomy direction: e-commerce sites, company / marketing sites, internal systems. Specific cases pending owner list.
 - **TBD** — Top navigation menu structure.
-- **TBD** — Case study list (pending owner-provided historical project list).
-- **TBD** — Real contact details verification (52 Monet Drive Truganina address; @pixdyne / linkedin handles).
+- **TBD** — Owner-provided historical project list per category.
+- **TBD** — Verified social handles for `sameAs` schema (@pixdyne, linkedin.com/company/pixdyne).

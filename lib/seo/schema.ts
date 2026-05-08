@@ -14,14 +14,14 @@ export function generateOrganizationSchema() {
     logo: 'https://pixdyne.com/logo.jpeg',
     image: 'https://pixdyne.com/logo_full.jpeg',
     description:
-      'Melbourne-based long-term technology partner for SMBs. Since 2018, Pixdyne has built and operated websites, custom systems, and ongoing operations for Australian businesses, and brings real AI capability into client products.',
+      'Melbourne-based long-term technology partner. Since 2018, Pixdyne has built and operated websites, custom systems, and ongoing operations for Australian businesses, and brings real AI capability into client products.',
     foundingDate: '2018',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '52 Monet Drive',
-      addressLocality: 'Truganina',
+      streetAddress: '294 Clayton Rd',
+      addressLocality: 'Clayton',
       addressRegion: 'VIC',
-      postalCode: '3029',
+      postalCode: '3169',
       addressCountry: 'AU'
     },
     contactPoint: {

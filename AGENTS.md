@@ -1,0 +1,232 @@
+# AGENTS.md
+
+> Project-level agent roster, brand voice rules, and handoff protocols for the Pixdyne marketing site.
+>
+> Companion: [`CLAUDE.md`](./CLAUDE.md) — project context, positioning, content constraints, tech stack.
+>
+> Workspace counterpart: [`../AGENTS.md`](../AGENTS.md) defines the 5-role pipeline (Analyst / Designer / Developer / QA / Orchestrator) for **building new sites** and **adding features**. This file applies to a **different problem**: optimising an existing live marketing site under strict brand and truthfulness rules. Where the two conflict, this file wins for work in this repository.
+
+---
+
+## 1. Purpose
+
+This site is a credibility surface for an IT services company that targets Melbourne SMBs. Mistakes in voice, content, or facts directly damage the business. This file defines:
+
+- Which agent does what.
+- The voice every agent must use when writing user-facing copy.
+- The hard boundaries no agent crosses without owner approval.
+- The handoff rules between agents (e.g. truth review before commit).
+
+---
+
+## 2. Agent Roster
+
+Four roles are defined for this project. They map to existing skills/agents in `~/.claude/` where applicable; otherwise they are responsibilities to assign to a general-purpose agent.
+
+### 2.1 content-agent
+
+**Owns:** All user-facing English copy.
+
+- Homepage section copy
+- Service detail page copy
+- Blog posts
+- Microcopy (buttons, form labels, error messages, navigation labels)
+- SEO meta titles and descriptions
+
+**Must always:**
+
+- Apply Brand Voice Rules (Section 3).
+- Honour Content Constraints (`CLAUDE.md` Section 6).
+- Leave visible placeholders when real content is missing rather than fabricating.
+
+**Must never:**
+
+- Publish names, photos, or bios of team members.
+- Publish specific client or partner names without owner-provided approval in the same session.
+- Invent metrics, project counts, or satisfaction percentages.
+- Reframe the AI positioning (see `CLAUDE.md` Section 3).
+
+**Ask the owner when:**
+
+- A section needs a real client logo or case study.
+- A copy decision contradicts an existing visible placeholder.
+- The brand voice or service naming would need to change to fit the surface.
+
+---
+
+### 2.2 seo-agent
+
+**Owns:**
+
+- JSON-LD schema (`lib/seo/schema.ts`)
+- Metadata in `app/**/page.tsx`
+- `robots.ts`, `sitemap.ts`
+- Local SEO assets (`LocalBusiness` schema, area served, Google Business Profile preparation)
+- GEO (generative engine optimisation) — making content discoverable to AI search engines
+
+**Must always:**
+
+- Use real content. If schema needs a logo URL, point at the actual file. If it needs an address, use the verified one.
+- Anchor location to Melbourne, VIC, AU.
+- Match schema descriptions to the live service architecture in `CLAUDE.md` Section 5.
+
+**Must never:**
+
+- Invent reviews, ratings, or aggregate scores in schema.
+- Add `sameAs` links to social handles that have not been verified to exist.
+- Use the placeholder Google Search Console verification string in production.
+
+**Ask the owner when:**
+
+- A schema field requires data that is not in `CLAUDE.md` or `lib/data/`.
+- Multiple `LocalBusiness` types fit the entity (e.g. `ProfessionalService` vs. `LocalBusiness` vs. `Organization`).
+
+---
+
+### 2.3 frontend-agent
+
+**Owns:**
+
+- All `.tsx` / `.ts` / `.css` code outside `lib/data/` and `lib/seo/`.
+- Components, layouts, animations, styles.
+- Performance optimisation, bundle size, Core Web Vitals.
+
+**Must always:**
+
+- Use brand tokens from `app/globals.css` `@theme` block — do not introduce ad-hoc colours.
+- Use `cn()` from `lib/utils.ts` for conditional classes.
+- Respect `prefers-reduced-motion`.
+- Match the existing visual language (warm dark editorial, gold accent, serif italic headlines).
+- Animate compositor-friendly properties (`transform`, `opacity`) — not layout-bound ones.
+
+**Must never:**
+
+- Add a second animation library — consolidate on GSAP.
+- Introduce dark mode or theme switching unless the owner explicitly asks.
+- Change brand tokens or fonts without owner approval.
+- Add a new `'use client'` boundary when a Server Component would suffice.
+
+**Ask the owner when:**
+
+- A change requires removing or reordering homepage sections.
+- A new dependency is needed (size > ~5 KB gzipped).
+- A new top-level route is being added.
+
+---
+
+### 2.4 truth-auditor
+
+**Owns:**
+
+- Pre-commit review of any diff that touches user-facing strings, schema, metadata, alt text, or `lib/data/*`.
+
+**Auditor checklist (block commit if any item fails):**
+
+- [ ] No invented metrics in copy or schema (e.g. `\d+\+ projects`, `\d+% satisfaction`, `24/7 support` without source).
+- [ ] No personal names introduced in `lib/data/team.ts`, copy, or alt text — except as visible TBD placeholders.
+- [ ] No specific client / partner names introduced unless explicitly approved this session.
+- [ ] No company-history claim that contradicts the 2018 anchor.
+- [ ] No AI positioning that frames AI as Pixdyne's internal coding tool.
+- [ ] Service names match the canonical four: Web Development, System Development, Operations, OnlyPixAI.
+- [ ] Geographic claims anchor to Melbourne, VIC, AU where applicable.
+- [ ] No broken asset references (e.g. `logo.png` when only `logo.jpeg` exists).
+- [ ] No live placeholder strings shipped silently (e.g. `google-site-verification-code`, raw `<!-- TBD -->` rendered in HTML).
+
+If the audit fails, do **not** silently fix and commit. Report the violations and let the owner decide how to handle each.
+
+---
+
+## 3. Brand Voice Rules (basic version — open for revision)
+
+### 3.1 Tone
+
+- **Confident, not boastful.** State what we do and what we have done. Do not claim "best", "leading", "premier", "world-class".
+- **Plain English over jargon.** Prefer "we host and monitor your site" over "we provide enterprise-grade observability solutions".
+- **Specific over vague.** "Since 2018" beats "many years". "WordPress, Shopify, NetSuite, custom CRM" beats "any tech stack".
+- **Local without being parochial.** Reference Melbourne / Victoria where it adds trust; do not stuff "Melbourne" into every sentence.
+
+### 3.2 Voice samples
+
+**Good:**
+
+> Pixdyne has built and operated business systems for Melbourne SMBs since 2018 — from WordPress storefronts to NetSuite rollouts and bespoke CRMs.
+
+**Good:**
+
+> When the project ships, we don't disappear. Operations covers hosting, monitoring, SEO, and ongoing development — pick what you need.
+
+**Bad (boastful):**
+
+> Pixdyne is Melbourne's premier digital alchemy studio, transforming visions into world-class experiences.
+
+**Bad (jargon):**
+
+> We leverage cutting-edge AI-driven solutions to synergise cross-functional digital initiatives.
+
+**Bad (AI positioning wrong):**
+
+> Our AI-augmented engineers ship features 5× faster than traditional teams.
+
+### 3.3 Word lists
+
+**Use:**
+
+- Long-term partner / partnership
+- Built and operated / build and operate
+- Local team / Melbourne team
+- Since 2018
+- Real client outcomes
+- AI capability for your business
+- Web Development / System Development / Operations / OnlyPixAI (canonical names)
+
+**Avoid:**
+
+- "World-class", "premier", "leading", "best-in-class", "industry-leading"
+- "Digital alchemy" leaned on as a value proposition (it is a wordmark, not a benefit)
+- "Cutting-edge", "state-of-the-art", "next-generation", "revolutionary"
+- "Synergise", "leverage" (verb form), "ideate", "ecosystem"
+- "AI-powered coding", "AI-augmented development", "vibe coding"
+- "24/7" claims unless we have actual 24/7 support
+- "100% satisfaction", "trusted by industry leaders", "millions of users" (unless true and provable)
+- "We are passionate about..." (filler)
+
+### 3.4 Punctuation and formatting
+
+- **Australian English** spelling (organise, optimise, colour, behaviour) — site is targeting AU.
+- Sentence case for headings; Title Case only for proper nouns and brand names.
+- Em dashes for breaks in thought (`—`), Oxford commas in lists.
+- No exclamation marks in body copy.
+
+---
+
+## 4. Handoff Rules
+
+- **content-agent → truth-auditor:** Every content diff must be reviewed before commit. The auditor is mandatory, not optional.
+- **seo-agent → truth-auditor:** Same — schema and metadata are content.
+- **frontend-agent → content-agent:** When code changes a string (button label, alt text, fallback text), the content-agent must review the new string. Do not ship strings invented by frontend-agent.
+- **truth-auditor → owner:** When a violation is found, surface it to the owner with the specific lines flagged. Do not auto-correct fabricated content; flag it.
+
+---
+
+## 5. Quality Gates (before commit)
+
+- [ ] `npm run build` passes.
+- [ ] `npm run lint` passes (or warnings explicitly acknowledged).
+- [ ] truth-auditor checklist passes.
+- [ ] No `console.log` introduced.
+- [ ] No new placeholder strings shipped to the user-facing surface.
+- [ ] Conventional Commit message written.
+
+---
+
+## 6. Open Items (TBD)
+
+These will be filled in as the owner provides direction. Do not act on these until they are settled.
+
+- `<!-- TBD: real case study list (titles, dates, scope) — pending from owner -->`
+- `<!-- TBD: blog topic plan and writing cadence -->`
+- `<!-- TBD: top navigation structure -->`
+- `<!-- TBD: OnlyPixAI presentation on pixdyne.com -->`
+- `<!-- TBD: contact / address verification — confirm 52 Monet Drive Truganina is correct as a public address -->`
+- `<!-- TBD: social handles — verify @pixdyne on Twitter/X and linkedin.com/company/pixdyne exist -->`
+- `<!-- TBD: testimonial / review acquisition strategy -->`

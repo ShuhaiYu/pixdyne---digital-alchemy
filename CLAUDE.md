@@ -115,6 +115,18 @@ These rules override any default agent behaviour. Violating them is a blocking q
 | 8 | When real content is missing, leave a visible placeholder (`<!-- TBD: ... -->` in code, "Coming soon" in UI) rather than fabricating. | Truthfulness. |
 | 9 | **Audience framing.** Do not segment downward in user-facing copy. Banned: "for SMBs", "small business", "small and medium businesses", "Melbourne SMBs", any phrasing that targets by company size. Audience targeting (Melbourne SMBs) is internal positioning only — see Section 4. Use growth-narrative framing instead: "businesses we partner with", "ambitious teams", "growing companies", "from idea to operating system". Local presence ("Melbourne", "Australian") is fine when it serves proximity / accessibility, never size. | Stating "we serve small businesses" reads as a low-confidence positioning. The brand goal is partnership and growth, not segmentation by client size. |
 | 10 | **Technical vocabulary in user-facing copy.** Default to vocabulary a non-technical business owner recognises. Use: WordPress, Shopify, Webflow, Squarespace, NetSuite, Salesforce, HubSpot, ERP, CRM, Node.js, iOS, Android, hosting, monitoring, SEO, analytics. Avoid (in user-facing copy): Next.js, React, Tailwind, GSAP, TypeScript, PostgreSQL, Sentry, Vercel, Cloudflare. Engineer-level vocabulary is fine in CLAUDE.md, code comments, and internal documentation. | Decision-makers shop on names they know. Engineer-only stack names register as noise to the audience. |
+| 11 | **Template boilerplate residue.** This codebase started from an agency template that ships pre-populated with US-coded placeholders. Audit and remove every variant of (a)–(f) before any commit, and treat the canonical answer column as the only acceptable replacement. | Boilerplate residue looks plausible and ship-ready, which is exactly why it causes the most damage when wrong. Several variants were only caught after live preview during the May 2026 audit. |
+
+#### Rule 11 detail — canonical replacements
+
+| Pattern (banned) | Canonical replacement |
+|------------------|----------------------|
+| (a) Fake office / city tags ("SFO · NYC · LND", "Offices in N cities") | "Melbourne · Australia". Pixdyne is single-location. |
+| (b) US legal entity suffixes ("Inc.", "LLC") | "Pixdyne · ABN 96 690 116 584". Pixdyne has no US incorporation. |
+| (c) Non-Australian governing law in legal pages (e.g. California, Delaware, England & Wales) | State of Victoria, Australia, with non-exclusive jurisdiction in Victorian courts. |
+| (d) Hardcoded copyright years (`© 2024`, `© 2025`) | `© {new Date().getFullYear()}`. Auto-updating, never rots. |
+| (e) Multiple departmental email addresses (`privacy@`, `legal@`, `hello@`, `support@`) | Only `info@pixdyne.com` is published. Do not invent mailboxes. |
+| (f) Fabricated industry coverage ("trusted by industry leaders across finance, tech, and healthcare") | Either omit, or describe what we actually deliver in plain prose. See rule 8 (placeholders preferred over fabrications). |
 
 **Visible placeholders are preferred over fabricated content.** They are a feature, not a bug — they signal to the owner what still needs filling.
 
@@ -265,6 +277,8 @@ For any non-trivial change, follow this protocol:
 - **2026-05-08** — Office address: **294 Clayton Rd, Clayton VIC 3169** (replaces previous Truganina address).
 - **2026-05-08** — OnlyPixAI confirmed as a Unified AI API Gateway product. To be presented as the flagship product on the homepage in a dedicated section, placed mid-flow (not above the fold).
 - **2026-05-08** — Case study taxonomy direction: e-commerce sites, company / marketing sites, internal systems. Specific cases pending owner list.
+- **2026-05-09** — Added Section 6 rule 11 (template boilerplate residue audit) after live preview surfaced six categories of US-coded placeholders (fake offices "SFO · NYC · LND", "Pixdyne Inc." entity suffix, California governing law, hardcoded © 2024, fake departmental emails like privacy@ / legal@, fabricated "trusted by industry leaders" claims). Canonical replacements documented in rule 11 detail table.
+- **2026-05-09** — Published business identity: **Pixdyne · ABN 96 690 116 584**. Single contact email: **info@pixdyne.com**. Locality anchor: **Melbourne · Australia**. Governing law: **State of Victoria**. These are the only acceptable values for the corresponding surfaces.
 - **TBD** — Top navigation menu structure.
 - **TBD** — Owner-provided historical project list per category.
 - **TBD** — Verified social handles for `sameAs` schema (@pixdyne, linkedin.com/company/pixdyne).

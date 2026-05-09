@@ -122,6 +122,8 @@ Four roles are defined for this project. They map to existing skills/agents in `
 
 **Auditor checklist (block commit if any item fails):**
 
+Existing rules:
+
 - [ ] No invented metrics in copy or schema (e.g. `\d+\+ projects`, `\d+% satisfaction`, `24/7 support` without source).
 - [ ] No personal names introduced in `lib/data/team.ts`, copy, or alt text — except as visible TBD placeholders.
 - [ ] No specific client / partner names introduced unless explicitly approved this session.
@@ -131,6 +133,17 @@ Four roles are defined for this project. They map to existing skills/agents in `
 - [ ] Geographic claims anchor to Melbourne, VIC, AU where applicable.
 - [ ] No broken asset references (e.g. `logo.png` when only `logo.jpeg` exists).
 - [ ] No live placeholder strings shipped silently (e.g. `google-site-verification-code`, raw `<!-- TBD -->` rendered in HTML).
+- [ ] No "for SMBs" / "small business" framing in user-facing copy (CLAUDE.md rule 9).
+- [ ] No engineer-only tech names in user-facing copy (Next.js, React, Tailwind, GSAP, TypeScript, PostgreSQL, Sentry, Vercel, Cloudflare) — CLAUDE.md rule 10.
+
+Boilerplate residue (CLAUDE.md rule 11):
+
+- [ ] No fake office / city tags ("SFO · NYC · LND", "Offices in N cities", or any city other than Melbourne).
+- [ ] No US legal entity suffixes ("Inc.", "LLC", "Corp."). Identity string is "Pixdyne · ABN 96 690 116 584".
+- [ ] Legal pages: governing law is the State of Victoria, Australia. No California, Delaware, England & Wales, or any non-Australian jurisdiction.
+- [ ] No hardcoded copyright years (`© 2024`, `© 2025`). Use `{new Date().getFullYear()}`.
+- [ ] Single-email policy: only `info@pixdyne.com` appears in user-facing copy. No `privacy@`, `legal@`, `hello@`, `support@`, or any departmental mailbox.
+- [ ] No fabricated industry coverage statements ("trusted by industry leaders across finance, tech, and healthcare", "powering digital infrastructure for X across Y").
 
 If the audit fails, do **not** silently fix and commit. Report the violations and let the owner decide how to handle each.
 
@@ -178,6 +191,12 @@ If the audit fails, do **not** silently fix and commit. Report the violations an
 **Bad (engineer-only tech vocabulary — CLAUDE.md §6 rule 10):**
 
 > Our stack: Next.js 16, React Server Components, Tailwind 4, Vercel edge runtime, PostgreSQL with Prisma, Sentry monitoring, GSAP for motion.
+
+**Bad (boilerplate residue — CLAUDE.md §6 rule 11). Six template-shaped patterns to reject on sight:**
+
+> Pixdyne Inc. · SFO · NYC · LND.
+> © 2024 Pixdyne. Trusted by industry leaders across finance, tech, and healthcare.
+> For privacy enquiries, email privacy@pixdyne.com. These terms are governed by the State of California.
 
 ### 3.3 Word lists
 

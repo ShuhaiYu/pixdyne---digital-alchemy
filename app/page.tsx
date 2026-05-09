@@ -5,6 +5,7 @@ import { ServicesSection } from '@/components/sections/ServicesSection';
 import { ProcessSection } from '@/components/sections/ProcessSection';
 import { CaseStudySection } from '@/components/sections/CaseStudySection';
 import { TeamSection } from '@/components/sections/TeamSection';
+import { OnlyPixAISection } from '@/components/sections/OnlyPixAISection';
 import { BlogSection } from '@/components/sections/BlogSection';
 import { ContactSection } from '@/components/sections/ContactSection';
 
@@ -42,6 +43,10 @@ export default function HomePage() {
 
       <StickySection id="approach" zIndex={45} transitionType="curtain" className="bg-brand-light text-black" aria-label="How we work">
         <TeamSection />
+      </StickySection>
+
+      <StickySection id="onlypixai" zIndex={47} transitionType="curtain" className="bg-brand-black" aria-label="OnlyPixAI flagship product">
+        <OnlyPixAISection />
       </StickySection>
 
       <StickySection id="insights" zIndex={48} transitionType="curtain" className="bg-white text-black" aria-label="Blog and insights">

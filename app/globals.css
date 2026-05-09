@@ -114,6 +114,19 @@ body {
   opacity: 1;
 }
 
+/* OnlyPixAI orbit — provider logos render as white silhouettes around a
+   central wordmark, then reveal their source brand colour when the
+   wrapping card is hovered. Used by OnlyPixAISection. */
+.opx-orbit-logo img {
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
+  transition: filter 0.35s ease, opacity 0.35s ease;
+}
+.opx-orbit-logo:hover img {
+  filter: none;
+  opacity: 1;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

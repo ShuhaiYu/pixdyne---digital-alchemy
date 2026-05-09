@@ -1,0 +1,220 @@
+'use client';
+
+// OnlyPixAI flagship-product section. Editorial layout on dark warm
+// background with a subtle Aurora glow, plus an orbit visual showing the
+// AI providers OnlyPixAI gates onto. Reinforces CLAUDE.md section 3 AI
+// positioning: capability we deliver to clients, not a tool we use to code.
+//
+// Placement on the homepage: between "How we work" (z-index 45) and
+// "Insights" (z-index 48), at z-index 47. Designed to land mid-flow,
+// not above the fold.
+
+import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import Link from 'next/link';
+import gsap from 'gsap';
+import ScrollTrigger from 'gsap/ScrollTrigger';
+import { ArrowUpRight } from 'lucide-react';
+import Aurora from '@/components/Aurora';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
+interface OrbitLogo {
+  src: string;
+  alt: string;
+}
+
+const orbitLogos: OrbitLogo[] = [
+  { src: '/logos/openai.svg', alt: 'OpenAI' },
+  { src: '/logos/anthropic.svg', alt: 'Claude (Anthropic)' },
+  { src: '/logos/googlegemini.svg', alt: 'Google Gemini' },
+  { src: '/logos/cloudflare.svg', alt: 'Cloudflare' },
+  { src: '/logos/aws.svg', alt: 'AWS' },
+  { src: '/logos/googlecloud.svg', alt: 'Google Cloud' }
+];
+
+export const OnlyPixAISection: React.FC = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const orbitRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const section = sectionRef.current;
+    const orbit = orbitRef.current;
+    if (!section) return;
+
+    if (isMobile) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            const targets = section.querySelectorAll('.opx-anim');
+            gsap.from(targets, {
+              y: 30,
+              opacity: 0,
+              stagger: 0.08,
+              duration: 0.7,
+              ease: 'power3.out'
+            });
+            observer.unobserve(section);
+          }
+        },
+        { threshold: 0.1 }
+      );
+      observer.observe(section);
+      return () => observer.disconnect();
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+    const ctx = gsap.context(() => {
+      gsap.from('.opx-anim', {
+        y: 40,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: 'power3.out',
+        scrollTrigger: { trigger: section, start: 'top 70%' }
+      });
+
+      // Slow continuous rotation on the outer orbit ring. Counter-rotation
+      // is applied per-logo via inline transform so the logos themselves
+      // stay upright.
+      if (orbit) {
+        gsap.to(orbit, {
+          rotation: 360,
+          duration: 60,
+          ease: 'none',
+          repeat: -1
+        });
+      }
+    }, sectionRef);
+    return () => ctx.revert();
+  }, [isMobile]);
+
+  const orbitRadius = isMobile ? 120 : 170;
+  const orbitTileSize = isMobile ? 48 : 60;
+
+  return (
+    <div
+      ref={sectionRef}
+      className="relative w-full min-h-screen flex items-center bg-brand-black text-white overflow-hidden"
+    >
+      {/* Aurora glow — gold + indigo + steel, evoking multi-model AI without
+          looking like a generic gradient. Hidden on mobile to save GPU. */}
+      {!isMobile && (
+        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
+          <Aurora
+            colorStops={['#C8962A', '#5C4DDD', '#1B71B5']}
+            speed={0.3}
+            amplitude={0.9}
+            blend={0.5}
+          />
+        </div>
+      )}
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-24 grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-20 items-center">
+        {/* Left — editorial copy */}
+        <div className="space-y-6">
+          <span className="opx-anim font-mono text-xs font-bold text-brand-yellow tracking-widest uppercase block">
+            From the Pixdyne workshop
+          </span>
+          <h2 className="opx-anim text-5xl md:text-6xl lg:text-7xl font-serif italic leading-none">
+            OnlyPixAI
+          </h2>
+          <p className="opx-anim text-2xl md:text-3xl font-serif italic text-brand-yellow leading-tight">
+            One gateway.
+            <br />
+            Every AI model.
+          </p>
+          <div className="opx-anim space-y-4 text-white/70 text-base md:text-lg leading-relaxed max-w-xl">
+            <p>
+              Most teams want to put AI inside their business but stall at the
+              integration tax: separate accounts, separate keys, separate
+              bills, and a different SDK for every vendor. OnlyPixAI is one
+              API for OpenAI, Claude, Gemini, and the open models — billed
+              once, switchable any time.
+            </p>
+            <p>
+              We ship and operate it ourselves. It is the proof — not the
+              promise — that we can put AI capability into your business in a
+              way your team can actually use.
+            </p>
+          </div>
+          <div className="opx-anim flex flex-col sm:flex-row gap-4 pt-4">
+            <a
+              href="https://www.onlypixai.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 bg-brand-yellow text-black font-bold py-4 px-8 uppercase tracking-widest text-xs hover:bg-white transition-colors"
+            >
+              Visit OnlyPixAI
+              <ArrowUpRight size={18} />
+            </a>
+            <Link
+              href="/services/onlypixai"
+              className="inline-flex items-center justify-center gap-2 border border-white/30 text-white font-mono text-xs uppercase tracking-widest py-4 px-8 hover:border-brand-yellow hover:text-brand-yellow transition-colors"
+            >
+              How we use it for clients
+            </Link>
+          </div>
+        </div>
+
+        {/* Right — orbit visual */}
+        <div className="opx-anim relative h-[360px] md:h-[480px] flex items-center justify-center">
+          {/* Decorative concentric rings (static) */}
+          <div className="absolute w-[260px] h-[260px] md:w-[380px] md:h-[380px] rounded-full border border-white/10" />
+          <div className="absolute w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-full border border-brand-yellow/20" />
+
+          {/* Centre wordmark — derived from the OnlyPixAI service.number = 'PX' */}
+          <div className="relative z-10 text-center pointer-events-none">
+            <div className="text-3xl md:text-4xl font-serif italic text-brand-yellow leading-none">
+              PX
+            </div>
+            <div className="text-[0.625rem] md:text-xs font-mono text-white/60 tracking-widest mt-1 uppercase">
+              Gateway
+            </div>
+          </div>
+
+          {/* Rotating orbit container — counter-rotates each logo so logos
+              themselves stay upright. */}
+          <div
+            ref={orbitRef}
+            className="absolute inset-0 flex items-center justify-center"
+            aria-hidden="true"
+          >
+            {orbitLogos.map((logo, i) => {
+              const angle = (i / orbitLogos.length) * 360;
+              return (
+                <div
+                  key={logo.alt}
+                  className="opx-orbit-logo absolute rounded-full bg-brand-surface/80 border border-white/10 backdrop-blur-sm flex items-center justify-center hover:border-brand-yellow/50 transition-colors"
+                  style={{
+                    width: orbitTileSize,
+                    height: orbitTileSize,
+                    transform: `rotate(${angle}deg) translateX(${orbitRadius}px) rotate(-${angle}deg)`
+                  }}
+                  title={logo.alt}
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className="w-2/3 h-2/3 object-contain"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

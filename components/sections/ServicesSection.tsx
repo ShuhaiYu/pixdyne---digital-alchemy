@@ -228,21 +228,25 @@ export const ServicesSection: React.FC = () => {
                       href={service.externalUrl ?? 'https://www.onlypixai.com/'}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors"
+                      className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors pointer-events-auto"
                       aria-label={`Visit ${service.title} (opens in new tab)`}
                     >
                       Visit {service.title}
                       <ArrowUpRight size={14} aria-hidden="true" />
                     </a>
                   ) : (
-                    <Link
-                      href="/#contact"
-                      className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors"
+                    // Native <a> rather than next/link Link: same-page hash
+                    // anchors via App Router can fail to trigger the browser's
+                    // native scroll because Next intercepts the click. <a>
+                    // gives us guaranteed in-page scroll-to-id behaviour.
+                    <a
+                      href="#contact"
+                      className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors pointer-events-auto"
                       aria-label={`Get in touch about ${service.title}`}
                     >
                       Get in touch
                       <ArrowRight size={14} aria-hidden="true" />
-                    </Link>
+                    </a>
                   )}
                 </SpotlightCard>
               );

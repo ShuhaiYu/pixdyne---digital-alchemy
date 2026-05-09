@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { LogoLoop } from '@/components/LogoLoop';
+import { LogoLoop, type LogoItem } from '@/components/LogoLoop';
 
 // Platform marquee. Honest framing: these are the platforms Pixdyne
 // builds and operates on, not customers we are claiming. See CLAUDE.md
@@ -44,10 +44,31 @@ const logos = [
 
 // Visual treatment is defined in globals.css under .platform-marquee /
 // .platform-marquee--secondary. Each <img> renders white by default and
-// reveals its source brand colour when individually hovered.
+// reveals its source brand colour when its wrapping .logo-tile is
+// hovered. The custom renderItem (renderLogoTile) is essential — the
+// LogoLoop default <img> carries pointer-events:none, so we wrap the
+// img in a .logo-tile span that does receive pointer events.
 const logoLoopClasses = 'platform-marquee md:[&_img]:h-12 [&_img]:h-9';
 const logoLoopClassesSecondary =
   'platform-marquee--secondary md:[&_img]:h-8 [&_img]:h-6';
+
+const renderLogoTile = (item: LogoItem) => {
+  // Only the {src, alt} variant is used in this section.
+  if ('node' in item) return item.node as React.ReactNode;
+  return (
+    <span className="logo-tile inline-flex items-center cursor-default">
+      <img
+        src={item.src}
+        alt={item.alt ?? ''}
+        title={item.title ?? item.alt}
+        className="h-[var(--logoloop-logoHeight)] w-auto block object-contain"
+        loading="lazy"
+        decoding="async"
+        draggable={false}
+      />
+    </span>
+  );
+};
 
 export const ClientLogosSection: React.FC = () => {
   return (
@@ -72,6 +93,7 @@ export const ClientLogosSection: React.FC = () => {
           fadeOut
           fadeOutColor="var(--color-brand-surface)"
           className={logoLoopClasses}
+          renderItem={renderLogoTile}
         />
       </div>
 
@@ -86,6 +108,7 @@ export const ClientLogosSection: React.FC = () => {
           fadeOut
           fadeOutColor="var(--color-brand-surface)"
           className={logoLoopClassesSecondary}
+          renderItem={renderLogoTile}
         />
       </div>
 

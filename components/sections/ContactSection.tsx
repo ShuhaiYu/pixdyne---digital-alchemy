@@ -165,10 +165,19 @@ export const ContactSection: React.FC = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-6 w-full left-0 px-8 md:px-12 flex justify-between text-xs font-mono text-brand-muted uppercase">
-        <Link href="/legal/privacy" className="hover:text-brand-yellow-hover transition-colors hidden md:inline">Privacy Policy</Link>
-        <Link href="/legal/terms" className="hover:text-brand-yellow-hover transition-colors hidden md:inline">Terms of Service</Link>
-        <span className="ml-auto">© 2024 Pixdyne Inc.</span>
+      <div className="absolute bottom-6 w-full left-0 px-8 md:px-12 flex flex-wrap items-center justify-between gap-y-2 text-xs font-mono text-brand-muted uppercase">
+        <div className="hidden md:flex items-center gap-3">
+          <Link href="/legal/privacy" className="hover:text-brand-yellow-hover transition-colors">
+            Privacy Policy
+          </Link>
+          <span aria-hidden="true" className="text-brand-muted/40">·</span>
+          <Link href="/legal/terms" className="hover:text-brand-yellow-hover transition-colors">
+            Terms of Service
+          </Link>
+        </div>
+        <span className="ml-auto">
+          © {new Date().getFullYear()} Pixdyne · ABN 96 690 116 584
+        </span>
       </div>
     </div>
   );

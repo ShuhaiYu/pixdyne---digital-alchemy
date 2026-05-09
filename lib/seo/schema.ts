@@ -16,6 +16,10 @@ export function generateOrganizationSchema() {
     description:
       'Melbourne-based long-term technology partner. Since 2018, Pixdyne has built and operated websites, custom systems, and ongoing operations for Australian businesses, and brings real AI capability into client products.',
     foundingDate: '2018',
+    // Australian Business Number (ABN). Schema.org `taxID` is the
+    // closest standard property; consumers tolerant of free-text values
+    // surface it correctly.
+    taxID: 'ABN 96 690 116 584',
     address: {
       '@type': 'PostalAddress',
       streetAddress: '294 Clayton Rd',

@@ -188,8 +188,8 @@ export const Navigation: React.FC = () => {
         </div>
 
         <div className="absolute bottom-10 w-full px-10 flex justify-between text-white/50 text-xs uppercase tracking-widest">
-          <span>Pixdyne © 2024</span>
-          <span>SFO • NYC • LND</span>
+          <span>Pixdyne © {new Date().getFullYear()}</span>
+          <span>Melbourne · Australia</span>
         </div>
       </div>
     </>

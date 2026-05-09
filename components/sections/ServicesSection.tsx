@@ -4,6 +4,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { getAllServices } from '@/lib/data/services';
 import { brandRGB } from '@/lib/brand';
 import CountUp from '@/components/CountUp';
@@ -111,9 +112,11 @@ export const ServicesSection: React.FC = () => {
           >
             {services.map((service, index) => {
               const isProduct = service.tier === 'product';
-              const tagLabel = isProduct
-                ? 'Product'
-                : service.price ?? 'Get a quote';
+              // Show the top-right tag only when there is something
+              // informative to put there (a real price or the Product
+              // badge). Services without a published price intentionally
+              // render no tag rather than a dead "Get a quote" pseudo-button.
+              const passiveTag = isProduct ? 'Product' : service.price ?? null;
               return (
                 <SpotlightCard
                   key={service.id}
@@ -121,6 +124,9 @@ export const ServicesSection: React.FC = () => {
                   className={`service-item group flex-shrink-0 flex flex-col justify-center p-6 sm:p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer ${isMobile ? 'w-full min-h-[70vh]' : 'h-full'}`}
                   style={isMobile ? undefined : { width: 'calc(66.67vw)' }}
                 >
+                  {/* Card-wide click target sends the visitor to the detail
+                      page. The bottom-right CTA below sits at z-30 above
+                      this Link, so clicking the CTA goes to its own href. */}
                   <Link
                     href={`/services/${service.slug}`}
                     className="absolute inset-0 z-20"
@@ -139,9 +145,14 @@ export const ServicesSection: React.FC = () => {
                           {service.title}
                         </h3>
                       </div>
-                      <span className={`font-mono text-xs sm:text-sm px-2 sm:px-3 py-1.5 rounded group-hover:bg-brand-yellow-hover group-hover:text-black group-hover:border-brand-yellow-hover transition-all w-fit border ${isProduct ? 'border-brand-yellow/60 text-brand-yellow' : 'border-white/20 text-white/50'}`}>
-                        {tagLabel}
-                      </span>
+                      {passiveTag && (
+                        <span
+                          className={`font-mono text-xs sm:text-sm px-2 sm:px-3 py-1.5 rounded transition-colors w-fit border ${isProduct ? 'border-brand-yellow/60 text-brand-yellow' : 'border-white/20 text-white/60'}`}
+                          aria-hidden="true"
+                        >
+                          {passiveTag}
+                        </span>
+                      )}
                     </div>
 
                     {/* Description */}
@@ -197,7 +208,7 @@ export const ServicesSection: React.FC = () => {
 
                   </div>
 
-                  {/* Progress indicator */}
+                  {/* Progress indicator (bottom-left) */}
                   <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-12 flex items-center gap-2">
                     <span className="text-xs font-mono text-white/30">
                       {String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
@@ -209,6 +220,30 @@ export const ServicesSection: React.FC = () => {
                       />
                     </div>
                   </div>
+
+                  {/* Primary CTA (bottom-right). z-30 sits above the
+                      card-wide Link at z-20, so this captures its own click. */}
+                  {isProduct ? (
+                    <a
+                      href={service.externalUrl ?? 'https://www.onlypixai.com/'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors"
+                      aria-label={`Visit ${service.title} (opens in new tab)`}
+                    >
+                      Visit {service.title}
+                      <ArrowUpRight size={14} aria-hidden="true" />
+                    </a>
+                  ) : (
+                    <Link
+                      href="/#contact"
+                      className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors"
+                      aria-label={`Get in touch about ${service.title}`}
+                    >
+                      Get in touch
+                      <ArrowRight size={14} aria-hidden="true" />
+                    </Link>
+                  )}
                 </SpotlightCard>
               );
             })}

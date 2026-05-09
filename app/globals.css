@@ -91,27 +91,17 @@ body {
   display: none;
 }
 
-/* Platform marquee — monochrome white default, brand-colour on hover.
-   Used by ClientLogosSection. Filter is moved here from Tailwind
-   arbitrary selectors to ensure the descendant `img:hover` rule is
-   reliably emitted across the LogoLoop's nested DOM. */
+/* Platform marquee — monochrome white silhouettes for a uniform look
+   across coloured and monochrome source SVGs. The hover-to-colour
+   variant was removed after live testing showed it did not fire
+   reliably through the LogoLoop's nested duplicated nodes. */
 .platform-marquee img {
   filter: brightness(0) invert(1);
   opacity: 0.7;
-  transition: filter 0.35s ease, opacity 0.35s ease;
-}
-.platform-marquee img:hover {
-  filter: none;
-  opacity: 1;
 }
 .platform-marquee--secondary img {
   filter: brightness(0) invert(1);
   opacity: 0.5;
-  transition: filter 0.35s ease, opacity 0.35s ease;
-}
-.platform-marquee--secondary img:hover {
-  filter: none;
-  opacity: 1;
 }
 
 /* OnlyPixAI orbit — provider logos render as white silhouettes around a

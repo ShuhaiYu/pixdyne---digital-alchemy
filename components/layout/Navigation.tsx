@@ -123,9 +123,9 @@ export const Navigation: React.FC = () => {
       >
         <Link href="/" className="flex items-center gap-4 group">
           <img
-            src="/logo.jpeg"
+            src="/logo.png"
             alt="Pixdyne"
-            className="w-10 h-10 object-cover"
+            className="w-10 h-10 object-contain"
           />
           <span className="text-xl font-bold tracking-widest hidden sm:block">PIXDYNE</span>
         </Link>

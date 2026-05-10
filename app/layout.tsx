@@ -67,13 +67,14 @@ export const metadata: Metadata = {
     title: 'Pixdyne | Digital Alchemy',
     description:
       'Melbourne technology partner since 2018. Websites, custom systems, ongoing operations — and real AI capability for your business.',
-    // TBD: replace with a dedicated 1200x630 OG image generated via
-    // app/opengraph-image.tsx. logo_full.jpeg (1024x1024) is a temporary
-    // placeholder so social cards render instead of 404'ing.
+    // og-image.png is a 1080x1080 branded social card from the
+    // pxidyne asset kit. TBD: produce a dedicated 1200x630 landscape
+    // version via app/opengraph-image.tsx for platforms that prefer
+    // landscape (Twitter summary_large_image, etc.).
     images: [{
-      url: '/logo_full.jpeg',
-      width: 1024,
-      height: 1024,
+      url: '/og-image.png',
+      width: 1080,
+      height: 1080,
       alt: 'Pixdyne'
     }]
   },
@@ -82,7 +83,7 @@ export const metadata: Metadata = {
     title: 'Pixdyne | Digital Alchemy',
     description:
       'Melbourne technology partner since 2018. Websites, custom systems, operations — and real AI for your business.',
-    images: ['/logo_full.jpeg']
+    images: ['/og-image.png']
     // TBD: re-add `creator` once the @pixdyne handle on X/Twitter is verified.
   },
   robots: {

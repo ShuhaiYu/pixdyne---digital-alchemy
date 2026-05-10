@@ -11,8 +11,12 @@ export function generateOrganizationSchema() {
     '@id': 'https://pixdyne.com/#organization',
     name: 'Pixdyne',
     url: 'https://pixdyne.com',
-    logo: 'https://pixdyne.com/logo.jpeg',
-    image: 'https://pixdyne.com/logo_full.jpeg',
+    // Schema-facing logo: solid-background variant so the mark stays
+    // visible on Google's white search-result panel. The transparent
+    // inverted-white logo used on the dark site itself would disappear
+    // there.
+    logo: 'https://pixdyne.com/logo-mark.png',
+    image: 'https://pixdyne.com/og-image.png',
     description:
       'Melbourne-based long-term technology partner. Since 2018, Pixdyne has built and operated websites, custom systems, and ongoing operations for Australian businesses, and brings real AI capability into client products.',
     foundingDate: '2018',
@@ -117,7 +121,7 @@ export function generateBlogPostSchema(post: BlogPost) {
       name: 'Pixdyne',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://pixdyne.com/logo.jpeg'
+        url: 'https://pixdyne.com/logo-mark.png'
       }
     },
     mainEntityOfPage: {

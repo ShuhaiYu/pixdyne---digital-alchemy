@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   // TBD: per-service OG images at /og/services/${slug}.jpg are not yet
-  // produced. Falling back to the site-wide logo so social cards render
-  // instead of 404'ing. Replace once an OG generator is in place.
+  // produced. Falling back to the site-wide og-image.png (1080x1080
+  // branded social card) so cards render instead of 404'ing.
   return {
     title: service.seoTitle || service.title,
     description: service.seoDescription || service.description,
@@ -35,9 +35,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: service.description,
       url: `https://pixdyne.com/services/${slug}`,
       images: [{
-        url: '/logo_full.jpeg',
-        width: 1024,
-        height: 1024,
+        url: '/og-image.png',
+        width: 1080,
+        height: 1080,
         alt: `${service.title} — Pixdyne`
       }]
     },

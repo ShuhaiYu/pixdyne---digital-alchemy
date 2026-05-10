@@ -23,15 +23,23 @@ if (typeof window !== 'undefined') {
 interface OrbitLogo {
   src: string;
   alt: string;
+  // Short consumer-facing model name shown in the legend below the
+  // orbit. The owner asked for names a non-technical decision-maker
+  // would recognise (e.g. "Claude" rather than "Anthropic").
+  label: string;
 }
 
+// Mainstream AI model providers OnlyPixAI gates onto. Curated to AI
+// models specifically (per owner direction) — cloud infrastructure
+// providers were removed because OnlyPixAI is sold as a model
+// gateway, not an infrastructure middleware.
 const orbitLogos: OrbitLogo[] = [
-  { src: '/logos/openai.svg', alt: 'OpenAI' },
-  { src: '/logos/anthropic.svg', alt: 'Claude (Anthropic)' },
-  { src: '/logos/googlegemini.svg', alt: 'Google Gemini' },
-  { src: '/logos/cloudflare.svg', alt: 'Cloudflare' },
-  { src: '/logos/aws.svg', alt: 'AWS' },
-  { src: '/logos/googlecloud.svg', alt: 'Google Cloud' }
+  { src: '/logos/openai.svg', alt: 'OpenAI', label: 'ChatGPT' },
+  { src: '/logos/anthropic.svg', alt: 'Anthropic', label: 'Claude' },
+  { src: '/logos/googlegemini.svg', alt: 'Google Gemini', label: 'Gemini' },
+  { src: '/logos/grok.svg', alt: 'xAI', label: 'Grok' },
+  { src: '/logos/deepseek.svg', alt: 'DeepSeek', label: 'DeepSeek' },
+  { src: '/logos/mistral.svg', alt: 'Mistral AI', label: 'Mistral' }
 ];
 
 export const OnlyPixAISection: React.FC = () => {
@@ -168,50 +176,74 @@ export const OnlyPixAISection: React.FC = () => {
           </div>
         </div>
 
-        {/* Right — orbit visual */}
-        <div className="opx-anim relative h-[360px] md:h-[480px] flex items-center justify-center">
-          {/* Decorative concentric rings (static) */}
-          <div className="absolute w-[260px] h-[260px] md:w-[380px] md:h-[380px] rounded-full border border-white/10" />
-          <div className="absolute w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-full border border-brand-yellow/20" />
+        {/* Right — orbit visual + model legend */}
+        <div className="space-y-6 md:space-y-8">
+          <div className="opx-anim relative h-[360px] md:h-[480px] flex items-center justify-center">
+            {/* Decorative concentric rings (static) */}
+            <div className="absolute w-[260px] h-[260px] md:w-[380px] md:h-[380px] rounded-full border border-white/10" />
+            <div className="absolute w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-full border border-brand-yellow/20" />
 
-          {/* Centre wordmark — derived from the OnlyPixAI service.number = 'PX' */}
-          <div className="relative z-10 text-center pointer-events-none">
-            <div className="text-3xl md:text-4xl font-serif italic text-brand-yellow leading-none">
-              PX
+            {/* Centre wordmark — derived from the OnlyPixAI service.number = 'PX' */}
+            <div className="relative z-10 text-center pointer-events-none">
+              <div className="text-3xl md:text-4xl font-serif italic text-brand-yellow leading-none">
+                PX
+              </div>
+              <div className="text-[0.625rem] md:text-xs font-mono text-white/60 tracking-widest mt-1 uppercase">
+                Gateway
+              </div>
             </div>
-            <div className="text-[0.625rem] md:text-xs font-mono text-white/60 tracking-widest mt-1 uppercase">
-              Gateway
+
+            {/* Rotating orbit container. Each provider tile applies a
+                radial transform; on hover the tile background fades to
+                near-white so the brand-coloured logo (revealed by the
+                .opx-orbit-logo hover rule in globals.css) reads
+                cleanly instead of competing with the dark surface. */}
+            <div
+              ref={orbitRef}
+              className="absolute inset-0 flex items-center justify-center"
+              aria-hidden="true"
+            >
+              {orbitLogos.map((logo, i) => {
+                const angle = (i / orbitLogos.length) * 360;
+                return (
+                  <div
+                    key={logo.alt}
+                    className="opx-orbit-logo absolute rounded-full bg-brand-surface/80 border border-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/95 hover:border-brand-yellow/60 transition-colors"
+                    style={{
+                      width: orbitTileSize,
+                      height: orbitTileSize,
+                      transform: `rotate(${angle}deg) translateX(${orbitRadius}px) rotate(-${angle}deg)`
+                    }}
+                    title={logo.label}
+                  >
+                    <img
+                      src={logo.src}
+                      alt={logo.alt}
+                      className="w-2/3 h-2/3 object-contain"
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Rotating orbit container — counter-rotates each logo so logos
-              themselves stay upright. */}
-          <div
-            ref={orbitRef}
-            className="absolute inset-0 flex items-center justify-center"
-            aria-hidden="true"
-          >
-            {orbitLogos.map((logo, i) => {
-              const angle = (i / orbitLogos.length) * 360;
-              return (
-                <div
-                  key={logo.alt}
-                  className="opx-orbit-logo absolute rounded-full bg-brand-surface/80 border border-white/10 backdrop-blur-sm flex items-center justify-center hover:border-brand-yellow/50 transition-colors"
-                  style={{
-                    width: orbitTileSize,
-                    height: orbitTileSize,
-                    transform: `rotate(${angle}deg) translateX(${orbitRadius}px) rotate(-${angle}deg)`
-                  }}
-                  title={logo.alt}
-                >
-                  <img
-                    src={logo.src}
-                    alt={logo.alt}
-                    className="w-2/3 h-2/3 object-contain"
-                  />
-                </div>
-              );
-            })}
+          {/* Legend — names the providers shown in the orbit so a
+              non-technical visitor doesn't have to recognise the
+              brand marks. */}
+          <div className="opx-anim text-center md:text-left">
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-yellow block mb-2">
+              Routes to
+            </span>
+            <p className="text-sm text-white/70 leading-relaxed">
+              {orbitLogos.map((logo, i) => (
+                <React.Fragment key={logo.alt}>
+                  {i > 0 && <span className="text-white/30 px-2">·</span>}
+                  <span className="text-white/90">{logo.label}</span>
+                </React.Fragment>
+              ))}
+              <span className="text-white/30 px-2">·</span>
+              <span className="italic">and more</span>
+            </p>
           </div>
         </div>
       </div>

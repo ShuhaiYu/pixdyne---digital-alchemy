@@ -123,13 +123,15 @@ export const Navigation: React.FC = () => {
       >
         <Link href="/" className="flex items-center gap-4 group">
           <img
-            // White-mark logo on the dark translucent backdrop. The
-            // dark-mark logo-400.png variant is reserved for surfaces
-            // that genuinely sit on a light background; against the
-            // brand-black/60 backdrop it would be invisible.
-            src="/logo.png"
+            // Initial state uses logo-400.png (dark mark), scrolled
+            // state swaps to logo.png (white mark). Backdrop is
+            // translucent dark in both states (per owner direction);
+            // the dark mark still reads acceptably through the 40%
+            // bleed-through and gives the top of the page a more
+            // editorial feel before the visitor scrolls.
+            src={scrolled ? '/logo.png' : '/logo-400.png'}
             alt="Pixdyne"
-            className="w-10 h-10 object-contain"
+            className="w-10 h-10 object-contain transition-opacity duration-300"
           />
           <span className="text-xl font-bold tracking-widest hidden sm:block">PIXDYNE</span>
         </Link>

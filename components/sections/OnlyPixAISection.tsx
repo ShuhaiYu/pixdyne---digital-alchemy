@@ -102,8 +102,12 @@ export const OnlyPixAISection: React.FC = () => {
     return () => ctx.revert();
   }, [isMobile]);
 
-  const orbitRadius = isMobile ? 120 : 170;
-  const orbitTileSize = isMobile ? 48 : 60;
+  // Tiles enlarged to roughly 2x of the previous footprint per owner
+  // direction so the brand marks read clearly. Orbit radius and the
+  // decorative concentric rings are scaled up proportionally to keep
+  // the composition balanced and avoid tile crowding.
+  const orbitRadius = isMobile ? 135 : 180;
+  const orbitTileSize = isMobile ? 96 : 120;
 
   return (
     <div
@@ -172,10 +176,11 @@ export const OnlyPixAISection: React.FC = () => {
 
         {/* Right — orbit visual + model legend */}
         <div className="space-y-6 md:space-y-8">
-          <div className="opx-anim relative h-[360px] md:h-[480px] flex items-center justify-center">
-            {/* Decorative concentric rings (static) */}
-            <div className="absolute w-[260px] h-[260px] md:w-[380px] md:h-[380px] rounded-full border border-white/10" />
-            <div className="absolute w-[180px] h-[180px] md:w-[260px] md:h-[260px] rounded-full border border-brand-yellow/20" />
+          <div className="opx-anim relative h-[420px] md:h-[540px] flex items-center justify-center">
+            {/* Decorative concentric rings (static). Sized to sit
+                comfortably inside / outside the enlarged tile orbit. */}
+            <div className="absolute w-[320px] h-[320px] md:w-[440px] md:h-[440px] rounded-full border border-white/10" />
+            <div className="absolute w-[210px] h-[210px] md:w-[280px] md:h-[280px] rounded-full border border-brand-yellow/20" />
 
             {/* Centre wordmark — derived from the OnlyPixAI service.number = 'PX' */}
             <div className="relative z-10 text-center pointer-events-none">

@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     description:
       'Melbourne technology partner since 2018. Websites, custom systems, ongoing operations — and real AI capability for your business.',
     // og-image.png is a 1080x1080 branded social card from the
-    // pxidyne asset kit. TBD: produce a dedicated 1200x630 landscape
+    // pixdyne asset kit. TBD: produce a dedicated 1200x630 landscape
     // version via app/opengraph-image.tsx for platforms that prefer
     // landscape (Twitter summary_large_image, etc.).
     images: [{

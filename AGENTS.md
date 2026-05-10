@@ -144,6 +144,7 @@ Boilerplate residue (CLAUDE.md rule 11):
 - [ ] No hardcoded copyright years (`© 2024`, `© 2025`). Use `{new Date().getFullYear()}`.
 - [ ] Single-email policy: only `info@pixdyne.com` appears in user-facing copy. No `privacy@`, `legal@`, `hello@`, `support@`, or any departmental mailbox.
 - [ ] No fabricated industry coverage statements ("trusted by industry leaders across finance, tech, and healthcare", "powering digital infrastructure for X across Y").
+- [ ] Canonical brand spellings verified: **Pixdyne** (six letters, P-I-X-D-Y-N-E; never "Pxidyne", "Pixdync"). **OnlyPixAI** (one word, P-A-I capitals). Any new directory name, file path, identifier, or copy string containing the brand name has been spell-checked before commit. See CLAUDE.md decisions log entry for 2026-05-10.
 
 If the audit fails, do **not** silently fix and commit. Report the violations and let the owner decide how to handle each.
 

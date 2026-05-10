@@ -119,17 +119,17 @@ export const Navigation: React.FC = () => {
     <>
       <nav
         aria-label="Main navigation"
-        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 text-white px-6 flex justify-between items-center ${scrolled ? 'bg-brand-black/60 backdrop-blur-sm py-4' : 'bg-transparent py-6'}`}
+        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 text-white px-6 flex justify-between items-center bg-brand-black/60 backdrop-blur-sm ${scrolled ? 'py-4' : 'py-6'}`}
       >
         <Link href="/" className="flex items-center gap-4 group">
           <img
-            // Initial state (top of page, transparent backdrop): the
-            // dark-mark logo-400.png reads on the yellow hero.
-            // Scrolled state (dark backdrop): swap to the white-mark
-            // logo.png so the mark stays visible.
-            src={scrolled ? '/logo.png' : '/logo-400.png'}
+            // White-mark logo on the dark translucent backdrop. The
+            // dark-mark logo-400.png variant is reserved for surfaces
+            // that genuinely sit on a light background; against the
+            // brand-black/60 backdrop it would be invisible.
+            src="/logo.png"
             alt="Pixdyne"
-            className="w-10 h-10 object-contain transition-opacity duration-300"
+            className="w-10 h-10 object-contain"
           />
           <span className="text-xl font-bold tracking-widest hidden sm:block">PIXDYNE</span>
         </Link>

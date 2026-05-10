@@ -119,16 +119,43 @@ body {
 }
 
 /* OnlyPixAI orbit — provider logos render as white silhouettes around a
-   central wordmark, then reveal their source brand colour when the
-   wrapping card is hovered. Used by OnlyPixAISection. */
+   central wordmark, then reveal their source brand colour when their
+   tile becomes "active". Active state is driven by React (the
+   `is-active` class), so hovering either the orbit tile itself or its
+   matching name in the legend below the orbit triggers the same
+   highlight on both surfaces. The CSS `:hover` rule is kept as a
+   fallback so the visual still works if the React state plumbing
+   ever gets removed. */
 .opx-orbit-logo img {
   filter: brightness(0) invert(1);
   opacity: 0.85;
   transition: filter 0.35s ease, opacity 0.35s ease;
 }
+.opx-orbit-logo.is-active img,
 .opx-orbit-logo:hover img {
   filter: none;
   opacity: 1;
+}
+
+/* Orbit motion. The outer container spins clockwise; each logo's
+   inner counter-rotator spins anticlockwise at the same rate. Net
+   rotation on the logo image is zero — the position moves along the
+   circle, but the brand mark always reads upright. Both animations
+   pause when prefers-reduced-motion is set (handled by the global
+   reduced-motion media query above). */
+@keyframes opx-orbit-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes opx-orbit-counter-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+.opx-orbit-container {
+  animation: opx-orbit-spin 60s linear infinite;
+}
+.opx-orbit-counter {
+  animation: opx-orbit-counter-spin 60s linear infinite;
 }
 
 @theme inline {

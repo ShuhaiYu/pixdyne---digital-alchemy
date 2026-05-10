@@ -44,8 +44,11 @@ const orbitLogos: OrbitLogo[] = [
 
 export const OnlyPixAISection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const orbitRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
+  // Synchronises hover highlight between an orbit tile and its name
+  // in the legend below. Setting an index from either surface lights
+  // up both. Keyboard focus on the legend buttons also sets it.
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
@@ -58,7 +61,6 @@ export const OnlyPixAISection: React.FC = () => {
     if (typeof window === 'undefined') return;
 
     const section = sectionRef.current;
-    const orbit = orbitRef.current;
     if (!section) return;
 
     if (isMobile) {
@@ -92,18 +94,10 @@ export const OnlyPixAISection: React.FC = () => {
         ease: 'power3.out',
         scrollTrigger: { trigger: section, start: 'top 70%' }
       });
-
-      // Slow continuous rotation on the outer orbit ring. Counter-rotation
-      // is applied per-logo via inline transform so the logos themselves
-      // stay upright.
-      if (orbit) {
-        gsap.to(orbit, {
-          rotation: 360,
-          duration: 60,
-          ease: 'none',
-          repeat: -1
-        });
-      }
+      // Orbit rotation is now driven by CSS animations declared in
+      // globals.css (.opx-orbit-container + .opx-orbit-counter), so
+      // each logo's image stays upright while the position moves
+      // around the circle.
     }, sectionRef);
     return () => ctx.revert();
   }, [isMobile]);
@@ -193,56 +187,84 @@ export const OnlyPixAISection: React.FC = () => {
               </div>
             </div>
 
-            {/* Rotating orbit container. Each provider tile applies a
-                radial transform; on hover the tile background fades to
-                near-white so the brand-coloured logo (revealed by the
-                .opx-orbit-logo hover rule in globals.css) reads
-                cleanly instead of competing with the dark surface. */}
+            {/* Rotating orbit container. The CSS class .opx-orbit-container
+                spins the wrapper clockwise; each logo's inner
+                .opx-orbit-counter spins anticlockwise at the same rate so
+                the brand mark stays upright as it travels around the
+                circle. On hover (or when the matching legend name is
+                hovered/focused), `is-active` is added and the tile
+                background fades to near-white while the logo image
+                reveals its source brand colour. */}
             <div
-              ref={orbitRef}
-              className="absolute inset-0 flex items-center justify-center"
+              className="opx-orbit-container absolute inset-0 flex items-center justify-center"
               aria-hidden="true"
             >
               {orbitLogos.map((logo, i) => {
                 const angle = (i / orbitLogos.length) * 360;
+                const active = activeIndex === i;
                 return (
                   <div
                     key={logo.alt}
-                    className="opx-orbit-logo absolute rounded-full bg-brand-surface/80 border border-white/10 backdrop-blur-sm flex items-center justify-center hover:bg-white/95 hover:border-brand-yellow/60 transition-colors"
+                    className={`opx-orbit-logo absolute rounded-full backdrop-blur-sm flex items-center justify-center transition-colors border ${active ? 'is-active bg-white/95 border-brand-yellow/60' : 'bg-brand-surface/80 border-white/10'}`}
                     style={{
                       width: orbitTileSize,
                       height: orbitTileSize,
                       transform: `rotate(${angle}deg) translateX(${orbitRadius}px) rotate(-${angle}deg)`
                     }}
+                    onMouseEnter={() => setActiveIndex(i)}
+                    onMouseLeave={() => setActiveIndex(null)}
                     title={logo.label}
                   >
-                    <img
-                      src={logo.src}
-                      alt={logo.alt}
-                      className="w-2/3 h-2/3 object-contain"
-                    />
+                    {/* Inner counter-rotator. Same duration and easing as
+                        the parent .opx-orbit-container; net visual
+                        rotation on the image is zero. */}
+                    <div className="opx-orbit-counter w-2/3 h-2/3 flex items-center justify-center">
+                      <img
+                        src={logo.src}
+                        alt={logo.alt}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                   </div>
                 );
               })}
             </div>
           </div>
 
-          {/* Legend — names the providers shown in the orbit so a
-              non-technical visitor doesn't have to recognise the
-              brand marks. */}
+          {/* Legend. Names every provider in the orbit so a non-technical
+              visitor does not have to recognise each brand mark by
+              sight. Each name is a button that synchronises hover/focus
+              state with the orbit tile of the same index. */}
           <div className="opx-anim text-center md:text-left">
-            <span className="font-mono text-xs uppercase tracking-widest text-brand-yellow block mb-2">
+            <span className="font-mono text-xs uppercase tracking-widest text-brand-yellow block mb-3">
               Routes to
             </span>
-            <p className="text-sm text-white/70 leading-relaxed">
-              {orbitLogos.map((logo, i) => (
-                <React.Fragment key={logo.alt}>
-                  {i > 0 && <span className="text-white/30 px-2">·</span>}
-                  <span className="text-white/90">{logo.label}</span>
-                </React.Fragment>
-              ))}
-              <span className="text-white/30 px-2">·</span>
-              <span className="italic">and more</span>
+            <p className="text-sm text-white/70 leading-relaxed mb-3 max-w-md md:max-w-none mx-auto md:mx-0">
+              Every mainstream AI model, open source or closed — accessed
+              through official, properly authorised channels.
+            </p>
+            <p className="text-sm leading-relaxed">
+              {orbitLogos.map((logo, i) => {
+                const active = activeIndex === i;
+                return (
+                  <React.Fragment key={logo.alt}>
+                    {i > 0 && <span className="text-white/30 px-2" aria-hidden="true">·</span>}
+                    <button
+                      type="button"
+                      onMouseEnter={() => setActiveIndex(i)}
+                      onMouseLeave={() => setActiveIndex(null)}
+                      onFocus={() => setActiveIndex(i)}
+                      onBlur={() => setActiveIndex(null)}
+                      className={`transition-colors cursor-default rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? 'text-brand-yellow' : 'text-white/90 hover:text-white'}`}
+                      aria-label={`${logo.label} (${logo.alt})`}
+                    >
+                      {logo.label}
+                    </button>
+                  </React.Fragment>
+                );
+              })}
+              <span className="text-white/30 px-2" aria-hidden="true">·</span>
+              <span className="italic text-white/60">and more</span>
             </p>
           </div>
         </div>

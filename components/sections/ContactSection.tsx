@@ -70,7 +70,7 @@ export const ContactSection: React.FC = () => {
           {/* Logo */}
           <div className="mt-12">
             <img
-              src="/logo.png"
+              src="/logo-400.png"
               alt="Pixdyne"
               className="h-12 w-auto opacity-60"
             />

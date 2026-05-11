@@ -91,32 +91,41 @@ body {
   display: none;
 }
 
-/* Platform marquee — logos render in their source brand colours.
-   The earlier `brightness(0) invert(1)` silhouette flattened any
-   logo whose interior text or shapes were drawn as white fills on a
-   coloured background (Shopify's white "S" on the green bag,
-   Salesforce's white type on the blue cloud, Xero's white "X" on
-   the blue disc, etc.), so the marks degraded into featureless
-   white blobs and only the outer silhouette read on the strip.
-   Removing the filter preserves the internal detail every brand
-   actually relies on for recognition. The warm-gold-tinted marquee
-   strip in ClientLogosSection gives all source-colour logos a
-   consistent surface to sit on. The `.logo-tile` wrapper rendered
-   via LogoLoop's `renderItem` prop is still in use so that hover
-   events reach the image (the LogoLoop default <img> sets
-   pointer-events:none). */
+/* Platform marquee — monochrome grey-tinted default, source brand
+   colour on hover.
+   The earlier silhouette used `brightness(0) invert(1)`, which first
+   collapsed every pixel to pure black and then inverted the lot to
+   pure white. Because every pixel became the same colour at step 1,
+   any internal differentiation (Shopify's white "S" inside the green
+   bag, Salesforce's white type inside the blue cloud, Xero's white
+   "X" inside the blue disc) was lost — the marks ended up as
+   featureless silhouettes.
+   The current filter is `grayscale(1) brightness(1.2)`: saturation
+   is removed but per-pixel luminance is preserved, so a coloured
+   shape with a white fill inside it now reads as a mid-grey shape
+   with a white fill inside it. The brightness multiplier lifts the
+   darker logos so they still stand out on the warm-gold-tinted
+   marquee strip; pure-white pixels stay clamped at white. On hover,
+   the filter is removed and the source brand colour reveals.
+   The `.logo-tile` wrapper rendered via LogoLoop's `renderItem` prop
+   is still in use so that hover events reach the image (the LogoLoop
+   default <img> sets pointer-events:none). */
 .platform-marquee .logo-tile img {
+  filter: grayscale(1) brightness(1.2);
   opacity: 0.85;
-  transition: opacity 0.35s ease;
+  transition: filter 0.35s ease, opacity 0.35s ease;
 }
 .platform-marquee .logo-tile:hover img {
+  filter: none;
   opacity: 1;
 }
 .platform-marquee--secondary .logo-tile img {
+  filter: grayscale(1) brightness(1.2);
   opacity: 0.55;
-  transition: opacity 0.35s ease;
+  transition: filter 0.35s ease, opacity 0.35s ease;
 }
 .platform-marquee--secondary .logo-tile:hover img {
+  filter: none;
   opacity: 1;
 }
 

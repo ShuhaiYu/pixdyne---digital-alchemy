@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useLayoutEffect, useRef } from 'react';
-import Link from 'next/link';
 import gsap from 'gsap';
 
 export const HeroSection: React.FC = () => {
@@ -14,9 +13,6 @@ export const HeroSection: React.FC = () => {
       const chars = sloganRef.current?.querySelectorAll('.char');
 
       if (chars && chars.length > 0) {
-        // Shorter per-char stagger than the previous PIXDYNE/WORKS
-        // word-style title; this is a full sentence, so sweeping in
-        // every glyph at 0.05s each took too long.
         tl.from(chars, {
           y: 80,
           opacity: 0,
@@ -40,7 +36,7 @@ export const HeroSection: React.FC = () => {
 
   const splitText = (text: string) => {
     return text.split('').map((char, i) => (
-      <span key={i} className="char inline-block">{char === ' ' ? ' ' : char}</span>
+      <span key={i} className="char inline-block">{char === ' ' ? ' ' : char}</span>
     ));
   };
 
@@ -59,15 +55,14 @@ export const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Slogan — replaces the previous PIXDYNE / WORKS display title.
-          The brand name is omitted here because the navigation already
-          carries it; the slogan does the work of stating why visitors
-          should keep reading. Anchored in growth narrative per CLAUDE.md
-          rule 9 (no downward audience segmentation). */}
-      <div className="relative z-10 pb-8 sm:pb-12">
+      {/* Slogan. Right padding reserves space for the rotating badge in
+          the bottom-right corner so the two never collide. Values are
+          tuned to the badge widths declared below (w-20 / w-28 / w-40
+          / w-48) plus the margin gap from the viewport edge. */}
+      <div className="relative z-10 pb-8 sm:pb-12 pr-24 sm:pr-40 md:pr-60 lg:pr-72">
         <h1
           ref={sloganRef}
-          className="text-[clamp(2rem,7vw,6rem)] leading-[1.05] font-serif text-black mix-blend-multiply max-w-[18ch] sm:max-w-none"
+          className="text-[clamp(2rem,7vw,6rem)] leading-[1.05] font-serif text-black mix-blend-multiply"
         >
           <div className="overflow-hidden">{splitText('Upgrade your workflow.')}</div>
           <div className="overflow-hidden italic ml-[3vw] sm:ml-[6vw] mt-1 sm:mt-2">
@@ -76,17 +71,26 @@ export const HeroSection: React.FC = () => {
         </h1>
       </div>
 
-      {/* Rotating badge — now a real link to the Contact form.
-          Owner direction: make it a button that takes the visitor to
-          the form instead of being decorative-only. The clip-path
-          ensures the entire circular area is the click target rather
-          than just the bounding box of the inscribed text. */}
-      <Link
+      {/* Rotating "start a project" badge.
+          - Plain <a href="#contact"> rather than next/link Link: the
+            App Router can intercept same-page hash navigation and
+            leave the browser's native anchor scroll unfired (the same
+            issue we hit on the service card CTAs). <a> is bulletproof.
+          - animate-spin-slow lives on the inner <svg> only, so the
+            rotating inscription orbits the badge while the centred
+            "Start" wordmark stays upright.
+          - The centre <span> uses pointer-events-none so it never
+            steals the click from the surrounding anchor. */}
+      <a
         href="#contact"
         aria-label="Start a project — scroll to contact form"
-        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center animate-spin-slow group hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors"
+        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center group hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors cursor-pointer"
       >
-        <svg viewBox="0 0 100 100" className="w-full h-full fill-brand-yellow group-hover:fill-black p-1 sm:p-2 transition-colors" aria-hidden="true">
+        <svg
+          viewBox="0 0 100 100"
+          className="absolute inset-0 w-full h-full fill-brand-yellow group-hover:fill-black p-1 sm:p-2 transition-colors animate-spin-slow"
+          aria-hidden="true"
+        >
           <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />
           <text>
             <textPath xlinkHref="#curve" className="text-[12px] uppercase tracking-[0.1em]">
@@ -94,7 +98,13 @@ export const HeroSection: React.FC = () => {
             </textPath>
           </text>
         </svg>
-      </Link>
+        <span
+          className="relative z-10 font-bold uppercase tracking-widest text-brand-yellow group-hover:text-black transition-colors text-[10px] sm:text-xs md:text-sm pointer-events-none"
+          aria-hidden="true"
+        >
+          Start
+        </span>
+      </a>
     </div>
   );
 };

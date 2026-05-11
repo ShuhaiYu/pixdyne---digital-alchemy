@@ -157,8 +157,8 @@ export const Navigation: React.FC = () => {
                 onClick={() => scrollToSection(item.id)}
                 className={
                   isCta
-                    ? 'inline-flex items-center gap-2 text-xs lg:text-sm uppercase tracking-widest bg-brand-yellow text-black font-bold py-2.5 px-4 lg:py-3 lg:px-5 hover:bg-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded-sm group'
-                    : `text-xs lg:text-sm tracking-widest text-white/85 hover:text-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded ${isBrand ? '' : 'uppercase'}`
+                    ? 'inline-flex items-center gap-2 text-xs lg:text-sm uppercase tracking-widest bg-brand-yellow text-black font-bold py-2.5 px-4 lg:py-3 lg:px-5 hover:bg-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded-sm group cursor-pointer'
+                    : `text-xs lg:text-sm tracking-widest text-white/85 hover:text-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer ${isBrand ? '' : 'uppercase'}`
                 }
                 aria-label={isCta ? 'Get in touch — scroll to contact form' : `Scroll to ${item.label} section`}
               >
@@ -179,7 +179,7 @@ export const Navigation: React.FC = () => {
         <button
           ref={openButtonRef}
           onClick={() => setIsOpen(true)}
-          className="md:hidden flex items-center gap-2 group min-h-[44px] min-w-[44px] justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
+          className="md:hidden flex items-center gap-2 group min-h-[44px] min-w-[44px] justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer"
           aria-label="Open navigation menu"
           aria-expanded={isOpen}
           aria-controls="main-menu"
@@ -218,7 +218,7 @@ export const Navigation: React.FC = () => {
             return (
               <button
                 key={item.id}
-                className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-brand-yellow-hover hover:tracking-wide transition-all duration-300 stroke-text cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px] ${isBrand ? '' : 'uppercase'}`}
+                className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-brand-yellow-hover hover:tracking-wide transition-all duration-300 stroke-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px] cursor-pointer ${isBrand ? '' : 'uppercase'}`}
                 style={{ WebkitTextStroke: '1px white' }}
                 onClick={() => scrollToSection(item.id)}
                 aria-label={`Navigate to ${item.label} section`}

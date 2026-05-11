@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useLayoutEffect, useRef } from 'react';
-import Link from 'next/link';
 import gsap from 'gsap';
 import { ArrowLeft, ArrowUpRight, Check } from 'lucide-react';
 import { ServiceItem } from '@/types';
@@ -35,13 +34,13 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
 
   return (
     <div ref={containerRef} className="min-h-screen bg-brand-black text-white pt-24 pb-20 px-6 md:px-12 flex flex-col">
-      <Link
+      <a
         href="/#services"
-        className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
+        className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-brand-yellow-hover mb-12 transition-colors w-fit cursor-pointer"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
         Back to Services
-      </Link>
+      </a>
 
       <div className="detail-anim border-b border-white/20 pb-8 mb-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -137,12 +136,16 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                   <p className="text-sm text-gray-400 mb-6">
                     Send us a brief and we will come back with a scope, timeline, and quote.
                   </p>
-                  <Link
+                  {/* Plain <a> rather than next/link Link — same App Router
+                      hash-anchor quirk we hit on the service card CTAs.
+                      Cross-page `/#contact` is more reliable via native
+                      navigation than via Next's client routing. */}
+                  <a
                     href="/#contact"
-                    className="block w-full bg-brand-yellow text-black font-bold py-4 uppercase tracking-widest hover:bg-white transition-colors text-center"
+                    className="block w-full bg-brand-yellow text-black font-bold py-4 uppercase tracking-widest hover:bg-white transition-colors text-center cursor-pointer"
                   >
                     Start a Project
-                  </Link>
+                  </a>
                 </>
               )}
             </div>

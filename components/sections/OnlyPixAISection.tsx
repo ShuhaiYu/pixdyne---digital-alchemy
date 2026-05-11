@@ -210,7 +210,7 @@ export const OnlyPixAISection: React.FC = () => {
                 return (
                   <div
                     key={logo.alt}
-                    className={`opx-orbit-logo absolute rounded-full backdrop-blur-sm flex items-center justify-center transition-colors border ${active ? 'is-active bg-white/95 border-brand-yellow/60' : 'bg-brand-surface/80 border-white/10'}`}
+                    className={`opx-orbit-logo absolute rounded-full backdrop-blur-sm flex items-center justify-center transition-colors border cursor-pointer ${active ? 'is-active bg-white/95 border-brand-yellow/60' : 'bg-brand-surface/80 border-white/10'}`}
                     style={{
                       width: orbitTileSize,
                       height: orbitTileSize,
@@ -262,7 +262,7 @@ export const OnlyPixAISection: React.FC = () => {
                       onMouseLeave={() => setActiveIndex(null)}
                       onFocus={() => setActiveIndex(i)}
                       onBlur={() => setActiveIndex(null)}
-                      className={`transition-colors cursor-default rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? 'text-brand-yellow' : 'text-white/90 hover:text-white'}`}
+                      className={`transition-colors cursor-pointer rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? 'text-brand-yellow' : 'text-white/90 hover:text-white'}`}
                       aria-label={`${logo.label} (${logo.alt})`}
                     >
                       {logo.label}

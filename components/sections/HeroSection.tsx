@@ -10,14 +10,17 @@ export const HeroSection: React.FC = () => {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
-      const chars = sloganRef.current?.querySelectorAll('.char');
+      // Line-level entrance rather than per-character. Per-char inline-block
+      // wrapping (the previous approach) broke natural letter-spacing and
+      // mid-word wrapping once the title became a full sentence.
+      const lines = sloganRef.current?.querySelectorAll('.slogan-line');
 
-      if (chars && chars.length > 0) {
-        tl.from(chars, {
-          y: 80,
+      if (lines && lines.length > 0) {
+        tl.from(lines, {
+          y: 60,
           opacity: 0,
-          stagger: 0.02,
-          duration: 0.7,
+          stagger: 0.18,
+          duration: 0.9,
           ease: 'power4.out',
           delay: 0.2
         });
@@ -34,12 +37,6 @@ export const HeroSection: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  const splitText = (text: string) => {
-    return text.split('').map((char, i) => (
-      <span key={i} className="char inline-block">{char === ' ' ? ' ' : char}</span>
-    ));
-  };
-
   return (
     <div className="h-screen w-full flex flex-col justify-between p-4 sm:p-6 md:p-12 relative">
       {/* Decorative Grid */}
@@ -55,40 +52,46 @@ export const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Slogan. Right padding reserves space for the rotating badge in
-          the bottom-right corner so the two never collide. Values are
-          tuned to the badge widths declared below (w-20 / w-28 / w-40
-          / w-48) plus the margin gap from the viewport edge. */}
+      {/* Slogan container. Right padding reserves space for the rotating
+          badge but the div still spans full width — give the badge a
+          higher z-index so its hit area sits above this div regardless. */}
       <div className="relative z-10 pb-8 sm:pb-12 pr-24 sm:pr-40 md:pr-60 lg:pr-72">
         <h1
           ref={sloganRef}
           className="text-[clamp(2rem,7vw,6rem)] leading-[1.05] font-serif text-black mix-blend-multiply"
         >
-          <div className="overflow-hidden">{splitText('Upgrade your workflow.')}</div>
-          <div className="overflow-hidden italic ml-[3vw] sm:ml-[6vw] mt-1 sm:mt-2">
-            {splitText('Grow with a team that stays.')}
-          </div>
+          {/* Each line is its own inline-block container that slides up on
+              entrance. The text inside flows with its natural typography
+              (letter-spacing, kerning, word wrap) instead of being
+              fragmented into per-character inline-blocks. overflow-hidden
+              keeps the slide-up motion clipped to each line. */}
+          <span className="slogan-line block overflow-hidden">
+            <span className="inline-block">Upgrade your workflow.</span>
+          </span>
+          <span className="slogan-line block overflow-hidden italic ml-[3vw] sm:ml-[6vw] mt-1 sm:mt-2">
+            <span className="inline-block">Grow with a team that stays.</span>
+          </span>
         </h1>
       </div>
 
       {/* Rotating "start a project" badge.
-          - Plain <a href="#contact"> rather than next/link Link: the
-            App Router can intercept same-page hash navigation and
-            leave the browser's native anchor scroll unfired (the same
-            issue we hit on the service card CTAs). <a> is bulletproof.
+          - z-20 sits above the slogan container's z-10, so the click
+            target is never occluded by the slogan div's padding area.
+          - Plain <a href="#contact"> so the browser's native anchor
+            scroll fires (next/link's App Router behaviour is unreliable
+            for same-page hash navigation).
           - animate-spin-slow lives on the inner <svg> only, so the
-            rotating inscription orbits the badge while the centred
-            "Start" wordmark stays upright.
-          - The centre <span> uses pointer-events-none so it never
-            steals the click from the surrounding anchor. */}
+            inscription orbits while the centred "Start" wordmark
+            stays upright. The centre <span> is pointer-events-none
+            so it never steals the click. */}
       <a
         href="#contact"
         aria-label="Start a project — scroll to contact form"
-        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center group hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors cursor-pointer"
+        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 z-20 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center group hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors cursor-pointer"
       >
         <svg
           viewBox="0 0 100 100"
-          className="absolute inset-0 w-full h-full fill-brand-yellow group-hover:fill-black p-1 sm:p-2 transition-colors animate-spin-slow"
+          className="absolute inset-0 w-full h-full fill-brand-yellow group-hover:fill-black p-1 sm:p-2 transition-colors animate-spin-slow pointer-events-none"
           aria-hidden="true"
         >
           <path id="curve" d="M 50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0" fill="transparent" />

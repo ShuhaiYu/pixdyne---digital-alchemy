@@ -163,7 +163,7 @@ export const ServicesSection: React.FC = () => {
 
                     {/* Stats — render with em-dash placeholder when real numbers
                         are not yet provided by the owner (CLAUDE.md §6). */}
-                    <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-12 ml-0 sm:ml-8 md:ml-12 mb-6 sm:mb-8">
+                    {/* <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-12 ml-0 sm:ml-8 md:ml-12 mb-6 sm:mb-8">
                       <div>
                         <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
                           {service.stats?.projects !== undefined ? (
@@ -196,7 +196,7 @@ export const ServicesSection: React.FC = () => {
                         </div>
                         <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Support Available</div>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 ml-0 sm:ml-8 md:ml-12 mb-4">

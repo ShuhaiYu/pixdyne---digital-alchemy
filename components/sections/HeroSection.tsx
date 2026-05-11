@@ -38,7 +38,7 @@ export const HeroSection: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-screen w-full flex flex-col justify-between p-4 sm:p-6 md:p-12 relative">
+    <div className="h-screen w-full flex flex-col p-4 sm:p-6 md:p-12 relative">
       {/* Decorative Grid */}
       <div className="absolute inset-0 opacity-10 pointer-events-none"
         style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
@@ -52,23 +52,26 @@ export const HeroSection: React.FC = () => {
         </div>
       </div>
 
-      {/* Slogan container. Right padding reserves space for the rotating
-          badge but the div still spans full width — give the badge a
-          higher z-index so its hit area sits above this div regardless. */}
-      <div className="relative z-10 pb-8 sm:pb-12 pr-24 sm:pr-40 md:pr-60 lg:pr-72">
+      {/* Slogan container. flex-1 + items-center vertically centres the
+          slogan in the space between the top kicker and the badge that
+          sits absolutely at the bottom-right corner. Right padding
+          reserves horizontal space so the slogan text never crosses
+          into the badge's column. */}
+      <div className="flex-1 flex items-center pr-24 sm:pr-40 md:pr-60 lg:pr-72 relative z-10">
         <h1
           ref={sloganRef}
-          className="text-[clamp(2rem,7vw,6rem)] leading-[1.05] font-serif text-black mix-blend-multiply"
+          className="text-[clamp(2rem,7vw,6rem)] leading-[1.25] font-serif text-black mix-blend-multiply"
         >
-          {/* Each line is its own inline-block container that slides up on
-              entrance. The text inside flows with its natural typography
-              (letter-spacing, kerning, word wrap) instead of being
-              fragmented into per-character inline-blocks. overflow-hidden
-              keeps the slide-up motion clipped to each line. */}
-          <span className="slogan-line block overflow-hidden">
+          {/* Each line is its own overflow-hidden box so the entrance
+              animation reads as a clean slide-up reveal. pb-2/pb-3 adds
+              just enough room for the italic descenders (p, g, y) to
+              fit inside the line box without being clipped by
+              overflow-hidden. The wider leading-[1.25] on the h1 also
+              gives each glyph its full natural height. */}
+          <span className="slogan-line block overflow-hidden pb-2 sm:pb-3">
             <span className="inline-block">Upgrade your workflow.</span>
           </span>
-          <span className="slogan-line block overflow-hidden italic ml-[3vw] sm:ml-[6vw] mt-1 sm:mt-2">
+          <span className="slogan-line block overflow-hidden italic pb-2 sm:pb-3 ml-[3vw] sm:ml-[6vw] mt-1 sm:mt-2">
             <span className="inline-block">Grow with a team that stays.</span>
           </span>
         </h1>
@@ -87,7 +90,7 @@ export const HeroSection: React.FC = () => {
       <a
         href="#contact"
         aria-label="Start a project — scroll to contact form"
-        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 z-20 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center group hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors cursor-pointer"
+        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 z-20 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center group border-2 border-transparent hover:border-black hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors cursor-pointer"
       >
         <svg
           viewBox="0 0 100 100"

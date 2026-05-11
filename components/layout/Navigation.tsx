@@ -114,10 +114,10 @@ export const Navigation: React.FC = () => {
   // already routes there.
   const menuItems = [
     { label: 'Services', id: 'services' },
-    { label: 'Work', id: 'work' },
+    // { label: 'Work', id: 'work' },
     { label: 'Approach', id: 'approach' },
     { label: 'OnlyPixAI', id: 'onlypixai' },
-    { label: 'Insights', id: 'insights' },
+    // { label: 'Insights', id: 'insights' },
     { label: 'Contact', id: 'contact' },
   ];
 

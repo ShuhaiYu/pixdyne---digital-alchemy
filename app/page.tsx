@@ -37,9 +37,9 @@ export default function HomePage() {
         <ProcessSection />
       </StickySection>
 
-      <StickySection id="work" zIndex={40} transitionType="curtain" className="bg-brand-black" aria-label="Selected works">
+      {/* <StickySection id="work" zIndex={40} transitionType="curtain" className="bg-brand-black" aria-label="Selected works">
         <CaseStudySection />
-      </StickySection>
+      </StickySection> */}
 
       <StickySection id="approach" zIndex={45} transitionType="curtain" className="bg-brand-light text-black" aria-label="How we work">
         <TeamSection />
@@ -49,9 +49,9 @@ export default function HomePage() {
         <OnlyPixAISection />
       </StickySection>
 
-      <StickySection id="insights" zIndex={48} transitionType="curtain" className="bg-white text-black" aria-label="Blog and insights">
+      {/* <StickySection id="insights" zIndex={48} transitionType="curtain" className="bg-white text-black" aria-label="Blog and insights">
         <BlogSection />
-      </StickySection>
+      </StickySection> */}
 
       <StickySection id="contact" zIndex={50} transitionType="pixel-glitch" className="bg-brand-black" fitContent={true} aria-label="Contact">
         <ContactSection />

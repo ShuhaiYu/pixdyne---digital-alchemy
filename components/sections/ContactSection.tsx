@@ -50,7 +50,9 @@ export const ContactSection: React.FC = () => {
               Let&apos;s Talk.
             </h2>
             <p className="text-brand-muted text-base sm:text-lg max-w-sm mb-6 sm:mb-8">
-              Ready to upgrade your digital infrastructure? Tell us about your project, timeline, and budget.
+              Tell us about the workflow you want upgraded, the system you want
+              built, or the website you need shipped. We&apos;ll come back with a
+              scope, timeline, and quote.
             </p>
           </div>
 

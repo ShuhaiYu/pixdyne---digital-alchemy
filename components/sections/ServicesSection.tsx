@@ -4,7 +4,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { getAllServices } from '@/lib/data/services';
 import { brandRGB } from '@/lib/brand';
 import CountUp from '@/components/CountUp';
@@ -95,8 +95,9 @@ export const ServicesSection: React.FC = () => {
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif italic leading-tight mb-4 md:mb-6">Capabilities</h2>
             <p className="font-sans text-sm text-brand-muted max-w-xs leading-relaxed">
-              We bridge the gap between aesthetic excellence and technical robustness.
-              Our toolkit is vast, our precision is absolute.
+              From the websites and storefronts your customers see, to the systems
+              that run the business behind them — we build what fits how your
+              team actually works.
             </p>
           </div>
         </div>
@@ -222,32 +223,20 @@ export const ServicesSection: React.FC = () => {
                   </div>
 
                   {/* Primary CTA (bottom-right). z-30 sits above the
-                      card-wide Link at z-20, so this captures its own click. */}
-                  {isProduct ? (
-                    <a
-                      href={service.externalUrl ?? 'https://www.onlypixai.com/'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors pointer-events-auto"
-                      aria-label={`Visit ${service.title} (opens in new tab)`}
-                    >
-                      Visit {service.title}
-                      <ArrowUpRight size={14} aria-hidden="true" />
-                    </a>
-                  ) : (
-                    // Native <a> rather than next/link Link: same-page hash
-                    // anchors via App Router can fail to trigger the browser's
-                    // native scroll because Next intercepts the click. <a>
-                    // gives us guaranteed in-page scroll-to-id behaviour.
-                    <a
-                      href="#contact"
-                      className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors pointer-events-auto"
-                      aria-label={`Get in touch about ${service.title}`}
-                    >
-                      Get in touch
-                      <ArrowRight size={14} aria-hidden="true" />
-                    </a>
-                  )}
+                      card-wide Link at z-20, so this captures its own
+                      click. Per owner direction, every card CTA now
+                      routes to the service detail page (including
+                      OnlyPixAI — its detail page hosts the external
+                      Visit OnlyPixAI button). The wording is unified
+                      as "Explore more". */}
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors pointer-events-auto"
+                    aria-label={`Explore ${service.title}`}
+                  >
+                    Explore more
+                    <ArrowRight size={14} aria-hidden="true" />
+                  </Link>
                 </SpotlightCard>
               );
             })}

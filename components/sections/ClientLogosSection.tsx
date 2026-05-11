@@ -86,7 +86,7 @@ export const ClientLogosSection: React.FC = () => {
           rather than the previous near-black, so that hover-revealed
           brand colours (some of which are themselves black, e.g.
           OpenAI / Grok) still read against the surface. */}
-      <div className="w-full relative py-8 sm:py-10 md:py-12 bg-brand-yellow/[0.15] backdrop-blur-sm border-y border-brand-yellow/15 my-6 sm:my-8">
+      <div className="w-full relative py-8 sm:py-10 md:py-12 bg-brand-yellow/[0.25] backdrop-blur-sm border-y border-brand-yellow/15 my-6 sm:my-8">
         <LogoLoop
           logos={logos}
           direction="left"
@@ -101,7 +101,11 @@ export const ClientLogosSection: React.FC = () => {
         />
       </div>
 
-      <div className="w-full relative py-4 sm:py-6 mb-6 sm:mb-8">
+      {/* Secondary marquee strip. Same warm-gold backdrop and border as
+          the primary marquee above; treatment intentionally identical so
+          the two rows read as one coherent surface differentiated only
+          by logo size and scroll direction. */}
+      <div className="w-full relative py-4 sm:py-6 bg-brand-yellow/[0.15] backdrop-blur-sm border-y border-brand-yellow/15 mb-6 sm:mb-8">
         <LogoLoop
           logos={logos}
           direction="right"

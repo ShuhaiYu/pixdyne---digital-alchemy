@@ -111,8 +111,8 @@ body {
    is still in use so that hover events reach the image (the LogoLoop
    default <img> sets pointer-events:none). */
 .platform-marquee .logo-tile img {
-  filter: grayscale(1) brightness(1.3);
-  opacity: 0.85;
+  filter: grayscale(1) brightness(1.2);
+  opacity: 0.9;
   transition: filter 0.35s ease, opacity 0.35s ease;
 }
 .platform-marquee .logo-tile:hover img {
@@ -120,8 +120,8 @@ body {
   opacity: 1;
 }
 .platform-marquee--secondary .logo-tile img {
-  filter: grayscale(1) brightness(1.3);
-  opacity: 0.85;
+  filter: grayscale(1) brightness(1.2);
+  opacity: 0.9;
   transition: filter 0.35s ease, opacity 0.35s ease;
 }
 .platform-marquee--secondary .logo-tile:hover img {

@@ -9,12 +9,14 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Process step data
+// Process step data. Phase labels rather than fixed week numbers so
+// the visual does not lock us into a 6-week template — the actual
+// timeline gets scoped per engagement.
 const processSteps = [
-  { label: 'Discovery', time: 'Wk 01', desc: 'Research & Analysis' },
-  { label: 'Architect', time: 'Wk 02', desc: 'System Design' },
-  { label: 'Development', time: 'Wk 03-05', desc: 'Agile Iteration' },
-  { label: 'Launch', time: 'Wk 06', desc: 'Deploy & Optimize' },
+  { label: 'Discovery', time: 'Phase 01', desc: 'Research & scoping' },
+  { label: 'Architect', time: 'Phase 02', desc: 'System design' },
+  { label: 'Development', time: 'Phase 03', desc: 'Iterate & ship' },
+  { label: 'Operations', time: 'Phase 04', desc: 'Keep it running' },
 ];
 
 // Chaos transforms - rotation and offset per card
@@ -192,8 +194,9 @@ export const ProcessSection: React.FC = () => {
 
           <AnimatedContent distance={40} duration={0.8} delay={0.3}>
             <p className="text-black/70 font-sans text-lg leading-relaxed max-w-md">
-              Our process isn&apos;t linear; it&apos;s exponential. We iterate rapidly, test rigorously, and deploy flawlessly.
-              We treat every line of code as a structural component of your brand&apos;s digital skyscraper.
+              We start with discovery, ship in iterations, and stay involved past
+              launch. Most projects move through four phases, with the timeline
+              shaped around your scope rather than a fixed template.
             </p>
           </AnimatedContent>
 

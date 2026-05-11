@@ -82,7 +82,11 @@ export const ClientLogosSection: React.FC = () => {
         </p>
       </div>
 
-      <div className="w-full relative py-8 sm:py-10 md:py-12 bg-black/50 backdrop-blur-sm border-y border-white/10 my-6 sm:my-8">
+      {/* Primary marquee strip. Backdrop is a warm gold-tinted dark
+          rather than the previous near-black, so that hover-revealed
+          brand colours (some of which are themselves black, e.g.
+          OpenAI / Grok) still read against the surface. */}
+      <div className="w-full relative py-8 sm:py-10 md:py-12 bg-brand-yellow/[0.08] backdrop-blur-sm border-y border-brand-yellow/15 my-6 sm:my-8">
         <LogoLoop
           logos={logos}
           direction="left"

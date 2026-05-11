@@ -245,8 +245,10 @@ export const OnlyPixAISection: React.FC = () => {
               Routes to
             </span>
             <p className="text-sm text-white/70 leading-relaxed mb-3 max-w-md md:max-w-none mx-auto md:mx-0">
-              Every mainstream AI model, open source or closed — accessed
-              through official, properly authorised channels.
+              <span className="text-brand-yellow font-semibold">100+ LLMs</span>{' '}
+              through one billed-once pipeline — every mainstream model,
+              open source or closed, accessed through official, properly
+              authorised channels.
             </p>
             <p className="text-sm leading-relaxed">
               {orbitLogos.map((logo, i) => {

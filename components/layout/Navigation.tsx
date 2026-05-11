@@ -106,11 +106,17 @@ export const Navigation: React.FC = () => {
     }
   };
 
+  // Section IDs match the StickySection / ServicesSection ids declared
+  // in app/page.tsx. Note: "Team" was renamed to "Approach" (the
+  // homepage section is now "How we work" at id="approach") and
+  // OnlyPixAI is the dedicated flagship-product section at id="onlypixai".
+  // "Home" is omitted from the inline nav because the logo on the left
+  // already routes there.
   const menuItems = [
-    { label: 'Home', id: 'home' },
     { label: 'Services', id: 'services' },
     { label: 'Work', id: 'work' },
-    { label: 'Team', id: 'team' },
+    { label: 'Approach', id: 'approach' },
+    { label: 'OnlyPixAI', id: 'onlypixai' },
     { label: 'Insights', id: 'insights' },
     { label: 'Contact', id: 'contact' },
   ];
@@ -129,45 +135,71 @@ export const Navigation: React.FC = () => {
             // the dark mark still reads acceptably through the 40%
             // bleed-through and gives the top of the page a more
             // editorial feel before the visitor scrolls.
-            src={scrolled ? '/logo.png' : '/logo-400.png'}
+            src={scrolled ? '/logo-400.png' : '/logo-400.png'}
             alt="Pixdyne"
             className="w-10 h-10 object-contain transition-opacity duration-300"
           />
           <span className="text-xl font-bold tracking-widest hidden sm:block">PIXDYNE</span>
         </Link>
 
-        <div className="flex items-center gap-8">
-          <button
-            className="hidden md:flex items-center gap-2 text-sm uppercase tracking-widest hover:text-brand-yellow-hover active:scale-[0.98] transition-all group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
-            onClick={() => scrollToSection('contact')}
-            aria-label="Start a project - scroll to contact form"
-          >
-            Start Project
-            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-          </button>
-
-          <button
-            ref={openButtonRef}
-            onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 group min-h-[44px] min-w-[44px] justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
-            aria-label="Open navigation menu"
-            aria-expanded={isOpen}
-            aria-controls="main-menu"
-          >
-            <span className="hidden sm:block text-xs uppercase tracking-[0.2em]">Menu</span>
-            <Menu size={24} className="group-hover:text-brand-yellow-hover transition-colors" />
-          </button>
+        {/* Desktop: inline horizontal nav. The fullscreen overlay
+            menu is kept for mobile only — see md:hidden on the
+            hamburger trigger below. OnlyPixAI is a brand wordmark
+            (CLAUDE.md rule 5) and is exempted from the uppercase
+            transform that the other nav items use. */}
+        <div className="hidden md:flex items-center gap-5 lg:gap-7">
+          {menuItems.map((item) => {
+            const isCta = item.id === 'contact';
+            const isBrand = item.id === 'onlypixai';
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={
+                  isCta
+                    ? 'inline-flex items-center gap-2 text-xs lg:text-sm uppercase tracking-widest bg-brand-yellow text-black font-bold py-2.5 px-4 lg:py-3 lg:px-5 hover:bg-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded-sm group'
+                    : `text-xs lg:text-sm tracking-widest text-white/85 hover:text-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded ${isBrand ? '' : 'uppercase'}`
+                }
+                aria-label={isCta ? 'Get in touch — scroll to contact form' : `Scroll to ${item.label} section`}
+              >
+                {item.label}
+                {isCta && (
+                  <ArrowRight
+                    size={14}
+                    className="group-hover:translate-x-1 transition-transform"
+                    aria-hidden="true"
+                  />
+                )}
+              </button>
+            );
+          })}
         </div>
+
+        {/* Mobile: hamburger trigger for the fullscreen overlay below. */}
+        <button
+          ref={openButtonRef}
+          onClick={() => setIsOpen(true)}
+          className="md:hidden flex items-center gap-2 group min-h-[44px] min-w-[44px] justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
+          aria-label="Open navigation menu"
+          aria-expanded={isOpen}
+          aria-controls="main-menu"
+        >
+          <span className="hidden sm:block text-xs uppercase tracking-[0.2em]">Menu</span>
+          <Menu size={24} className="group-hover:text-brand-yellow-hover transition-colors" />
+        </button>
       </nav>
 
-      {/* Full Screen Menu Overlay */}
+      {/* Full Screen Menu Overlay (mobile only — desktop uses the inline
+          nav above). `md:hidden` guarantees the overlay is removed from
+          the desktop layout entirely, so a stale isOpen=true after a
+          mobile→desktop viewport resize cannot leave the user trapped. */}
       <div
         id="main-menu"
         ref={menuRef}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className={`fixed inset-0 bg-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] ${isOpen ? 'translate-y-0 visible' : '-translate-y-full invisible'}`}
+        className={`md:hidden fixed inset-0 bg-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] ${isOpen ? 'translate-y-0 visible' : '-translate-y-full invisible'}`}
         aria-hidden={!isOpen}
       >
         <button
@@ -180,17 +212,21 @@ export const Navigation: React.FC = () => {
         </button>
 
         <div className="h-full flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 p-4" role="navigation" aria-label="Main menu links">
-          {menuItems.map((item) => (
-            <button
-              key={item.id}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-brand-yellow-hover hover:tracking-wide transition-all duration-300 stroke-text cursor-pointer uppercase focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px]"
-              style={{ WebkitTextStroke: '1px white' }}
-              onClick={() => scrollToSection(item.id)}
-              aria-label={`Navigate to ${item.label} section`}
-            >
-              {item.label}
-            </button>
-          ))}
+          {menuItems.map((item) => {
+            // OnlyPixAI exempted from uppercase per CLAUDE.md rule 5.
+            const isBrand = item.id === 'onlypixai';
+            return (
+              <button
+                key={item.id}
+                className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-brand-yellow-hover hover:tracking-wide transition-all duration-300 stroke-text cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px] ${isBrand ? '' : 'uppercase'}`}
+                style={{ WebkitTextStroke: '1px white' }}
+                onClick={() => scrollToSection(item.id)}
+                aria-label={`Navigate to ${item.label} section`}
+              >
+                {item.label}
+              </button>
+            );
+          })}
         </div>
 
         <div className="absolute bottom-10 w-full px-10 flex justify-between text-white/50 text-xs uppercase tracking-widest">

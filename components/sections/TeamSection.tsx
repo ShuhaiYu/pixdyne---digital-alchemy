@@ -135,7 +135,9 @@ export const TeamSection: React.FC = () => {
           </div>
           <div className="hidden md:block text-right mt-4 md:mt-0">
             <p className="font-sans text-sm max-w-xs text-white/60 leading-relaxed">
-              A way of working that has carried Pixdyne since 2018.
+              Since 2018, we have helped growing companies automate workflows,
+              replace manual operations, and scale on tools their teams can
+              actually keep using.
             </p>
           </div>
         </div>

@@ -38,7 +38,7 @@ const logos = [
   { src: '/logos/cloudflare.svg', alt: 'Cloudflare' },
   // AI providers (working ground for OnlyPixAI and AI delivery work)
   { src: '/logos/openai.svg', alt: 'OpenAI' },
-  { src: '/logos/anthropic.svg', alt: 'Claude (Anthropic)' },
+  { src: '/logos/claude.svg', alt: 'Claude' },
   { src: '/logos/googlegemini.svg', alt: 'Google Gemini' }
 ];
 

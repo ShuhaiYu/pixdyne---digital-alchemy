@@ -35,7 +35,7 @@ interface OrbitLogo {
 // gateway, not an infrastructure middleware.
 const orbitLogos: OrbitLogo[] = [
   { src: '/logos/openai.svg', alt: 'OpenAI', label: 'ChatGPT' },
-  { src: '/logos/anthropic.svg', alt: 'Anthropic', label: 'Claude' },
+  { src: '/logos/claude.svg', alt: 'Claude', label: 'Claude' },
   { src: '/logos/googlegemini.svg', alt: 'Google Gemini', label: 'Gemini' },
   { src: '/logos/grok.svg', alt: 'xAI', label: 'Grok' },
   { src: '/logos/deepseek.svg', alt: 'DeepSeek', label: 'DeepSeek' },

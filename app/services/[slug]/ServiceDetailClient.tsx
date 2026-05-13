@@ -59,40 +59,63 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
         <div className="detail-anim col-span-1 md:col-span-2">
           <h3 className="text-2xl font-bold mb-6">The Approach</h3>
-          <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed mb-12">
+          <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed mb-16">
             {service.fullDescription}
           </p>
 
           {service.features.length > 0 && (
             <>
+              {/* Features used to render as a 2-column grid of bordered
+                  boxes. After the distill pass they read as a plain
+                  two-column list with gold checkmarks — no boxes, no
+                  fills, less weight, so the eye moves on to the next
+                  block instead of stalling on a card grid. */}
               <h3 className="text-2xl font-bold mb-6">{isProduct ? 'About this product' : 'What we deliver'}</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
-                {service.features.map((feat, i) => (
-                  <div key={i} className="flex items-center gap-4 border border-white/10 p-4 bg-white/5">
-                    <span className="text-brand-yellow"><Check size={16} /></span>
-                    <span className="text-sm">{feat}</span>
-                  </div>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 mb-20">
+                {service.features.map((feat) => (
+                  <li key={feat} className="flex items-start gap-3 text-base text-brand-text/90">
+                    <Check
+                      size={18}
+                      className="text-brand-yellow flex-shrink-0 mt-1"
+                      aria-hidden="true"
+                    />
+                    <span>{feat}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </>
           )}
 
           {service.subServices && service.subServices.length > 0 && (
             <>
-              <h3 className="text-2xl font-bold mb-6">Pick a service, or take the bundle</h3>
-              <div className="space-y-6 mb-12">
+              {/* SubServices used to render as bordered cards with a
+                  nested <ul> of feature pills inside — a literal
+                  nested-card violation per the impeccable laws. After
+                  the distill pass each sub-service reads as an
+                  editorial block: serif italic title, prose body,
+                  inline feature row separated by middots. Hairline
+                  dividers replace the boxes so the section reads as a
+                  catalogue, not a stack of cards. */}
+              <h3 className="text-2xl font-bold mb-8">Pick a service, or take the bundle</h3>
+              <div className="border-t border-white/10 mb-16">
                 {service.subServices.map((sub) => (
-                  <div key={sub.slug} className="border border-white/10 p-6 bg-white/5">
-                    <h4 className="text-xl font-bold mb-2 text-brand-yellow">{sub.title}</h4>
-                    <p className="text-sm text-brand-text/85 mb-4 leading-relaxed">{sub.description}</p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {sub.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-xs text-brand-muted">
-                          <Check size={12} className="text-brand-yellow flex-shrink-0" />
+                  <div key={sub.slug} className="border-b border-white/10 py-8 md:py-10">
+                    <h4 className="text-2xl md:text-3xl font-serif italic text-brand-yellow mb-3">
+                      {sub.title}
+                    </h4>
+                    <p className="text-base text-brand-text/85 leading-relaxed mb-4 max-w-2xl">
+                      {sub.description}
+                    </p>
+                    <p className="flex flex-wrap items-center gap-x-1 gap-y-1 text-xs text-brand-muted">
+                      {sub.features.map((f, i) => (
+                        <React.Fragment key={f}>
+                          {i > 0 && (
+                            <span aria-hidden="true" className="text-brand-muted/40">·</span>
+                          )}
                           <span>{f}</span>
-                        </li>
+                        </React.Fragment>
                       ))}
-                    </ul>
+                    </p>
                   </div>
                 ))}
               </div>
@@ -101,25 +124,30 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
 
           {service.faqs && service.faqs.length > 0 && (
             <>
-              {/* FAQ accordion. Native <details>/<summary> for accessibility
-                  and zero-JS disclosure. The matching FAQPage JSON-LD is
-                  emitted in page.tsx so Google can surface this as a SERP
-                  rich result. Keep visible Q/A in sync with the schema —
-                  divergence is a truth-auditor block. */}
-              <h3 id="faq" className="text-2xl font-bold mb-6">Frequently asked</h3>
-              <div className="space-y-2 mb-12">
+              {/* FAQ list. Native <details>/<summary> for accessibility
+                  and zero-JS disclosure. After the distill pass the
+                  accordion reads as a hairline-divider list rather than
+                  a stack of cards — same content, less weight, the eye
+                  treats it as text and skips through it instead of
+                  parsing every entry as a separate object. The matching
+                  FAQPage JSON-LD is emitted in page.tsx so Google can
+                  surface this as a SERP rich result. Keep visible Q/A
+                  in sync with the schema — divergence is a truth-
+                  auditor block. */}
+              <h3 id="faq" className="text-2xl font-bold mb-8">Frequently asked</h3>
+              <div className="border-t border-white/10 mb-12">
                 {service.faqs.map((faq) => (
                   <details
                     key={faq.question}
-                    className="group border border-white/10 bg-white/[0.03] open:bg-white/[0.06] open:border-brand-yellow/30 transition-colors"
+                    className="group border-b border-white/10 open:border-brand-yellow/30 transition-colors"
                   >
                     {/* list-none covers modern browsers. The
                         ::-webkit-details-marker arbitrary variant
                         suppresses the default disclosure triangle on
                         older WebKit (iOS Safari ≤ 16), otherwise it
                         would render alongside our <Plus> icon. */}
-                    <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
-                      <span className="font-serif italic text-base md:text-lg text-brand-text group-hover:text-brand-yellow transition-colors">
+                    <summary className="flex items-center justify-between gap-4 py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                      <span className="font-serif italic text-lg md:text-xl text-brand-text group-hover:text-brand-yellow group-open:text-brand-yellow transition-colors">
                         {faq.question}
                       </span>
                       <Plus
@@ -128,7 +156,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                         aria-hidden="true"
                       />
                     </summary>
-                    <div className="px-5 pb-5 pt-1 text-sm md:text-base text-brand-text/80 leading-relaxed">
+                    <div className="pb-6 pt-1 pr-8 text-base text-brand-text/80 leading-relaxed">
                       {faq.answer}
                     </div>
                   </details>

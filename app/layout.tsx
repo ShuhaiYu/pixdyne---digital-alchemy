@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
-import { generateOrganizationSchema } from '@/lib/seo/schema';
+import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema';
 import { Navigation } from '@/components/layout/Navigation';
 import './globals.css';
 
@@ -117,6 +117,13 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(generateOrganizationSchema())
+          }}
+        />
+        <Script
+          id="website-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(generateWebSiteSchema())
           }}
         />
       </head>

@@ -5,11 +5,19 @@ import { getAllBlogPosts } from '@/lib/data/blog';
 
 export const metadata: Metadata = {
   title: 'Journal | Pixdyne',
-  description: 'Insights on web development, SEO, and digital strategy from the Pixdyne team.',
+  description:
+    'Notes on web development, technical SEO, and building digital products — from the Melbourne team that has shipped them since 2018.',
   openGraph: {
     title: 'Journal | Pixdyne',
-    description: 'Insights on web development, SEO, and digital strategy from the Pixdyne team.',
+    description:
+      'Notes on web development, technical SEO, and digital products from the Pixdyne team.',
     url: 'https://pixdyne.com/blog',
+    images: [{ url: '/og-image.png', width: 1080, height: 1080, alt: 'Pixdyne Journal' }]
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Journal | Pixdyne',
+    description: 'Notes on web development, SEO, and digital products.'
   },
   alternates: {
     canonical: 'https://pixdyne.com/blog'

@@ -377,6 +377,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'wide'
   },
+  {
+    id: '18',
+    slug: 'nutsmart',
+    name: 'Nutsmart',
+    client: 'Nutsmart',
+    category: 'E-commerce',
+    services: ['Web Development'],
+    stack: ['E-commerce platform', 'Specialty foods catalogue', 'Store locator'],
+    challenge:
+      "Nutsmart sells nuts, dried fruits, beans, and grains out of Clayton, with a large catalogue that is visually similar — most categories look like piles of dried product on a shelf. Clear category architecture and product information have to do the work that hero photography can't.",
+    solution:
+      "We built the storefront with structured product categories — nuts, dried fruits, beans, grains — each backed by clean product information rather than image-led merchandising. Browsing, cart, and checkout work the way a customer expects, and the store location is surfaced so retail pickup is a real option, not a hidden footer link.",
+    shortDescription:
+      'E-commerce site for a Melbourne specialty-foods retailer — clear category architecture across nuts, dried fruits, beans, and grains.',
+    seoTitle: 'Nutsmart — Specialty Foods E-commerce',
+    seoDescription:
+      'An e-commerce site for a Clayton specialty-foods retailer selling nuts, dried fruits, beans, and grains with clear category architecture. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

@@ -47,7 +47,7 @@ export const SiteFooter: React.FC = () => {
 
           {/* NAP block */}
           <div className="space-y-3">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-brand-yellow">
+            <h3 className="font-serif italic text-lg text-brand-yellow">
               Where
             </h3>
             <address className="not-italic text-sm font-sans text-brand-muted leading-relaxed">
@@ -69,14 +69,14 @@ export const SiteFooter: React.FC = () => {
                 {BUSINESS.phone.display}
               </a>
             </div>
-            <p className="text-xs font-mono text-brand-muted/70 tracking-wider mt-3">
+            <p className="text-xs font-sans text-brand-muted/70 tracking-wider mt-3">
               {BUSINESS_FORMATTED.abnLabel}
             </p>
           </div>
 
           {/* Primary navigation */}
           <nav aria-label="Footer navigation" className="space-y-3">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-brand-yellow">
+            <h3 className="font-serif italic text-lg text-brand-yellow">
               Pages
             </h3>
             <ul className="space-y-2 text-sm font-sans text-brand-muted">
@@ -85,7 +85,7 @@ export const SiteFooter: React.FC = () => {
                   <Link
                     href={link.href}
                     className={`hover:text-brand-yellow-hover transition-colors ${
-                      link.uppercase ? 'uppercase tracking-wider text-xs font-mono' : ''
+                      link.uppercase ? 'uppercase tracking-wider text-xs' : ''
                     }`}
                   >
                     {link.label}
@@ -97,7 +97,7 @@ export const SiteFooter: React.FC = () => {
 
           {/* Services list */}
           <nav aria-label="Services" className="space-y-3">
-            <h3 className="font-mono text-xs uppercase tracking-widest text-brand-yellow">
+            <h3 className="font-serif italic text-lg text-brand-yellow">
               Capabilities
             </h3>
             <ul className="space-y-2 text-sm font-sans text-brand-muted">
@@ -137,12 +137,14 @@ export const SiteFooter: React.FC = () => {
           </nav>
         </div>
 
-        {/* Bottom strip — copyright + legal links */}
-        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs font-mono text-brand-muted">
-          <p className="uppercase tracking-widest">
+        {/* Bottom strip — copyright + legal links. Drops mono per the
+            typeset pass: this strip is recessive metadata, not a label,
+            so it reads in plain Space Grotesk at smaller weight. */}
+        <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-brand-muted">
+          <p>
             &copy; {year} {BUSINESS.name} &middot; All rights reserved
           </p>
-          <div className="flex items-center gap-3 uppercase tracking-widest">
+          <div className="flex items-center gap-3">
             <Link
               href="/legal/privacy"
               className="hover:text-brand-yellow-hover transition-colors"

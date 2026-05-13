@@ -33,7 +33,7 @@ export default function BlogPage() {
         {/* Back Link */}
         <Link
           href="/"
-          className="group flex items-center gap-2 text-sm font-mono text-brand-muted hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
+          className="group flex items-center gap-2 text-sm text-brand-muted hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           Back to Home
@@ -86,8 +86,8 @@ export default function BlogPage() {
 
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-brand-black/10 text-center">
-          <p className="text-sm text-brand-muted font-mono">
-            More articles coming soon...
+          <p className="text-sm italic font-serif text-brand-muted">
+            More articles coming soon.
           </p>
         </div>
       </div>

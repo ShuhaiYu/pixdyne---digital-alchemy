@@ -19,7 +19,7 @@ export default function TermsPage() {
     <div className="min-h-screen bg-brand-white text-brand-black p-8 md:p-24">
       <Link
         href="/"
-        className="group flex items-center gap-2 text-sm font-mono text-brand-muted hover:text-brand-black mb-12 transition-colors"
+        className="group flex items-center gap-2 text-sm text-brand-muted hover:text-brand-black mb-12 transition-colors"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
         RETURN
@@ -27,8 +27,8 @@ export default function TermsPage() {
 
       <div className="max-w-3xl">
         <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Terms of Service</h1>
-        <p className="text-sm font-mono text-brand-muted mb-12">
-          LAST UPDATED:{' '}
+        <p className="text-xs uppercase tracking-wider text-brand-muted mb-12">
+          Last updated:{' '}
           <time dateTime={lastUpdatedISO}>{lastUpdatedHuman.toUpperCase()}</time>
         </p>
 
@@ -145,7 +145,7 @@ export default function TermsPage() {
         <div className="mt-12 pt-8 border-t border-brand-black/10">
           <Link
             href="/legal/privacy"
-            className="text-sm font-mono text-brand-yellow hover:text-brand-black transition-colors"
+            className="text-sm text-brand-yellow hover:text-brand-black transition-colors"
           >
             View Privacy Policy →
           </Link>

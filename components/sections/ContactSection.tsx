@@ -56,7 +56,7 @@ export const ContactSection: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-sm font-mono text-brand-muted mt-6 sm:mt-8 md:mt-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-sm text-brand-muted mt-6 sm:mt-8 md:mt-0">
             <div>
               <h3 className="text-brand-text font-bold mb-2 uppercase tracking-widest">Contact</h3>
               <a href={`mailto:${BUSINESS.email}`} className="hover:text-brand-yellow-hover transition-colors block">{BUSINESS.email}</a>
@@ -89,7 +89,7 @@ export const ContactSection: React.FC = () => {
             aria-label="Contact form"
           >
             <div className="group">
-              <label htmlFor="contact-name" className="block text-xs font-mono uppercase text-brand-muted mb-2 group-focus-within:text-brand-yellow transition-colors">Name</label>
+              <label htmlFor="contact-name" className="block text-sm text-brand-muted mb-2 group-focus-within:text-brand-yellow transition-colors">Name</label>
               <input
                 id="contact-name"
                 type="text"
@@ -105,7 +105,7 @@ export const ContactSection: React.FC = () => {
             </div>
 
             <div className="group">
-              <label htmlFor="contact-email" className="block text-xs font-mono uppercase text-brand-muted mb-2 group-focus-within:text-brand-yellow transition-colors">Email</label>
+              <label htmlFor="contact-email" className="block text-sm text-brand-muted mb-2 group-focus-within:text-brand-yellow transition-colors">Email</label>
               <input
                 id="contact-email"
                 type="email"
@@ -121,7 +121,7 @@ export const ContactSection: React.FC = () => {
             </div>
 
             <div className="group">
-              <label htmlFor="contact-message" className="block text-xs font-mono uppercase text-brand-muted mb-2 group-focus-within:text-brand-yellow transition-colors">Project Details</label>
+              <label htmlFor="contact-message" className="block text-sm text-brand-muted mb-2 group-focus-within:text-brand-yellow transition-colors">Project Details</label>
               <textarea
                 id="contact-message"
                 rows={3}
@@ -129,7 +129,7 @@ export const ContactSection: React.FC = () => {
                 maxLength={2000}
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                className="w-full bg-transparent border-b border-white/20 py-2 text-xl font-sans focus:outline-none focus:border-brand-yellow transition-colors text-white placeholder-white/20 resize-none"
+                className="w-full bg-transparent border-b border-white/20 py-2 text-xl font-sans focus:outline-none focus:border-brand-yellow transition-colors text-brand-text placeholder-brand-text/20 resize-none"
                 placeholder="I need a new web platform..."
                 aria-required="true"
               />
@@ -138,7 +138,7 @@ export const ContactSection: React.FC = () => {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="mt-4 border border-white/20 text-brand-text font-mono text-xs sm:text-sm uppercase py-3 sm:py-4 px-6 sm:px-8 hover:bg-brand-yellow-hover hover:text-brand-black hover:border-brand-yellow-hover active:scale-[0.98] transition-all duration-300 flex justify-between items-center group disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+              className="mt-4 border border-white/20 text-brand-text text-xs sm:text-sm uppercase tracking-widest py-3 sm:py-4 px-6 sm:px-8 hover:bg-brand-yellow-hover hover:text-brand-black hover:border-brand-yellow-hover active:scale-[0.98] transition-all duration-300 flex justify-between items-center group disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
               aria-label={status === 'loading' ? 'Sending message' : status === 'success' ? 'Message sent successfully' : 'Send message'}
             >
               <span>{status === 'loading' ? 'Sending...' : status === 'success' ? 'Message Sent!' : 'Send Message'}</span>
@@ -153,13 +153,13 @@ export const ContactSection: React.FC = () => {
             </div>
 
             {status === 'error' && (
-              <p className="text-brand-error text-sm font-mono" role="alert">
+              <p className="text-brand-error text-sm" role="alert">
                 Error sending message. Please try again.
               </p>
             )}
 
             {status === 'success' && (
-              <p className="text-brand-success text-sm font-mono" role="status">
+              <p className="text-brand-success text-sm" role="status">
                 Message sent successfully. We&apos;ll be in touch.
               </p>
             )}

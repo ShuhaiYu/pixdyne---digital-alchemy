@@ -36,7 +36,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
     <div ref={containerRef} className="min-h-screen bg-brand-black text-brand-text pt-24 pb-20 px-6 md:px-12 flex flex-col">
       <a
         href="/#services"
-        className="group flex items-center gap-2 text-sm font-mono text-brand-muted hover:text-brand-yellow-hover mb-12 transition-colors w-fit cursor-pointer"
+        className="group flex items-center gap-2 text-sm text-brand-muted hover:text-brand-yellow-hover mb-12 transition-colors w-fit cursor-pointer"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
         Back to Services
@@ -70,7 +70,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                 {service.features.map((feat, i) => (
                   <div key={i} className="flex items-center gap-4 border border-white/10 p-4 bg-white/5">
                     <span className="text-brand-yellow"><Check size={16} /></span>
-                    <span className="font-mono text-sm">{feat}</span>
+                    <span className="text-sm">{feat}</span>
                   </div>
                 ))}
               </div>
@@ -87,7 +87,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                     <p className="text-sm text-brand-text/85 mb-4 leading-relaxed">{sub.description}</p>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {sub.features.map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-xs font-mono text-brand-muted">
+                        <li key={f} className="flex items-center gap-2 text-xs text-brand-muted">
                           <Check size={12} className="text-brand-yellow flex-shrink-0" />
                           <span>{f}</span>
                         </li>
@@ -140,7 +140,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
 
         <div className="detail-anim col-span-1">
           <div className="bg-brand-surface p-8 border border-white/10 sticky top-32">
-            <h4 className="text-sm font-mono text-brand-muted uppercase tracking-widest mb-6">
+            <h4 className="text-xs text-brand-muted uppercase tracking-widest mb-6">
               {isProduct ? 'Tags' : 'Technologies'}
             </h4>
             <div className="flex flex-wrap gap-2 mb-12">

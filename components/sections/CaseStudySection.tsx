@@ -135,7 +135,7 @@ export const CaseStudySection: React.FC = () => {
         {!isEmpty && (
           <Link
             href="/work"
-            className="text-xs font-mono uppercase hover:text-brand-yellow-hover transition-colors text-brand-text/75 flex items-center gap-2 group"
+            className="text-xs uppercase tracking-wider hover:text-brand-yellow-hover transition-colors text-brand-text/75 flex items-center gap-2 group"
           >
             View All
             <svg
@@ -171,7 +171,7 @@ export const CaseStudySection: React.FC = () => {
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow font-mono text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-brand-black transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-brand-black transition-colors"
             >
               Talk to us in the meantime
               <svg
@@ -256,7 +256,7 @@ export const CaseStudySection: React.FC = () => {
                     />
                   </svg>
                 </div>
-                <span className="text-xs font-mono uppercase">View All</span>
+                <span className="text-xs uppercase tracking-wider">View All</span>
               </Link>
             </div>
           </div>
@@ -267,7 +267,7 @@ export const CaseStudySection: React.FC = () => {
         <div className="text-center pt-3 pb-1 flex-shrink-0 md:hidden">
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 text-brand-muted hover:text-brand-yellow-hover transition-colors text-xs font-mono"
+            className="inline-flex items-center gap-2 text-brand-muted hover:text-brand-yellow-hover transition-colors text-xs uppercase tracking-wider"
           >
             Explore all projects →
           </Link>

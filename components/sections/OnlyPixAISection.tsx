@@ -167,7 +167,7 @@ export const OnlyPixAISection: React.FC = () => {
             </a>
             <Link
               href="/services/onlypixai"
-              className="inline-flex items-center justify-center gap-2 border border-white/30 text-brand-text font-mono text-xs uppercase tracking-widest py-4 px-8 hover:border-brand-yellow hover:text-brand-yellow transition-colors"
+              className="inline-flex items-center justify-center gap-2 border border-white/30 text-brand-text text-xs uppercase tracking-widest py-4 px-8 hover:border-brand-yellow hover:text-brand-yellow transition-colors"
             >
               How we use it for clients
             </Link>
@@ -187,7 +187,7 @@ export const OnlyPixAISection: React.FC = () => {
               <div className="text-3xl md:text-4xl font-serif italic text-brand-yellow leading-none">
                 PX
               </div>
-              <div className="text-[0.625rem] md:text-xs font-mono text-brand-muted tracking-widest mt-1 uppercase">
+              <div className="text-[0.625rem] md:text-xs text-brand-muted tracking-widest mt-1 uppercase">
                 Gateway
               </div>
             </div>

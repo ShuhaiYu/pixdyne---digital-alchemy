@@ -29,7 +29,7 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
       <div className="w-full px-6 md:px-12 py-6 flex justify-between items-center z-40 relative">
         <Link
           href="/#work"
-          className="flex items-center gap-2 text-sm font-mono text-brand-text hover:text-brand-yellow-hover transition-colors"
+          className="flex items-center gap-2 text-sm text-brand-text hover:text-brand-yellow-hover transition-colors"
         >
           <ArrowLeft size={16} />
           Back to Work
@@ -48,7 +48,7 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
 
         <div className="absolute bottom-0 left-0 w-full p-6 md:p-12">
-          <span className="work-content block text-brand-yellow font-mono text-sm mb-2">{work.category}</span>
+          <span className="work-content block text-brand-yellow text-xs uppercase tracking-widest mb-2">{work.category}</span>
           <h1 className="work-content text-5xl md:text-8xl font-serif italic">{work.name}</h1>
         </div>
       </div>
@@ -58,7 +58,7 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
 
         {/* Stats Sidebar */}
         <div className="work-content col-span-1 md:col-span-3">
-          <div className="flex flex-col gap-8 text-sm font-mono text-brand-muted">
+          <div className="flex flex-col gap-8 text-sm text-brand-muted">
             <div>
               <span className="block text-brand-text font-bold uppercase mb-1">Client</span>
               {work.client}

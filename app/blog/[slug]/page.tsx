@@ -87,7 +87,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="max-w-3xl mx-auto">
           <Link
             href="/blog"
-            className="group flex items-center gap-2 text-sm font-mono text-brand-muted hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
+            className="group flex items-center gap-2 text-sm text-brand-muted hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
           >
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             Back to Journal
@@ -117,12 +117,12 @@ export default async function BlogPostPage({ params }: Props) {
           <footer className="mt-16 pt-8 border-t border-brand-black/10">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-sm font-mono text-brand-muted">Written by</span>
+                <span className="text-sm text-brand-muted">Written by</span>
                 <p className="text-lg font-bold">Pixdyne Team</p>
               </div>
               <Link
                 href="/blog"
-                className="text-sm font-mono uppercase text-brand-yellow hover:text-brand-black transition-colors"
+                className="text-sm uppercase tracking-wider text-brand-yellow hover:text-brand-black transition-colors"
               >
                 More Articles →
               </Link>

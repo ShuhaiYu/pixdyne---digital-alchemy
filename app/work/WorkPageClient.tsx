@@ -84,7 +84,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow font-mono text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-brand-black transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-brand-black transition-colors"
             >
               Talk to us in the meantime
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">

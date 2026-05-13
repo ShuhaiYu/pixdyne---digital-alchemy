@@ -67,25 +67,21 @@ export const metadata: Metadata = {
     siteName: 'Pixdyne',
     title: 'Pixdyne | Digital Alchemy',
     description:
-      'Melbourne technology partner since 2018. Websites, custom systems, ongoing operations — and real AI capability for your business.',
-    // og-image.png is a 1080x1080 branded social card from the
-    // pixdyne asset kit. TBD: produce a dedicated 1200x630 landscape
-    // version via app/opengraph-image.tsx for platforms that prefer
-    // landscape (Twitter summary_large_image, etc.).
-    images: [{
-      url: '/og-image.png',
-      width: 1080,
-      height: 1080,
-      alt: 'Pixdyne'
-    }]
+      'Melbourne technology partner since 2018. Websites, custom systems, ongoing operations — and real AI capability for your business.'
+    // Landscape og:image is emitted via the file-based convention at
+    // app/opengraph-image.tsx (1200x630, dynamically rendered). Child
+    // routes that do not define their own opengraph-image fall back to
+    // the inline 1080x1080 brand-kit square at /og-image.png — set on
+    // those routes' metadata directly.
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'Pixdyne | Digital Alchemy',
     description:
-      'Melbourne technology partner since 2018. Websites, custom systems, operations — and real AI for your business.',
-    images: ['/og-image.png']
-    // TBD: re-add `creator` once the @pixdyne handle on X/Twitter is verified.
+      'Melbourne technology partner since 2018. Websites, custom systems, operations — and real AI for your business.'
+    // images intentionally omitted: file-based opengraph-image emits
+    // both og:image and twitter:image. TBD: add `creator` once the
+    // @pixdyne handle on X/Twitter is verified.
   },
   robots: {
     index: true,

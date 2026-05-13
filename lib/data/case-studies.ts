@@ -558,6 +558,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '27',
+    slug: 'gmt-tools-technic',
+    name: 'GMT Tools Technic',
+    client: 'GMT Tools Technic',
+    category: 'E-commerce',
+    services: ['Web Development'],
+    stack: ['Custom e-commerce', 'Postal-code shipping calculator', 'GST checkout', 'B2B'],
+    challenge:
+      "GMT Tools Technic supplies specialised truck and heavy-industry tools and spare parts to Australia's automotive and transport sector. B2B buyers — fleet operators, mechanics, transport businesses — need accurate shipping cost (these parts are heavy and bulky) and proper GST handling, not just a retail-style flat-rate checkout.",
+    solution:
+      "We built a custom e-commerce platform with category and tag-based navigation, automated shipping cost calculation based on postal code and package dimensions, and GST integration at checkout. Related-item recommendations help when the buyer doesn't know the exact part number they need. The site is designed for commercial buying flows rather than retail browsing.",
+    shortDescription:
+      'Custom B2B e-commerce for heavy-industry tools and spare parts — postal-code shipping calculator and GST checkout.',
+    seoTitle: 'GMT Tools Technic — B2B E-commerce for Heavy-Industry Tools',
+    seoDescription:
+      'Custom B2B e-commerce for truck and heavy-industry tools and spare parts, with postal-code shipping calculator and GST handling at checkout. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

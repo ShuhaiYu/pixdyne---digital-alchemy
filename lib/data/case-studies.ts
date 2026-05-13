@@ -437,6 +437,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '21',
+    slug: 'into-solar',
+    name: 'Into Solar',
+    client: 'Into Solar',
+    category: 'Marketing Site',
+    services: ['Web Development'],
+    stack: ['WordPress', 'Quote function', 'Lead capture'],
+    challenge:
+      "Into Solar is an Australian solar installer. Solar buyers research multiple installers and want a quote before they engage. The legacy site couldn't surface enquiries efficiently — qualified prospects bounced to competitors who made the next step obvious.",
+    solution:
+      "We did a digital refresh on WordPress and added a quote function that lets a prospect lodge a structured enquiry directly. The site explains the offer cleanly, and the quote flow gives the company a structured pipeline of enquiries instead of scattered emails the team has to manually sort.",
+    shortDescription:
+      'WordPress digital refresh for a solar installer with a structured quote function feeding the sales pipeline.',
+    seoTitle: 'Into Solar — Solar Installer Site + Quote Function',
+    seoDescription:
+      'A WordPress digital refresh for an Australian solar installer with a structured quote function feeding qualified enquiries directly into the sales pipeline. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

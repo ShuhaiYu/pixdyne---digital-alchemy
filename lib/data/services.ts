@@ -34,7 +34,34 @@ export const services: ServiceItem[] = [
     ],
     seoTitle: 'Web Development Services Melbourne',
     seoDescription:
-      'Pixdyne builds and deploys websites in Melbourne — WordPress, Shopify, Webflow, and fully custom builds. Design through launch and beyond.'
+      'Pixdyne builds and deploys websites in Melbourne — WordPress, Shopify, Webflow, and fully custom builds. Design through launch and beyond.',
+    faqs: [
+      {
+        question: 'What platforms do you build websites on?',
+        answer:
+          'We pick the platform that fits how your team will run the site after launch. In practice that means WordPress, Shopify, Webflow, or Squarespace when those fit; a fully custom build when they do not. We do not push everyone onto the same stack.'
+      },
+      {
+        question: 'Can you take over an existing website, or do you only build new ones?',
+        answer:
+          'Both. A meaningful share of our work has been picking up sites built by someone else — cleaning up, modernising, and operating them from there. We will audit what is there before quoting.'
+      },
+      {
+        question: 'How long does a typical website project take?',
+        answer:
+          'A small marketing site is usually 4 to 6 weeks. A larger custom build with integrations is 2 to 4 months. We give you a concrete timeline after scoping; we do not promise a number before we have looked at the work.'
+      },
+      {
+        question: 'What happens after the site goes live?',
+        answer:
+          'Hand-off, plus the option to keep us on under Operations: hosting, monitoring, ongoing SEO and content, and continuous development. Most clients stay with us, but you are not locked in.'
+      },
+      {
+        question: 'Do you handle design as well as development?',
+        answer:
+          'Yes. Design and development sit on the same team. If you already have brand guidelines or a design system, we work to those; if you do not, we produce the design as part of the project.'
+      }
+    ]
   },
   {
     id: '02',
@@ -65,7 +92,34 @@ export const services: ServiceItem[] = [
     ],
     seoTitle: 'Custom System Development Melbourne — ERP & CRM',
     seoDescription:
-      'NetSuite, Salesforce, bespoke CRMs, internal tools, and mobile apps from a Melbourne team. Pixdyne builds systems that fit how your team actually works.'
+      'NetSuite, Salesforce, bespoke CRMs, internal tools, and mobile apps from a Melbourne team. Pixdyne builds systems that fit how your team actually works.',
+    faqs: [
+      {
+        question: 'Do you only build custom systems, or do you also work with NetSuite, Salesforce, and HubSpot?',
+        answer:
+          'Both. We implement NetSuite, Salesforce, and HubSpot when they fit, and we build custom systems when an off-the-shelf platform would force the business to bend around the software. The right call depends on your workflow, not on what we want to sell.'
+      },
+      {
+        question: 'Can you build a mobile app for iOS and Android?',
+        answer:
+          'Yes — native iOS, native Android, and cross-platform builds when that is the right trade-off. Mobile apps are usually paired with a backend that we also build and operate.'
+      },
+      {
+        question: 'Will we own the source code and the data?',
+        answer:
+          'Yes. Custom builds are delivered under a written services agreement that puts the code, the data, and the integrations under your ownership. Off-the-shelf platforms (NetSuite, Salesforce, HubSpot) follow their vendor terms.'
+      },
+      {
+        question: 'How do you handle integrations with the tools we already use?',
+        answer:
+          'API-first. Most modern tools expose APIs; for the ones that do not, we work with their data exports or build the connector ourselves. Integration scope is part of every quote — there is no "integrations are extra" surprise after the project starts.'
+      },
+      {
+        question: 'What if our needs change after the system is live?',
+        answer:
+          'That is what Operations is for — ongoing development on the systems we have already shipped. Many of our clients have been on continuous-development retainers since 2018.'
+      }
+    ]
   },
   {
     id: '03',
@@ -139,7 +193,34 @@ export const services: ServiceItem[] = [
     ],
     seoTitle: 'Managed IT, SEO & Ongoing Development Melbourne',
     seoDescription:
-      'Operations from Pixdyne in Melbourne: managed IT, ongoing SEO and content, and continuous development. Pick a single service or take the lot as a retainer.'
+      'Operations from Pixdyne in Melbourne: managed IT, ongoing SEO and content, and continuous development. Pick a single service or take the lot as a retainer.',
+    faqs: [
+      {
+        question: 'Can we hire you for Operations even if we did not build the site or system with you?',
+        answer:
+          'Yes. A good portion of Operations work starts with an audit of a site or system built by someone else. We do not require you to have used us for the original build.'
+      },
+      {
+        question: 'What is included in Managed IT?',
+        answer:
+          'Hosting, SSL and domain management, uptime and security monitoring, automated backups, and incident response. We do not run a 24/7 NOC — for anything time-critical we agree response targets in writing first.'
+      },
+      {
+        question: 'How does ongoing SEO work?',
+        answer:
+          'Technical SEO maintenance (Core Web Vitals, schema, internal linking), on-page optimisation, content production where you want it, and a monthly Search Console plus analytics report. We do not promise rankings; we maintain them and improve them over time.'
+      },
+      {
+        question: 'Do you offer 24/7 support?',
+        answer:
+          'Not by default. Response targets are written into the retainer — usually next-business-day for routine work and around two-hour response for production-down incidents during AEST business hours. We do not advertise round-the-clock cover we cannot deliver.'
+      },
+      {
+        question: 'Can we pick individual services, or do we have to take the full bundle?',
+        answer:
+          'Pick what you need. Managed IT, SEO and content, and DevOps each have their own scope. Some clients take only Managed IT, others take all three as a single retainer with a discount.'
+      }
+    ]
   },
   {
     id: 'PX',
@@ -160,7 +241,34 @@ export const services: ServiceItem[] = [
     ],
     seoTitle: 'OnlyPixAI — Unified AI Gateway',
     seoDescription:
-      'OnlyPixAI is a Pixdyne product — a unified AI gateway with 100+ LLMs through one billed-once pipeline. Live at onlypixai.com.'
+      'OnlyPixAI is a Pixdyne product — a unified AI gateway with 100+ LLMs through one billed-once pipeline. Live at onlypixai.com.',
+    faqs: [
+      {
+        question: 'What is OnlyPixAI?',
+        answer:
+          'OnlyPixAI is a Pixdyne product — a unified AI gateway that gives teams access to 100+ large language models (OpenAI, Claude, Gemini, open-source models, and more) through one API, billed once.'
+      },
+      {
+        question: 'How is it different from using ChatGPT or Claude directly?',
+        answer:
+          'You stop maintaining a separate account, key, bill, and SDK for every AI vendor. You switch models with a config change, not a code rewrite. And you get a single, properly authorised supply chain instead of a tangle of unofficial wrappers.'
+      },
+      {
+        question: 'Is OnlyPixAI a Pixdyne service, or a product I can sign up for?',
+        answer:
+          'It is a Pixdyne-built product, live at onlypixai.com. You sign up there directly. It is not a service we deliver on your behalf.'
+      },
+      {
+        question: 'Can Pixdyne build something similar for our business?',
+        answer:
+          'Yes — AI capability tailored to your workflow is part of what we build under System Development. OnlyPixAI is the public demonstration that we know how to do this end-to-end.'
+      },
+      {
+        question: 'Where do I sign up?',
+        answer:
+          'onlypixai.com — sign in, add a key, start sending requests.'
+      }
+    ]
   }
 ];
 

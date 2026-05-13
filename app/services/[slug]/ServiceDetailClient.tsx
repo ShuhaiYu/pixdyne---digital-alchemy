@@ -2,7 +2,7 @@
 
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ArrowLeft, ArrowUpRight, Check } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, Check, Plus } from 'lucide-react';
 import { ServiceItem } from '@/types';
 
 interface ServiceDetailClientProps {
@@ -94,6 +94,39 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                       ))}
                     </ul>
                   </div>
+                ))}
+              </div>
+            </>
+          )}
+
+          {service.faqs && service.faqs.length > 0 && (
+            <>
+              {/* FAQ accordion. Native <details>/<summary> for accessibility
+                  and zero-JS disclosure. The matching FAQPage JSON-LD is
+                  emitted in page.tsx so Google can surface this as a SERP
+                  rich result. Keep visible Q/A in sync with the schema —
+                  divergence is a truth-auditor block. */}
+              <h3 id="faq" className="text-2xl font-bold mb-6">Frequently asked</h3>
+              <div className="space-y-2 mb-12">
+                {service.faqs.map((faq, i) => (
+                  <details
+                    key={i}
+                    className="group border border-white/10 bg-white/[0.03] open:bg-white/[0.06] open:border-brand-yellow/30 transition-colors"
+                  >
+                    <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none">
+                      <span className="font-serif italic text-base md:text-lg text-white group-hover:text-brand-yellow transition-colors">
+                        {faq.question}
+                      </span>
+                      <Plus
+                        size={18}
+                        className="text-brand-yellow flex-shrink-0 transition-transform duration-300 group-open:rotate-45"
+                        aria-hidden="true"
+                      />
+                    </summary>
+                    <div className="px-5 pb-5 pt-1 text-sm md:text-base text-gray-300 leading-relaxed">
+                      {faq.answer}
+                    </div>
+                  </details>
                 ))}
               </div>
             </>

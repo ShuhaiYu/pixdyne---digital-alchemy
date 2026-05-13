@@ -52,6 +52,10 @@ export interface ServiceItem {
   };
   seoTitle?: string;
   seoDescription?: string;
+  // Optional FAQ block surfaced on the service detail page. Drives both
+  // the visible accordion UI and the FAQPage schema. Keep questions plain
+  // and answers truthful — fabricated answers are a truth-auditor block.
+  faqs?: { question: string; answer: string }[];
 }
 
 export interface CaseStudyItem {

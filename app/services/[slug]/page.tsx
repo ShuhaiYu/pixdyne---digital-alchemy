@@ -2,7 +2,11 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { getServiceBySlug, getServiceSlugs } from '@/lib/data/services';
-import { generateServiceSchema, generateBreadcrumbSchema } from '@/lib/seo/schema';
+import {
+  generateServiceSchema,
+  generateBreadcrumbSchema,
+  generateFAQSchema
+} from '@/lib/seo/schema';
 import { ServiceDetailClient } from './ServiceDetailClient';
 
 interface Props {
@@ -61,6 +65,12 @@ export default async function ServicePage({ params }: Props) {
     { name: service.title, url: `https://pixdyne.com/services/${slug}` }
   ];
 
+  // FAQPage schema is emitted only when the service has real FAQ
+  // content. generateFAQSchema returns null when the array is empty,
+  // so we never ship an empty FAQPage stub (which would be a
+  // truth-auditor block per CLAUDE.md §14.3).
+  const faqSchema = service.faqs ? generateFAQSchema(service.faqs) : null;
+
   return (
     <>
       <Script
@@ -77,6 +87,15 @@ export default async function ServicePage({ params }: Props) {
           __html: JSON.stringify(generateBreadcrumbSchema(breadcrumbs))
         }}
       />
+      {faqSchema && (
+        <Script
+          id="faq-schema"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqSchema)
+          }}
+        />
+      )}
       <ServiceDetailClient service={service} />
     </>
   );

@@ -15,7 +15,7 @@ export const services: ServiceItem[] = [
     description:
       'Websites built and launched end-to-end — design, development, deployment, and the handover that lets your team take it from there.',
     fullDescription:
-      'From WordPress and Shopify storefronts to fully bespoke marketing and product sites, we deliver websites that work for the business behind them. We pick the platform that fits how your team will run it after launch — not whatever was easiest to build.',
+      'Web development from a Melbourne team that has built and shipped sites since 2018. From WordPress and Shopify storefronts to Webflow marketing sites and fully bespoke product builds, we deliver websites that work for the business behind them. We pick the platform that fits how your team will run it after launch — not whatever was easiest to build.',
     tags: [
       'WordPress',
       'Shopify',
@@ -45,7 +45,7 @@ export const services: ServiceItem[] = [
     description:
       'Custom internal systems and apps built around how your business actually works.',
     fullDescription:
-      'ERP and CRM rollouts, internal tooling, dashboards, and mobile apps. We design systems that fit the workflow, rather than asking the business to bend around the software. Working ground includes NetSuite, Salesforce, HubSpot, custom backends on Node.js, and native iOS and Android apps.',
+      'System development from a Melbourne team — custom software, ERP and CRM rollouts, internal tools, dashboards, and mobile apps. We design systems that fit the workflow, rather than asking the business to bend around the software. Working ground includes NetSuite, Salesforce, HubSpot, custom backends on Node.js, and native iOS and Android apps.',
     tags: [
       'NetSuite',
       'Salesforce',
@@ -63,9 +63,9 @@ export const services: ServiceItem[] = [
       'Database design',
       'Authentication and access control'
     ],
-    seoTitle: 'Custom System Development Melbourne — ERP, CRM, Apps',
+    seoTitle: 'Custom System Development Melbourne — ERP & CRM',
     seoDescription:
-      'NetSuite implementations, bespoke CRMs, internal tools, and mobile apps. Pixdyne builds systems that fit the way your team actually works.'
+      'NetSuite, Salesforce, bespoke CRMs, internal tools, and mobile apps from a Melbourne team. Pixdyne builds systems that fit how your team actually works.'
   },
   {
     id: '03',
@@ -76,7 +76,7 @@ export const services: ServiceItem[] = [
     description:
       'Post-launch services that keep your site, system, and search presence working — pick what you need.',
     fullDescription:
-      "Most projects don't end at launch. Operations is the bundle of services that keep things running afterwards: hosting and uptime monitoring, ongoing SEO and content, and continuous development on what we've already built. Take it as a single retainer, or pick the individual services you need.",
+      "Most projects don't end at launch. Operations is the post-launch bundle — managed IT (hosting, monitoring, backups), ongoing SEO and content, and continuous development on the systems we have already shipped. Delivered from Melbourne. Take it as a single retainer, or pick the individual services you need.",
     tags: [
       'Hosting',
       'SSL',
@@ -137,9 +137,9 @@ export const services: ServiceItem[] = [
         ]
       }
     ],
-    seoTitle: 'Managed IT, SEO & Ongoing Development in Melbourne',
+    seoTitle: 'Managed IT, SEO & Ongoing Development Melbourne',
     seoDescription:
-      'Operations from Pixdyne: managed IT, ongoing SEO and content, and continuous development. Pick a single service or take the lot as a retainer.'
+      'Operations from Pixdyne in Melbourne: managed IT, ongoing SEO and content, and continuous development. Pick a single service or take the lot as a retainer.'
   },
   {
     id: 'PX',
@@ -151,16 +151,16 @@ export const services: ServiceItem[] = [
     description:
       "Pixdyne's own AI product — proof we can deliver AI to end users, not just code with it.",
     fullDescription:
-      "OnlyPixAI is a Pixdyne product, not a service. It is a public demonstration of how we approach AI: we don't sell AI as an internal productivity tool — we build AI products and capabilities that real people actually use. Visit OnlyPixAI to see what that looks like in production.",
+      "OnlyPixAI is a Pixdyne product, not a service — a unified AI gateway giving teams access to 100+ LLMs through one billed-once pipeline. It is also our public demonstration of how we approach AI: we don't sell AI as an internal productivity tool — we build AI products and capabilities that real people actually use. Visit OnlyPixAI to see what that looks like in production.",
     tags: ['Product', 'AI Gateway', 'Live'],
     features: [
       'Live, production AI product',
       'Built and operated by Pixdyne',
       'Visit to see our approach to AI delivery'
     ],
-    seoTitle: 'OnlyPixAI — Pixdyne AI Product',
+    seoTitle: 'OnlyPixAI — Unified AI Gateway',
     seoDescription:
-      'OnlyPixAI is a Pixdyne product showcasing how we deliver AI to end users. Visit onlypixai.com to see our approach to AI in production.'
+      'OnlyPixAI is a Pixdyne product — a unified AI gateway with 100+ LLMs through one billed-once pipeline. Live at onlypixai.com.'
   }
 ];
 

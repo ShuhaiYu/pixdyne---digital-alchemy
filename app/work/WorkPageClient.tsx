@@ -83,7 +83,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
               ready, we would rather show nothing than show filler.
             </p>
             <Link
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow font-mono text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-black transition-colors"
             >
               Talk to us in the meantime
@@ -116,7 +116,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
           Send us a brief and we will come back with a scope, timeline, and quote.
         </p>
         <Link
-          href="/#contact"
+          href="/contact"
           className="inline-flex items-center gap-2 px-8 py-4 bg-brand-yellow text-black font-medium rounded-full hover:bg-brand-yellow-hover transition-colors"
         >
           Start a Conversation

@@ -91,16 +91,16 @@ export const HeroSection: React.FC = () => {
       {/* Rotating "start a project" badge.
           - z-20 sits above the slogan container's z-10, so the click
             target is never occluded by the slogan div's padding area.
-          - Plain <a href="#contact"> so the browser's native anchor
-            scroll fires (next/link's App Router behaviour is unreliable
-            for same-page hash navigation).
+          - Routes to the dedicated /contact page (full navigation,
+            not a same-page hash anchor — Contact is no longer a
+            homepage sticky section).
           - animate-spin-slow lives on the inner <svg> only, so the
             inscription orbits while the centred "Start" wordmark
             stays upright. The centre <span> is pointer-events-none
             so it never steals the click. */}
       <a
-        href="#contact"
-        aria-label="Start a project — scroll to contact form"
+        href="/contact"
+        aria-label="Start a project — open the contact page"
         className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 z-20 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center group border-2 border-transparent hover:border-black hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors cursor-pointer"
       >
         <svg

@@ -14,7 +14,7 @@ const PRIMARY_LINKS: { href: string; label: string; uppercase?: boolean }[] = [
   { href: '/#services', label: 'Services', uppercase: true },
   { href: '/#approach', label: 'Approach', uppercase: true },
   { href: '/services/onlypixai', label: 'OnlyPixAI', uppercase: false },
-  { href: '/#contact', label: 'Contact', uppercase: true }
+  { href: '/contact', label: 'Contact', uppercase: true }
 ];
 
 export const SiteFooter: React.FC = () => {

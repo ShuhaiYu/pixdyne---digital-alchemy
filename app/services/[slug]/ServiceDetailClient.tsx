@@ -169,12 +169,13 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                   <p className="text-sm text-gray-400 mb-6">
                     Send us a brief and we will come back with a scope, timeline, and quote.
                   </p>
-                  {/* Plain <a> rather than next/link Link — same App Router
-                      hash-anchor quirk we hit on the service card CTAs.
-                      Cross-page `/#contact` is more reliable via native
-                      navigation than via Next's client routing. */}
+                  {/* Standalone /contact route — Contact is no longer a
+                      homepage hash anchor. Plain <a> kept for parity
+                      with the badge in HeroSection; could use next/link
+                      now that the destination is a real route, but the
+                      native anchor works just as well. */}
                   <a
-                    href="/#contact"
+                    href="/contact"
                     className="block w-full bg-brand-yellow text-black font-bold py-4 uppercase tracking-widest hover:bg-white transition-colors text-center cursor-pointer"
                   >
                     Start a Project

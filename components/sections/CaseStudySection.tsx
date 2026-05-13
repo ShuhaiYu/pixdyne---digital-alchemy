@@ -170,7 +170,7 @@ export const CaseStudySection: React.FC = () => {
               ready, we would rather show nothing than show filler.
             </p>
             <Link
-              href="/#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow font-mono text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-black transition-colors"
             >
               Talk to us in the meantime

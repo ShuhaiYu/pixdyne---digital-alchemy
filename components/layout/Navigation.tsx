@@ -106,19 +106,19 @@ export const Navigation: React.FC = () => {
     }
   };
 
-  // Section IDs match the StickySection / ServicesSection ids declared
-  // in app/page.tsx. Note: "Team" was renamed to "Approach" (the
-  // homepage section is now "How we work" at id="approach") and
-  // OnlyPixAI is the dedicated flagship-product section at id="onlypixai".
-  // "Home" is omitted from the inline nav because the logo on the left
-  // already routes there.
-  const menuItems = [
+  // Items with `id` scroll to a same-page anchor on the homepage (or
+  // navigate back to /#<id> when on another route). Items with `href`
+  // use full Next.js routing — "Contact" is now a standalone /contact
+  // route, not a homepage anchor. "Home" is omitted from the inline
+  // nav because the logo on the left already routes there.
+  type MenuItem = { label: string; id?: string; href?: string };
+  const menuItems: MenuItem[] = [
     { label: 'Services', id: 'services' },
     // { label: 'Work', id: 'work' },
     { label: 'Approach', id: 'approach' },
     { label: 'OnlyPixAI', id: 'onlypixai' },
     // { label: 'Insights', id: 'insights' },
-    { label: 'Contact', id: 'contact' },
+    { label: 'Contact', href: '/contact' },
   ];
 
   return (
@@ -149,27 +149,40 @@ export const Navigation: React.FC = () => {
             transform that the other nav items use. */}
         <div className="hidden md:flex items-center gap-5 lg:gap-7">
           {menuItems.map((item) => {
-            const isCta = item.id === 'contact';
+            const isCta = item.label === 'Contact';
             const isBrand = item.id === 'onlypixai';
+            const ctaClass =
+              'inline-flex items-center gap-2 text-xs lg:text-sm uppercase tracking-widest bg-brand-yellow text-black font-bold py-2.5 px-4 lg:py-3 lg:px-5 hover:bg-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded-sm group cursor-pointer';
+            const linkClass = `text-xs lg:text-sm tracking-widest text-white/85 hover:text-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer ${isBrand ? '' : 'uppercase'}`;
+
+            if (item.href) {
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  className={isCta ? ctaClass : linkClass}
+                  aria-label={isCta ? 'Get in touch — open the contact page' : item.label}
+                >
+                  {item.label}
+                  {isCta && (
+                    <ArrowRight
+                      size={14}
+                      className="group-hover:translate-x-1 transition-transform"
+                      aria-hidden="true"
+                    />
+                  )}
+                </Link>
+              );
+            }
+
             return (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={
-                  isCta
-                    ? 'inline-flex items-center gap-2 text-xs lg:text-sm uppercase tracking-widest bg-brand-yellow text-black font-bold py-2.5 px-4 lg:py-3 lg:px-5 hover:bg-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded-sm group cursor-pointer'
-                    : `text-xs lg:text-sm tracking-widest text-white/85 hover:text-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer ${isBrand ? '' : 'uppercase'}`
-                }
-                aria-label={isCta ? 'Get in touch — scroll to contact form' : `Scroll to ${item.label} section`}
+                onClick={() => scrollToSection(item.id!)}
+                className={linkClass}
+                aria-label={`Scroll to ${item.label} section`}
               >
                 {item.label}
-                {isCta && (
-                  <ArrowRight
-                    size={14}
-                    className="group-hover:translate-x-1 transition-transform"
-                    aria-hidden="true"
-                  />
-                )}
               </button>
             );
           })}
@@ -215,12 +228,30 @@ export const Navigation: React.FC = () => {
           {menuItems.map((item) => {
             // OnlyPixAI exempted from uppercase per CLAUDE.md rule 5.
             const isBrand = item.id === 'onlypixai';
+            const baseClass = `text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-brand-yellow-hover hover:tracking-wide transition-all duration-300 stroke-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px] cursor-pointer ${isBrand ? '' : 'uppercase'}`;
+            const strokeStyle = { WebkitTextStroke: '1px white' };
+
+            if (item.href) {
+              return (
+                <Link
+                  key={item.label}
+                  href={item.href}
+                  onClick={closeMenu}
+                  className={baseClass}
+                  style={strokeStyle}
+                  aria-label={`Open ${item.label} page`}
+                >
+                  {item.label}
+                </Link>
+              );
+            }
+
             return (
               <button
                 key={item.id}
-                className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-brand-yellow-hover hover:tracking-wide transition-all duration-300 stroke-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px] cursor-pointer ${isBrand ? '' : 'uppercase'}`}
-                style={{ WebkitTextStroke: '1px white' }}
-                onClick={() => scrollToSection(item.id)}
+                className={baseClass}
+                style={strokeStyle}
+                onClick={() => scrollToSection(item.id!)}
                 aria-label={`Navigate to ${item.label} section`}
               >
                 {item.label}

@@ -195,12 +195,13 @@ The homepage uses a stacked sticky section architecture. Each `StickySection` ap
 Current routes:
 
 ```
-/                        Homepage (sticky-scroll, 9 sections)
+/                        Homepage (sticky-scroll, no contact section)
 /services/[slug]         Service detail (dynamic; no /services index page yet)
 /work                    Case studies index
 /work/[slug]             Case study detail
 /blog                    Blog index
 /blog/[slug]             Blog post
+/contact                 Contact form + Pixdyne contact details
 /legal/privacy
 /legal/terms
 /api/contact             Contact form endpoint
@@ -285,6 +286,7 @@ For any non-trivial change, follow this protocol:
 - **TBD** — Owner-provided historical project list per category.
 - **TBD** — Verified social handles for `sameAs` schema (@pixdyne, linkedin.com/company/pixdyne).
 - **2026-05-13** — SEO governance formalised in Section 14. Section 11 refreshed to current state (most of the previously-listed "known issues" were already resolved between 2026-05-08 and 2026-05-10). Long-term rules now cover NAP consistency, per-page metadata template, mandatory schema coverage by route, URL conventions, heading hierarchy, image SEO, keyword framework (target-customer aligned), performance budgets, local SEO checklist, GEO rules, blog content production, and audit cadence.
+- **2026-05-13** — Contact promoted from homepage sticky section to standalone `/contact` route. Driven by the new sitewide SiteFooter (which now owns NAP + legal links + copyright), making the homepage's `<ContactSection />` a duplication. All CTAs and nav links migrated from `#contact` / `/#contact` to `/contact`. ContactSection's own bottom legal/copyright strip removed — that responsibility now lives in SiteFooter only.
 
 ---
 

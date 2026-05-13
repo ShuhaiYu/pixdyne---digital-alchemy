@@ -7,7 +7,9 @@ import { CaseStudySection } from '@/components/sections/CaseStudySection';
 import { TeamSection } from '@/components/sections/TeamSection';
 import { OnlyPixAISection } from '@/components/sections/OnlyPixAISection';
 import { BlogSection } from '@/components/sections/BlogSection';
-import { ContactSection } from '@/components/sections/ContactSection';
+// ContactSection is now its own route at /contact. The homepage no
+// longer sticky-pins a contact form section — all "Get in touch" CTAs
+// link to /contact instead.
 
 export default function HomePage() {
   return (
@@ -52,11 +54,6 @@ export default function HomePage() {
       {/* <StickySection id="insights" zIndex={48} transitionType="curtain" className="bg-white text-black" aria-label="Blog and insights">
         <BlogSection />
       </StickySection> */}
-
-      <StickySection id="contact" zIndex={50} transitionType="pixel-glitch" className="bg-brand-black" fitContent={true} aria-label="Contact">
-        <ContactSection />
-      </StickySection>
-
     </div>
   );
 }

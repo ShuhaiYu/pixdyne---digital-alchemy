@@ -517,6 +517,27 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '25',
+    slug: 'wincareer',
+    name: 'WinCareer',
+    client: 'WinCareer',
+    category: 'Custom System',
+    services: ['System Development'],
+    stack: ['Custom multi-tenant platform', 'Multi-country', 'ACCA / CFA / CPA content tracks'],
+    challenge:
+      "WinCareer is a financial and accounting education institution offering ACCA, CFA, and CPA certifications to over 100,000 learners across Australia, China, the UK, and Southeast Asia. Different certifications, different jurisdictions, different content depths — but the learner experience has to feel like one platform, not four bolted-together ones.",
+    solution:
+      "We built a custom responsive platform with course category pages organised by certification, video lectures, sample tests, chapter materials, and sub-navigation anchors that let learners explore the offering without re-routing through search. The architecture supports separate content tracks per certification while keeping one consistent learner experience across markets.",
+    shortDescription:
+      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications.',
+    seoTitle: 'WinCareer — Multi-Country Finance & Accounting Education Platform',
+    seoDescription:
+      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications in Australia, China, the UK, and Southeast Asia. Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

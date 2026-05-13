@@ -417,6 +417,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '20',
+    slug: 'wescape-holiday',
+    name: 'WeScape Holiday',
+    client: 'WeScape Holiday',
+    category: 'Marketing Site',
+    services: ['Web Development'],
+    stack: ['WordPress', 'Bilingual (EN/中)', 'Lead capture'],
+    challenge:
+      "WeScape Holiday is a Melbourne travel agency that does planning, consulting, and organising — they don't sell off-the-shelf bookings. The audience is bilingual (English and Chinese), and the conversion event is a qualified consultation request, not a clicked-and-paid cart.",
+    solution:
+      "We built a bilingual WordPress site with one-click language switching and an online questionnaire that captures the trip context the consultants need to scope a brief. Both languages share the same editorial structure so neither audience feels like a translated afterthought. The questionnaire is the centre of the build — everything else is in service of getting it filled out.",
+    shortDescription:
+      'Bilingual WordPress site for a Melbourne travel consultancy — questionnaire-led lead capture for consultation requests.',
+    seoTitle: 'WeScape Holiday — Bilingual Travel Consultancy Site',
+    seoDescription:
+      'A bilingual (EN/中) WordPress site for a Melbourne travel consultancy with questionnaire-led lead capture for consultation requests. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

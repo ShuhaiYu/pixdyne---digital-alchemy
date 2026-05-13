@@ -1,4 +1,5 @@
 import { ServiceItem, CaseStudyItem, BlogPost } from '@/types';
+import { BUSINESS, BUSINESS_FORMATTED } from '@/lib/data/business';
 
 // Site-wide WebSite schema. Helps search engines and AI engines understand
 // pixdyne.com as a discrete entity, separately from the underlying Organization.
@@ -27,7 +28,7 @@ export function generateOrganizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
     '@id': 'https://pixdyne.com/#organization',
-    name: 'Pixdyne',
+    name: BUSINESS.name,
     url: 'https://pixdyne.com',
     // Schema-facing logo: solid-background variant so the mark stays
     // visible on Google's white search-result panel. The transparent
@@ -41,20 +42,23 @@ export function generateOrganizationSchema() {
     // Australian Business Number (ABN). Schema.org `taxID` is the
     // closest standard property; consumers tolerant of free-text values
     // surface it correctly.
-    taxID: 'ABN 96 690 116 584',
+    taxID: BUSINESS_FORMATTED.abnLabel,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: '294 Clayton Rd',
-      addressLocality: 'Clayton',
-      addressRegion: 'VIC',
-      postalCode: '3169',
-      addressCountry: 'AU'
+      streetAddress: BUSINESS.address.street,
+      addressLocality: BUSINESS.address.locality,
+      addressRegion: BUSINESS.address.region,
+      postalCode: BUSINESS.address.postalCode,
+      addressCountry: BUSINESS.address.countryCode
     },
+    // telephone is also surfaced at the top level for LocalBusiness
+    // consumers that read it there instead of from contactPoint.
+    telephone: BUSINESS.phone.schema,
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: '+61-410-510-751',
+      telephone: BUSINESS.phone.schema,
       contactType: 'customer service',
-      email: 'info@pixdyne.com',
+      email: BUSINESS.email,
       areaServed: 'AU',
       availableLanguage: ['English']
     },

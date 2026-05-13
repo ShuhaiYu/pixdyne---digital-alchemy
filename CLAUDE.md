@@ -287,6 +287,8 @@ For any non-trivial change, follow this protocol:
 - **TBD** — Verified social handles for `sameAs` schema (@pixdyne, linkedin.com/company/pixdyne).
 - **2026-05-13** — SEO governance formalised in Section 14. Section 11 refreshed to current state (most of the previously-listed "known issues" were already resolved between 2026-05-08 and 2026-05-10). Long-term rules now cover NAP consistency, per-page metadata template, mandatory schema coverage by route, URL conventions, heading hierarchy, image SEO, keyword framework (target-customer aligned), performance budgets, local SEO checklist, GEO rules, blog content production, and audit cadence.
 - **2026-05-13** — Contact promoted from homepage sticky section to standalone `/contact` route. Driven by the new sitewide SiteFooter (which now owns NAP + legal links + copyright), making the homepage's `<ContactSection />` a duplication. All CTAs and nav links migrated from `#contact` / `/#contact` to `/contact`. ContactSection's own bottom legal/copyright strip removed — that responsibility now lives in SiteFooter only.
+- **2026-05-13** — Contact form wired to Resend. Notification email lands at info@pixdyne.com with `From: Pixdyne Contact <support@mail.pixdyne.com>` and `Reply-To` set to the form submitter so Gmail "Reply" goes directly to the lead. IP-granular sliding-window rate limit (5 requests / 10 min per IP) in `lib/rate-limit.ts` gates the route before the body is even parsed. In-memory `Map`, fine for low-traffic marketing site; swap for Upstash Redis if multi-instance state matters later.
+- **2026-05-13** — NAP single source of truth tightened. New `lib/data/business.ts` holds `BUSINESS` + `BUSINESS_FORMATTED`; schema.ts, both legal pages, SiteFooter, and ContactSection all import from there instead of hardcoding literals. Phone number (+61 410 510 751) added to the NAP contract — previously it was floating in two surfaces with no governance. §14.1 rewritten: any address/email/phone/ABN literal anywhere outside the constants file is now a truth-auditor block. §14.2 clarified to recognise file-based `opengraph-image.tsx` as the OG image source (Next.js auto-merges). Hero sr-only GEO prose adjusted: "businesses across Australia" → "businesses in Melbourne and across Australia" to keep the Melbourne anchor explicit. Service detail FAQ accordion: stable key + WebKit details-marker suppression for older iOS Safari. Root `opengraph-image.tsx` dropped `runtime = 'edge'` to align with the per-service generator (Vercel current guidance prefers Fluid Compute).
 
 ---
 
@@ -296,21 +298,29 @@ SEO is a brand asset for this site, not a finishing layer. Every public page, sc
 
 ### 14.1 NAP Consistency (single source of truth)
 
-These four values are the canonical business identity. They appear in exactly four surfaces and must match byte-for-byte:
+Canonical business identity lives in **`lib/data/business.ts`** (`BUSINESS` and `BUSINESS_FORMATTED` exports). Every NAP-bearing surface imports from there — no exceptions, no inline duplicates.
+
+Canonical values:
 
 - **Name:** Pixdyne
 - **Address:** 294 Clayton Rd, Clayton VIC 3169, Australia
 - **Email:** info@pixdyne.com
+- **Phone:** +61 410 510 751 (display) / +61410510751 (`tel:`) / +61-410-510-751 (schema.org)
 - **ABN:** 96 690 116 584
+
+To change any field, edit `lib/data/business.ts` only. All consumers re-render automatically.
+
+Current consumers (kept here for audit purposes — not for editing):
 
 | Surface | File |
 |---|---|
 | Organisation schema | `lib/seo/schema.ts` → `generateOrganizationSchema()` |
 | Privacy policy | `app/legal/privacy/page.tsx` |
 | Terms of service | `app/legal/terms/page.tsx` |
-| Footer (when one exists) | TBD |
+| Site footer | `components/layout/SiteFooter.tsx` |
+| Contact page section | `components/sections/ContactSection.tsx` |
 
-If any field changes, update **all** surfaces in a single commit. No NAP value may be hardcoded outside these four files.
+**No NAP literal may be hardcoded outside `lib/data/business.ts`.** A grep for the address string, email string, phone string, or ABN string anywhere else (other than the governance files themselves — this CLAUDE.md and AGENTS.md) is a truth-auditor block.
 
 ### 14.2 Per-Page Metadata Template (mandatory)
 
@@ -319,7 +329,7 @@ Every new `page.tsx` (static route or `generateMetadata` for dynamic) must expor
 - `title` — ≤ 60 chars. Pattern: `"{Page intent} | Pixdyne"` or `"{Page intent} — {Qualifier}"`. The page's primary cluster keyword (see §14.7) must appear in the title.
 - `description` — ≤ 155 chars. One sentence: value proposition + location anchor + canonical service name where applicable.
 - `alternates.canonical` — absolute URL `https://pixdyne.com/...`, no trailing slash except root, lowercase.
-- `openGraph` — `title`, `description`, `url`, at least one `images` entry. `locale: 'en_AU'` is inherited from root layout.
+- `openGraph` — `title`, `description`, `url`. `images` is satisfied either by an explicit `images` entry on the metadata object **or** by an `app/.../opengraph-image.tsx` file co-located with the route (Next.js auto-merges the file-based image into `og:image`). `locale: 'en_AU'` is inherited from root layout.
 - `twitter.card` — `'summary_large_image'` when a 1200×630 landscape OG image exists for the page; `'summary'` when only the 1080×1080 square fallback is in use.
 
 Missing any of the above is a truth-auditor failure.

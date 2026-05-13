@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useRef } from 'react';
+import { BUSINESS } from '@/lib/data/business';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -58,13 +59,13 @@ export const ContactSection: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-sm font-mono text-brand-muted mt-6 sm:mt-8 md:mt-0">
             <div>
               <h3 className="text-white font-bold mb-2 uppercase tracking-widest">Contact</h3>
-              <a href="mailto:info@pixdyne.com" className="hover:text-brand-yellow-hover transition-colors block">info@pixdyne.com</a>
-              <a href="tel:+61410510751" className="hover:text-brand-yellow-hover transition-colors block">+61 410 510 751</a>
+              <a href={`mailto:${BUSINESS.email}`} className="hover:text-brand-yellow-hover transition-colors block">{BUSINESS.email}</a>
+              <a href={`tel:${BUSINESS.phone.tel}`} className="hover:text-brand-yellow-hover transition-colors block">{BUSINESS.phone.display}</a>
             </div>
             <div>
               <h3 className="text-white font-bold mb-2 uppercase tracking-widest">Base</h3>
-              <p>294 Clayton Rd</p>
-              <p>Clayton, VIC 3169</p>
+              <p>{BUSINESS.address.street}</p>
+              <p>{BUSINESS.address.locality}, {BUSINESS.address.region} {BUSINESS.address.postalCode}</p>
             </div>
           </div>
 

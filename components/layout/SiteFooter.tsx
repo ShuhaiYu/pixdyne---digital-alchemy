@@ -2,13 +2,12 @@
 // on every page (sticky-scroll homepage included). Visual style matches
 // the editorial dark / warm-gold language used elsewhere on the site.
 //
-// CLAUDE.md §14.1: this is the fourth NAP-bearing surface. Address /
-// email / ABN literals here must stay byte-for-byte identical with the
-// other three (lib/seo/schema.ts, app/legal/privacy/page.tsx,
-// app/legal/terms/page.tsx). If any value changes, update all four in
-// one commit.
+// CLAUDE.md §14.1: NAP literals (name, address, email, phone, ABN) are
+// not allowed inline here — they come from @/lib/data/business so every
+// surface reads from the same source of truth.
 
 import Link from 'next/link';
+import { BUSINESS, BUSINESS_FORMATTED } from '@/lib/data/business';
 
 const PRIMARY_LINKS: { href: string; label: string; uppercase?: boolean }[] = [
   { href: '/#services', label: 'Services', uppercase: true },
@@ -52,26 +51,26 @@ export const SiteFooter: React.FC = () => {
               Where
             </h3>
             <address className="not-italic text-sm font-sans text-brand-muted leading-relaxed">
-              <p>294 Clayton Rd</p>
-              <p>Clayton, VIC 3169</p>
-              <p>Australia</p>
+              <p>{BUSINESS.address.street}</p>
+              <p>{BUSINESS.address.locality}, {BUSINESS.address.region} {BUSINESS.address.postalCode}</p>
+              <p>{BUSINESS.address.country}</p>
             </address>
             <div className="text-sm font-sans text-brand-muted leading-relaxed">
               <a
-                href="mailto:info@pixdyne.com"
+                href={`mailto:${BUSINESS.email}`}
                 className="hover:text-brand-yellow-hover transition-colors block"
               >
-                info@pixdyne.com
+                {BUSINESS.email}
               </a>
               <a
-                href="tel:+61410510751"
+                href={`tel:${BUSINESS.phone.tel}`}
                 className="hover:text-brand-yellow-hover transition-colors block"
               >
-                +61 410 510 751
+                {BUSINESS.phone.display}
               </a>
             </div>
             <p className="text-xs font-mono text-brand-muted/70 tracking-wider mt-3">
-              ABN 96 690 116 584
+              {BUSINESS_FORMATTED.abnLabel}
             </p>
           </div>
 
@@ -141,7 +140,7 @@ export const SiteFooter: React.FC = () => {
         {/* Bottom strip — copyright + legal links */}
         <div className="mt-12 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs font-mono text-brand-muted">
           <p className="uppercase tracking-widest">
-            &copy; {year} Pixdyne &middot; All rights reserved
+            &copy; {year} {BUSINESS.name} &middot; All rights reserved
           </p>
           <div className="flex items-center gap-3 uppercase tracking-widest">
             <Link

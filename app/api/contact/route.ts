@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
+import { BUSINESS } from '@/lib/data/business';
 
 interface ContactFormData {
   name: string;
@@ -8,8 +9,13 @@ interface ContactFormData {
   message: string;
 }
 
-const CONTACT_TO = 'info@pixdyne.com';
-const CONTACT_FROM = 'Pixdyne Contact <support@mail.pixdyne.com>';
+// Notification email recipient. Uses the canonical business email from
+// §14.1's single source of truth — never hardcode this address here.
+const CONTACT_TO = BUSINESS.email;
+// Sender identity. `support@mail.pixdyne.com` is the email-infrastructure
+// subdomain bound to Resend, not part of the user-facing NAP contract,
+// so it stays local to this route.
+const CONTACT_FROM = `${BUSINESS.name} Contact <support@mail.pixdyne.com>`;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
 const RATE_LIMIT_MAX = 5;
 

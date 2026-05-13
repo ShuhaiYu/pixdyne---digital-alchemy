@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { BUSINESS, BUSINESS_FORMATTED } from '@/lib/data/business';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description:
-    'Terms of service for Pixdyne (ABN 96 690 116 584). Governing law: Victoria, Australia.',
+  description: `Terms of service for ${BUSINESS.name} (${BUSINESS_FORMATTED.abnLabel}). Governing law: Victoria, Australia.`,
   alternates: {
     canonical: 'https://pixdyne.com/legal/terms'
   }
@@ -36,10 +36,9 @@ export default function TermsPage() {
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">1. About These Terms</h2>
           <p className="mb-8 text-gray-700">
             These Terms of Service apply to your use of pixdyne.com and any related
-            services provided by <strong>Pixdyne</strong> (ABN 96 690 116 584), located
-            at 294 Clayton Rd, Clayton VIC 3169, Australia. By accessing or using this
-            website you agree to these terms. If you do not agree, please stop using the
-            site.
+            services provided by <strong>{BUSINESS.name}</strong> ({BUSINESS_FORMATTED.abnLabel}),
+            located at {BUSINESS_FORMATTED.addressLine}. By accessing or using this website you
+            agree to these terms. If you do not agree, please stop using the site.
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">2. Services</h2>
@@ -135,11 +134,11 @@ export default function TermsPage() {
             For any question about these Terms, please contact us at:
             <br />
             <br />
-            <strong>Email:</strong> info@pixdyne.com
+            <strong>Email:</strong> {BUSINESS.email}
             <br />
-            <strong>Mail:</strong> Pixdyne, 294 Clayton Rd, Clayton VIC 3169, Australia
+            <strong>Mail:</strong> {BUSINESS_FORMATTED.mailLine}
             <br />
-            <strong>ABN:</strong> 96 690 116 584
+            <strong>ABN:</strong> {BUSINESS.abn}
           </p>
         </div>
 

@@ -84,7 +84,7 @@ export const HeroSection: React.FC = () => {
             content is served to every user agent and it matches the
             facts elsewhere on the page. See CLAUDE.md §14.10. */}
         <p className="sr-only">
-          Pixdyne is a Melbourne-based technology partner. Since 2018 we have built and operated websites, custom systems, and ongoing operations for businesses across Australia. We also build AI products — see OnlyPixAI, our live demonstration of AI delivered as something teams actually use.
+          Pixdyne is a Melbourne-based technology partner. Since 2018 we have built and operated websites, custom systems, and ongoing operations for businesses in Melbourne and across Australia. We also build AI products — see OnlyPixAI, our live demonstration of AI delivered as something teams actually use.
         </p>
       </div>
 

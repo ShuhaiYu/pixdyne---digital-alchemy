@@ -1,11 +1,11 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { BUSINESS, BUSINESS_FORMATTED } from '@/lib/data/business';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description:
-    'How Pixdyne (ABN 96 690 116 584) collects, uses, and protects personal information under the Australian Privacy Act 1988.',
+  description: `How ${BUSINESS.name} (${BUSINESS_FORMATTED.abnLabel}) collects, uses, and protects personal information under the Australian Privacy Act 1988.`,
   alternates: {
     canonical: 'https://pixdyne.com/legal/privacy'
   }
@@ -35,11 +35,11 @@ export default function PrivacyPage() {
         <div className="prose prose-lg">
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">1. Who We Are</h2>
           <p className="mb-8 text-gray-700">
-            This site is operated by <strong>Pixdyne</strong> (ABN 96 690 116 584), a
-            Melbourne-based technology services business located at 294 Clayton Rd, Clayton
-            VIC 3169, Australia. This Privacy Policy explains what personal information we
-            collect, why we collect it, and how we handle it. Pixdyne complies with the
-            Australian Privacy Act 1988 (Cth) and the Australian Privacy Principles (APPs).
+            This site is operated by <strong>{BUSINESS.name}</strong> ({BUSINESS_FORMATTED.abnLabel}), a
+            Melbourne-based technology services business located at {BUSINESS_FORMATTED.addressLine}.
+            This Privacy Policy explains what personal information we collect, why we collect it, and
+            how we handle it. {BUSINESS.name} complies with the Australian Privacy Act 1988 (Cth) and
+            the Australian Privacy Principles (APPs).
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">2. Information We Collect</h2>
@@ -54,7 +54,7 @@ export default function PrivacyPage() {
             </li>
             <li>
               <strong>Email correspondence:</strong> any information you choose to share
-              when emailing us at info@pixdyne.com.
+              when emailing us at {BUSINESS.email}.
             </li>
             <li>
               <strong>Anonymous analytics:</strong> aggregated visit data such as page
@@ -100,7 +100,7 @@ export default function PrivacyPage() {
             Under the Australian Privacy Principles you have the right to access the
             personal information we hold about you, request correction of inaccurate
             information, and request deletion subject to our legal record-keeping
-            obligations. To exercise these rights, email info@pixdyne.com. We will
+            obligations. To exercise these rights, email {BUSINESS.email}. We will
             acknowledge your request promptly and respond within a reasonable period
             (generally within 30 days).
           </p>
@@ -108,7 +108,7 @@ export default function PrivacyPage() {
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">8. Complaints</h2>
           <p className="mb-8 text-gray-700">
             If you believe we have mishandled your personal information, please contact
-            info@pixdyne.com so we can investigate. If you are not satisfied with our
+            {BUSINESS.email} so we can investigate. If you are not satisfied with our
             response, you may lodge a complaint with the Office of the Australian
             Information Commissioner (OAIC) at oaic.gov.au.
           </p>
@@ -124,11 +124,11 @@ export default function PrivacyPage() {
             For any privacy-related question, please contact us at:
             <br />
             <br />
-            <strong>Email:</strong> info@pixdyne.com
+            <strong>Email:</strong> {BUSINESS.email}
             <br />
-            <strong>Mail:</strong> Pixdyne, 294 Clayton Rd, Clayton VIC 3169, Australia
+            <strong>Mail:</strong> {BUSINESS_FORMATTED.mailLine}
             <br />
-            <strong>ABN:</strong> 96 690 116 584
+            <strong>ABN:</strong> {BUSINESS.abn}
           </p>
         </div>
 

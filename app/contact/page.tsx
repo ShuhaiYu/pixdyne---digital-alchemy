@@ -3,10 +3,13 @@ import Script from 'next/script';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { generateBreadcrumbSchema } from '@/lib/seo/schema';
 
+// Metadata description deliberately omits email/phone literals — those
+// live in @/lib/data/business (§14.1 single source of truth). The
+// on-page ContactSection still renders them for users.
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Talk to Pixdyne in Melbourne. Send a brief and we will come back with a scope, timeline, and quote. Email info@pixdyne.com or call +61 410 510 751.',
+    'Talk to Pixdyne in Melbourne. Send a brief and we will come back with a scope, timeline, and quote.',
   alternates: {
     canonical: 'https://pixdyne.com/contact'
   },

@@ -108,12 +108,17 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                   divergence is a truth-auditor block. */}
               <h3 id="faq" className="text-2xl font-bold mb-6">Frequently asked</h3>
               <div className="space-y-2 mb-12">
-                {service.faqs.map((faq, i) => (
+                {service.faqs.map((faq) => (
                   <details
-                    key={i}
+                    key={faq.question}
                     className="group border border-white/10 bg-white/[0.03] open:bg-white/[0.06] open:border-brand-yellow/30 transition-colors"
                   >
-                    <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none">
+                    {/* list-none covers modern browsers. The
+                        ::-webkit-details-marker arbitrary variant
+                        suppresses the default disclosure triangle on
+                        older WebKit (iOS Safari ≤ 16), otherwise it
+                        would render alongside our <Plus> icon. */}
+                    <summary className="flex items-center justify-between gap-4 p-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                       <span className="font-serif italic text-base md:text-lg text-white group-hover:text-brand-yellow transition-colors">
                         {faq.question}
                       </span>

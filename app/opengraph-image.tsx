@@ -2,17 +2,21 @@
 // for Twitter `summary_large_image`, LinkedIn, Facebook, Slack, and any
 // other consumer that prefers landscape over the legacy 1080x1080
 // brand-kit square. Generated via Next.js ImageResponse at request time
-// (edge runtime) and cached at the CDN edge.
+// and cached at the CDN edge.
 //
 // Brand recognition is carried by the warm-black background, the
 // gold-on-cream typography, the gold rule, and the wordmark. No custom
 // font fetch — Satori's defaults are used to keep generation deterministic
 // and fast. Upgrade to bundled Playfair Display italic when an .otf or
 // .ttf is checked into /public/fonts.
+//
+// Runtime: default (Node.js on Fluid Compute). Matches the per-service
+// OG generator at app/services/[slug]/opengraph-image.tsx — Vercel's
+// current guidance is Fluid Compute over Edge for new code.
 
 import { ImageResponse } from 'next/og';
+import { BUSINESS_FORMATTED } from '@/lib/data/business';
 
-export const runtime = 'edge';
 export const alt = 'Pixdyne — Melbourne technology partner since 2018';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
@@ -123,7 +127,7 @@ export default async function Image() {
                 fontWeight: 600,
               }}
             >
-              ABN 96 690 116 584
+              {BUSINESS_FORMATTED.abnLabel}
             </div>
           </div>
         </div>

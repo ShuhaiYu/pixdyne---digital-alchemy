@@ -21,11 +21,12 @@ export const CaseStudySection: React.FC = () => {
   // project list. See CLAUDE.md §6 (rule 8).
   const isEmpty = allCases.length === 0;
 
-  // Bento layout depends on a featured case + 5 small ones. When the list
-  // is non-empty but smaller than 6, we still degrade gracefully by only
-  // rendering as many tiles as we have data for.
+  // Bento layout depends on a featured case + 5 small ones. Prefer entries
+  // marked `featured: true` for the featured slot — they carry the
+  // editorial signal that this is the case study worth landing on first.
+  // Falls back to the first entry when nothing is explicitly marked.
   const featuredCase = !isEmpty
-    ? (allCases.find((c) => c.slug === 'jusn-design') ?? allCases[0])
+    ? (allCases.find((c) => c.featured) ?? allCases[0])
     : null;
   const smallCases = !isEmpty
     ? allCases.filter((c) => c !== featuredCase).slice(0, 5)

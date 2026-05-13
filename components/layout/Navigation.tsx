@@ -114,7 +114,7 @@ export const Navigation: React.FC = () => {
   type MenuItem = { label: string; id?: string; href?: string };
   const menuItems: MenuItem[] = [
     { label: 'Services', id: 'services' },
-    // { label: 'Work', id: 'work' },
+    { label: 'Work', href: '/work' },
     { label: 'Approach', id: 'approach' },
     { label: 'OnlyPixAI', id: 'onlypixai' },
     // { label: 'Insights', id: 'insights' },

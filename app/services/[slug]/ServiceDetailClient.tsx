@@ -136,10 +136,25 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                   auditor block. */}
               <h3 id="faq" className="text-2xl font-bold mb-8">Frequently asked</h3>
               <div className="border-t border-white/10 mb-12">
-                {service.faqs.map((faq) => (
+                {service.faqs.map((faq) => {
+                  // Per-question deep-link anchor. Built by lowercasing
+                  // the question and slugifying spaces/punctuation, so
+                  // a SERP rich-result link of the form
+                  // /services/<slug>#faq-<question-slug> jumps directly
+                  // to the matching <details> instead of the section
+                  // header. Browsers also auto-open the targeted
+                  // <details> when its id is matched (modern behavior
+                  // per the HTML spec).
+                  const anchorId = `faq-${faq.question
+                    .toLowerCase()
+                    .replace(/[^a-z0-9]+/g, '-')
+                    .replace(/^-+|-+$/g, '')
+                    .slice(0, 60)}`;
+                  return (
                   <details
                     key={faq.question}
-                    className="group border-b border-white/10 open:border-brand-yellow/30 transition-colors"
+                    id={anchorId}
+                    className="group border-b border-white/10 open:border-brand-yellow/30 transition-colors scroll-mt-32"
                   >
                     {/* list-none covers modern browsers. The
                         ::-webkit-details-marker arbitrary variant
@@ -160,7 +175,8 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                       {faq.answer}
                     </div>
                   </details>
-                ))}
+                  );
+                })}
               </div>
             </>
           )}

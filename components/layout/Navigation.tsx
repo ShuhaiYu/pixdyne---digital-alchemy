@@ -129,13 +129,12 @@ export const Navigation: React.FC = () => {
       >
         <Link href="/" className="flex items-center gap-4 group">
           <img
-            // Initial state uses logo-400.png (dark mark), scrolled
-            // state swaps to logo.png (white mark). Backdrop is
-            // translucent dark in both states (per owner direction);
-            // the dark mark still reads acceptably through the 40%
-            // bleed-through and gives the top of the page a more
-            // editorial feel before the visitor scrolls.
-            src={scrolled ? '/logo-400.png' : '/logo-400.png'}
+            // Single logo asset across all scroll positions. The earlier
+            // scrolled-state ternary collapsed to the same source on
+            // both branches; restoring a real swap is on the polish
+            // backlog once a verified white-on-transparent mark exists
+            // at /public/logo.png.
+            src="/logo-400.png"
             alt="Pixdyne"
             className="w-10 h-10 object-contain transition-opacity duration-300"
           />

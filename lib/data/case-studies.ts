@@ -397,6 +397,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '19',
+    slug: 'jkk-solution',
+    name: 'JKK Solution',
+    client: 'JKK Solution',
+    category: 'Marketing Site',
+    services: ['Web Development'],
+    stack: ['WordPress', 'Loan calculator', 'Mortgage broking'],
+    challenge:
+      "JKK Solutions is a mortgage broker covering residential and commercial financing. Mortgage prospects calculate before they enquire — they want to know rates, repayments, and feasibility before talking to a broker. A site that makes them email for a quote loses them.",
+    solution:
+      "We built a WordPress marketing site with an interactive loan calculator wired into lead capture, so prospects can run scenarios themselves and surface qualified enquiries to the broker. Service categorisation with expandable descriptions makes the offer obvious, and a user-review section carries the credibility that mortgage shoppers look for before they commit to a conversation.",
+    shortDescription:
+      'WordPress marketing site for a mortgage broker with an interactive loan calculator wired into lead capture.',
+    seoTitle: 'JKK Solution — Mortgage Broker Site + Loan Calculator',
+    seoDescription:
+      'WordPress marketing site for a residential and commercial mortgage broker with an interactive loan calculator wired into lead capture. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

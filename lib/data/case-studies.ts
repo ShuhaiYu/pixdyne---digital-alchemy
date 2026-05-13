@@ -620,6 +620,27 @@ export const caseStudies: CaseStudyItem[] = [
     cardSize: 'featured',
     featured: true
   },
+  {
+    id: '30',
+    slug: 'floo',
+    name: 'Floo',
+    client: 'Floo',
+    category: 'Custom System',
+    services: ['System Development'],
+    stack: ['Custom business management platform', 'CRM + quoting + invoicing + inventory', 'Role-based permissions'],
+    challenge:
+      "Small operating businesses end up running on a tangle of separate tools — one for customers, one for quotes, one for orders, one for invoicing, one for inventory. Each tool is fine on its own, but the reconciliation cost between them is what burns the owner's time. Floo had to be one system that owned the full operational loop.",
+    solution:
+      "We built Floo as a custom web app covering the full business cycle: customer management, quotations, orders, invoicing, payment recording, products / services / suppliers, role-based employee permissions, and reporting (P&L, business status). Each function is its own focused portal, but they share one data model — so a customer in the CRM is the same record that shows up in invoicing, not a duplicate the owner has to keep in sync.",
+    shortDescription:
+      'Custom business management platform — CRM, quoting, invoicing, inventory, and reporting under one data model.',
+    seoTitle: 'Floo — Custom Business Management Platform',
+    seoDescription:
+      'A custom business management platform covering CRM, quoting, orders, invoicing, products, suppliers, and reporting (P&L) under one data model. Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

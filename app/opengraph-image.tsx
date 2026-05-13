@@ -68,7 +68,12 @@ export default async function Image() {
           </div>
         </div>
 
-        {/* Headline */}
+        {/* Headline. Satori requires every <div> with more than one
+            child to set `display: flex` (or `display: none`) explicitly.
+            The headline mixes text + <span> + text, so the styled
+            container is a <div style={display:flex}> wrapping a single
+            <span>, and the inline highlight lives inside that span
+            where mixed children are allowed. */}
         <div
           style={{
             display: 'flex',
@@ -78,6 +83,7 @@ export default async function Image() {
         >
           <div
             style={{
+              display: 'flex',
               fontSize: 78,
               lineHeight: 1.08,
               color: '#E8E4DD',
@@ -86,8 +92,10 @@ export default async function Image() {
               letterSpacing: '-0.01em',
             }}
           >
-            Websites, custom systems, and AI products —
-            <span style={{ color: '#C8962A' }}> built and operated</span>.
+            <span>
+              Websites, custom systems, and AI products —
+              <span style={{ color: '#C8962A' }}> built and operated</span>.
+            </span>
           </div>
         </div>
 

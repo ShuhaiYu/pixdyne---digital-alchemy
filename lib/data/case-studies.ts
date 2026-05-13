@@ -457,6 +457,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '22',
+    slug: 'tyee-group',
+    name: 'TYEE Group',
+    client: 'TYEE Group',
+    category: 'Marketing Site',
+    services: ['Web Development'],
+    stack: ['WordPress', 'Bilingual (EN/中)', 'Project portfolio'],
+    challenge:
+      "TYEE Group operates in property development and project management, with foreign investors as a key audience. Investment decisions in this segment are made in Chinese as often as English — a single-language site quietly excludes half the audience and makes the company look like it can't address the market it's pitching.",
+    solution:
+      "We built a bilingual WordPress site (English / Chinese) with the project portfolio as the centrepiece. Foreign-investor positioning shapes the visual register — modern, dynamic, with credibility signals like project review elements surfaced up front rather than buried in the footer.",
+    shortDescription:
+      'Bilingual WordPress site for an Australian property developer addressing foreign-investor audiences.',
+    seoTitle: 'TYEE Group — Bilingual Property Development Site',
+    seoDescription:
+      'A bilingual (EN/中) WordPress site for an Australian property developer addressing foreign-investor audiences — portfolio-led with credibility signals up front. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

@@ -497,6 +497,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '24',
+    slug: 'youth-leadership-program',
+    name: 'Youth Leadership Program',
+    client: 'Youth Leadership Program',
+    category: 'Marketing Site',
+    services: ['Web Development'],
+    stack: ['WordPress', 'Application form', 'Community / non-profit'],
+    challenge:
+      "The Youth Leadership Program is a Victorian Chinese Community initiative that identifies and develops emerging young leaders. The site exists to explain the program and accept applications — but the application form is the conversion event, and a friction-heavy form kills applications before they're submitted.",
+    solution:
+      "We built a WordPress site that surfaces the program's timeline and content clearly, with a streamlined online questionnaire and application form at the centre. Everything else on the site is in service of getting the application filled out — the layout, the navigation, and the calls to action all converge on it.",
+    shortDescription:
+      'WordPress site for a community youth-leadership program — streamlined application form at the centre of the build.',
+    seoTitle: 'Youth Leadership Program — Application-Led Community Site',
+    seoDescription:
+      'A WordPress site for a Victorian community youth-leadership program built around a streamlined application form as the conversion event. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

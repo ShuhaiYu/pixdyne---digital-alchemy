@@ -538,6 +538,26 @@ export const caseStudies: CaseStudyItem[] = [
     cardSize: 'featured',
     featured: true
   },
+  {
+    id: '26',
+    slug: 'sunsill',
+    name: 'Sunsill',
+    client: 'Sunsill Property Management',
+    category: 'Marketing Site',
+    services: ['Web Development'],
+    stack: ['WordPress', 'VR virtual inspection', 'Property portfolio'],
+    challenge:
+      "Sunsill Property Management runs small-to-medium residential projects across Melbourne. The portfolio is the sales pitch — but most clients can't visit every site in person, and photos alone don't carry the spatial sense of a property. Buyers walk away unsure whether the property is right because they couldn't feel the rooms.",
+    solution:
+      "We built a WordPress portfolio site with integrated VR virtual inspection per project, working across desktop, tablet, and mobile. Minimalist UI in light colours keeps focus on the project visuals rather than competing with them. Clients evaluate properties in 3D before deciding whether to schedule a physical visit, which both saves them time and qualifies the appointments that do happen.",
+    shortDescription:
+      'WordPress portfolio site with VR virtual inspection for a Melbourne residential property developer.',
+    seoTitle: 'Sunsill — VR-Enabled Property Portfolio Site',
+    seoDescription:
+      'A WordPress portfolio site for a Melbourne residential property developer, with integrated VR virtual inspection across desktop, tablet, and mobile. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

@@ -110,7 +110,7 @@ export const TeamSection: React.FC = () => {
   return (
     <div
       ref={sectionRef}
-      className="w-full min-h-screen flex flex-col justify-center relative bg-brand-surface text-white overflow-x-hidden overflow-y-visible"
+      className="w-full min-h-screen flex flex-col justify-center relative bg-brand-surface text-brand-text overflow-x-hidden overflow-y-visible"
     >
       {!isMobile && (
         <div className="absolute inset-0 z-0 opacity-10">
@@ -134,7 +134,7 @@ export const TeamSection: React.FC = () => {
             </h2>
           </div>
           <div className="hidden md:block text-right mt-4 md:mt-0">
-            <p className="font-sans text-sm max-w-xs text-white/60 leading-relaxed">
+            <p className="font-sans text-sm max-w-xs text-brand-muted leading-relaxed">
               Since 2018, we have helped growing companies automate workflows,
               replace manual operations, and scale on tools their teams can
               actually keep using.
@@ -153,10 +153,10 @@ export const TeamSection: React.FC = () => {
                   <span className="font-mono text-xs text-brand-yellow tracking-widest block mb-4">
                     ({pillar.number})
                   </span>
-                  <h3 className="text-xl md:text-2xl lg:text-3xl font-serif italic text-white mb-3 md:mb-4 leading-snug">
+                  <h3 className="text-xl md:text-2xl lg:text-3xl font-serif italic text-brand-text mb-3 md:mb-4 leading-snug">
                     {pillar.title}
                   </h3>
-                  <p className="text-sm md:text-base text-white/70 leading-relaxed">
+                  <p className="text-sm md:text-base text-brand-text/75 leading-relaxed">
                     {pillar.body}
                   </p>
                 </div>

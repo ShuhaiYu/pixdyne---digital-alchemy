@@ -112,7 +112,7 @@ export const OnlyPixAISection: React.FC = () => {
   return (
     <div
       ref={sectionRef}
-      className="relative w-full min-h-screen flex items-center bg-brand-black text-white overflow-hidden"
+      className="relative w-full min-h-screen flex items-center bg-brand-black text-brand-text overflow-hidden"
     >
       {/* Aurora glow — gold + indigo + steel, evoking multi-model AI without
           looking like a generic gradient. Hidden on mobile to save GPU. */}
@@ -141,7 +141,7 @@ export const OnlyPixAISection: React.FC = () => {
             <br />
             Every AI model.
           </p>
-          <div className="opx-anim space-y-4 text-white/70 text-base md:text-lg leading-relaxed max-w-xl">
+          <div className="opx-anim space-y-4 text-brand-text/75 text-base md:text-lg leading-relaxed max-w-xl">
             <p>
               Most teams want to put AI inside their business but stall at the
               integration tax: separate accounts, separate keys, separate
@@ -160,14 +160,14 @@ export const OnlyPixAISection: React.FC = () => {
               href="https://www.onlypixai.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-brand-yellow text-black font-bold py-4 px-8 uppercase tracking-widest text-xs hover:bg-white transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-brand-yellow text-brand-black font-bold py-4 px-8 uppercase tracking-widest text-xs hover:bg-brand-yellow-hover transition-colors"
             >
               Visit OnlyPixAI
               <ArrowUpRight size={18} />
             </a>
             <Link
               href="/services/onlypixai"
-              className="inline-flex items-center justify-center gap-2 border border-white/30 text-white font-mono text-xs uppercase tracking-widest py-4 px-8 hover:border-brand-yellow hover:text-brand-yellow transition-colors"
+              className="inline-flex items-center justify-center gap-2 border border-white/30 text-brand-text text-xs uppercase tracking-widest py-4 px-8 hover:border-brand-yellow hover:text-brand-yellow transition-colors"
             >
               How we use it for clients
             </Link>
@@ -187,7 +187,7 @@ export const OnlyPixAISection: React.FC = () => {
               <div className="text-3xl md:text-4xl font-serif italic text-brand-yellow leading-none">
                 PX
               </div>
-              <div className="text-[0.625rem] md:text-xs font-mono text-white/60 tracking-widest mt-1 uppercase">
+              <div className="text-[0.625rem] md:text-xs text-brand-muted tracking-widest mt-1 uppercase">
                 Gateway
               </div>
             </div>
@@ -244,7 +244,7 @@ export const OnlyPixAISection: React.FC = () => {
             <span className="font-mono text-xs uppercase tracking-widest text-brand-yellow block mb-3">
               Routes to
             </span>
-            <p className="text-sm text-white/70 leading-relaxed mb-3 max-w-md md:max-w-none mx-auto md:mx-0">
+            <p className="text-sm text-brand-text/75 leading-relaxed mb-3 max-w-md md:max-w-none mx-auto md:mx-0">
               <span className="text-brand-yellow font-semibold">100+ LLMs</span>{' '}
               through one billed-once pipeline — every mainstream model,
               open source or closed, accessed through official, properly
@@ -255,14 +255,14 @@ export const OnlyPixAISection: React.FC = () => {
                 const active = activeIndex === i;
                 return (
                   <React.Fragment key={logo.alt}>
-                    {i > 0 && <span className="text-white/30 px-2" aria-hidden="true">·</span>}
+                    {i > 0 && <span className="text-brand-muted/50 px-2" aria-hidden="true">·</span>}
                     <button
                       type="button"
                       onMouseEnter={() => setActiveIndex(i)}
                       onMouseLeave={() => setActiveIndex(null)}
                       onFocus={() => setActiveIndex(i)}
                       onBlur={() => setActiveIndex(null)}
-                      className={`transition-colors cursor-pointer rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? 'text-brand-yellow' : 'text-white/90 hover:text-white'}`}
+                      className={`transition-colors cursor-pointer rounded focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow ${active ? 'text-brand-yellow' : 'text-brand-text/90 hover:text-brand-text'}`}
                       aria-label={`${logo.label} (${logo.alt})`}
                     >
                       {logo.label}
@@ -270,8 +270,8 @@ export const OnlyPixAISection: React.FC = () => {
                   </React.Fragment>
                 );
               })}
-              <span className="text-white/30 px-2" aria-hidden="true">·</span>
-              <span className="italic text-white/60">and more</span>
+              <span className="text-brand-muted/50 px-2" aria-hidden="true">·</span>
+              <span className="italic text-brand-muted">and more</span>
             </p>
           </div>
         </div>

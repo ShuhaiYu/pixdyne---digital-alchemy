@@ -42,12 +42,12 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
   }, []);
 
   return (
-    <main className="min-h-screen bg-brand-black text-white">
+    <main className="min-h-screen bg-brand-black text-brand-text">
       {/* Header */}
       <div className="pt-32 pb-12 px-4 md:px-12">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-8"
+          className="inline-flex items-center gap-2 text-brand-muted hover:text-brand-text transition-colors mb-8"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
@@ -60,7 +60,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
             SELECTED CASE STUDIES
           </span>
           <h1 className="text-5xl md:text-7xl font-serif italic mb-4">Our Work</h1>
-          <p className="text-white/60 text-lg max-w-2xl leading-relaxed">
+          <p className="text-brand-muted text-lg max-w-2xl leading-relaxed">
             Selected projects from Pixdyne — websites, custom systems, and ongoing
             operations. Built and operated alongside our clients since 2018.
           </p>
@@ -74,17 +74,17 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
             <span className="text-brand-yellow text-xs font-mono tracking-widest uppercase block mb-3">
               Coming soon
             </span>
-            <h2 className="text-2xl md:text-3xl font-serif italic text-white mb-4 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-serif italic text-brand-text mb-4 leading-tight">
               Real client work, on the way
             </h2>
-            <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto">
+            <p className="text-brand-muted text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto">
               We are putting together a set of case studies that fairly represent
               the work, the constraints, and the people involved. Until that is
               ready, we would rather show nothing than show filler.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow font-mono text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-black transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-brand-black transition-colors"
             >
               Talk to us in the meantime
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,12 +112,12 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
       {/* Contact CTA */}
       <div className="border-t border-white/20 px-4 md:px-12 py-16 text-center">
         <h2 className="text-3xl md:text-4xl font-serif italic mb-4">Have a project in mind?</h2>
-        <p className="text-white/60 mb-8 max-w-xl mx-auto">
+        <p className="text-brand-muted mb-8 max-w-xl mx-auto">
           Send us a brief and we will come back with a scope, timeline, and quote.
         </p>
         <Link
           href="/contact"
-          className="inline-flex items-center gap-2 px-8 py-4 bg-brand-yellow text-black font-medium rounded-full hover:bg-brand-yellow-hover transition-colors"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-brand-yellow text-brand-black font-medium rounded-full hover:bg-brand-yellow-hover transition-colors"
         >
           Start a Conversation
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

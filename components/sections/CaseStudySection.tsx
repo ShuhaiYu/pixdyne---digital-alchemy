@@ -128,14 +128,14 @@ export const CaseStudySection: React.FC = () => {
           <span className="text-brand-yellow text-xs font-mono font-bold tracking-wider mb-1 block">
             Work
           </span>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif text-white leading-tight">
+          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif text-brand-text leading-tight">
             Selected Works
           </h2>
         </div>
         {!isEmpty && (
           <Link
             href="/work"
-            className="text-xs font-mono uppercase hover:text-brand-yellow-hover transition-colors text-white/70 flex items-center gap-2 group"
+            className="text-xs uppercase tracking-wider hover:text-brand-yellow-hover transition-colors text-brand-text/75 flex items-center gap-2 group"
           >
             View All
             <svg
@@ -161,17 +161,17 @@ export const CaseStudySection: React.FC = () => {
             <span className="text-brand-yellow text-xs font-mono tracking-widest uppercase block mb-3">
               Coming soon
             </span>
-            <h3 className="text-2xl md:text-3xl font-serif italic text-white mb-4 leading-tight">
+            <h3 className="text-2xl md:text-3xl font-serif italic text-brand-text mb-4 leading-tight">
               Real client work, on the way
             </h3>
-            <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto">
+            <p className="text-brand-muted text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto">
               We are putting together a set of case studies that fairly represent
               the work, the constraints, and the people involved. Until that is
               ready, we would rather show nothing than show filler.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow font-mono text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-black transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-brand-black transition-colors"
             >
               Talk to us in the meantime
               <svg
@@ -244,9 +244,9 @@ export const CaseStudySection: React.FC = () => {
             <div className="h-full rounded-2xl bg-neutral-900/50 border border-white/10 flex items-center justify-center">
               <Link
                 href="/work"
-                className="flex flex-col items-center gap-3 text-white/60 hover:text-brand-yellow-hover transition-colors group"
+                className="flex flex-col items-center gap-3 text-brand-muted hover:text-brand-yellow-hover transition-colors group"
               >
-                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-black transition-all">
+                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-brand-black transition-all">
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path
                       strokeLinecap="round"
@@ -256,7 +256,7 @@ export const CaseStudySection: React.FC = () => {
                     />
                   </svg>
                 </div>
-                <span className="text-xs font-mono uppercase">View All</span>
+                <span className="text-xs uppercase tracking-wider">View All</span>
               </Link>
             </div>
           </div>
@@ -267,7 +267,7 @@ export const CaseStudySection: React.FC = () => {
         <div className="text-center pt-3 pb-1 flex-shrink-0 md:hidden">
           <Link
             href="/work"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-brand-yellow-hover transition-colors text-xs font-mono"
+            className="inline-flex items-center gap-2 text-brand-muted hover:text-brand-yellow-hover transition-colors text-xs uppercase tracking-wider"
           >
             Explore all projects →
           </Link>

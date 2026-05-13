@@ -171,7 +171,7 @@ export const ProcessSection: React.FC = () => {
             <SplitText
               text="Calculated"
               tag="h2"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-black leading-none"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif text-brand-black leading-none"
               textAlign="left"
               splitType="chars"
               delay={30}
@@ -193,7 +193,7 @@ export const ProcessSection: React.FC = () => {
           </div>
 
           <AnimatedContent distance={40} duration={0.8} delay={0.3}>
-            <p className="text-black/70 font-sans text-lg leading-relaxed max-w-md">
+            <p className="text-brand-black/70 font-sans text-lg leading-relaxed max-w-md">
               We start with discovery, ship in iterations, and stay involved past
               launch. Most projects move through four phases, with the timeline
               shaped around your scope rather than a fixed template.
@@ -202,13 +202,13 @@ export const ProcessSection: React.FC = () => {
 
           {/* Process indicator */}
           <AnimatedContent distance={30} duration={0.6} delay={0.5}>
-            <div className="mt-8 flex items-center gap-2 text-xs font-mono text-black/40">
+            <div className="mt-8 flex items-center gap-2 text-xs font-mono text-brand-black/40">
               <span>01</span>
-              <div className="w-8 h-[1px] bg-black/20" />
+              <div className="w-8 h-[1px] bg-brand-black/20" />
               <span>02</span>
-              <div className="w-8 h-[1px] bg-black/20" />
+              <div className="w-8 h-[1px] bg-brand-black/20" />
               <span>03</span>
-              <div className="w-8 h-[1px] bg-black/20" />
+              <div className="w-8 h-[1px] bg-brand-black/20" />
               <span>04</span>
             </div>
           </AnimatedContent>
@@ -251,7 +251,7 @@ export const ProcessSection: React.FC = () => {
               <div
                 key={i}
                 ref={(node) => { cardsRef.current[i] = node; }}
-                className="absolute w-[44%] sm:w-[43%] md:w-[42%] aspect-square bg-brand-black text-white p-3 sm:p-4 md:p-6 flex flex-col justify-between cursor-pointer transition-all duration-500 ease-out group hover:z-20"
+                className="absolute w-[44%] sm:w-[43%] md:w-[42%] aspect-square bg-brand-black text-brand-text p-3 sm:p-4 md:p-6 flex flex-col justify-between cursor-pointer transition-all duration-500 ease-out group hover:z-20"
                 style={{
                   top: pos.top,
                   left: pos.left,
@@ -286,7 +286,7 @@ export const ProcessSection: React.FC = () => {
                   <span className="text-[10px] sm:text-xs font-mono text-brand-yellow border border-brand-yellow/30 px-1.5 sm:px-2 py-1">
                     {step.time}
                   </span>
-                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/10 group-hover:text-brand-yellow/30 transition-colors">
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-text/10 group-hover:text-brand-yellow/30 transition-colors">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
@@ -296,7 +296,7 @@ export const ProcessSection: React.FC = () => {
                   <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold block mb-1 group-hover:text-brand-yellow-hover transition-colors">
                     {step.label}
                   </span>
-                  <span className="text-xs text-white/50 font-mono">
+                  <span className="text-xs text-brand-text/50 font-mono">
                     {step.desc}
                   </span>
                 </div>

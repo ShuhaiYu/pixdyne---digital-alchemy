@@ -7,14 +7,15 @@ import { CaseStudySection } from '@/components/sections/CaseStudySection';
 import { TeamSection } from '@/components/sections/TeamSection';
 import { OnlyPixAISection } from '@/components/sections/OnlyPixAISection';
 import { BlogSection } from '@/components/sections/BlogSection';
+import { AboutPreviewSection } from '@/components/sections/AboutPreviewSection';
 // ContactSection is now its own route at /contact. The homepage no
 // longer sticky-pins a contact form section — all "Get in touch" CTAs
 // link to /contact instead.
 
 export default function HomePage() {
   return (
-    <div className="relative bg-brand-black text-white selection:bg-brand-yellow selection:text-black">
-      <StickySection id="home" zIndex={10} transitionType="parallax" className="bg-brand-yellow text-black" aria-label="Hero">
+    <div className="relative bg-brand-black text-brand-text selection:bg-brand-yellow selection:text-brand-black">
+      <StickySection id="home" zIndex={10} transitionType="parallax" className="bg-brand-yellow text-brand-black" aria-label="Hero">
         <HeroSection />
       </StickySection>
 
@@ -29,7 +30,7 @@ export default function HomePage() {
         id="process"
         zIndex={30}
         transitionType="mask-diagonal"
-        className="bg-white text-black"
+        className="bg-brand-white text-brand-black"
         fitContent={true}
         aria-label="Our process"
         peekBackground={
@@ -39,11 +40,23 @@ export default function HomePage() {
         <ProcessSection />
       </StickySection>
 
-      {/* <StickySection id="work" zIndex={40} transitionType="curtain" className="bg-brand-black" aria-label="Selected works">
+      {/* Work / case studies preview. Restored on the homepage so the
+          visitor sees the Work surface before the navbar prompts them
+          to. Currently renders the empty-state CTA until owner-approved
+          case studies land. */}
+      <StickySection id="work" zIndex={40} transitionType="curtain" className="bg-brand-black" fitContent={true} aria-label="Selected works">
         <CaseStudySection />
-      </StickySection> */}
+      </StickySection>
 
-      <StickySection id="approach" zIndex={45} transitionType="curtain" className="bg-brand-light text-black" aria-label="How we work">
+      {/* About preview. Short editorial tease that drives to /about for
+          the deep-dive. Sits between Work and Approach so the homepage
+          flow goes: see what we ship, learn who ships it, then see how
+          we work. */}
+      <StickySection id="about" zIndex={43} transitionType="curtain" className="bg-brand-black" fitContent={true} aria-label="About Pixdyne preview">
+        <AboutPreviewSection />
+      </StickySection>
+
+      <StickySection id="approach" zIndex={45} transitionType="curtain" className="bg-brand-light text-brand-black" aria-label="How we work">
         <TeamSection />
       </StickySection>
 
@@ -51,9 +64,11 @@ export default function HomePage() {
         <OnlyPixAISection />
       </StickySection>
 
-      {/* <StickySection id="insights" zIndex={48} transitionType="curtain" className="bg-white text-black" aria-label="Blog and insights">
+      {/* Insights / blog preview. Restored on the homepage so recent
+          posts surface without requiring a nav click. */}
+      <StickySection id="insights" zIndex={48} transitionType="curtain" className="bg-brand-white text-brand-black" fitContent={true} aria-label="Blog and insights">
         <BlogSection />
-      </StickySection> */}
+      </StickySection>
     </div>
   );
 }

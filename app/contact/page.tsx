@@ -42,11 +42,10 @@ export default function ContactPage() {
           __html: JSON.stringify(generateBreadcrumbSchema(breadcrumbs))
         }}
       />
-      {/* Top padding clears the fixed navigation. ContactSection itself
-          owns vertical rhythm via py-16/20/24/32, but as a standalone
-          route it needs extra clearance so the "Let's Talk." heading
-          doesn't tuck under the nav on first paint. */}
-      <div className="pt-20 md:pt-24 bg-brand-black text-white min-h-screen">
+      {/* Top padding clears the fixed navigation; bottom rhythm is
+          owned by ContactSection (pb-24 md:pb-32). Single source of
+          vertical breathing on this route. */}
+      <div className="pt-32 md:pt-40 bg-brand-black text-brand-text min-h-screen">
         <ContactSection />
       </div>
     </>

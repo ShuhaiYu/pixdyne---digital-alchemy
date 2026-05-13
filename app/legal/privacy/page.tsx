@@ -16,10 +16,10 @@ const lastUpdatedHuman = 'May 2026';
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen bg-white text-black p-8 md:p-24">
+    <div className="min-h-screen bg-brand-white text-brand-black p-8 md:p-24">
       <Link
         href="/"
-        className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-black mb-12 transition-colors"
+        className="group flex items-center gap-2 text-sm text-brand-muted hover:text-brand-black mb-12 transition-colors"
       >
         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
         RETURN
@@ -27,14 +27,14 @@ export default function PrivacyPage() {
 
       <div className="max-w-3xl">
         <h1 className="text-4xl md:text-6xl font-serif italic mb-8">Privacy Policy</h1>
-        <p className="text-sm font-mono text-gray-500 mb-12">
-          LAST UPDATED:{' '}
+        <p className="text-xs uppercase tracking-wider text-brand-muted mb-12">
+          Last updated:{' '}
           <time dateTime={lastUpdatedISO}>{lastUpdatedHuman.toUpperCase()}</time>
         </p>
 
         <div className="prose prose-lg">
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">1. Who We Are</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             This site is operated by <strong>{BUSINESS.name}</strong> ({BUSINESS_FORMATTED.abnLabel}), a
             Melbourne-based technology services business located at {BUSINESS_FORMATTED.addressLine}.
             This Privacy Policy explains what personal information we collect, why we collect it, and
@@ -43,11 +43,11 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">2. Information We Collect</h2>
-          <p className="mb-4 text-gray-700">
+          <p className="mb-4 text-brand-black/85">
             We only collect personal information that is reasonably necessary to provide our
             services and respond to enquiries. Specifically:
           </p>
-          <ul className="list-disc pl-6 mb-8 text-gray-700 space-y-2">
+          <ul className="list-disc pl-6 mb-8 text-brand-black/85 space-y-2">
             <li>
               <strong>Contact form submissions:</strong> name, email address, and the
               content of your message.
@@ -64,7 +64,7 @@ export default function PrivacyPage() {
           </ul>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">3. How We Use Your Information</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             We use the information you provide to respond to your enquiries, scope and
             deliver work you have engaged us for, and improve our website. We do not sell
             or rent personal information to third parties, and we do not use your data for
@@ -72,7 +72,7 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">4. Cookies and Analytics</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             Our website uses essential cookies for site functionality. We may use a
             privacy-respecting analytics service to understand traffic patterns at an
             aggregate level. You can disable cookies in your browser settings; doing so
@@ -80,7 +80,7 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">5. Service Providers</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             We rely on a small number of trusted service providers to host this website,
             deliver email, and host analytics infrastructure. These providers process data
             on our behalf under their own security and privacy obligations and are not
@@ -88,7 +88,7 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">6. Data Security</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             We use HTTPS for all transmissions and apply reasonable technical and
             organisational measures to protect personal information. No method of
             transmission over the internet is 100% secure, however, and we cannot guarantee
@@ -96,7 +96,7 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">7. Your Rights</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             Under the Australian Privacy Principles you have the right to access the
             personal information we hold about you, request correction of inaccurate
             information, and request deletion subject to our legal record-keeping
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">8. Complaints</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             If you believe we have mishandled your personal information, please contact
             {BUSINESS.email} so we can investigate. If you are not satisfied with our
             response, you may lodge a complaint with the Office of the Australian
@@ -114,13 +114,13 @@ export default function PrivacyPage() {
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">9. Changes to This Policy</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             We may update this Privacy Policy from time to time. The current version is
             always available at this URL, with the date last updated shown at the top.
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">10. Contact</h2>
-          <p className="mb-8 text-gray-700">
+          <p className="mb-8 text-brand-black/85">
             For any privacy-related question, please contact us at:
             <br />
             <br />
@@ -132,10 +132,10 @@ export default function PrivacyPage() {
           </p>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-black/10">
+        <div className="mt-12 pt-8 border-t border-brand-black/10">
           <Link
             href="/legal/terms"
-            className="text-sm font-mono text-brand-yellow hover:text-black transition-colors"
+            className="text-sm text-brand-yellow hover:text-brand-black transition-colors"
           >
             View Terms of Service →
           </Link>

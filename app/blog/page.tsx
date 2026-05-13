@@ -28,12 +28,12 @@ export default function BlogPage() {
   const posts = getAllBlogPosts();
 
   return (
-    <div className="min-h-screen bg-white text-black pt-24 pb-20 px-6 md:px-12">
+    <div className="min-h-screen bg-brand-white text-brand-black pt-24 pb-20 px-6 md:px-12">
       <div className="max-w-4xl mx-auto">
         {/* Back Link */}
         <Link
           href="/"
-          className="group flex items-center gap-2 text-sm font-mono text-gray-500 hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
+          className="group flex items-center gap-2 text-sm text-brand-muted hover:text-brand-yellow-hover mb-12 transition-colors w-fit"
         >
           <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
           Back to Home
@@ -45,21 +45,21 @@ export default function BlogPage() {
             Blog
           </span>
           <h1 className="text-5xl md:text-7xl font-serif italic">Journal</h1>
-          <p className="mt-4 text-lg text-gray-600 max-w-2xl">
+          <p className="mt-4 text-lg text-brand-black/70 max-w-2xl">
             Thoughts on web development, technical SEO, and building digital products that matter.
           </p>
         </div>
 
         {/* Blog Posts List */}
-        <div className="flex flex-col border-t border-black/20">
+        <div className="flex flex-col border-t border-brand-black/20">
           {posts.map((post) => (
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className="group flex flex-col md:flex-row items-baseline py-8 md:py-12 border-b border-black/20 cursor-pointer hover:bg-gray-50 transition-colors -mx-4 px-4"
+              className="group flex flex-col md:flex-row items-baseline py-8 md:py-12 border-b border-brand-black/20 cursor-pointer hover:bg-brand-black/[0.03] transition-colors -mx-4 px-4"
             >
               <div className="w-full md:w-1/4 mb-4 md:mb-0">
-                <span className="font-mono text-xs text-gray-500 block mb-1">{post.date}</span>
+                <span className="font-mono text-xs text-brand-muted block mb-1">{post.date}</span>
                 <span className="font-mono text-xs text-brand-yellow border border-brand-yellow/30 px-2 py-0.5 rounded">
                   {post.category}
                 </span>
@@ -69,14 +69,14 @@ export default function BlogPage() {
                 <h2 className="text-2xl md:text-4xl font-serif group-hover:text-brand-yellow-hover transition-colors duration-300">
                   {post.title}
                 </h2>
-                <p className="mt-2 text-gray-500 text-sm line-clamp-2">
+                <p className="mt-2 text-brand-muted text-sm line-clamp-2">
                   {post.excerpt}
                 </p>
               </div>
 
               <div className="w-full md:w-1/4 flex justify-between md:justify-end items-center gap-4">
-                <span className="text-xs font-sans text-gray-400">{post.readTime}</span>
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-black/20 flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-white transition-all transform group-hover:-rotate-45">
+                <span className="text-xs font-sans text-brand-muted">{post.readTime}</span>
+                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-brand-black/20 flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-brand-black transition-all transform group-hover:-rotate-45">
                   <ArrowRight size={16} />
                 </div>
               </div>
@@ -85,9 +85,9 @@ export default function BlogPage() {
         </div>
 
         {/* Footer */}
-        <div className="mt-16 pt-8 border-t border-black/10 text-center">
-          <p className="text-sm text-gray-500 font-mono">
-            More articles coming soon...
+        <div className="mt-16 pt-8 border-t border-brand-black/10 text-center">
+          <p className="text-sm italic font-serif text-brand-muted">
+            More articles coming soon.
           </p>
         </div>
       </div>

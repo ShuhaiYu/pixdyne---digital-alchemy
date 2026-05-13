@@ -477,6 +477,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '23',
+    slug: 'aier-flowers',
+    name: 'Aier Flowers',
+    client: 'Aier Flowers',
+    category: 'E-commerce',
+    services: ['Web Development'],
+    stack: ['E-commerce platform', 'Mobile-first', 'Buyer-show gallery'],
+    challenge:
+      "Aier Flowers is a Melbourne premium florist selling flower boxes, preserved arrangements, DIY kits, and city-wide delivery. Premium florist sales are visual and emotional — buyer-show photos and arrangement variety drive conversion more than feature lists, and the purchase often happens on a phone moments before someone's birthday.",
+    solution:
+      "We built the storefront with a 'buyer show' gallery so real customer photos sit next to the product range, working as live social proof rather than a static testimonial wall. Mobile optimisation is the default because florist purchases are impulse decisions made on phones. Clean aesthetic matches the premium positioning rather than burying the product under chrome.",
+    shortDescription:
+      'Mobile-first premium florist storefront with a buyer-show gallery for live social proof.',
+    seoTitle: 'Aier Flowers — Melbourne Premium Florist E-commerce',
+    seoDescription:
+      'A mobile-first e-commerce storefront for a Melbourne premium florist — flower boxes, preserved arrangements, DIY kits, and a buyer-show gallery. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

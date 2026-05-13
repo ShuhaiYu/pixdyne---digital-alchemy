@@ -235,21 +235,22 @@ Centralised types live in `types/index.ts`.
 
 **Currently in place:**
 
-- `metadataBase`, canonical, Open Graph, Twitter card
-- `robots.txt` and `sitemap.xml` routes
-- JSON-LD: `ProfessionalService`, `Service`, `CreativeWork`, `Article`, `BreadcrumbList`
+- `metadataBase`, per-page canonical, Open Graph, Twitter card
+- `robots.txt` and `sitemap.xml` routes (dynamic + static)
+- JSON-LD: `ProfessionalService` (root, covers `LocalBusiness` subtype with full address + ABN + areaServed Melbourne/VIC/AU), `WebSite`, `Service`, `CreativeWork`, `Article`, `BreadcrumbList`
 - Skip-to-main-content link, `prefers-reduced-motion`, focus-visible outlines
+- Australian English copy, AU locale OG, `en_AU` declared
 
-**Known issues to fix as part of optimisation:**
+**Remaining gaps** (these are real, not placeholders):
 
-- `verification.google` is still a placeholder string — owner has not connected Google Search Console.
-- `lib/seo/schema.ts` references `https://pixdyne.com/logo.png`; the actual asset is `logo.jpeg` — broken reference.
-- Schema description still reads "IT Services: Web, App, SEO, Support" — does not match the service architecture in Section 5.
-- `areaServed` is currently `Country: Australia`; for Melbourne local SEO it should be more specific (`LocalBusiness` with `addressLocality: Melbourne` or a city array including Melbourne suburbs).
-- No `LocalBusiness` schema — required for local SEO.
-- Twitter / LinkedIn handles in schema (`@pixdyne`, `linkedin.com/company/pixdyne`) are unverified — confirm before publishing.
+- Google Search Console verification token is **not** yet wired — `verification.google` is commented out as TBD in `app/layout.tsx`. Set it once the property is verified.
+- Per-service 1200×630 landscape OG images are not produced. Service detail pages fall back to the 1080×1080 square. Once landscape variants exist, upgrade Twitter card to `summary_large_image` per service.
+- `sameAs` (X / LinkedIn) is intentionally absent. Add only after the handles are verified to exist.
+- Google Business Profile is not claimed. Required for Local SEO — see §14.9.
+- FAQ content per service is missing. Once written, emit `FAQPage` schema (slot reserved in `lib/seo/schema.ts`).
+- `AggregateRating` is intentionally absent. Do not add until at least 5 verifiable reviews exist.
 
-**Phase 2 SEO scope** (not yet started): Melbourne local SEO, GEO (generative engine optimisation), Google Business Profile, blog content programme.
+**Phase 2 SEO scope** (active): Melbourne local SEO citations, GEO (generative engine optimisation), Google Business Profile claim, blog content programme. Governance rules in §14.
 
 ---
 
@@ -283,3 +284,181 @@ For any non-trivial change, follow this protocol:
 - **TBD** — Top navigation menu structure.
 - **TBD** — Owner-provided historical project list per category.
 - **TBD** — Verified social handles for `sameAs` schema (@pixdyne, linkedin.com/company/pixdyne).
+- **2026-05-13** — SEO governance formalised in Section 14. Section 11 refreshed to current state (most of the previously-listed "known issues" were already resolved between 2026-05-08 and 2026-05-10). Long-term rules now cover NAP consistency, per-page metadata template, mandatory schema coverage by route, URL conventions, heading hierarchy, image SEO, keyword framework (target-customer aligned), performance budgets, local SEO checklist, GEO rules, blog content production, and audit cadence.
+
+---
+
+## 14. SEO Governance
+
+SEO is a brand asset for this site, not a finishing layer. Every public page, schema block, and copy decision must respect these rules. The truth-auditor enforces them; the seo-agent owns them.
+
+### 14.1 NAP Consistency (single source of truth)
+
+These four values are the canonical business identity. They appear in exactly four surfaces and must match byte-for-byte:
+
+- **Name:** Pixdyne
+- **Address:** 294 Clayton Rd, Clayton VIC 3169, Australia
+- **Email:** info@pixdyne.com
+- **ABN:** 96 690 116 584
+
+| Surface | File |
+|---|---|
+| Organisation schema | `lib/seo/schema.ts` → `generateOrganizationSchema()` |
+| Privacy policy | `app/legal/privacy/page.tsx` |
+| Terms of service | `app/legal/terms/page.tsx` |
+| Footer (when one exists) | TBD |
+
+If any field changes, update **all** surfaces in a single commit. No NAP value may be hardcoded outside these four files.
+
+### 14.2 Per-Page Metadata Template (mandatory)
+
+Every new `page.tsx` (static route or `generateMetadata` for dynamic) must export a `Metadata` object with **all** of:
+
+- `title` — ≤ 60 chars. Pattern: `"{Page intent} | Pixdyne"` or `"{Page intent} — {Qualifier}"`. The page's primary cluster keyword (see §14.7) must appear in the title.
+- `description` — ≤ 155 chars. One sentence: value proposition + location anchor + canonical service name where applicable.
+- `alternates.canonical` — absolute URL `https://pixdyne.com/...`, no trailing slash except root, lowercase.
+- `openGraph` — `title`, `description`, `url`, at least one `images` entry. `locale: 'en_AU'` is inherited from root layout.
+- `twitter.card` — `'summary_large_image'` when a 1200×630 landscape OG image exists for the page; `'summary'` when only the 1080×1080 square fallback is in use.
+
+Missing any of the above is a truth-auditor failure.
+
+### 14.3 Required Schema by Route
+
+| Route pattern | Required schema | Optional schema |
+|---|---|---|
+| `/` (root layout) | `ProfessionalService` (LocalBusiness subtype) + `WebSite` | — |
+| `/services/[slug]` | `Service` + `BreadcrumbList` (`Product` when `tier === 'product'`) | `FAQPage` when FAQ block exists |
+| `/work/[slug]` | `CreativeWork` + `BreadcrumbList` | — |
+| `/blog/[slug]` | `Article` + `BreadcrumbList` | — |
+| `/blog`, `/work` | (inherits root) | `CollectionPage` / `ItemList` |
+| `/legal/*` | (inherits root) | — |
+
+**Never** invent: `aggregateRating`, `review`, `sameAs` (until handles verified), `priceRange` (until owner confirms), `openingHoursSpecification` (until owner confirms).
+
+### 14.4 URL Structure Rules
+
+- kebab-case only — `/services/web-development`, never `/Services/WebDevelopment`
+- No trailing slashes except the root `/`
+- No query strings inside canonical URLs (filters belong on client-side state, not in canonicals)
+- Lowercase throughout
+- Stable slugs — once a slug is published, do not rename without a 301 plan
+
+### 14.5 Heading Hierarchy
+
+- Exactly **one** `<h1>` per page, matching the page intent and containing the primary cluster keyword (§14.7) where natural
+- `<h2>` for section heads, `<h3>` for subsections — do not skip levels
+- Never use heading tags for visual size — use semantic tags styled with CSS
+
+### 14.6 Image SEO
+
+- Use `next/image` (or hand-rolled `<img>` with explicit `width` + `height`) — every image declares dimensions to prevent CLS
+- Informative images: descriptive `alt` text (concrete, not "image of …")
+- Decorative images: `alt=""`
+- Above-the-fold hero image only: `priority` + `fetchPriority="high"`
+- Below-the-fold images: implicit lazy-load via `next/image`
+- Prefer AVIF / WebP with fallbacks
+- Do not ship source images > 2× rendered size
+
+### 14.7 Keyword Framework
+
+Anchor each page to **one** primary cluster keyword. Stuffing is banned.
+
+**Primary clusters** (Melbourne + service intent — the audience actually types these):
+
+- "Melbourne web development" · "web development Melbourne" · "Melbourne web designer"
+- "Melbourne IT services" · "Melbourne technology partner" · "long-term technology partner"
+- "custom software Melbourne" · "custom system Melbourne" · "bespoke software Australia"
+- "ERP implementation Melbourne" · "CRM development Melbourne"
+- "managed IT Melbourne" · "ongoing SEO Melbourne"
+
+**Long-tail (platform + location):**
+
+- "Shopify partner Melbourne" · "Shopify developer Melbourne"
+- "WordPress developer Melbourne" · "Webflow developer Melbourne"
+- "NetSuite consultant Australia" · "NetSuite implementation Melbourne"
+- "Salesforce consultant Melbourne" · "HubSpot Melbourne"
+- "iOS app developer Melbourne" · "Android app developer Melbourne"
+
+**GEO anchors** (use sparingly, only where genuine):
+
+- "Melbourne" · "Victoria" · "Australia" · "Clayton" · "southeast Melbourne" · "Australian"
+
+**Per service detail page mandate:** the canonical service name (§5) must appear in title + H1 + first paragraph. The primary cluster keyword for that service must appear in title + at least one H2 or first paragraph.
+
+**Forbidden in user-facing copy** (per §6 rules 9 and 10):
+
+- Any size-based audience targeting: "SMB", "small business", "small and medium businesses", "small to medium"
+- Engineer-only stack names: Next.js, React, Tailwind, GSAP, TypeScript, PostgreSQL, Sentry, Vercel, Cloudflare
+
+**Forbidden everywhere (including schema):**
+
+- "best", "premier", "leading", "world-class", "industry-leading", "trusted by industry leaders"
+- "cutting-edge", "state-of-the-art", "next-generation", "revolutionary"
+
+### 14.8 Performance Budgets
+
+| Metric | Target | Action when exceeded |
+|---|---|---|
+| LCP | < 2.5s | Audit hero image weight, preload, font display |
+| INP | < 200ms | Profile main thread, defer non-critical JS |
+| CLS | < 0.1 | Reserve image / video dimensions, prevent late shifts |
+| Total JS (homepage, gz) | < 200 KB | GSAP is heavy — every new animation must justify weight or replace existing JS |
+| Total CSS (homepage, gz) | < 40 KB | — |
+| FCP | < 1.5s | — |
+
+Slightly relaxed JS budget vs. workspace web/performance.md because this site is animation-led. Animations remain on compositor-friendly properties only (`transform`, `opacity`, `filter`).
+
+### 14.9 Local SEO (Melbourne)
+
+**One-time setup checklist:**
+
+- [ ] Google Business Profile claimed at 294 Clayton Rd, Clayton VIC 3169 (TBD — owner)
+- [ ] Apple Business Connect listing claimed (TBD — owner)
+- [ ] Bing Places for Business listing claimed (TBD — owner)
+- [ ] NAP cited in at least 5 reputable Australian directories. Candidate list: yellowpages.com.au · truelocal.com.au · hotfrog.com.au · startlocal.com.au · localsearch.com.au · auinfo.com
+- [ ] Australian Business Register link confirmed (ABN 96 690 116 584)
+
+**Ongoing rules:**
+
+- Schema-level `LocalBusiness` signals are covered by `ProfessionalService` (a subtype). Adding `geo`, `openingHoursSpecification`, `priceRange`, or `currenciesAccepted` requires owner sign-off — do not invent.
+- Encourage genuine Google reviews. Never fabricate. Do not emit `aggregateRating` until at least 5 verifiable reviews exist.
+- For city-targeted blog posts, mention the relevant Melbourne anchor in the H1 or first paragraph (e.g. "Shopify development for Melbourne brands"), never as keyword stuffing.
+
+### 14.10 GEO (Generative Engine Optimisation)
+
+AI search engines (Perplexity, ChatGPT search, Gemini) and LLM crawlers favour clear factual statements over animations and marketing fluff. Optimise for being **quotable**.
+
+- About / Services / OnlyPixAI surfaces must include one paragraph of plain prose answering: who Pixdyne is, where, since when, what we do.
+- Service detail pages must answer "what is X and what is included" in plain language within the first paragraph (no marketing preamble).
+- FAQ blocks (when written) must use `FAQPage` schema and remain factually answerable from page text alone.
+- First paint must include the answer. Do not hide core facts behind animation entrances or scroll-triggered reveals.
+- Sentences should be short, parseable, declarative. Avoid pronouns that depend on context outside the page.
+
+### 14.11 Content Production (Blog)
+
+- Byline is `Pixdyne Team` (per §6 rule 1 — no individual identities).
+- Every post must have a clear, opinionated angle. No "X tips for Y" generic listicles.
+- Each post must support at least one primary cluster keyword (§14.7) — title, H1, and at least one H2.
+- Internal links: every post links to at least one relevant service detail or another related post.
+- Frequency: monthly cadence target once the topic plan is approved (TBD).
+- Cite sources where claims are non-obvious. Apply workspace data-integrity principles when the post makes safety-critical or factual claims (see workspace `CLAUDE.md`).
+
+### 14.12 Audit Cadence
+
+| Cadence | Action |
+|---|---|
+| Per commit | seo-agent + truth-auditor checklists (AGENTS.md §2.2, §2.4) |
+| Weekly | GSC error sweep, sitemap freshness, broken-link sweep on top routes |
+| Monthly | CWV check across top routes, keyword ranking pulse, GBP review (once claimed) |
+| Quarterly | Full schema audit via Google Rich Results Test, competitor positioning review, copy audit against §14.7 |
+
+### 14.13 Open SEO Items (TBD)
+
+- `<!-- TBD: Google Search Console verification token — set `verification.google` in app/layout.tsx once issued. Do not ship the placeholder string. -->`
+- `<!-- TBD: Verified `sameAs` social handles — confirm @pixdyne (X) and linkedin.com/company/pixdyne exist before adding to schema -->`
+- `<!-- TBD: Per-service 1200×630 landscape OG images at /og/services/{slug}.jpg — currently fall back to /og-image.png square -->`
+- `<!-- TBD: Per-blog 1200×630 OG images at /og/blog/{slug}.jpg — referenced in blog post metadata but not yet produced -->`
+- `<!-- TBD: Google Business Profile listing for 294 Clayton Rd, Clayton VIC 3169 -->`
+- `<!-- TBD: FAQ content per service detail page — unlocks FAQPage schema -->`
+- `<!-- TBD: Real client review acquisition strategy — minimum 5 verified reviews before any AggregateRating schema -->`
+- `<!-- TBD: Blog topic plan and editorial calendar — drives §14.11 cadence -->`

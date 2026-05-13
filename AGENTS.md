@@ -59,27 +59,56 @@ Four roles are defined for this project. They map to existing skills/agents in `
 **Owns:**
 
 - JSON-LD schema (`lib/seo/schema.ts`)
-- Metadata in `app/**/page.tsx`
+- Metadata in `app/**/page.tsx` (static + `generateMetadata` for dynamic)
 - `robots.ts`, `sitemap.ts`
-- Local SEO assets (`LocalBusiness` schema, area served, Google Business Profile preparation)
-- GEO (generative engine optimisation) — making content discoverable to AI search engines
+- Local SEO assets (`LocalBusiness` signals via `ProfessionalService` subtype, area served, Google Business Profile preparation)
+- GEO (generative engine optimisation) — making content discoverable and quotable for AI search engines
+- Keyword framework adherence (CLAUDE.md §14.7)
+- Image SEO (alt text, dimensions, format choice)
+- Performance budget enforcement on SEO-critical pages (CLAUDE.md §14.8)
 
 **Must always:**
 
-- Use real content. If schema needs a logo URL, point at the actual file. If it needs an address, use the verified one.
+- Use real content. If schema needs a logo URL, point at an actual file. If it needs an address, use the verified one.
 - Anchor location to Melbourne, VIC, AU.
-- Match schema descriptions to the live service architecture in `CLAUDE.md` Section 5.
+- Match schema descriptions to the live service architecture in `CLAUDE.md` §5.
+- Apply the per-page metadata template (CLAUDE.md §14.2): `title` ≤ 60 chars containing primary cluster keyword, `description` ≤ 155 chars, `alternates.canonical` absolute URL, `openGraph` block with at least one image, explicit `twitter.card`.
+- Confirm every new public route has a `sitemap.ts` entry with an accurate `lastModified`.
+- Confirm every new public route emits the required schema for its route type (CLAUDE.md §14.3).
+- Read NAP fields only from `lib/seo/schema.ts` and the legal pages — never duplicate Pixdyne's address, ABN, or email as inline literals elsewhere.
+- Anchor every page to one primary cluster keyword from CLAUDE.md §14.7. The keyword appears in `title` + H1 + first paragraph.
+- For service detail pages, emit `Service` schema when `tier === 'service'` and `Product` schema when `tier === 'product'` (OnlyPixAI is the only `tier === 'product'` entry).
 
 **Must never:**
 
-- Invent reviews, ratings, or aggregate scores in schema.
+- Invent reviews, ratings, `aggregateRating`, or aggregate scores in schema.
 - Add `sameAs` links to social handles that have not been verified to exist.
-- Use the placeholder Google Search Console verification string in production.
+- Use the placeholder Google Search Console verification string in production. Leave `verification.google` commented out until the real token is issued.
+- Emit `openingHoursSpecification`, `priceRange`, or `currenciesAccepted` without owner confirmation.
+- Use engineer-only tech vocabulary (Next.js, React, Tailwind, GSAP, TypeScript, PostgreSQL, Sentry, Vercel, Cloudflare) in any user-facing string the SEO surfaces touch — page titles, descriptions, schema `description`, OG titles. Use platform names the audience knows (WordPress, Shopify, NetSuite, etc.) per CLAUDE.md §6 rule 10.
+- Use downward audience segmentation ("for SMBs", "small business") in any SEO surface. Use growth framing per CLAUDE.md §6 rule 9.
+- Skip the heading-hierarchy rule: one `<h1>` per page, no level skips (CLAUDE.md §14.5).
+- Ship an image without explicit `width` + `height` and an `alt` value (descriptive for informative images, empty string for decorative).
+
+**SEO-agent per-commit checklist** (block commit if any item fails):
+
+- [ ] Every modified `page.tsx` exports complete metadata (title, description, canonical, openGraph, twitter)
+- [ ] Every new route has a `sitemap.ts` entry
+- [ ] Primary cluster keyword appears in title + H1 + first paragraph
+- [ ] NAP fields read from the single source of truth (no inline duplicates)
+- [ ] Required schema for the route type is emitted (CLAUDE.md §14.3)
+- [ ] No invented reviews / ratings / unverified `sameAs`
+- [ ] No engineer-only tech vocabulary in SEO surfaces
+- [ ] No downward audience segmentation in SEO surfaces
+- [ ] Exactly one `<h1>` per page
+- [ ] All `<img>` and `<Image>` instances have `width`, `height`, and `alt`
 
 **Ask the owner when:**
 
 - A schema field requires data that is not in `CLAUDE.md` or `lib/data/`.
 - Multiple `LocalBusiness` types fit the entity (e.g. `ProfessionalService` vs. `LocalBusiness` vs. `Organization`).
+- A new page targets a keyword cluster not listed in CLAUDE.md §14.7.
+- A page would need to add `aggregateRating`, `priceRange`, `openingHoursSpecification`, or `sameAs`.
 
 ---
 
@@ -145,6 +174,18 @@ Boilerplate residue (CLAUDE.md rule 11):
 - [ ] Single-email policy: only `info@pixdyne.com` appears in user-facing copy. No `privacy@`, `legal@`, `hello@`, `support@`, or any departmental mailbox.
 - [ ] No fabricated industry coverage statements ("trusted by industry leaders across finance, tech, and healthcare", "powering digital infrastructure for X across Y").
 - [ ] Canonical brand spellings verified: **Pixdyne** (six letters, P-I-X-D-Y-N-E; never "Pxidyne", "Pixdync"). **OnlyPixAI** (one word, P-A-I capitals). Any new directory name, file path, identifier, or copy string containing the brand name has been spell-checked before commit. See CLAUDE.md decisions log entry for 2026-05-10.
+
+SEO surfaces (CLAUDE.md §14):
+
+- [ ] Every modified `page.tsx` has `title` (≤ 60 chars), `description` (≤ 155 chars), `alternates.canonical`, `openGraph`, and explicit `twitter.card`.
+- [ ] Primary cluster keyword from §14.7 appears in title + H1 + first paragraph of the page.
+- [ ] NAP fields (Pixdyne, 294 Clayton Rd Clayton VIC 3169, info@pixdyne.com, ABN 96 690 116 584) are not duplicated as inline literals — they live in `lib/seo/schema.ts` and the legal pages only.
+- [ ] Required schema for the route type is emitted (root: `ProfessionalService` + `WebSite`; service: `Service`/`Product` + `BreadcrumbList`; work: `CreativeWork` + `BreadcrumbList`; blog: `Article` + `BreadcrumbList`).
+- [ ] No invented `aggregateRating`, `review`, `priceRange`, `openingHoursSpecification`, or unverified `sameAs`.
+- [ ] No placeholder `verification.google` string shipped — leave commented out until real token is issued.
+- [ ] Exactly one `<h1>` per page, no skipped heading levels.
+- [ ] All `<img>` / `<Image>` have explicit `width`, `height`, and `alt` (descriptive or `alt=""`).
+- [ ] New public routes are added to `app/sitemap.ts`.
 
 If the audit fails, do **not** silently fix and commit. Report the violations and let the owner decide how to handle each.
 

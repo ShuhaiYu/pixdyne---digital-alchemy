@@ -23,19 +23,33 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        {/* Background Image with Overlay */}
+        {/* Background. Image when caseStudy.img is set; otherwise a
+            warm-black gradient tile so the card still has structure
+            while real hero images are pending from the owner. */}
         <div className="absolute inset-0">
-          <Image
-            src={caseStudy.img}
-            alt={caseStudy.name}
-            fill
-            sizes="(max-width: 768px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-            loading="lazy"
-          />
-          <div
-            className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"
-          />
+          {caseStudy.img ? (
+            <>
+              <Image
+                src={caseStudy.img}
+                alt={caseStudy.name}
+                fill
+                sizes="(max-width: 768px) 50vw, 33vw"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+            </>
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-black via-brand-surface to-brand-black">
+              <div
+                className="absolute inset-0 opacity-30"
+                style={{
+                  backgroundImage:
+                    'radial-gradient(circle at 30% 20%, rgba(200, 150, 42, 0.18), transparent 50%)'
+                }}
+              />
+            </div>
+          )}
           {/* Accent Color Glow */}
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500"
@@ -92,8 +106,9 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
             </div>
           )}
 
-          {/* Year - For Wide and Small */}
-          {size !== 'featured' && (
+          {/* Year — optional. Renders only when the owner has supplied
+              a go-live year for the project. */}
+          {size !== 'featured' && caseStudy.year && (
             <p className="text-white/50 text-xs mt-3">{caseStudy.year}</p>
           )}
         </div>

@@ -24,6 +24,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
+  // og:image: use the case-study hero when one exists, otherwise let
+  // the route inherit the site-wide opengraph-image at root. Don't
+  // emit a blank images entry — that ships an empty meta tag.
+  const ogImages = work.img
+    ? [{ url: work.img, width: 1200, height: 630 }]
+    : undefined;
+
   return {
     title: work.seoTitle || `${work.name} - Case Study`,
     description: work.seoDescription || work.challenge,
@@ -31,11 +38,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${work.name} | Pixdyne Case Study`,
       description: work.challenge,
       url: `https://pixdyne.com/work/${slug}`,
-      images: [{
-        url: work.img,
-        width: 1200,
-        height: 630
-      }]
+      ...(ogImages ? { images: ogImages } : {})
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${work.name} | Pixdyne`,
+      description: work.shortDescription || work.challenge
     },
     alternates: {
       canonical: `https://pixdyne.com/work/${slug}`
@@ -53,7 +61,7 @@ export default async function WorkPage({ params }: Props) {
 
   const breadcrumbs = [
     { name: 'Home', url: 'https://pixdyne.com' },
-    { name: 'Work', url: 'https://pixdyne.com/#work' },
+    { name: 'Work', url: 'https://pixdyne.com/work' },
     { name: work.name, url: `https://pixdyne.com/work/${slug}` }
   ];
 

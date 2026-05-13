@@ -21,18 +21,33 @@ export default function MasonryCard({ caseStudy }: MasonryCardProps) {
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3, ease: 'easeOut' }}
       >
-        {/* Image Container - Natural aspect ratio */}
+        {/* Image Container — natural 4:3. Falls back to a gradient tile
+            when no hero image is available yet so cards still have
+            structure. */}
         <div className="relative w-full overflow-hidden aspect-[4/3]">
-          <Image
-            src={caseStudy.img}
-            alt={caseStudy.name}
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-            loading="lazy"
-          />
-          {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+          {caseStudy.img ? (
+            <>
+              <Image
+                src={caseStudy.img}
+                alt={caseStudy.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+            </>
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-black via-brand-surface to-brand-black">
+              <div
+                className="absolute inset-0 opacity-30"
+                style={{
+                  backgroundImage:
+                    'radial-gradient(circle at 30% 20%, rgba(200, 150, 42, 0.18), transparent 50%)'
+                }}
+              />
+            </div>
+          )}
           {/* Accent Color Glow on Hover */}
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-15 transition-opacity duration-500"
@@ -66,8 +81,10 @@ export default function MasonryCard({ caseStudy }: MasonryCardProps) {
             />
           </h3>
 
-          {/* Year */}
-          <p className="text-white/50 text-xs mt-1">{caseStudy.year}</p>
+          {/* Year — optional */}
+          {caseStudy.year && (
+            <p className="text-white/50 text-xs mt-1">{caseStudy.year}</p>
+          )}
         </div>
 
         {/* Hover Arrow */}

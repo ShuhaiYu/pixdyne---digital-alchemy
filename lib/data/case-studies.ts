@@ -317,6 +317,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'wide'
   },
+  {
+    id: '15',
+    slug: 'mustbuy',
+    name: 'Mustbuy',
+    client: 'Mustbuy',
+    category: 'E-commerce',
+    services: ['Web Development'],
+    stack: ['E-commerce platform', 'Multi-category catalogue', 'Customer accounts'],
+    challenge:
+      "Mustbuy needed a conventional online retail surface — multi-category catalogue, customer accounts, cart, and checkout — that worked cleanly across desktop and mobile. Not every retailer needs custom infrastructure; sometimes a well-built standard storefront is exactly what fits the business.",
+    solution:
+      "We built the e-commerce site end-to-end: home, category browsing, product detail, user login, cart, and checkout, all on a responsive layout. The scope was deliberately conventional — we picked the platform that fits how the team will run it after launch, rather than over-engineering a storefront beyond what the operation needed.",
+    shortDescription:
+      'A clean, conventional multi-category e-commerce storefront — picked for fit, not for show.',
+    seoTitle: 'Mustbuy — Multi-Category E-commerce Storefront',
+    seoDescription:
+      'A multi-category online retail storefront with customer accounts, cart, and checkout — built for the operation rather than over-engineered. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

@@ -14,10 +14,15 @@ import { BUSINESS, BUSINESS_FORMATTED } from '@/lib/data/business';
 
 // Top nav — homepage sections + Contact route. Reads as a single
 // middot-separated row, not a column of links.
+// Primary navigation row — mirrors the desktop navbar (real pages, not
+// homepage anchors). Stays in sync with NAV_ITEMS in
+// components/layout/Navigation.tsx so the footer and header agree on
+// which routes the site ships.
 const TOP_NAV: { href: string; label: string }[] = [
-  { href: '/#services', label: 'Services' },
-  { href: '/#approach', label: 'Approach' },
-  { href: '/services/onlypixai', label: 'OnlyPixAI' },
+  { href: '/services', label: 'Services' },
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Journal' },
   { href: '/contact', label: 'Contact' }
 ];
 

@@ -125,7 +125,7 @@ export const Navigation: React.FC = () => {
     <>
       <nav
         aria-label="Main navigation"
-        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 text-white px-6 flex justify-between items-center bg-brand-black/60 backdrop-blur-sm ${scrolled ? 'py-4' : 'py-6'}`}
+        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 text-brand-text px-6 flex justify-between items-center bg-brand-black/60 backdrop-blur-sm ${scrolled ? 'py-4' : 'py-6'}`}
       >
         <Link href="/" className="flex items-center gap-4 group">
           <img
@@ -152,8 +152,8 @@ export const Navigation: React.FC = () => {
             const isCta = item.label === 'Contact';
             const isBrand = item.id === 'onlypixai';
             const ctaClass =
-              'inline-flex items-center gap-2 text-xs lg:text-sm uppercase tracking-widest bg-brand-yellow text-black font-bold py-2.5 px-4 lg:py-3 lg:px-5 hover:bg-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded-sm group cursor-pointer';
-            const linkClass = `text-xs lg:text-sm tracking-widest text-white/85 hover:text-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer ${isBrand ? '' : 'uppercase'}`;
+              'inline-flex items-center gap-2 text-xs lg:text-sm uppercase tracking-widest bg-brand-yellow text-brand-black font-bold py-2.5 px-4 lg:py-3 lg:px-5 hover:bg-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded-sm group cursor-pointer';
+            const linkClass = `text-xs lg:text-sm tracking-widest text-brand-text/85 hover:text-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer ${isBrand ? '' : 'uppercase'}`;
 
             if (item.href) {
               return (
@@ -212,12 +212,12 @@ export const Navigation: React.FC = () => {
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className={`md:hidden fixed inset-0 bg-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] ${isOpen ? 'translate-y-0 visible' : '-translate-y-full invisible'}`}
+        className={`md:hidden fixed inset-0 bg-brand-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] ${isOpen ? 'translate-y-0 visible' : '-translate-y-full invisible'}`}
         aria-hidden={!isOpen}
       >
         <button
           ref={closeButtonRef}
-          className="absolute top-6 right-6 text-white hover:text-brand-yellow-hover transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
+          className="absolute top-6 right-6 text-brand-text hover:text-brand-yellow-hover transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
           onClick={closeMenu}
           aria-label="Close navigation menu"
         >
@@ -228,8 +228,11 @@ export const Navigation: React.FC = () => {
           {menuItems.map((item) => {
             // OnlyPixAI exempted from uppercase per CLAUDE.md rule 5.
             const isBrand = item.id === 'onlypixai';
+            // .stroke-text class (defined in globals.css) drives the
+            // -webkit-text-stroke off the brand-text CSS variable.
+            // No inline style override needed — keeping it would have
+            // re-hardcoded "1px white" and bypassed the token system.
             const baseClass = `text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-brand-yellow-hover hover:tracking-wide transition-all duration-300 stroke-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px] cursor-pointer ${isBrand ? '' : 'uppercase'}`;
-            const strokeStyle = { WebkitTextStroke: '1px white' };
 
             if (item.href) {
               return (
@@ -238,7 +241,6 @@ export const Navigation: React.FC = () => {
                   href={item.href}
                   onClick={closeMenu}
                   className={baseClass}
-                  style={strokeStyle}
                   aria-label={`Open ${item.label} page`}
                 >
                   {item.label}
@@ -250,7 +252,6 @@ export const Navigation: React.FC = () => {
               <button
                 key={item.id}
                 className={baseClass}
-                style={strokeStyle}
                 onClick={() => scrollToSection(item.id!)}
                 aria-label={`Navigate to ${item.label} section`}
               >
@@ -260,7 +261,7 @@ export const Navigation: React.FC = () => {
           })}
         </div>
 
-        <div className="absolute bottom-10 w-full px-10 flex justify-between text-white/50 text-xs uppercase tracking-widest">
+        <div className="absolute bottom-10 w-full px-10 flex justify-between text-brand-text/50 text-xs uppercase tracking-widest">
           <span>Pixdyne © {new Date().getFullYear()}</span>
           <span>Melbourne · Australia</span>
         </div>

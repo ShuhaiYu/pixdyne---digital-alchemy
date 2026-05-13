@@ -76,13 +76,13 @@ export const BlogSection: React.FC = () => {
         </Link>
       </div>
 
-      <div className="flex flex-col border-t border-black/20">
+      <div className="flex flex-col border-t border-brand-black/20">
         {posts.map((post) => (
           <Link
             key={post.id}
             href={`/blog/${post.slug}`}
             aria-label={`Read article: ${post.title}`}
-            className="blog-row group flex flex-col lg:flex-row lg:items-baseline py-6 sm:py-8 md:py-10 lg:py-12 border-b border-black/20 cursor-pointer hover:bg-gray-50 transition-colors"
+            className="blog-row group flex flex-col lg:flex-row lg:items-baseline py-6 sm:py-8 md:py-10 lg:py-12 border-b border-brand-black/20 cursor-pointer hover:bg-brand-black/[0.03] transition-colors"
           >
             <div className="w-full lg:w-1/4 mb-3 sm:mb-4 lg:mb-0">
               <span className="font-mono text-xs text-brand-muted block mb-1">{post.date}</span>
@@ -97,7 +97,7 @@ export const BlogSection: React.FC = () => {
 
             <div className="w-full lg:w-1/4 flex justify-between lg:justify-end items-center gap-4">
               <span className="text-xs font-sans text-brand-muted">{post.readTime}</span>
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-black/20 flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-white transition-all transform group-hover:-rotate-45" aria-hidden="true">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-brand-black/20 flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-brand-black transition-all transform group-hover:-rotate-45" aria-hidden="true">
                 <ArrowRight size={16} />
               </div>
             </div>

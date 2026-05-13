@@ -86,7 +86,7 @@ export const ServicesSection: React.FC = () => {
       ref={sectionRef}
       id="services"
       aria-label="Services"
-      className={`relative w-full bg-brand-black text-white ${isMobile ? 'min-h-screen h-auto overflow-visible' : 'h-screen overflow-hidden'}`}
+      className={`relative w-full bg-brand-black text-brand-text ${isMobile ? 'min-h-screen h-auto overflow-visible' : 'h-screen overflow-hidden'}`}
       style={{ zIndex: 20 }}
     >
       <div className={`w-full ${isMobile ? 'flex flex-col' : 'h-full flex flex-row'}`}>
@@ -142,13 +142,13 @@ export const ServicesSection: React.FC = () => {
                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4">
                       <div className="flex items-baseline gap-3 sm:gap-6">
                         <span className="text-xs font-mono text-brand-yellow">({service.number})</span>
-                        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold uppercase tracking-tight text-white group-hover:text-brand-yellow-hover transition-colors duration-300">
+                        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold uppercase tracking-tight text-brand-text group-hover:text-brand-yellow-hover transition-colors duration-300">
                           {service.title}
                         </h3>
                       </div>
                       {passiveTag && (
                         <span
-                          className={`font-mono text-xs sm:text-sm px-2 sm:px-3 py-1.5 rounded transition-colors w-fit border ${isProduct ? 'border-brand-yellow/60 text-brand-yellow' : 'border-white/20 text-white/60'}`}
+                          className={`font-mono text-xs sm:text-sm px-2 sm:px-3 py-1.5 rounded transition-colors w-fit border ${isProduct ? 'border-brand-yellow/60 text-brand-yellow' : 'border-white/20 text-brand-text/60'}`}
                           aria-hidden="true"
                         >
                           {passiveTag}
@@ -157,7 +157,7 @@ export const ServicesSection: React.FC = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-sm sm:text-base md:text-lg text-brand-muted max-w-lg mb-6 sm:mb-8 ml-0 sm:ml-8 md:ml-12 group-hover:text-white transition-colors">
+                    <p className="text-sm sm:text-base md:text-lg text-brand-muted max-w-lg mb-6 sm:mb-8 ml-0 sm:ml-8 md:ml-12 group-hover:text-brand-text transition-colors">
                       {service.description}
                     </p>
 
@@ -165,7 +165,7 @@ export const ServicesSection: React.FC = () => {
                         are not yet provided by the owner (CLAUDE.md §6). */}
                     {/* <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-12 ml-0 sm:ml-8 md:ml-12 mb-6 sm:mb-8">
                       <div>
-                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
+                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-text flex items-baseline">
                           {service.stats?.projects !== undefined ? (
                             <>
                               <CountUp to={service.stats.projects} duration={2} className="tabular-nums" />
@@ -178,7 +178,7 @@ export const ServicesSection: React.FC = () => {
                         <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Projects Delivered</div>
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white flex items-baseline">
+                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-text flex items-baseline">
                           {service.stats?.satisfaction !== undefined ? (
                             <>
                               <CountUp to={service.stats.satisfaction} duration={2} className="tabular-nums" />
@@ -191,7 +191,7 @@ export const ServicesSection: React.FC = () => {
                         <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Client Satisfaction</div>
                       </div>
                       <div>
-                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-white">
+                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-text">
                           {service.stats?.support ?? <span className="text-brand-muted">—</span>}
                         </div>
                         <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Support Available</div>
@@ -211,7 +211,7 @@ export const ServicesSection: React.FC = () => {
 
                   {/* Progress indicator (bottom-left) */}
                   <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-12 flex items-center gap-2">
-                    <span className="text-xs font-mono text-white/30">
+                    <span className="text-xs font-mono text-brand-text/30">
                       {String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
                     </span>
                     <div className="w-16 h-[1px] bg-white/20">
@@ -231,7 +231,7 @@ export const ServicesSection: React.FC = () => {
                       as "Explore more". */}
                   <Link
                     href={`/services/${service.slug}`}
-                    className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-white transition-colors pointer-events-auto"
+                    className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-brand-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-brand-yellow-hover transition-colors pointer-events-auto"
                     aria-label={`Explore ${service.title}`}
                   >
                     Explore more

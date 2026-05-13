@@ -24,12 +24,12 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
   }, [work]);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-brand-black text-white pb-20 pt-20">
+    <div ref={containerRef} className="min-h-screen bg-brand-black text-brand-text pb-20 pt-20">
       {/* Sub-navigation */}
       <div className="w-full px-6 md:px-12 py-6 flex justify-between items-center z-40 relative">
         <Link
           href="/#work"
-          className="flex items-center gap-2 text-sm font-mono text-white hover:text-brand-yellow-hover transition-colors"
+          className="flex items-center gap-2 text-sm font-mono text-brand-text hover:text-brand-yellow-hover transition-colors"
         >
           <ArrowLeft size={16} />
           Back to Work
@@ -58,17 +58,17 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
 
         {/* Stats Sidebar */}
         <div className="work-content col-span-1 md:col-span-3">
-          <div className="flex flex-col gap-8 text-sm font-mono text-gray-400">
+          <div className="flex flex-col gap-8 text-sm font-mono text-brand-muted">
             <div>
-              <span className="block text-white font-bold uppercase mb-1">Client</span>
+              <span className="block text-brand-text font-bold uppercase mb-1">Client</span>
               {work.client}
             </div>
             <div>
-              <span className="block text-white font-bold uppercase mb-1">Year</span>
+              <span className="block text-brand-text font-bold uppercase mb-1">Year</span>
               {work.year}
             </div>
             <div>
-              <span className="block text-white font-bold uppercase mb-1">Stack</span>
+              <span className="block text-brand-text font-bold uppercase mb-1">Stack</span>
               <div className="flex flex-wrap gap-1 mt-1">
                 {work.stack.map(tech => (
                   <span key={tech} className="after:content-[',_'] last:after:content-['']">{tech}</span>
@@ -76,7 +76,7 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
               </div>
             </div>
 
-            <a href="#" className="flex items-center gap-2 text-brand-yellow hover:text-white transition-colors mt-4">
+            <a href="#" className="flex items-center gap-2 text-brand-yellow hover:text-brand-text transition-colors mt-4">
               VISIT LIVE SITE <ArrowUpRight size={14} />
             </a>
           </div>
@@ -86,21 +86,21 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
         <div className="col-span-1 md:col-span-9 flex flex-col gap-12">
           <div className="work-content">
             <h2 className="text-3xl font-bold mb-4">The Challenge</h2>
-            <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+            <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed">
               {work.challenge}
             </p>
           </div>
 
           <div className="work-content">
             <h2 className="text-3xl font-bold mb-4">The Solution</h2>
-            <p className="text-lg md:text-xl text-gray-300 leading-relaxed">
+            <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed">
               {work.solution}
             </p>
           </div>
 
           {/* Image Grid */}
           <div className="work-content grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-            <div className="bg-gray-800 h-64 md:h-80 overflow-hidden relative">
+            <div className="bg-brand-surface h-64 md:h-80 overflow-hidden relative">
               <Image
                 src={`https://picsum.photos/600/800?random=${work.id}a`}
                 alt={`${work.name} project detail 1`}
@@ -108,7 +108,7 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
                 className="object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>
-            <div className="bg-gray-800 h-64 md:h-80 overflow-hidden relative">
+            <div className="bg-brand-surface h-64 md:h-80 overflow-hidden relative">
               <Image
                 src={`https://picsum.photos/600/800?random=${work.id}b`}
                 alt={`${work.name} project detail 2`}
@@ -122,7 +122,7 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
       </div>
 
       <div className="work-content flex justify-center mt-24">
-        <Link href="/#work" className="text-6xl font-serif italic text-gray-700 hover:text-white transition-colors duration-300">
+        <Link href="/#work" className="text-6xl font-serif italic text-brand-text/30 hover:text-brand-text transition-colors duration-300">
           Next Project -&gt;
         </Link>
       </div>

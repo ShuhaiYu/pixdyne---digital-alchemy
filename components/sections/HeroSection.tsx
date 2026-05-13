@@ -39,14 +39,15 @@ export const HeroSection: React.FC = () => {
 
   return (
     <div className="h-screen w-full flex flex-col p-4 sm:p-6 md:p-12 relative">
-      {/* Decorative Grid */}
+      {/* Decorative Grid. Grid lines use the brand-black token so they
+          stay in the warm-tinted family rather than pure pixel black. */}
       <div className="absolute inset-0 opacity-10 pointer-events-none"
-        style={{ backgroundImage: 'linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+        style={{ backgroundImage: 'linear-gradient(var(--color-brand-black) 1px, transparent 1px), linear-gradient(90deg, var(--color-brand-black) 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
       </div>
 
       <div className="flex justify-between items-start pt-20">
-        <div ref={subRef} className="text-black font-sans uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm font-bold flex flex-col gap-1 sm:gap-2">
-          <span className="block w-16 sm:w-24 h-[1px] bg-black mb-1 sm:mb-2"></span>
+        <div ref={subRef} className="text-brand-black font-sans uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm font-bold flex flex-col gap-1 sm:gap-2">
+          <span className="block w-16 sm:w-24 h-[1px] bg-brand-black mb-1 sm:mb-2"></span>
           <span>Digital Alchemy</span>
           <span>Est. 2018</span>
         </div>
@@ -60,7 +61,7 @@ export const HeroSection: React.FC = () => {
       <div className="flex-1 flex items-center pr-24 sm:pr-40 md:pr-60 lg:pr-72 relative z-10">
         <h1
           ref={sloganRef}
-          className="text-[clamp(2rem,7vw,6rem)] leading-[1.25] font-serif text-black mix-blend-multiply"
+          className="text-[clamp(2rem,7vw,6rem)] leading-[1.25] font-serif text-brand-black mix-blend-multiply"
         >
           {/* Each line is its own overflow-hidden box so the entrance
               animation reads as a clean slide-up reveal. pb-2/pb-3 adds
@@ -101,7 +102,7 @@ export const HeroSection: React.FC = () => {
       <a
         href="/contact"
         aria-label="Start a project — open the contact page"
-        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 z-20 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center group border-2 border-transparent hover:border-black hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors cursor-pointer"
+        className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 md:bottom-12 md:right-12 z-20 w-20 h-20 sm:w-28 sm:h-28 md:w-40 md:h-40 lg:w-48 lg:h-48 rounded-full bg-brand-black flex items-center justify-center group border-2 border-transparent hover:border-brand-black hover:bg-brand-yellow-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow transition-colors cursor-pointer"
       >
         <svg
           viewBox="0 0 100 100"
@@ -116,7 +117,7 @@ export const HeroSection: React.FC = () => {
           </text>
         </svg>
         <span
-          className="relative z-10 font-bold uppercase tracking-widest text-brand-yellow group-hover:text-black transition-colors text-[10px] sm:text-xs md:text-sm pointer-events-none"
+          className="relative z-10 font-bold uppercase tracking-widest text-brand-yellow group-hover:text-brand-black transition-colors text-[10px] sm:text-xs md:text-sm pointer-events-none"
           aria-hidden="true"
         >
           Start

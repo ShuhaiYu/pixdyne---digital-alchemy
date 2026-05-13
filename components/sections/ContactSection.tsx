@@ -58,12 +58,12 @@ export const ContactSection: React.FC = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 text-sm font-mono text-brand-muted mt-6 sm:mt-8 md:mt-0">
             <div>
-              <h3 className="text-white font-bold mb-2 uppercase tracking-widest">Contact</h3>
+              <h3 className="text-brand-text font-bold mb-2 uppercase tracking-widest">Contact</h3>
               <a href={`mailto:${BUSINESS.email}`} className="hover:text-brand-yellow-hover transition-colors block">{BUSINESS.email}</a>
               <a href={`tel:${BUSINESS.phone.tel}`} className="hover:text-brand-yellow-hover transition-colors block">{BUSINESS.phone.display}</a>
             </div>
             <div>
-              <h3 className="text-white font-bold mb-2 uppercase tracking-widest">Base</h3>
+              <h3 className="text-brand-text font-bold mb-2 uppercase tracking-widest">Base</h3>
               <p>{BUSINESS.address.street}</p>
               <p>{BUSINESS.address.locality}, {BUSINESS.address.region} {BUSINESS.address.postalCode}</p>
             </div>
@@ -98,7 +98,7 @@ export const ContactSection: React.FC = () => {
                 maxLength={100}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full bg-transparent border-b border-white/20 py-2 text-xl font-sans focus:outline-none focus:border-brand-yellow transition-colors text-white placeholder-white/20"
+                className="w-full bg-transparent border-b border-white/20 py-2 text-xl font-sans focus:outline-none focus:border-brand-yellow transition-colors text-brand-text placeholder-brand-text/20"
                 placeholder="John Doe"
                 aria-required="true"
               />
@@ -114,7 +114,7 @@ export const ContactSection: React.FC = () => {
                 maxLength={254}
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full bg-transparent border-b border-white/20 py-2 text-xl font-sans focus:outline-none focus:border-brand-yellow transition-colors text-white placeholder-white/20"
+                className="w-full bg-transparent border-b border-white/20 py-2 text-xl font-sans focus:outline-none focus:border-brand-yellow transition-colors text-brand-text placeholder-brand-text/20"
                 placeholder="john@company.com"
                 aria-required="true"
               />
@@ -138,7 +138,7 @@ export const ContactSection: React.FC = () => {
             <button
               type="submit"
               disabled={status === 'loading'}
-              className="mt-4 border border-white/20 text-white font-mono text-xs sm:text-sm uppercase py-3 sm:py-4 px-6 sm:px-8 hover:bg-brand-yellow-hover hover:text-black hover:border-brand-yellow-hover active:scale-[0.98] transition-all duration-300 flex justify-between items-center group disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
+              className="mt-4 border border-white/20 text-brand-text font-mono text-xs sm:text-sm uppercase py-3 sm:py-4 px-6 sm:px-8 hover:bg-brand-yellow-hover hover:text-brand-black hover:border-brand-yellow-hover active:scale-[0.98] transition-all duration-300 flex justify-between items-center group disabled:opacity-50 disabled:cursor-not-allowed min-h-[44px]"
               aria-label={status === 'loading' ? 'Sending message' : status === 'success' ? 'Message sent successfully' : 'Send message'}
             >
               <span>{status === 'loading' ? 'Sending...' : status === 'success' ? 'Message Sent!' : 'Send Message'}</span>
@@ -153,13 +153,13 @@ export const ContactSection: React.FC = () => {
             </div>
 
             {status === 'error' && (
-              <p className="text-red-500 text-sm font-mono" role="alert">
+              <p className="text-brand-error text-sm font-mono" role="alert">
                 Error sending message. Please try again.
               </p>
             )}
 
             {status === 'success' && (
-              <p className="text-green-500 text-sm font-mono" role="status">
+              <p className="text-brand-success text-sm font-mono" role="status">
                 Message sent successfully. We&apos;ll be in touch.
               </p>
             )}

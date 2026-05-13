@@ -337,6 +337,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '16',
+    slug: 'bright-australia',
+    name: 'Bright Australia',
+    client: 'Bright Australia',
+    category: 'Marketing Site',
+    services: ['Web Development'],
+    stack: ['WordPress', 'Mobile-first', 'Professional services'],
+    challenge:
+      "Bright Australia is a migration and education agency offering four core services — study programs, visa processing, appeals assistance, and partner visa sponsorship. Migration buyers are heavy researchers and check several agencies before they enquire, so the site has to make scope and credibility obvious in the first few seconds, on the phone.",
+    solution:
+      "We built the site on WordPress with the four services surfaced through separate dedicated tabs so a prospect lands on what they actually need rather than a generic services page. Mobile optimisation is the default rather than the afterthought — migration research happens on phones at any hour. The site exists to convert research traffic into enquiries cleanly.",
+    shortDescription:
+      'WordPress site for a migration and education agency — four services surfaced clearly, mobile-first.',
+    seoTitle: 'Bright Australia — Migration & Education Agency Site',
+    seoDescription:
+      'A WordPress marketing site for an Australian migration and education agency — four services surfaced clearly, mobile-first for research-heavy buyers. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

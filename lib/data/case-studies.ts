@@ -357,6 +357,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '17',
+    slug: 'jinshan-travel',
+    name: 'Jinshan Travel',
+    client: 'Jinshan Travel',
+    category: 'Custom System',
+    services: ['System Development'],
+    stack: ['Custom travel platform', 'Customer accounts', 'Bookings + customisation'],
+    challenge:
+      "Jinshan Travel runs an 'I provide, your choice' customised-tour model rather than fixed package travel — every booking is partly bespoke, and customers come back to plan multiple trips over years. That stops being a checkout problem and starts being a long-term relationship problem: customer accounts, booking history, and personalisation matter more than the one-off cart flow off-the-shelf travel sites are built around.",
+    solution:
+      "We built a custom travel platform with personalised customer accounts so each traveller manages their own bookings and customisations over time. Top-menu information architecture surfaces both group tours and customised offerings clearly without forcing the customer through search. The architecture is built for the long-term relationship the business runs on, not for one-time transactions.",
+    shortDescription:
+      'Custom travel platform built for a customised-tour model — customer accounts, booking history, ongoing personalisation.',
+    seoTitle: 'Jinshan Travel — Custom Booking Platform for Bespoke Tours',
+    seoDescription:
+      'A custom travel platform built for a customised-tour model. Customer accounts, booking history, and personalisation over years rather than one-off checkouts. Built by Pixdyne.',
+    img: '',
+    cardSize: 'wide'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

@@ -297,6 +297,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '14',
+    slug: 'gameology',
+    name: 'Gameology',
+    client: 'Gameology',
+    category: 'E-commerce',
+    services: ['Web Development'],
+    stack: ['Custom e-commerce', 'Multi-thousand SKU', 'Real-time chat'],
+    challenge:
+      "Gameology is a gaming retail warehouse selling board games, trading cards, collectibles, and novelties — described as the largest gaming warehouse in Australia. The catalogue is the value, but it is also the navigation problem: a board game customer wants different filters and shelves than a TCG collector, and both want to browse without choking on irrelevant categories.",
+    solution:
+      "We built a fully responsive e-commerce site with category-segmented navigation per game type, so a board-game shopper and a trading-card collector both land in the right corner of the catalogue. A dynamic customer review system carries the trust signal that matters in a hobbyist market, and real-time chat support handles the long-tail product questions that hobbyists ask. The site scales to thousands of SKUs without the filters degrading.",
+    shortDescription:
+      'Custom e-commerce for the largest gaming warehouse in Australia — thousands of SKUs across board games, TCG, and collectibles.',
+    seoTitle: 'Gameology — Australia\'s Largest Gaming Warehouse E-commerce',
+    seoDescription:
+      'Custom e-commerce site for Gameology, the largest gaming warehouse in Australia — thousands of SKUs, category-segmented browsing, real-time chat. Built by Pixdyne.',
+    img: '',
+    cardSize: 'wide'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

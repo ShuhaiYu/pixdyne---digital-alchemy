@@ -599,6 +599,27 @@ export const caseStudies: CaseStudyItem[] = [
     cardSize: 'featured',
     featured: true
   },
+  {
+    id: '29',
+    slug: 'online-education',
+    name: 'Online Education Platform',
+    client: 'Online Education',
+    category: 'Custom System',
+    services: ['System Development'],
+    stack: ['Custom e-learning platform', 'Facial-recognition login', 'Live classes', 'Three-portal architecture'],
+    challenge:
+      "Online education for professional certification needs more than video hosting. Identity verification matters because you are certifying a real person. Live interaction matters because questions can't wait until after class. Exam infrastructure matters because practice tests are part of the value the student is paying for. Off-the-shelf video platforms cover none of this together.",
+    solution:
+      "We built a custom web application with three distinct user portals (student, instructor, admin) and facial-recognition login for student identity. Live classes run alongside pre-recorded video lectures with downloadable materials, automated video syncing, and real-time note-taking layered on top of the lecture stream. Administrators manage everything — lectures, classes, exam papers, advertisements — from one back office, while students access recordings, live sessions, and instructor support through one dashboard.",
+    shortDescription:
+      'Custom e-learning platform with facial-recognition login, live classes, and a three-portal architecture for professional certification programs.',
+    seoTitle: 'Online Education — Custom E-Learning Platform with Biometric Auth',
+    seoDescription:
+      'A custom e-learning platform with facial-recognition login, live classes, video lectures, exam infrastructure, and a three-portal architecture (student / instructor / admin). Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

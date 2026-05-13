@@ -277,6 +277,26 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '13',
+    slug: 'muscle-city',
+    name: 'Muscle City',
+    client: 'Muscle City',
+    category: 'Marketing Site',
+    services: ['Web Development'],
+    stack: ['WordPress', 'Membership info', 'Class timetables'],
+    challenge:
+      "Muscle City runs a 24/7 premium gym in Melbourne, and their previous site was outdated enough to be costing them new members — prospective members would land, fail to find class times or membership info, and bounce. A gym's site has to read like its physical space: clean, modern, motivating, and useful.",
+    solution:
+      "We rebuilt the site on WordPress as a visually-led, fully responsive surface focused on converting new members. Class timetables, facility information, membership details, and social channels sit on one cohesive layout. The rebuild lifted the digital presence to match the gym itself rather than undercut it.",
+    shortDescription:
+      'Visually-led WordPress rebuild for a Melbourne 24/7 gym — class timetables and membership info on one cohesive surface.',
+    seoTitle: 'Muscle City — Melbourne 24/7 Gym Site Rebuild',
+    seoDescription:
+      'A WordPress rebuild for a 24/7 premium gym in Melbourne, focused on member conversion: class timetables, facility info, and membership details on one surface. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

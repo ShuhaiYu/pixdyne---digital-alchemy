@@ -3,6 +3,7 @@ import { Playfair_Display, Space_Grotesk } from 'next/font/google';
 import Script from 'next/script';
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema';
 import { Navigation } from '@/components/layout/Navigation';
+import { SiteFooter } from '@/components/layout/SiteFooter';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -138,6 +139,7 @@ export default function RootLayout({
         <main id="main-content">
           {children}
         </main>
+        <SiteFooter />
       </body>
     </html>
   );

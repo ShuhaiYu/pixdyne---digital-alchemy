@@ -204,3 +204,34 @@ export function generateBreadcrumbSchema(items: { name: string; url: string }[])
     }))
   };
 }
+
+// CollectionPage + ItemList for index pages (e.g. /work, /blog). Helps
+// search and AI engines recognise the page as an aggregation of items
+// rather than a single piece of content. itemListElement uses ListItem
+// with `url` pointers — Google reads this to surface site links.
+export function generateCollectionPageSchema(opts: {
+  url: string;
+  name: string;
+  description: string;
+  items: { name: string; url: string }[];
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': `${opts.url}#collection`,
+    url: opts.url,
+    name: opts.name,
+    description: opts.description,
+    isPartOf: { '@id': 'https://pixdyne.com/#website' },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: opts.items.length,
+      itemListElement: opts.items.map((item, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: item.name,
+        url: item.url
+      }))
+    }
+  };
+}

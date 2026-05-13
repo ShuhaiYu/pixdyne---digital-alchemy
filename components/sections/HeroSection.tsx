@@ -75,6 +75,17 @@ export const HeroSection: React.FC = () => {
             <span className="inline-block">Grow with a team that stays.</span>
           </span>
         </h1>
+
+        {/* GEO / accessibility prose. Visually hidden via sr-only but
+            present in the DOM, so AI search engines, LLM crawlers, and
+            screen readers see a plain-English statement of who/where/
+            since/what immediately after the H1 — exactly where generative
+            engines weight context most heavily. Not cloaking: same
+            content is served to every user agent and it matches the
+            facts elsewhere on the page. See CLAUDE.md §14.10. */}
+        <p className="sr-only">
+          Pixdyne is a Melbourne-based technology partner. Since 2018 we have built and operated websites, custom systems, and ongoing operations for businesses across Australia. We also build AI products — see OnlyPixAI, our live demonstration of AI delivered as something teams actually use.
+        </p>
       </div>
 
       {/* Rotating "start a project" badge.

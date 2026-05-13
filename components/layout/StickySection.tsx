@@ -132,7 +132,8 @@ export const StickySection: React.FC<SectionProps> = ({
             <div className="absolute inset-0 z-0">
               <img
                 src={bgImage}
-                alt={`${id} section background`}
+                alt=""
+                aria-hidden="true"
                 className="w-full h-full object-cover opacity-40 grayscale"
               />
               <div className="absolute inset-0 bg-black/40" />

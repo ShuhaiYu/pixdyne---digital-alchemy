@@ -578,6 +578,27 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'small'
   },
+  {
+    id: '28',
+    slug: 'accio-lms',
+    name: 'Accio LMS',
+    client: 'Accio',
+    category: 'Custom System',
+    services: ['System Development'],
+    stack: ['Custom LMS', 'Multi-portal (management / academic / student / lecturer / sales)', 'Role-based permissions'],
+    challenge:
+      "Accio is a learning management system built for educational institutions and tutoring operations that need control beyond what off-the-shelf platforms offer. The requirement spans course and class management, student and lecturer portals, enrolment, timetabling, e-commerce for class sales, group-buying modules, and reporting — all in one system, with role-based access so each user only sees what they should.",
+    solution:
+      "We built Accio from the ground up as a custom LMS with five separate portals (management, academic, student, lecturer, sales), role-based permissions, and third-party add-on support. Each user type sees only the workflows that belong to them, so the academic team isn't drowning in commercial controls and the sales team isn't navigating grade books. The system runs as the academic and commercial backbone for institutions using it.",
+    shortDescription:
+      'Custom LMS with five role-based portals (management / academic / student / lecturer / sales) for educational institutions.',
+    seoTitle: 'Accio LMS — Custom Multi-Portal Learning Management System',
+    seoDescription:
+      'A custom LMS with five role-based portals (management, academic, student, lecturer, sales), enrolment, timetabling, and class e-commerce, built for educational institutions. Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true
+  },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];

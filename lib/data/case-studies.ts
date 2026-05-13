@@ -256,7 +256,29 @@ export const caseStudies: CaseStudyItem[] = [
     img: '',
     cardSize: 'featured',
     featured: true
-  }
+  },
+  {
+    id: '12',
+    slug: 'cupcake-central',
+    name: 'Cupcake Central',
+    client: 'Cupcake Central',
+    category: 'E-commerce',
+    services: ['Web Development'],
+    stack: ['WordPress', 'WooCommerce', 'Pickup + delivery scheduling'],
+    challenge:
+      "Cupcake Central is a Melbourne bakery selling cupcakes, cakes, and cookies through retail counters and delivery. Online ordering for perishables is a scheduling problem more than a catalogue problem — orders have to land at the right store, on the right day, before the kitchen's cut-off, or the experience falls apart at the door.",
+    solution:
+      "We built the e-commerce site with order-time and pickup-location selection wired into checkout, so the cart enforces same-day cutoff (orders before 12 pm for same-day delivery) and steers customers to their nearest store automatically. The catalogue covers cupcakes, cakes, and cookies under one back office, with customisation options surfaced at the product level rather than after the sale.",
+    shortDescription:
+      'E-commerce site for a Melbourne bakery with same-day cutoff and pickup-location scheduling baked into checkout.',
+    seoTitle: 'Cupcake Central — Melbourne Bakery E-commerce',
+    seoDescription:
+      'An e-commerce site for a Melbourne bakery with same-day cutoff, pickup-location scheduling, and a full cake / cupcake / cookie catalogue. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small'
+  },
+  // ────────── Historical projects (formerly under Zeta Digital,
+  //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];
 
 export function getAllCaseStudies(): CaseStudyItem[] {

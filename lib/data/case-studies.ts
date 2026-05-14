@@ -109,7 +109,7 @@ export const caseStudies: CaseStudyItem[] = [
     slug: '4wd-interiors',
     name: '4WD Interiors',
     client: '4WD Interiors',
-    category: 'E-commerce',
+    category: 'Integrated Platform',
     liveUrl: 'https://www.4wdinteriors.com/',
     services: ['Web Development'],
     stack: ['Shopify', 'Vehicle fitment configurator', 'B2B distributor portal', 'ADR compliance docs'],
@@ -123,7 +123,8 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A Shopify storefront for premium 4WD cargo systems, with a vehicle fitment configurator, ADR compliance docs, and a B2B distributor portal. Built by Pixdyne.',
     img: '',
-    cardSize: 'wide'
+    cardSize: 'featured',
+    featured: true
   },
 
   // ─── Marketing sites ────────────────────────────────────────────────
@@ -240,7 +241,7 @@ export const caseStudies: CaseStudyItem[] = [
     slug: 'austin-education',
     name: 'Austin Education',
     client: 'Austin Education',
-    category: 'Custom System',
+    category: 'Integrated Platform',
     liveUrl: 'https://www.austineducation.com.au/',
     services: ['System Development'],
     stack: ['Custom web platform', 'Student portal', 'Trial booking', 'ATAR calculator', 'Bilingual (EN/中)'],
@@ -262,7 +263,8 @@ export const caseStudies: CaseStudyItem[] = [
     slug: 'cupcake-central',
     name: 'Cupcake Central',
     client: 'Cupcake Central',
-    category: 'E-commerce',
+    category: 'Integrated Platform',
+    liveUrl: 'https://cupcakecentral.com.au/',
     services: ['Web Development'],
     stack: ['WordPress', 'WooCommerce', 'Pickup + delivery scheduling'],
     challenge:
@@ -275,7 +277,13 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'An e-commerce site for a Melbourne bakery with same-day cutoff, pickup-location scheduling, and a full cake / cupcake / cookie catalogue. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/Cupcake_Central_Home.png', caption: 'Homepage', alt: 'Cupcake Central homepage' },
+      { src: '/projects/Cupcake_Central_Category.png', caption: 'Category and filters', alt: 'Cupcake Central product category with cupcakes, cakes, cookies' },
+      { src: '/projects/Cupcake_Central_Checkout.png', caption: 'Cart and checkout', alt: 'Cupcake Central shopping cart and checkout with payment' }
+    ]
   },
   {
     id: '13',
@@ -283,6 +291,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Muscle City',
     client: 'Muscle City',
     category: 'Marketing Site',
+    liveUrl: 'https://musclecity247.com.au/',
     services: ['Web Development'],
     stack: ['WordPress', 'Membership info', 'Class timetables'],
     challenge:
@@ -295,14 +304,32 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A WordPress rebuild for a 24/7 premium gym in Melbourne, focused on member conversion: class timetables, facility info, and membership details on one surface. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      {
+        src: '/projects/Muscle_City_Home.png',
+        caption: 'Homepage',
+        alt: 'Muscle City homepage — hero, member-conversion-led layout'
+      },
+      {
+        src: '/projects/Muscle_City_Timetable.png',
+        caption: 'Class timetable',
+        alt: 'Muscle City class timetable page with weekly schedule grid'
+      },
+      {
+        src: '/projects/Muscle_City_About.png',
+        caption: 'About and Instagram',
+        alt: 'Muscle City about page with embedded Instagram feed'
+      }
+    ]
   },
   {
     id: '14',
     slug: 'gameology',
     name: 'Gameology',
     client: 'Gameology',
-    category: 'E-commerce',
+    category: 'Integrated Platform',
+    liveUrl: 'https://www.gameology.com.au/',
     services: ['Web Development'],
     stack: ['Custom e-commerce', 'Multi-thousand SKU', 'Real-time chat'],
     challenge:
@@ -315,7 +342,13 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'Custom e-commerce site for Gameology, the largest gaming warehouse in Australia — thousands of SKUs, category-segmented browsing, real-time chat. Built by Pixdyne.',
     img: '',
-    cardSize: 'wide'
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/Gameology_Home.png', caption: 'Homepage', alt: 'Gameology e-commerce homepage' },
+      { src: '/projects/Gameology_Category.png', caption: 'Category browsing', alt: 'Gameology product category page with game selection' },
+      { src: '/projects/Gameology_Checkout.png', caption: 'Cart and checkout', alt: 'Gameology shopping cart and checkout interface' }
+    ]
   },
   {
     id: '15',
@@ -335,7 +368,12 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A multi-category online retail storefront with customer accounts, cart, and checkout — built for the operation rather than over-engineered. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Mustbuy_Home.png', caption: 'Homepage', alt: 'Mustbuy homepage layout' },
+      { src: '/projects/Mustbuy_Category.png', caption: 'Category and login', alt: 'Mustbuy product category and user login interface' },
+      { src: '/projects/Mustbuy_Payment.png', caption: 'Product and payment', alt: 'Mustbuy product detail and payment processing page' }
+    ]
   },
   {
     id: '16',
@@ -343,6 +381,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Bright Australia',
     client: 'Bright Australia',
     category: 'Marketing Site',
+    liveUrl: 'https://brightaustralia.com.au/',
     services: ['Web Development'],
     stack: ['WordPress', 'Mobile-first', 'Professional services'],
     challenge:
@@ -355,7 +394,12 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A WordPress marketing site for an Australian migration and education agency — four services surfaced clearly, mobile-first for research-heavy buyers. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Bright_Australia_Home.png', caption: 'Homepage', alt: 'Bright Australia homepage' },
+      { src: '/projects/Bright_Australia_Visa.png', caption: 'Visa services', alt: 'Bright Australia visa application page' },
+      { src: '/projects/Bright_Australia_Migration.png', caption: 'Migration services', alt: 'Bright Australia migration services page' }
+    ]
   },
   {
     id: '17',
@@ -363,6 +407,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Jinshan Travel',
     client: 'Jinshan Travel',
     category: 'Custom System',
+    liveUrl: 'https://jinshantravel.com.au/',
     services: ['System Development'],
     stack: ['Custom travel platform', 'Customer accounts', 'Bookings + customisation'],
     challenge:
@@ -375,7 +420,11 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A custom travel platform built for a customised-tour model. Customer accounts, booking history, and personalisation over years rather than one-off checkouts. Built by Pixdyne.',
     img: '',
-    cardSize: 'wide'
+    cardSize: 'wide',
+    gallery: [
+      { src: '/projects/Jinshan_Travel_Home.png', caption: 'Homepage', alt: 'Jinshan Travel homepage' },
+      { src: '/projects/Jinshan_Travel_Category.png', caption: 'Tours and account', alt: 'Jinshan Travel tour category and user login interface' }
+    ]
   },
   {
     id: '18',
@@ -395,7 +444,12 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'An e-commerce site for a Clayton specialty-foods retailer selling nuts, dried fruits, beans, and grains with clear category architecture. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Nutsmart_Home.png', caption: 'Homepage', alt: 'Nutsmart homepage' },
+      { src: '/projects/Nutsmart_Category.png', caption: 'Category and cart', alt: 'Nutsmart product category browsing and shopping cart' },
+      { src: '/projects/Nutsmart_About.png', caption: 'About and checkout', alt: 'Nutsmart company background and transaction completion screen' }
+    ]
   },
   {
     id: '19',
@@ -403,6 +457,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'JKK Solution',
     client: 'JKK Solution',
     category: 'Marketing Site',
+    liveUrl: 'https://jkksolutions.com.au/',
     services: ['Web Development'],
     stack: ['WordPress', 'Loan calculator', 'Mortgage broking'],
     challenge:
@@ -415,7 +470,12 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'WordPress marketing site for a residential and commercial mortgage broker with an interactive loan calculator wired into lead capture. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/JKK_Solution_Home.png', caption: 'Homepage', alt: 'JKK Solutions homepage landing section' },
+      { src: '/projects/JKK_Solution_About.png', caption: 'About', alt: 'JKK Solutions about-us page' },
+      { src: '/projects/JKK_Solution_Calculator.png', caption: 'Loan calculator', alt: 'JKK Solutions interactive loan calculator tool' }
+    ]
   },
   {
     id: '20',
@@ -423,6 +483,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'WeScape Holiday',
     client: 'WeScape Holiday',
     category: 'Marketing Site',
+    liveUrl: 'https://wescape.com.au/',
     services: ['Web Development'],
     stack: ['WordPress', 'Bilingual (EN/中)', 'Lead capture'],
     challenge:
@@ -435,7 +496,12 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A bilingual (EN/中) WordPress site for a Melbourne travel consultancy with questionnaire-led lead capture for consultation requests. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Wescape_Holiday_Home.png', caption: 'Homepage', alt: 'WeScape Holiday homepage' },
+      { src: '/projects/Wescape_Holiday_Tour.png', caption: 'Tours and services', alt: 'WeScape Holiday tour and service offerings page' },
+      { src: '/projects/Wescape_Holiday_Calculator.png', caption: 'Trip questionnaire', alt: 'WeScape Holiday trip questionnaire and cost calculator' }
+    ]
   },
   {
     id: '21',
@@ -443,6 +509,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Into Solar',
     client: 'Into Solar',
     category: 'Marketing Site',
+    liveUrl: 'https://intosolar.com.au/',
     services: ['Web Development'],
     stack: ['WordPress', 'Quote function', 'Lead capture'],
     challenge:
@@ -455,7 +522,11 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A WordPress digital refresh for an Australian solar installer with a structured quote function feeding qualified enquiries directly into the sales pipeline. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Into_Solar_Contact.png', caption: 'Quote enquiry', alt: 'Into Solar homepage with structured quote enquiry form' },
+      { src: '/projects/Into_Solar_Services.png', caption: 'Service breakdown', alt: 'Into Solar services list and offering overview' }
+    ]
   },
   {
     id: '22',
@@ -475,7 +546,12 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A bilingual (EN/中) WordPress site for an Australian property developer addressing foreign-investor audiences — portfolio-led with credibility signals up front. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/TYEE_Group_Home.png', caption: 'Homepage', alt: 'TYEE Group homepage' },
+      { src: '/projects/TYEE_Group_About.png', caption: 'About and enquiry', alt: 'TYEE Group about-us and contact enquiry page' },
+      { src: '/projects/TYEE_Group_Posts.png', caption: 'Project posts', alt: 'TYEE Group project portfolio posts' }
+    ]
   },
   {
     id: '23',
@@ -483,6 +559,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Aier Flowers',
     client: 'Aier Flowers',
     category: 'E-commerce',
+    liveUrl: 'https://www.aierflower.com.au/',
     services: ['Web Development'],
     stack: ['E-commerce platform', 'Mobile-first', 'Buyer-show gallery'],
     challenge:
@@ -495,7 +572,10 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A mobile-first e-commerce storefront for a Melbourne premium florist — flower boxes, preserved arrangements, DIY kits, and a buyer-show gallery. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Aier_Flowers_Mobile.png', caption: 'Mobile storefront', alt: 'Aier Flowers mobile-optimised storefront for browsing and purchasing arrangements' }
+    ]
   },
   {
     id: '24',
@@ -503,6 +583,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Youth Leadership Program',
     client: 'Youth Leadership Program',
     category: 'Marketing Site',
+    liveUrl: 'https://cayl.org.au/',
     services: ['Web Development'],
     stack: ['WordPress', 'Application form', 'Community / non-profit'],
     challenge:
@@ -515,14 +596,19 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A WordPress site for a Victorian community youth-leadership program built around a streamlined application form as the conversion event. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Youth_Leadership_Program_Home.png', caption: 'Homepage', alt: 'Youth Leadership Program homepage' },
+      { src: '/projects/Youth_Leadership_Program_Apply.png', caption: 'Dates and application', alt: 'Youth Leadership Program dates and application form' }
+    ]
   },
   {
     id: '25',
     slug: 'wincareer',
     name: 'WinCareer',
     client: 'WinCareer',
-    category: 'Custom System',
+    category: 'Integrated Platform',
+    liveUrl: 'https://wincareer.com.au/',
     services: ['System Development'],
     stack: ['Custom multi-tenant platform', 'Multi-country', 'ACCA / CFA / CPA content tracks'],
     challenge:
@@ -536,7 +622,12 @@ export const caseStudies: CaseStudyItem[] = [
       'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications in Australia, China, the UK, and Southeast Asia. Built by Pixdyne.',
     img: '',
     cardSize: 'featured',
-    featured: true
+    featured: true,
+    gallery: [
+      { src: '/projects/WinCareer_Home.png', caption: 'Homepage', alt: 'WinCareer homepage on desktop' },
+      { src: '/projects/WinCareer_About.png', caption: 'About', alt: 'WinCareer about-us page on desktop' },
+      { src: '/projects/WinCareer_Responsive.png', caption: 'Responsive across devices', alt: 'WinCareer responsive design across desktop, tablet, and mobile' }
+    ]
   },
   {
     id: '26',
@@ -556,7 +647,12 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A WordPress portfolio site for a Melbourne residential property developer, with integrated VR virtual inspection across desktop, tablet, and mobile. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Sunsill_Home.png', caption: 'Homepage', alt: 'Sunsill homepage' },
+      { src: '/projects/Sunsill_Portfolio.png', caption: 'Project portfolio', alt: 'Sunsill project portfolio listing' },
+      { src: '/projects/Sunsill_Contact.png', caption: 'Contact', alt: 'Sunsill contact-us page' }
+    ]
   },
   {
     id: '27',
@@ -576,7 +672,12 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'Custom B2B e-commerce for truck and heavy-industry tools and spare parts, with postal-code shipping calculator and GST handling at checkout. Built by Pixdyne.',
     img: '',
-    cardSize: 'small'
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/GMT_Tools_Home.png', caption: 'Homepage', alt: 'GMT Tools Technic homepage' },
+      { src: '/projects/GMT_Tools_Products.png', caption: 'Product catalogue', alt: 'GMT Tools Technic products catalogue page' },
+      { src: '/projects/GMT_Tools_Detail.png', caption: 'Product detail', alt: 'GMT Tools Technic product detail page with shipping and GST' }
+    ]
   },
   {
     id: '28',
@@ -584,6 +685,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Accio LMS',
     client: 'Accio',
     category: 'Custom System',
+    liveUrl: 'https://accio.tofuture.org/',
     services: ['System Development'],
     stack: ['Custom LMS', 'Multi-portal (management / academic / student / lecturer / sales)', 'Role-based permissions'],
     challenge:
@@ -597,7 +699,13 @@ export const caseStudies: CaseStudyItem[] = [
       'A custom LMS with five role-based portals (management, academic, student, lecturer, sales), enrolment, timetabling, and class e-commerce, built for educational institutions. Built by Pixdyne.',
     img: '',
     cardSize: 'featured',
-    featured: true
+    featured: true,
+    gallery: [
+      { src: '/projects/Accio_LMS_Dashboard.png', caption: 'Dashboard', alt: 'Accio LMS dashboard control panel' },
+      { src: '/projects/Accio_LMS_Groups.png', caption: 'Group management', alt: 'Accio LMS group management portal' },
+      { src: '/projects/Accio_LMS_Students.png', caption: 'Student management', alt: 'Accio LMS student management interface' },
+      { src: '/projects/Accio_LMS_Timetable.png', caption: 'Timetable', alt: 'Accio LMS timetable view' }
+    ]
   },
   {
     id: '29',
@@ -618,7 +726,15 @@ export const caseStudies: CaseStudyItem[] = [
       'A custom e-learning platform with facial-recognition login, live classes, video lectures, exam infrastructure, and a three-portal architecture (student / instructor / admin). Built by Pixdyne.',
     img: '',
     cardSize: 'featured',
-    featured: true
+    featured: true,
+    gallery: [
+      { src: '/projects/Online_Education_Dashboard.png', caption: 'Student dashboard', alt: 'Online Education student portal dashboard' },
+      { src: '/projects/Online_Education_ACCA.png', caption: 'Course landing', alt: 'Online Education ACCA course landing page for prospective students' },
+      { src: '/projects/Online_Education_Video.png', caption: 'Video lecture', alt: 'Online Education video lecture interface' },
+      { src: '/projects/Online_Education_Exam.png', caption: 'Practice exam', alt: 'Online Education practice examination interface' },
+      { src: '/projects/Online_Education_ClassMgmt.png', caption: 'Class management', alt: 'Online Education class management admin tool' },
+      { src: '/projects/Online_Education_VideoMgmt.png', caption: 'Video management', alt: 'Online Education backend video upload and management' }
+    ]
   },
   {
     id: '30',
@@ -626,6 +742,7 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Floo',
     client: 'Floo',
     category: 'Custom System',
+    liveUrl: 'https://floo.jinshantravel.com.au/login',
     services: ['System Development'],
     stack: ['Custom business management platform', 'CRM + quoting + invoicing + inventory', 'Role-based permissions'],
     challenge:
@@ -639,7 +756,15 @@ export const caseStudies: CaseStudyItem[] = [
       'A custom business management platform covering CRM, quoting, orders, invoicing, products, suppliers, and reporting (P&L) under one data model. Built by Pixdyne.',
     img: '',
     cardSize: 'featured',
-    featured: true
+    featured: true,
+    gallery: [
+      { src: '/projects/Floo_Login.png', caption: 'Login', alt: 'Floo login page' },
+      { src: '/projects/Floo_Order.png', caption: 'Customer order', alt: 'Floo customer order interface' },
+      { src: '/projects/Floo_Payment.png', caption: 'Payment processing', alt: 'Floo customer payment processing screen' },
+      { src: '/projects/Floo_Invoice.png', caption: 'Invoicing', alt: 'Floo customer invoice display' },
+      { src: '/projects/Floo_OrderMgmt.png', caption: 'Order management', alt: 'Floo order management portal' },
+      { src: '/projects/Floo_Report.png', caption: 'Reporting', alt: 'Floo analytics and reporting page' }
+    ]
   },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────

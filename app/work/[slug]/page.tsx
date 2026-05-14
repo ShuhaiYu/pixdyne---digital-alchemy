@@ -4,6 +4,7 @@ import Script from 'next/script';
 import { getCaseStudyBySlug, getCaseStudySlugs } from '@/lib/data/case-studies';
 import { generateCaseStudySchema, generateBreadcrumbSchema } from '@/lib/seo/schema';
 import { WorkDetailClient } from './WorkDetailClient';
+import { IntegratedPlatformDetailClient } from './IntegratedPlatformDetailClient';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -81,7 +82,11 @@ export default async function WorkPage({ params }: Props) {
           __html: JSON.stringify(generateBreadcrumbSchema(breadcrumbs))
         }}
       />
-      <WorkDetailClient work={work} />
+      {work.category === 'Integrated Platform' ? (
+        <IntegratedPlatformDetailClient work={work} />
+      ) : (
+        <WorkDetailClient work={work} />
+      )}
     </>
   );
 }

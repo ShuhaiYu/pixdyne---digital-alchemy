@@ -80,6 +80,19 @@ export interface CaseStudyItem {
   cardSize?: 'small' | 'wide' | 'featured';
   accentColor?: string;
   shortDescription?: string;
+  // Fields used by the dedicated "Integrated Platform" detail template
+  // (5 flagship projects that pair a customer-facing storefront with
+  // a custom internal system). All optional — empty values are simply
+  // not rendered, so projects without filled detail still ship safely.
+  storefront?: string; // e.g. 'Shopify', 'WordPress', 'React'
+  highlights?: string[]; // key capabilities, surfaced as a bulleted list
+  metrics?: { value: string; label: string }[]; // headline numbers
+  // Inline-gallery screenshots surfaced inside the body of the detail
+  // page (not used as a hero). For Zeta-era projects where the public
+  // record is the smartmockup screenshot suite rather than a Pixdyne-
+  // shot hero photo, this lets us show the actual work without
+  // pretending the screenshots are full-bleed hero art.
+  gallery?: { src: string; caption?: string; alt?: string }[];
 }
 
 export interface TeamMember {

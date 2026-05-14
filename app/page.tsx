@@ -39,9 +39,13 @@ export default function HomePage() {
         <ProcessSection />
       </StickySection>
 
-      <StickySection id="work" zIndex={40} transitionType="curtain" className="bg-brand-black" aria-label="Selected works">
+      {/* CaseStudySection lives at /work as a standalone page. The homepage
+          sticky-pinned bento is intentionally disabled while the /work page
+          itself is being redesigned — bringing it back here too early would
+          force two surfaces to share one half-finished design language. */}
+      {/* <StickySection id="work" zIndex={40} transitionType="curtain" className="bg-brand-black" aria-label="Selected works">
         <CaseStudySection />
-      </StickySection>
+      </StickySection> */}
 
       <StickySection id="approach" zIndex={45} transitionType="curtain" className="bg-brand-light text-black" aria-label="How we work">
         <TeamSection />

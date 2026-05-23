@@ -214,28 +214,6 @@ export const caseStudies: CaseStudyItem[] = [
 
   // ─── Custom systems (large projects) ───────────────────────────────
   {
-    id: '10',
-    slug: 'australian-whisky-auctions',
-    name: 'Australian Whisky Auctions',
-    client: 'Australian Whisky Auctions',
-    category: 'Custom System',
-    liveUrl: 'https://www.australianwhiskyauctions.com.au/',
-    services: ['System Development'],
-    stack: ['Custom auction software', 'Age-verification compliance', 'Spirits logistics', 'Ongoing development'],
-    challenge:
-      "The secondary whisky market in Australia is significant but fragmented — sellers wanted a real auction surface rather than a fixed-price store, and buyers needed a credible bidding flow with the compliance overhead that liquor sales require. There is no off-the-shelf 'whisky auction' platform; Shopify and other commerce platforms model fixed prices, not time-bound bidding with submission windows. The system had to be built.",
-    solution:
-      "We built the auction platform from scratch — a bespoke system covering submission windows for sellers, time-bound auctions for buyers, live auction viewing, age-verification compliance with Australian liquor law, and delivery and insurance handling tailored for spirits. Over 70,000 lots have moved through the platform since launch. Pixdyne continues to operate and extend the system as the auction format evolves.",
-    shortDescription:
-      'Bespoke whisky auction platform — submission windows, age verification, spirits logistics.',
-    seoTitle: 'Australian Whisky Auctions — Bespoke Auction Platform',
-    seoDescription:
-      'A bespoke auction platform built for the Australian secondary whisky market. Submission windows, age verification, spirits logistics, 70,000+ lots. Built and operated by Pixdyne.',
-    img: '/work/australian-whisky-auctions.webp',
-    cardSize: 'featured',
-    featured: true
-  },
-  {
     id: '11',
     slug: 'austin-education',
     name: 'Austin Education',

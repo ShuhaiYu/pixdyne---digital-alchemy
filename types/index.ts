@@ -63,12 +63,17 @@ export interface CaseStudyItem {
   slug: string;
   name: string;
   category: string;
-  img: string;
   client: string;
-  year: string;
   challenge: string;
   solution: string;
   stack: string[];
+  // Optional fields. Owner-provided assets (hero img, year) land here
+  // when they're ready. liveUrl and services drive the "Visit live
+  // site" button and the related-service back-link on the detail page.
+  img?: string;
+  year?: string;
+  liveUrl?: string;
+  services?: string[];
   seoTitle?: string;
   seoDescription?: string;
   featured?: boolean;

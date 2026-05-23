@@ -5,7 +5,7 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { CaseStudyItem } from '@/types';
-import BentoCard from '@/components/BentoCard';
+import { WorkCard } from '@/components/work/WorkCard';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -93,16 +93,13 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
             </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          // Masonry via CSS columns — cards keep their natural height, so
+          // screenshots show whole and the taller text-only cards stagger
+          // the waterfall. No JS layout engine, nothing to ship.
+          <div className="columns-1 gap-6 sm:columns-2 xl:columns-3 [column-fill:_balance]">
             {caseStudies.map((project) => (
-              <div key={project.id} className="work-card">
-                <BentoCard
-                  caseStudy={{
-                    ...project,
-                    cardSize: 'small'
-                  }}
-                  className="h-[350px]"
-                />
+              <div key={project.id} className="work-card mb-6 break-inside-avoid">
+                <WorkCard caseStudy={project} />
               </div>
             ))}
           </div>

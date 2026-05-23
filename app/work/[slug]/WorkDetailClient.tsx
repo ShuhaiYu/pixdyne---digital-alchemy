@@ -11,6 +11,10 @@ interface WorkDetailClientProps {
   work: CaseStudyItem;
 }
 
+// Screenshots are 1440x900 viewport captures (16:10).
+const SHOT_W = 1440;
+const SHOT_H = 900;
+
 export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasHero = Boolean(work.img);
@@ -20,16 +24,16 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
       const tl = gsap.timeline();
       if (hasHero) {
         tl.from('.hero-img', {
-          scale: 1.1,
+          scale: 1.06,
           opacity: 0,
-          duration: 1.2,
+          duration: 1.1,
           ease: 'power2.out'
         });
       }
       tl.from(
         '.work-content',
-        { y: 50, opacity: 0, stagger: 0.1, duration: 0.8 },
-        hasHero ? '-=0.8' : 0
+        { y: 40, opacity: 0, stagger: 0.1, duration: 0.8, ease: 'power3.out' },
+        hasHero ? '-=0.7' : 0
       );
     }, containerRef);
     return () => ctx.revert();
@@ -37,58 +41,68 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-brand-black text-brand-text pb-20 pt-20">
-      {/* Sub-navigation. Back link points to the /work index (the new
-          dedicated route) rather than a homepage hash anchor that no
-          longer exists after the contact-route refactor (08b7c9e). */}
-      <div className="w-full px-6 md:px-12 py-6 flex justify-between items-center z-40 relative">
+      {/* Sub-navigation. Back link points to the /work index. */}
+      <div className="w-full px-6 md:px-12 py-6">
         <Link
           href="/work"
-          className="flex items-center gap-2 text-sm font-mono text-brand-text hover:text-brand-yellow-hover transition-colors"
+          className="flex w-fit items-center gap-2 text-sm font-mono text-brand-text hover:text-brand-yellow-hover transition-colors"
         >
           <ArrowLeft size={16} />
           Back to Work
         </Link>
       </div>
 
-      {/* Hero. Renders an image hero when work.img is set; otherwise a
-          text-led editorial hero on the warm-black surface. Owner is
-          adding real hero images later — until then we ship a clean
-          text-only header rather than a placeholder. */}
-      {hasHero ? (
-        <div className="h-[60vh] md:h-[80vh] w-full overflow-hidden relative">
-          <Image
-            src={work.img!}
-            alt={`${work.name} — ${work.category} project by Pixdyne`}
-            fill
-            className="hero-img object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90" />
+      {/* Header. Text-first so the project, what it is, and the live link
+          are in first paint, never hidden behind the screenshot. */}
+      <header className="w-full px-6 md:px-12 pt-6 md:pt-10 pb-10 md:pb-14 border-b border-white/10">
+        <span className="work-content block text-brand-yellow font-mono text-xs md:text-sm tracking-widest uppercase mb-3">
+          {work.category}
+        </span>
+        <h1 className="work-content text-5xl md:text-7xl lg:text-8xl font-serif italic leading-[1.05] max-w-5xl">
+          {work.name}
+        </h1>
+        {work.shortDescription && (
+          <p className="work-content mt-6 text-lg md:text-xl text-brand-text/70 max-w-3xl leading-relaxed">
+            {work.shortDescription}
+          </p>
+        )}
+        {work.liveUrl && (
+          <a
+            href={work.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="work-content group mt-8 inline-flex items-center gap-2 rounded-full bg-brand-yellow px-6 py-3 text-sm font-medium text-brand-black transition-colors hover:bg-brand-yellow-hover"
+          >
+            Visit live site
+            <ArrowUpRight
+              size={16}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
+        )}
+      </header>
 
-          <div className="absolute bottom-0 left-0 w-full p-6 md:p-12">
-            <span className="work-content block text-brand-yellow font-mono text-sm mb-2">{work.category}</span>
-            <h1 className="work-content text-5xl md:text-8xl font-serif italic">{work.name}</h1>
-          </div>
-        </div>
-      ) : (
-        <div className="w-full px-6 md:px-12 pt-8 md:pt-16 pb-12 md:pb-20 border-b border-white/10">
-          <span className="work-content block text-brand-yellow font-mono text-xs md:text-sm tracking-widest uppercase mb-3">
-            {work.category}
-          </span>
-          <h1 className="work-content text-5xl md:text-7xl lg:text-8xl font-serif italic leading-[1.05] max-w-5xl">
-            {work.name}
-          </h1>
-          {work.shortDescription && (
-            <p className="work-content mt-6 text-lg md:text-xl text-brand-text/70 max-w-3xl leading-relaxed">
-              {work.shortDescription}
-            </p>
-          )}
+      {/* Full screenshot — shown whole at its natural 16:10 ratio, framed
+          on the warm surface. No object-cover, so neither side is clipped. */}
+      {hasHero && (
+        <div className="px-6 md:px-12 pt-10 md:pt-14">
+          <figure className="hero-img mx-auto max-w-6xl overflow-hidden rounded-xl border border-white/10 bg-brand-surface shadow-2xl shadow-black/40">
+            <Image
+              src={work.img!}
+              alt={`${work.name} — homepage, captured live`}
+              width={SHOT_W}
+              height={SHOT_H}
+              sizes="(max-width: 1152px) 100vw, 1152px"
+              className="h-auto w-full"
+              priority
+            />
+          </figure>
         </div>
       )}
 
       {/* Content body */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-12 md:pt-20 grid grid-cols-1 md:grid-cols-12 gap-12">
-        {/* Sidebar — Client, optional Year, Stack, live link */}
+        {/* Sidebar — Client, optional Year, working ground */}
         <div className="work-content col-span-1 md:col-span-3">
           <div className="flex flex-col gap-8 text-sm text-brand-muted">
             <div>
@@ -113,17 +127,6 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
                 ))}
               </div>
             </div>
-
-            {work.liveUrl && (
-              <a
-                href={work.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-brand-yellow hover:text-brand-text transition-colors mt-4 uppercase tracking-widest"
-              >
-                Visit live site <ArrowUpRight size={14} />
-              </a>
-            )}
           </div>
         </div>
 

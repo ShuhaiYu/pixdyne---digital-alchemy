@@ -15,14 +15,9 @@ interface WorkPageClientProps {
   caseStudies: CaseStudyItem[];
 }
 
-// Category display order. Integrated Platform sits first as the
-// flagship surface — it is where the "front-end storefront + internal
-// operating system" double-engine projects live. Then E-commerce,
-// Marketing Site, Custom System.
-//
-// Each group carries one short line of prose that frames what the
-// reader is about to see, so the page does not feel like a flat dump
-// of cards.
+// Category metadata retained in case a grouped view is needed later;
+// the active layout below is a flat masonry of WorkCard tiles, so this
+// is currently unused but kept around for the next iteration.
 interface CategoryGroup {
   category: string;
   label: string;
@@ -62,10 +57,8 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isEmpty = caseStudies.length === 0;
 
-  // Group + sort: featured items first within each category, then the
-  // rest in natural array order. Memoised because the case-study list
-  // does not change on the client and recomputing on every render is
-  // wasteful.
+  // Pre-grouped slice — held in memo so reverting to a grouped layout is
+  // a one-line render change. Not currently consumed by the JSX.
   const grouped = useMemo(() => {
     return CATEGORY_GROUPS.map((group) => {
       const items = caseStudies
@@ -74,6 +67,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
       return { ...group, items };
     }).filter((group) => group.items.length > 0);
   }, [caseStudies]);
+  void grouped;
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
@@ -81,7 +75,6 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Header reveals first.
       gsap.from('.work-header', {
         y: 30,
         opacity: 0,
@@ -89,40 +82,24 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
         ease: 'power3.out'
       });
 
-      // Each category section reveals when it scrolls into view, so
-      // the page doesn't try to animate 30 cards at the same moment.
-      gsap.utils.toArray<HTMLElement>('.work-group').forEach((group) => {
-        const heading = group.querySelector('.work-group-heading');
-        const cards = group.querySelectorAll('.work-card');
-
-        if (heading) {
-          gsap.from(heading, {
-            y: 30,
-            opacity: 0,
-            duration: 0.7,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: group, start: 'top 80%' }
-          });
-        }
-
-        if (cards.length) {
-          gsap.from(cards, {
-            y: 40,
-            opacity: 0,
-            stagger: 0.06,
-            duration: 0.6,
-            ease: 'power3.out',
-            scrollTrigger: { trigger: group, start: 'top 75%' }
-          });
-        }
-      });
+      const cards = gsap.utils.toArray<HTMLElement>('.work-card');
+      if (cards.length) {
+        gsap.from(cards, {
+          y: 40,
+          opacity: 0,
+          stagger: 0.06,
+          duration: 0.6,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: containerRef.current, start: 'top 80%' }
+        });
+      }
     }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <main className="min-h-screen bg-brand-black text-brand-text">
+    <main ref={containerRef} className="min-h-screen bg-brand-black text-brand-text">
       {/* Header */}
       <div className="pt-32 pb-12 px-4 md:px-12">
         <Link
@@ -130,12 +107,17 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
           className="inline-flex items-center gap-2 text-brand-muted hover:text-brand-text transition-colors mb-8"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M7 16l-4-4m0 0l4-4m-4 4h18"
+            />
           </svg>
           Back to Home
         </Link>
 
-        <div className="border-b border-white/20 pb-8">
+        <div className="work-header border-b border-white/20 pb-8">
           <span className="text-brand-yellow text-xs font-mono tracking-wider mb-2 block">
             SELECTED CASE STUDIES
           </span>
@@ -147,9 +129,9 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
         </div>
       </div>
 
-      {/* Empty state vs. grouped grid */}
-      {isEmpty ? (
-        <div className="max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12 pb-24">
+      {/* Empty state vs. masonry */}
+      <div className="px-4 md:px-12 pb-24">
+        {isEmpty ? (
           <div className="mx-auto max-w-2xl text-center border border-white/10 bg-white/[0.02] rounded-2xl p-10 md:p-16 mt-8">
             <span className="text-brand-yellow text-xs font-mono tracking-widest uppercase block mb-3">
               Coming soon
@@ -168,7 +150,12 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
             >
               Talk to us in the meantime
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </Link>
           </div>
@@ -185,13 +172,12 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
           </div>
         )}
       </div>
-    </main>
-  );
-}
 
       {/* Contact CTA */}
       <div className="border-t border-white/20 px-4 md:px-12 py-16 text-center">
-        <h2 className="text-3xl md:text-4xl font-serif italic mb-4">Have a project in mind?</h2>
+        <h2 className="text-3xl md:text-4xl font-serif italic mb-4">
+          Have a project in mind?
+        </h2>
         <p className="text-brand-muted mb-8 max-w-xl mx-auto">
           Send us a brief and we will come back with a scope, timeline, and quote.
         </p>
@@ -199,19 +185,17 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
           href="/contact"
           className="inline-flex items-center gap-2 px-8 py-4 bg-brand-yellow text-brand-black font-medium rounded-full hover:bg-brand-yellow-hover transition-colors"
         >
-          {items.map((project) => (
-            <div key={project.id} className="work-card">
-              <BentoCard
-                caseStudy={{
-                  ...project,
-                  cardSize: 'small'
-                }}
-                className={flagship ? 'h-[380px] md:h-[420px]' : 'h-[340px]'}
-              />
-            </div>
-          ))}
-        </div>
+          Start a Conversation
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            />
+          </svg>
+        </Link>
       </div>
-    </section>
+    </main>
   );
 }

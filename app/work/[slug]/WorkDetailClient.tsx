@@ -4,33 +4,22 @@ import React, { useLayoutEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import gsap from 'gsap';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import { CaseStudyItem } from '@/types';
 
 interface WorkDetailClientProps {
   work: CaseStudyItem;
 }
 
-// Screenshots are 1440x900 viewport captures (16:10).
+// Screenshots are 1440x900 viewport captures (16:10). We hand next/image
+// the intrinsic ratio so nothing is cropped.
 const SHOT_W = 1440;
 const SHOT_H = 900;
 
 export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasHero = Boolean(work.img);
-
-  const liveDisplay = work.liveUrl
-    ? work.liveUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')
-    : null;
-
-  // Asymmetric placement: pair the first two figures with the two
-  // narrative sections (text/image side-by-side), reversed on the
-  // second pair so the eye zigzags down the page. Anything past the
-  // second figure stacks at the bottom of the body.
   const gallery = work.gallery ?? [];
-  const figureForChallenge: GalleryItem | undefined = gallery[0];
-  const figureForSolution: GalleryItem | undefined = gallery[1];
-  const galleryBottom: GalleryItem[] = gallery.length > 2 ? gallery.slice(2) : [];
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -53,8 +42,11 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
   }, [work, hasHero]);
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-brand-black text-brand-text pb-20 pt-20">
-      {/* Sub-navigation. Back link points to the /work index. */}
+    <div
+      ref={containerRef}
+      className="min-h-screen bg-brand-black text-brand-text pb-20 pt-20"
+    >
+      {/* Back-link to /work */}
       <div className="w-full px-6 md:px-12 py-6">
         <Link
           href="/work"
@@ -65,8 +57,8 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
         </Link>
       </div>
 
-      {/* Header. Text-first so the project, what it is, and the live link
-          are in first paint, never hidden behind the screenshot. */}
+      {/* Text-first header — project, what it is, live link all in
+          first paint, never hidden behind the screenshot. */}
       <header className="w-full px-6 md:px-12 pt-6 md:pt-10 pb-10 md:pb-14 border-b border-white/10">
         <span className="work-content block text-brand-yellow font-mono text-xs md:text-sm tracking-widest uppercase mb-3">
           {work.category}
@@ -95,8 +87,8 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
         )}
       </header>
 
-      {/* Full screenshot — shown whole at its natural 16:10 ratio, framed
-          on the warm surface. No object-cover, so neither side is clipped. */}
+      {/* Hero screenshot — shown whole at its natural 16:10 ratio,
+          framed on the warm surface. Only renders when work.img is set. */}
       {hasHero && (
         <div className="px-6 md:px-12 pt-10 md:pt-14">
           <figure className="hero-img mx-auto max-w-6xl overflow-hidden rounded-xl border border-white/10 bg-brand-surface shadow-2xl shadow-black/40">
@@ -113,88 +105,115 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
         </div>
       )}
 
-      {/* Content body */}
+      {/* Body — sidebar + narrative + inline gallery */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 pt-12 md:pt-20 grid grid-cols-1 md:grid-cols-12 gap-12">
-        {/* Sidebar — Client, optional Year, working ground */}
-        <div className="work-content col-span-1 md:col-span-3">
+        {/* Sidebar — Client / Year / Stack / Capability */}
+        <aside className="work-content col-span-1 md:col-span-3">
           <div className="flex flex-col gap-8 text-sm text-brand-muted">
             <div>
-              <span className="block text-brand-text font-bold uppercase mb-1">Client</span>
+              <span className="block text-brand-text font-bold uppercase mb-1">
+                Client
+              </span>
               {work.client}
             </div>
 
             {work.year && (
               <div>
-                <span className="block text-brand-text font-bold uppercase mb-1">Year</span>
+                <span className="block text-brand-text font-bold uppercase mb-1">
+                  Year
+                </span>
                 {work.year}
               </div>
             )}
-          </div>
-        </section>
 
             <div>
-              <span className="block text-brand-text font-bold uppercase mb-1">Working ground</span>
+              <span className="block text-brand-text font-bold uppercase mb-1">
+                Stack
+              </span>
               <div className="flex flex-wrap gap-1 mt-1">
                 {work.stack.map((tech) => (
-                  <span key={tech} className="after:content-[',_'] last:after:content-['']">
+                  <span
+                    key={tech}
+                    className="after:content-[',_'] last:after:content-['']"
+                  >
                     {tech}
                   </span>
                 ))}
               </div>
-            )}
-            <div className={figureForSolution ? 'lg:col-span-7' : 'lg:col-span-12 max-w-3xl'}>
-              <NarrativeSection number="02" title="What we built" body={work.solution} />
             </div>
-          </div>
-        </section>
-      </div>
 
-        {/* Main narrative — Challenge + Solution */}
+            {work.services && work.services.length > 0 && (
+              <div>
+                <span className="block text-brand-text font-bold uppercase mb-1">
+                  Capability
+                </span>
+                <div className="flex flex-col gap-1 mt-1">
+                  {work.services.map((svc) => {
+                    const slug = svc.toLowerCase().replace(/\s+/g, '-');
+                    return (
+                      <Link
+                        key={svc}
+                        href={`/services/${slug}`}
+                        className="inline-flex items-center gap-1 hover:text-brand-yellow transition-colors"
+                      >
+                        {svc}
+                        <ArrowUpRight size={12} aria-hidden="true" />
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        </aside>
+
+        {/* Narrative + Gallery — main column */}
         <div className="col-span-1 md:col-span-9 flex flex-col gap-12">
-          <div className="work-content">
-            <h2 className="text-3xl font-bold mb-4">The Challenge</h2>
+          <section className="work-content">
+            <h2 className="text-3xl md:text-4xl font-serif italic mb-4">
+              About the client
+            </h2>
             <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed whitespace-pre-line">
               {work.challenge}
             </p>
-          </div>
-        </section>
-      )}
+          </section>
 
-          <div className="work-content">
-            <h2 className="text-3xl font-bold mb-4">The Solution</h2>
+          <section className="work-content">
+            <h2 className="text-3xl md:text-4xl font-serif italic mb-4">
+              What we delivered
+            </h2>
             <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed whitespace-pre-line">
               {work.solution}
             </p>
-          </div>
+          </section>
 
-          {/* Related service back-link. Built only when work.services
-              is populated — links the case study to its parent service
-              detail page (CLAUDE.md §14 internal-link strategy). */}
-          {work.services && work.services.length > 0 && (
-            <div className="work-content mt-4 pt-8 border-t border-white/10">
-              <span className="block text-xs font-mono uppercase tracking-widest text-brand-muted mb-3">
-                Related capability
-              </span>
-              <div className="flex flex-wrap gap-3">
-                {work.services.map((svc) => {
-                  const slug = svc.toLowerCase().replace(/\s+/g, '-');
-                  return (
-                    <Link
-                      key={svc}
-                      href={`/services/${slug}`}
-                      className="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-sm font-mono uppercase tracking-widest hover:border-brand-yellow hover:text-brand-yellow transition-colors"
-                    >
-                      {svc}
-                      <ArrowUpRight size={14} aria-hidden="true" />
-                    </Link>
-                  );
-                })}
-              </div>
+          {gallery.length > 0 && (
+            <div className="work-content flex flex-col gap-10 mt-4">
+              {gallery.map((shot, i) => (
+                <figure key={i}>
+                  <div className="overflow-hidden rounded-xl border border-white/10 bg-brand-surface">
+                    <Image
+                      src={shot.src}
+                      alt={shot.alt ?? ''}
+                      width={1600}
+                      height={900}
+                      sizes="(max-width: 1280px) 100vw, 900px"
+                      className="w-full h-auto"
+                    />
+                  </div>
+                  {shot.caption && (
+                    <figcaption className="mt-3 font-mono text-[11px] tracking-[0.25em] uppercase text-brand-muted">
+                      {shot.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
             </div>
           )}
         </div>
       </div>
 
+      {/* See more work */}
       <div className="work-content flex justify-center mt-24">
         <Link
           href="/work"
@@ -206,66 +225,3 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
     </div>
   );
 };
-
-// Local sub-components — kept inline because they only make sense in
-// this layout. Lifting them out would over-fragment a single editorial
-// surface; if a third detail surface ever reaches for them, then is
-// the time to extract.
-
-interface GalleryFigureProps {
-  shot: GalleryItem;
-}
-
-const GalleryFigure: React.FC<GalleryFigureProps> = ({ shot }) => (
-  <figure className="reveal">
-    <Image
-      src={shot.src}
-      alt={shot.alt ?? ''}
-      width={1600}
-      height={900}
-      sizes="(max-width: 1280px) 100vw, 1200px"
-      className="w-full h-auto"
-    />
-    {shot.caption && (
-      <figcaption className="mt-3 font-mono text-[11px] tracking-[0.25em] uppercase text-white/40">
-        {shot.caption}
-      </figcaption>
-    )}
-  </figure>
-);
-
-interface MetaRowProps {
-  label: string;
-  value: React.ReactNode;
-}
-
-const MetaRow: React.FC<MetaRowProps> = ({ label, value }) => (
-  <div>
-    <dt className="font-mono text-[11px] tracking-[0.3em] uppercase text-white/40 mb-2">
-      {label}
-    </dt>
-    <dd className="text-white/85 text-base md:text-lg leading-relaxed">
-      {value}
-    </dd>
-  </div>
-);
-
-interface NarrativeSectionProps {
-  number: string;
-  title: string;
-  body: string;
-}
-
-const NarrativeSection: React.FC<NarrativeSectionProps> = ({ number, title, body }) => (
-  <section className="reveal">
-    <span className="block font-mono text-xs tracking-[0.3em] uppercase text-brand-yellow mb-4">
-      ({number})
-    </span>
-    <h2 className="font-serif italic text-white leading-tight text-3xl sm:text-4xl md:text-5xl mb-8">
-      {title}
-    </h2>
-    <p className="text-white/75 text-lg md:text-xl leading-relaxed whitespace-pre-line">
-      {body}
-    </p>
-  </section>
-);

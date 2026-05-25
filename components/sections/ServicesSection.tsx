@@ -33,36 +33,11 @@ export const ServicesSection: React.FC = () => {
   const listRef = useRef<HTMLDivElement>(null);
   const cards = getCapabilityCards();
   const isMobile = useIsMobile();
-  // Cards are sized to the exact pixel width of the scroll column rather than
-  // `66.67vw`. `vw` includes the scrollbar width while the column's `%` width
-  // does not, so a vw-sized card is a few px wider than its column — and
-  // because the snap divides the scroll distance into equal parts, that
-  // mismatch accumulates and pushes later cards left of the divider. Measuring
-  // the column keeps every snap stop flush. Re-measured on resize.
-  const [cardWidth, setCardWidth] = useState<number | null>(null);
-
-  useLayoutEffect(() => {
-    if (typeof window === 'undefined') return;
-    if (isMobile) {
-      setCardWidth(null);
-      return;
-    }
-    const measure = () => {
-      const container = containerRef.current;
-      if (container) setCardWidth(container.offsetWidth);
-    };
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, [isMobile]);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
     // Skip horizontal scroll animation on mobile
     if (isMobile) return;
-    // Wait for the column measurement so card widths are final before
-    // ScrollTrigger reads list.scrollWidth.
-    if (cardWidth === null) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -72,11 +47,18 @@ export const ServicesSection: React.FC = () => {
       const list = listRef.current;
       if (!section || !container || !list) return;
 
-      // Calculate horizontal scroll distance
-      const scrollWidth = list.scrollWidth - container.offsetWidth;
-
-      // Pin section and horizontally scroll the service list with snap
+      // Horizontal travel is one card width per step — deliberately NOT
+      // `list.scrollWidth - container.offsetWidth`. Each card hosts an
+      // absolutely-positioned glow (`-right-20`, i.e. right: -80px) that
+      // bleeds ~80px past its right edge, which inflates list.scrollWidth.
+      // Feeding that inflated value into the equal-part snap (1/(n-1)) made
+      // every snap stop land slightly left, accumulating until cards 3–4
+      // sat left of the divider. Cards are laid out edge-to-edge with no
+      // gap/margin, so the true travel is exactly (n-1) × one card width.
       const numServices = cards.length;
+      const firstCard = list.firstElementChild as HTMLElement | null;
+      const cardWidth = firstCard ? firstCard.offsetWidth : container.offsetWidth;
+      const scrollWidth = cardWidth * (numServices - 1);
 
       gsap.to(list, {
         x: -scrollWidth,
@@ -103,7 +85,7 @@ export const ServicesSection: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [isMobile, cardWidth]);
+  }, [isMobile]);
 
   return (
     <section
@@ -141,7 +123,7 @@ export const ServicesSection: React.FC = () => {
                   key={card.id}
                   spotlightColor={`rgba(${brandRGB.yellow}, 0.15)`}
                   className={`service-item group flex-shrink-0 flex flex-col justify-center p-6 sm:p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer ${isMobile ? 'w-full min-h-[70vh]' : 'h-full'}`}
-                  style={isMobile ? undefined : { width: cardWidth ? `${cardWidth}px` : 'calc(66.67vw)' }}
+                  style={isMobile ? undefined : { width: 'calc(66.67vw)' }}
                 >
                   {/* Card-wide click target sends the visitor to the
                       capability's page. The bottom-right CTA below sits at

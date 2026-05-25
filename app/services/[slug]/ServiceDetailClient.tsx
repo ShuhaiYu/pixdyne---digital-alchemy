@@ -2,7 +2,7 @@
 
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { ArrowLeft, ArrowUpRight, Check, Plus } from 'lucide-react';
+import { ArrowLeft, ArrowUpRight, ArrowRight, Check, Plus } from 'lucide-react';
 import { ServiceItem } from '@/types';
 
 interface ServiceDetailClientProps {
@@ -99,9 +99,11 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
               <h3 className="text-2xl font-bold mb-8">Pick a service, or take the bundle</h3>
               <div className="border-t border-white/10 mb-16">
                 {service.subServices.map((sub) => (
-                  // id + scroll-mt let the homepage Capabilities rail deep-link
-                  // straight to a sub-service block (e.g. /services/operations
-                  // #managed-it) without the fixed nav clipping the heading.
+                  // id + scroll-mt keep the in-page anchor (e.g.
+                  // /services/operations#managed-it) usable without the fixed
+                  // nav clipping the heading. Managed IT and SEO & Content also
+                  // have standalone detail pages — sub.detailHref renders a
+                  // "View full service" link straight to them.
                   <div key={sub.slug} id={sub.slug} className="border-b border-white/10 py-8 md:py-10 scroll-mt-28">
                     <h4 className="text-2xl md:text-3xl font-serif italic text-brand-yellow mb-3">
                       {sub.title}
@@ -119,6 +121,16 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                         </React.Fragment>
                       ))}
                     </p>
+                    {sub.detailHref && (
+                      <a
+                        href={sub.detailHref}
+                        className="inline-flex items-center gap-1.5 mt-5 text-xs uppercase tracking-widest text-brand-yellow hover:text-brand-yellow-hover transition-colors cursor-pointer"
+                        aria-label={`View full ${sub.title} service`}
+                      >
+                        View full service
+                        <ArrowRight size={14} aria-hidden="true" />
+                      </a>
+                    )}
                   </div>
                 ))}
               </div>

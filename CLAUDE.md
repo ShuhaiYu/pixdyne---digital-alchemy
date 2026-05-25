@@ -82,20 +82,26 @@ Audience traits:
 ```
 Pixdyne services
 ├── Web Development        Build-and-launch websites: design, develop, deploy.
+│                            → /services/web-development
 ├── System Development     ERP / CRM / custom internal systems / mobile apps (iOS, Android).
-└── Operations             Bundleable post-launch services:
+│                            → /services/system-development
+└── Operations             Bundleable post-launch services. → /services/operations (bundle page)
     ├── Managed IT         Hosting, SSL, monitoring, backups, incident response.
+    │                        → /services/managed-it      (standalone detail page)
     ├── SEO & Content      Technical SEO, content production, GSC/GA4 reporting.
+    │                        → /services/seo-content     (standalone detail page)
     └── DevOps             Ongoing iteration, bug fixes, integrations, feature work.
+                             (no standalone page — lives inside the Operations bundle page only)
 
 Product line
 └── OnlyPixAI              https://www.onlypixai.com/ — Pixdyne's own AI product.
+                            → /services/onlypixai
                             Demonstrates our capability to deliver AI to end users.
 ```
 
 **Naming is fixed.** Do not rename services, do not introduce new top-level service lines without explicit owner approval.
 
-**Operations** is sold à la carte (single service) or as a bundled retainer.
+**Operations** is sold à la carte (single service) or as a bundled retainer. As of 2026-05-25 its two most client-legible lines — **Managed IT** and **SEO & Content** — each have a **standalone service detail page** (own slug, metadata, and `Service`/`FAQPage` schema), while the `/services/operations` bundle page is retained as the packaged overview (and still hosts DevOps). The homepage Capabilities rail and the desktop nav Services dropdown both surface exactly these four lines: Web Development · System Development · Managed IT · SEO & Content (OnlyPixAI and the Operations bundle page are deliberately excluded from both). See §13 (2026-05-25).
 
 ---
 
@@ -109,7 +115,7 @@ These rules override any default agent behaviour. Violating them is a blocking q
 | 2 | Never publish specific client names or logos unless the owner has explicitly approved that client for publication in this session. | Client confidentiality. |
 | 3 | Never invent delivery metrics (e.g. "150+ projects", "99% satisfaction", "24/7 support"). Use placeholders such as `<!-- TBD: real metrics from owner -->` instead. | Inflated stats erode trust and breach E-E-A-T. |
 | 4 | Company history anchor is **2018**. Never imply earlier founding. | Factual constraint. |
-| 5 | Service names are fixed: Web Development / System Development / Operations / OnlyPixAI. Do not paraphrase or split. | Brand consistency. |
+| 5 | Service names are fixed: Web Development / System Development / Operations / OnlyPixAI, plus the two Operations lines that now have their own detail pages — Managed IT and SEO & Content. Do not paraphrase or rename. Do not split a service into new standalone pages without explicit owner approval (the Managed IT / SEO & Content split was approved 2026-05-25 — see §13). | Brand consistency. |
 | 6 | Geographic anchor is **Melbourne, Victoria, Australia**. Use local context where genuinely relevant. | Local SEO and customer fit. |
 | 7 | AI positioning: AI is a capability we deliver to clients, not a tool we use internally for coding. Reject any copy that frames AI as our internal accelerator. | See Section 3. |
 | 8 | When real content is missing, leave a visible placeholder (`<!-- TBD: ... -->` in code, "Coming soon" in UI) rather than fabricating. | Truthfulness. |
@@ -292,6 +298,7 @@ For any non-trivial change, follow this protocol:
 - **2026-05-13** — Contact form wired to Resend. Notification email lands at info@pixdyne.com with `From: Pixdyne Contact <support@mail.pixdyne.com>` and `Reply-To` set to the form submitter so Gmail "Reply" goes directly to the lead. IP-granular sliding-window rate limit (5 requests / 10 min per IP) in `lib/rate-limit.ts` gates the route before the body is even parsed. In-memory `Map`, fine for low-traffic marketing site; swap for Upstash Redis if multi-instance state matters later.
 - **2026-05-13** — NAP single source of truth tightened. New `lib/data/business.ts` holds `BUSINESS` + `BUSINESS_FORMATTED`; schema.ts, both legal pages, SiteFooter, and ContactSection all import from there instead of hardcoding literals. Phone number (+61 410 510 751) added to the NAP contract — previously it was floating in two surfaces with no governance. §14.1 rewritten: any address/email/phone/ABN literal anywhere outside the constants file is now a truth-auditor block. §14.2 clarified to recognise file-based `opengraph-image.tsx` as the OG image source (Next.js auto-merges). Hero sr-only GEO prose adjusted: "businesses across Australia" → "businesses in Melbourne and across Australia" to keep the Melbourne anchor explicit. Service detail FAQ accordion: stable key + WebKit details-marker suppression for older iOS Safari. Root `opengraph-image.tsx` dropped `runtime = 'edge'` to align with the per-service generator (Vercel current guidance prefers Fluid Compute).
 - **2026-05-25** — SEO/GEO audit fixes shipped (commit `76acfd5`) and verified live. (1) **JSON-LD delivery fixed** — every route was injecting structured data client-side via `next/script` `<Script>`, leaving zero `<script type="application/ld+json">` tags in the server HTML (invisible to non-JS AI crawlers — the exact GEO audience). Converted all of `app/layout.tsx` + the 7 page files to plain `<script>` in Server Components. Verified in production: home (ProfessionalService + WebSite), `/services/[slug]` (+ Service + BreadcrumbList + FAQPage), `/work/[slug]` (+ CreativeWork + BreadcrumbList), `/blog/[slug]` (+ Article + BreadcrumbList), `/about` & `/contact` (+ BreadcrumbList). §11 corrected accordingly — schema had been listed as "in place" but was client-injected. (2) **Domain canonicalisation fixed** — Vercel primary domain flipped to apex `pixdyne.com`; `www.pixdyne.com` now **308**-redirects to apex (previously apex → www via **307**), aligning the served host with canonical tags, sitemap, and robots `Host`. (3) **Home keyword** — title changed `Pixdyne | Digital Alchemy` → `Pixdyne | Melbourne Technology Partner` (§14.2 primary cluster in title); hero kicker now surfaces "Melbourne Technology Partner" at first paint (§14.5/§14.10) while keeping the Digital Alchemy tagline and Est. 2018. (4) Doc drift reconciled: `/about` confirmed live (removed from §10 pending); FAQ content now exists for all four services and FAQPage ships (removed from §11 gaps).
+- **2026-05-25** — Blog hardening + service-line split. (1) **Blog (3 placeholder posts) rewritten to comply** — removed engineer-only stack names from user-facing copy (§6 rule 10 / §14.7): renamed slug `nextjs-performance-optimization` → `why-your-website-is-slow` (301 in `next.config.ts`), reframed "Next.js / React Server Components / RAG / vector DB" into business-owner vocabulary; added Melbourne anchors, answer-first ledes (GEO), one service internal link per post, current dates, and ISO `datePublished` for valid `Article` schema. (2) **Title double-suffix fixed** — `seoTitle`/index titles had a hardcoded `| Pixdyne` that the root layout `title.template` (`%s | Pixdyne`) then appended again (`… | Pixdyne | Pixdyne`); stripped so the template owns branding. (3) **OG image gaps fixed** — blog `/og/blog/{slug}.jpg` 404'd while declaring `summary_large_image`; `/about` and `/contact` declared the large card with no image at all (the root file-based `opengraph-image` does NOT propagate to nested routes). All three now reference the 1200×630 `/opengraph-image` route explicitly. (4) **Operations split into standalone pages** — owner-approved: **Managed IT** (`/services/managed-it`) and **SEO & Content** (`/services/seo-content`) are now standalone service detail pages (full `Service` + `BreadcrumbList` + `FAQPage` schema), while `/services/operations` is retained as the bundle page (still hosts DevOps, and now links out to the two standalone lines via `SubService.detailHref`). The homepage Capabilities rail (`getCapabilityCards`) and the desktop nav Services dropdown were aligned to surface exactly these four lines — Web Development · System Development · Managed IT · SEO & Content — dropping OnlyPixAI and the Operations bundle from both. SiteFooter now deep-links all six service pages. §5 and §6 rule 5 updated accordingly.
 
 ---
 

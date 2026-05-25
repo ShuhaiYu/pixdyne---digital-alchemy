@@ -27,6 +27,11 @@ export interface SubService {
   title: string;
   description: string;
   features: string[];
+  // When a sub-service also has its own standalone detail page, this is the
+  // route to it (e.g. '/services/managed-it'). The Operations bundle page
+  // renders a "View full service" link from this. Omit for sub-services that
+  // only live inside the bundle page (e.g. DevOps).
+  detailHref?: string;
 }
 
 export interface ServiceItem {
@@ -61,9 +66,9 @@ export interface ServiceItem {
 // Lightweight view-model for the homepage Capabilities rail. It is derived
 // from ServiceItem data (see getCapabilityCards) rather than rendered from
 // the raw service list, because the rail shows a curated set of capabilities
-// — not every ServiceItem. Sub-services (Managed IT, SEO & Content) have no
-// standalone route, so each card carries its own `href` (which may include a
-// deep-link anchor into the Operations detail page).
+// — not every ServiceItem. Managed IT and SEO & Content are now standalone
+// service detail pages, so each card's `href` points straight at its own
+// route (no deep-link anchor into the Operations bundle page).
 export interface CapabilityCard {
   id: string;
   number: string;

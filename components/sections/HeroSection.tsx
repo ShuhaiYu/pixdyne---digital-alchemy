@@ -49,6 +49,7 @@ export const HeroSection: React.FC = () => {
         <div ref={subRef} className="text-brand-black font-sans uppercase tracking-[0.15em] sm:tracking-[0.2em] text-xs sm:text-sm font-bold flex flex-col gap-1 sm:gap-2">
           <span className="block w-16 sm:w-24 h-[1px] bg-brand-black mb-1 sm:mb-2"></span>
           <span>Digital Alchemy</span>
+          <span>Melbourne Technology Partner</span>
           <span>Est. 2018</span>
         </div>
       </div>

@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 import { services } from '@/lib/data/services';
@@ -33,7 +32,7 @@ export default function ServicesIndexPage() {
 
   return (
     <>
-      <Script
+      <script
         id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Script from 'next/script';
 import { getCaseStudyBySlug, getCaseStudySlugs } from '@/lib/data/case-studies';
 import { generateCaseStudySchema, generateBreadcrumbSchema } from '@/lib/seo/schema';
 import { WorkDetailClient } from './WorkDetailClient';
@@ -67,14 +66,14 @@ export default async function WorkPage({ params }: Props) {
 
   return (
     <>
-      <Script
+      <script
         id="casestudy-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(generateCaseStudySchema(work))
         }}
       />
-      <Script
+      <script
         id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

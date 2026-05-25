@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
 import { getAllCaseStudies } from '@/lib/data/case-studies';
 import { generateCollectionPageSchema } from '@/lib/seo/schema';
 import WorkPageClient from './WorkPageClient';
@@ -41,7 +40,7 @@ export default function WorkPage() {
 
   return (
     <>
-      <Script
+      <script
         id="work-collection-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}

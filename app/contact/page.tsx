@@ -1,5 +1,4 @@
 import { Metadata } from 'next';
-import Script from 'next/script';
 import { ContactSection } from '@/components/sections/ContactSection';
 import { generateBreadcrumbSchema } from '@/lib/seo/schema';
 
@@ -35,7 +34,7 @@ export default function ContactPage() {
 
   return (
     <>
-      <Script
+      <script
         id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

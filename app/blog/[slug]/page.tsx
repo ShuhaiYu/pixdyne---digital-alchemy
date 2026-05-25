@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Script from 'next/script';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { getBlogPostBySlug, getBlogSlugs } from '@/lib/data/blog';
@@ -68,14 +67,14 @@ export default async function BlogPostPage({ params }: Props) {
 
   return (
     <>
-      <Script
+      <script
         id="blogpost-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(generateBlogPostSchema(post))
         }}
       />
-      <Script
+      <script
         id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{

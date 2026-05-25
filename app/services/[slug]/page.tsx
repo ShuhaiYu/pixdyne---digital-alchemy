@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import Script from 'next/script';
 import { getServiceBySlug, getServiceSlugs } from '@/lib/data/services';
 import {
   generateServiceSchema,
@@ -73,14 +72,14 @@ export default async function ServicePage({ params }: Props) {
 
   return (
     <>
-      <Script
+      <script
         id="service-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(generateServiceSchema(service))
         }}
       />
-      <Script
+      <script
         id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -88,7 +87,7 @@ export default async function ServicePage({ params }: Props) {
         }}
       />
       {faqSchema && (
-        <Script
+        <script
           id="faq-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{

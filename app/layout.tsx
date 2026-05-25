@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Space_Grotesk } from 'next/font/google';
-import Script from 'next/script';
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema';
 import { Navigation } from '@/components/layout/Navigation';
 import { SiteFooter } from '@/components/layout/SiteFooter';
@@ -29,7 +28,7 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL('https://pixdyne.com'),
   title: {
-    default: 'Pixdyne | Digital Alchemy',
+    default: 'Pixdyne | Melbourne Technology Partner',
     template: '%s | Pixdyne'
   },
   description:
@@ -65,7 +64,7 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     url: 'https://pixdyne.com',
     siteName: 'Pixdyne',
-    title: 'Pixdyne | Digital Alchemy',
+    title: 'Pixdyne | Melbourne Technology Partner',
     description:
       'Melbourne technology partner since 2018. Websites, custom systems, ongoing operations — and real AI capability for your business.'
     // Landscape og:image is emitted via the file-based convention at
@@ -76,7 +75,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pixdyne | Digital Alchemy',
+    title: 'Pixdyne | Melbourne Technology Partner',
     description:
       'Melbourne technology partner since 2018. Websites, custom systems, operations — and real AI for your business.'
     // images intentionally omitted: file-based opengraph-image emits
@@ -109,14 +108,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${playfair.variable} ${spaceGrotesk.variable}`}>
       <head>
-        <Script
+        <script
           id="organization-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(generateOrganizationSchema())
           }}
         />
-        <Script
+        <script
           id="website-schema"
           type="application/ld+json"
           dangerouslySetInnerHTML={{

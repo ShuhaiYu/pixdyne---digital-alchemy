@@ -11,6 +11,19 @@ interface IntegratedPlatformDetailClientProps {
   work: CaseStudyItem;
 }
 
+// Capability → service-detail-page slug. Keep aligned with the standard
+// WorkDetailClient mapping. Centralised so "SEO & Content" routes to
+// /services/seo-content rather than the broken default slugification.
+const SERVICE_SLUGS: Record<string, string> = {
+  'Web Development': 'web-development',
+  'System Development': 'system-development',
+  'Managed IT': 'managed-it',
+  'SEO & Content': 'seo-content'
+};
+
+const toServiceSlug = (svc: string): string =>
+  SERVICE_SLUGS[svc] ?? svc.toLowerCase().replace(/\s+/g, '-');
+
 const CONTAINER_OUTER = 'max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12';
 const CONTAINER_GALLERY = 'max-w-5xl mx-auto w-full px-4 md:px-8 lg:px-12';
 const CONTAINER_PROSE = 'max-w-3xl mx-auto w-full px-4 md:px-8 lg:px-12';
@@ -150,19 +163,16 @@ export const IntegratedPlatformDetailClient: React.FC<IntegratedPlatformDetailCl
               label="Capability"
               value={
                 <div className="flex flex-wrap gap-2">
-                  {work.services.map((svc) => {
-                    const slug = svc.toLowerCase().replace(/\s+/g, '-');
-                    return (
-                      <Link
-                        key={svc}
-                        href={`/services/${slug}`}
-                        className="inline-flex items-center gap-1.5 text-white hover:text-brand-yellow transition-colors"
-                      >
-                        {svc}
-                        <ArrowUpRight size={12} strokeWidth={1.5} aria-hidden="true" />
-                      </Link>
-                    );
-                  })}
+                  {work.services.map((svc) => (
+                    <Link
+                      key={svc}
+                      href={`/services/${toServiceSlug(svc)}`}
+                      className="inline-flex items-center gap-1.5 text-white hover:text-brand-yellow transition-colors"
+                    >
+                      {svc}
+                      <ArrowUpRight size={12} strokeWidth={1.5} aria-hidden="true" />
+                    </Link>
+                  ))}
                 </div>
               }
             />

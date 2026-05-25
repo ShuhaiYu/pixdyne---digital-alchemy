@@ -16,6 +16,19 @@ interface WorkDetailClientProps {
 const SHOT_W = 1440;
 const SHOT_H = 900;
 
+// Maps the capability label as stored in case-studies data to its
+// service detail page slug. Centralised so "SEO & Content" routes to
+// /services/seo-content rather than the broken default slugification.
+const SERVICE_SLUGS: Record<string, string> = {
+  'Web Development': 'web-development',
+  'System Development': 'system-development',
+  'Managed IT': 'managed-it',
+  'SEO & Content': 'seo-content'
+};
+
+const toServiceSlug = (svc: string): string =>
+  SERVICE_SLUGS[svc] ?? svc.toLowerCase().replace(/\s+/g, '-');
+
 export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const hasHero = Boolean(work.img);
@@ -148,19 +161,16 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
                   Capability
                 </span>
                 <div className="flex flex-col gap-1 mt-1">
-                  {work.services.map((svc) => {
-                    const slug = svc.toLowerCase().replace(/\s+/g, '-');
-                    return (
-                      <Link
-                        key={svc}
-                        href={`/services/${slug}`}
-                        className="inline-flex items-center gap-1 hover:text-brand-yellow transition-colors"
-                      >
-                        {svc}
-                        <ArrowUpRight size={12} aria-hidden="true" />
-                      </Link>
-                    );
-                  })}
+                  {work.services.map((svc) => (
+                    <Link
+                      key={svc}
+                      href={`/services/${toServiceSlug(svc)}`}
+                      className="inline-flex items-center gap-1 hover:text-brand-yellow transition-colors"
+                    >
+                      {svc}
+                      <ArrowUpRight size={12} aria-hidden="true" />
+                    </Link>
+                  ))}
                 </div>
               </div>
             )}

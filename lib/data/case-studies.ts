@@ -111,7 +111,7 @@ export const caseStudies: CaseStudyItem[] = [
     client: '4WD Interiors',
     category: 'Integrated Platform',
     liveUrl: 'https://www.4wdinteriors.com/',
-    services: ['Web Development'],
+    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
     stack: ['Shopify', 'Vehicle fitment configurator', 'B2B distributor portal', 'ADR compliance docs'],
     challenge:
       "4WD Interiors sells premium cargo organisation systems — drawers, roof consoles, cargo barriers — that have to fit specific 4WD vehicles. Every product is fitment-sensitive, and the catalogue serves both retail customers and a distributor network. The site needed to filter products by vehicle and serve two distinct buyer flows from the same store.",
@@ -123,7 +123,8 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A Shopify storefront for premium 4WD cargo systems, with a vehicle fitment configurator, ADR compliance docs, and a B2B distributor portal. Built by Pixdyne.',
     img: '/work/4wd-interiors.webp',
-    cardSize: 'wide'
+    cardSize: 'featured',
+    featured: true
   },
 
   // ─── Marketing sites ────────────────────────────────────────────────
@@ -134,7 +135,7 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'Promod Group',
     category: 'Marketing Site',
     liveUrl: 'https://www.promodgroup.com.au/',
-    services: ['Web Development'],
+    services: ['Managed IT'],
     stack: ['Custom CMS', 'B2B marketing site', 'Rebuild in progress'],
     challenge:
       "Promod Group is an Australian modular construction company supplying prefabricated buildings to residential, education, healthcare, and infrastructure clients. The audience is institutional — government agencies, developers, large investors — so the site has to read as a credible long-term partner, not as a marketing brochure.",
@@ -214,13 +215,35 @@ export const caseStudies: CaseStudyItem[] = [
 
   // ─── Custom systems (large projects) ───────────────────────────────
   {
+    id: '10',
+    slug: 'australian-whisky-auctions',
+    name: 'Australian Whisky Auctions',
+    client: 'Australian Whisky Auctions',
+    category: 'Custom System',
+    liveUrl: 'https://www.australianwhiskyauctions.com.au/',
+    services: ['System Development', 'SEO & Content'],
+    stack: ['Custom auction software', 'Age-verification compliance', 'Spirits logistics', 'Ongoing development'],
+    challenge:
+      "The secondary whisky market in Australia is significant but fragmented — sellers wanted a real auction surface rather than a fixed-price store, and buyers needed a credible bidding flow with the compliance overhead that liquor sales require. There is no off-the-shelf 'whisky auction' platform; Shopify and other commerce platforms model fixed prices, not time-bound bidding with submission windows. The system had to be built.",
+    solution:
+      "We built the auction platform from scratch — a bespoke system covering submission windows for sellers, time-bound auctions for buyers, live auction viewing, age-verification compliance with Australian liquor law, and delivery and insurance handling tailored for spirits. Over 70,000 lots have moved through the platform since launch. Pixdyne continues to operate and extend the system as the auction format evolves.",
+    shortDescription:
+      'Bespoke whisky auction platform — submission windows, age verification, spirits logistics.',
+    seoTitle: 'Australian Whisky Auctions — Bespoke Auction Platform',
+    seoDescription:
+      'A bespoke auction platform built for the Australian secondary whisky market. Submission windows, age verification, spirits logistics, 70,000+ lots. Built and operated by Pixdyne.',
+    img: '/work/australian-whisky-auctions.webp',
+    cardSize: 'featured',
+    featured: true
+  },
+  {
     id: '11',
     slug: 'austin-education',
     name: 'Austin Education',
     client: 'Austin Education',
     category: 'Integrated Platform',
     liveUrl: 'https://www.austineducation.com.au/',
-    services: ['System Development'],
+    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
     stack: ['Custom web platform', 'Student portal', 'Trial booking', 'ATAR calculator', 'Bilingual (EN/中)'],
     challenge:
       "Austin Education runs K-12 tutoring across VCE, UCAT, and selective school prep — seven campuses across Victoria and Adelaide, with hundreds of concurrent students and a track record going back to 2013. A site at that scale stops being a marketing brochure and starts being an operating system: trial lesson booking, a student portal for homework and webinars, ATAR calculation tooling, a multi-campus catalogue, and bilingual presentation for the Chinese-speaking parent audience.",
@@ -242,7 +265,7 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'Cupcake Central',
     category: 'Integrated Platform',
     liveUrl: 'https://cupcakecentral.com.au/',
-    services: ['Web Development'],
+    services: ['Web Development', 'System Development', 'SEO & Content'],
     stack: ['WordPress', 'WooCommerce', 'Pickup + delivery scheduling'],
     challenge:
       "Cupcake Central is a Melbourne bakery selling cupcakes, cakes, and cookies through retail counters and delivery. Online ordering for perishables is a scheduling problem more than a catalogue problem — orders have to land at the right store, on the right day, before the kitchen's cut-off, or the experience falls apart at the door.",
@@ -269,7 +292,7 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'Muscle City',
     category: 'Marketing Site',
     liveUrl: 'https://musclecity247.com.au/',
-    services: ['Web Development'],
+    services: ['Web Development', 'SEO & Content'],
     stack: ['WordPress', 'Membership info', 'Class timetables'],
     challenge:
       "Muscle City runs a 24/7 premium gym in Melbourne, and their previous site was outdated enough to be costing them new members — prospective members would land, fail to find class times or membership info, and bounce. A gym's site has to read like its physical space: clean, modern, motivating, and useful.",
@@ -307,7 +330,7 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'Gameology',
     category: 'Integrated Platform',
     liveUrl: 'https://www.gameology.com.au/',
-    services: ['Web Development'],
+    services: ['Web Development', 'System Development', 'SEO & Content'],
     stack: ['Custom e-commerce', 'Multi-thousand SKU', 'Real-time chat'],
     challenge:
       "Gameology is a gaming retail warehouse selling board games, trading cards, collectibles, and novelties — described as the largest gaming warehouse in Australia. The catalogue is the value, but it is also the navigation problem: a board game customer wants different filters and shelves than a TCG collector, and both want to browse without choking on irrelevant categories.",
@@ -359,7 +382,7 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'Bright Australia',
     category: 'Marketing Site',
     liveUrl: 'https://brightaustralia.com.au/',
-    services: ['Web Development'],
+    services: ['Web Development', 'Managed IT', 'SEO & Content'],
     stack: ['WordPress', 'Mobile-first', 'Professional services'],
     challenge:
       "Bright Australia is a migration and education agency offering four core services — study programs, visa processing, appeals assistance, and partner visa sponsorship. Migration buyers are heavy researchers and check several agencies before they enquire, so the site has to make scope and credibility obvious in the first few seconds, on the phone.",
@@ -385,7 +408,7 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'Jinshan Travel',
     category: 'Custom System',
     liveUrl: 'https://jinshantravel.com.au/',
-    services: ['System Development'],
+    services: ['System Development', 'SEO & Content'],
     stack: ['Custom travel platform', 'Customer accounts', 'Bookings + customisation'],
     challenge:
       "Jinshan Travel runs an 'I provide, your choice' customised-tour model rather than fixed package travel — every booking is partly bespoke, and customers come back to plan multiple trips over years. That stops being a checkout problem and starts being a long-term relationship problem: customer accounts, booking history, and personalisation matter more than the one-off cart flow off-the-shelf travel sites are built around.",
@@ -586,12 +609,12 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'WinCareer',
     category: 'Integrated Platform',
     liveUrl: 'https://wincareer.com.au/',
-    services: ['System Development'],
+    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
     stack: ['Custom multi-tenant platform', 'Multi-country', 'ACCA / CFA / CPA content tracks'],
     challenge:
       "WinCareer is a financial and accounting education institution offering ACCA, CFA, and CPA certifications to over 100,000 learners across Australia, China, the UK, and Southeast Asia. Different certifications, different jurisdictions, different content depths — but the learner experience has to feel like one platform, not four bolted-together ones.",
     solution:
-      "We built a custom responsive platform with course category pages organised by certification, video lectures, sample tests, chapter materials, and sub-navigation anchors that let learners explore the offering without re-routing through search. The architecture supports separate content tracks per certification while keeping one consistent learner experience across markets.",
+      "We built a custom responsive platform with course category pages organised by certification, video lectures, sample tests, chapter materials, and sub-navigation anchors that let learners explore the offering without re-routing through search. The architecture supports separate content tracks per certification while keeping one consistent learner experience across markets. Part of an ongoing engagement with the same client.",
     shortDescription:
       'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications.',
     seoTitle: 'WinCareer — Multi-Country Finance & Accounting Education Platform',
@@ -663,12 +686,12 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'Accio',
     category: 'Custom System',
     liveUrl: 'https://accio.tofuture.org/',
-    services: ['System Development'],
+    services: ['System Development', 'Managed IT'],
     stack: ['Custom LMS', 'Multi-portal (management / academic / student / lecturer / sales)', 'Role-based permissions'],
     challenge:
       "Accio is a learning management system built for educational institutions and tutoring operations that need control beyond what off-the-shelf platforms offer. The requirement spans course and class management, student and lecturer portals, enrolment, timetabling, e-commerce for class sales, group-buying modules, and reporting — all in one system, with role-based access so each user only sees what they should.",
     solution:
-      "We built Accio from the ground up as a custom LMS with five separate portals (management, academic, student, lecturer, sales), role-based permissions, and third-party add-on support. Each user type sees only the workflows that belong to them, so the academic team isn't drowning in commercial controls and the sales team isn't navigating grade books. The system runs as the academic and commercial backbone for institutions using it.",
+      "We built Accio from the ground up as a custom LMS with five separate portals (management, academic, student, lecturer, sales), role-based permissions, and third-party add-on support. Each user type sees only the workflows that belong to them, so the academic team isn't drowning in commercial controls and the sales team isn't navigating grade books. The system runs as the academic and commercial backbone for institutions using it. Part of an ongoing engagement with the same client.",
     shortDescription:
       'Custom LMS with five role-based portals (management / academic / student / lecturer / sales) for educational institutions.',
     seoTitle: 'Accio LMS — Custom Multi-Portal Learning Management System',
@@ -690,12 +713,12 @@ export const caseStudies: CaseStudyItem[] = [
     name: 'Online Education Platform',
     client: 'Online Education',
     category: 'Custom System',
-    services: ['System Development'],
+    services: ['System Development', 'Managed IT', 'SEO & Content'],
     stack: ['Custom e-learning platform', 'Facial-recognition login', 'Live classes', 'Three-portal architecture'],
     challenge:
       "Online education for professional certification needs more than video hosting. Identity verification matters because you are certifying a real person. Live interaction matters because questions can't wait until after class. Exam infrastructure matters because practice tests are part of the value the student is paying for. Off-the-shelf video platforms cover none of this together.",
     solution:
-      "We built a custom web application with three distinct user portals (student, instructor, admin) and facial-recognition login for student identity. Live classes run alongside pre-recorded video lectures with downloadable materials, automated video syncing, and real-time note-taking layered on top of the lecture stream. Administrators manage everything — lectures, classes, exam papers, advertisements — from one back office, while students access recordings, live sessions, and instructor support through one dashboard.",
+      "We built a custom web application with three distinct user portals (student, instructor, admin) and facial-recognition login for student identity. Live classes run alongside pre-recorded video lectures with downloadable materials, automated video syncing, and real-time note-taking layered on top of the lecture stream. Administrators manage everything — lectures, classes, exam papers, advertisements — from one back office, while students access recordings, live sessions, and instructor support through one dashboard. Part of an ongoing engagement with the same client.",
     shortDescription:
       'Custom e-learning platform with facial-recognition login, live classes, and a three-portal architecture for professional certification programs.',
     seoTitle: 'Online Education — Custom E-Learning Platform with Biometric Auth',
@@ -720,7 +743,7 @@ export const caseStudies: CaseStudyItem[] = [
     client: 'Floo',
     category: 'Custom System',
     liveUrl: 'https://floo.jinshantravel.com.au/login',
-    services: ['System Development'],
+    services: ['System Development', 'Managed IT'],
     stack: ['Custom business management platform', 'CRM + quoting + invoicing + inventory', 'Role-based permissions'],
     challenge:
       "Small operating businesses end up running on a tangle of separate tools — one for customers, one for quotes, one for orders, one for invoicing, one for inventory. Each tool is fine on its own, but the reconciliation cost between them is what burns the owner's time. Floo had to be one system that owned the full operational loop.",
@@ -732,8 +755,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoDescription:
       'A custom business management platform covering CRM, quoting, orders, invoicing, products, suppliers, and reporting (P&L) under one data model. Built by Pixdyne.',
     img: '',
-    cardSize: 'featured',
-    featured: true,
+    cardSize: 'small',
     gallery: [
       { src: '/projects/Floo_Login.png', caption: 'Login', alt: 'Floo login page' },
       { src: '/projects/Floo_Order.png', caption: 'Customer order', alt: 'Floo customer order interface' },

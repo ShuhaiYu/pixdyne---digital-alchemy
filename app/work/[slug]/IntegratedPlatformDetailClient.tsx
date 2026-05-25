@@ -196,7 +196,7 @@ export const IntegratedPlatformDetailClient: React.FC<IntegratedPlatformDetailCl
         <section className={`${CONTAINER_OUTER} pt-20 md:pt-28`}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
             <div className={figureForChallenge ? 'lg:col-span-7' : 'lg:col-span-12 max-w-3xl'}>
-              <NarrativeSection number="01" title="The challenge" body={work.challenge} />
+              <NarrativeSection number="01" title="About the client" body={work.challenge} />
             </div>
             {figureForChallenge && (
               <div className="lg:col-span-5 lg:pt-16">
@@ -217,7 +217,7 @@ export const IntegratedPlatformDetailClient: React.FC<IntegratedPlatformDetailCl
               </div>
             )}
             <div className={figureForSolution ? 'lg:col-span-7' : 'lg:col-span-12 max-w-3xl'}>
-              <NarrativeSection number="02" title="What we built" body={work.solution} />
+              <NarrativeSection number="02" title="What we delivered" body={work.solution} />
             </div>
           </div>
         </section>

@@ -179,7 +179,7 @@ SEO surfaces (CLAUDE.md §14):
 
 - [ ] Every modified `page.tsx` has `title` (≤ 60 chars), `description` (≤ 155 chars), `alternates.canonical`, `openGraph`, and explicit `twitter.card`.
 - [ ] Primary cluster keyword from §14.7 appears in title + H1 + first paragraph of the page.
-- [ ] NAP fields (Pixdyne, 294 Clayton Rd Clayton VIC 3169, info@pixdyne.com, ABN 96 690 116 584) are not duplicated as inline literals — they live in `lib/seo/schema.ts` and the legal pages only.
+- [ ] NAP fields (name, address, email, phone, ABN) are not duplicated as inline literals anywhere — they live exclusively in `lib/data/business.ts` (`BUSINESS` and `BUSINESS_FORMATTED`). Every other surface imports from there. A grep for the address / email / phone / ABN string outside the constants file (other than CLAUDE.md and AGENTS.md governance copies) is a truth-auditor block. See CLAUDE.md §14.1.
 - [ ] Required schema for the route type is emitted (root: `ProfessionalService` + `WebSite`; service: `Service`/`Product` + `BreadcrumbList`; work: `CreativeWork` + `BreadcrumbList`; blog: `Article` + `BreadcrumbList`).
 - [ ] No invented `aggregateRating`, `review`, `priceRange`, `openingHoursSpecification`, or unverified `sameAs`.
 - [ ] No placeholder `verification.google` string shipped — leave commented out until real token is issued.

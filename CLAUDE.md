@@ -227,8 +227,9 @@ Centralised types live in `types/index.ts`.
 
 - `<!-- TBD: top navigation menu items — owner has not finalised -->`
 - `<!-- TBD: OnlyPixAI presentation on homepage (section vs. dedicated page) — owner has not finalised -->`
-- `<!-- TBD: /about page — owner has not finalised -->`
 - `<!-- TBD: Sanity CMS integration — workspace convention is to share Sanity studio at pixdyne-dashboard, currently not wired up here -->`
+
+> `/about` is now live (route shipped, in sitemap, renders `AboutSection`). No longer pending — content may still evolve, but the route is confirmed. See §13 (2026-05-25).
 
 ---
 
@@ -238,7 +239,7 @@ Centralised types live in `types/index.ts`.
 
 - `metadataBase`, per-page canonical, Open Graph, Twitter card
 - `robots.txt` and `sitemap.xml` routes (dynamic + static)
-- JSON-LD: `ProfessionalService` (root, covers `LocalBusiness` subtype with full address + ABN + areaServed Melbourne/VIC/AU), `WebSite`, `Service`, `CreativeWork`, `Article`, `BreadcrumbList`
+- JSON-LD, **server-rendered into static HTML** via plain `<script type="application/ld+json">` in Server Components (NOT client-injected via `next/script` — so non-JS AI crawlers like GPTBot/PerplexityBot/ClaudeBot read it from the raw HTML): `ProfessionalService` (root, covers `LocalBusiness` subtype with full address + ABN + areaServed Melbourne/VIC/AU), `WebSite`, `Service`, `FAQPage`, `CreativeWork`, `Article`, `BreadcrumbList`. **Never re-introduce `next/script` `<Script>` for JSON-LD — it injects client-side and is invisible to non-JS crawlers (see §13, 2026-05-25).**
 - Skip-to-main-content link, `prefers-reduced-motion`, focus-visible outlines
 - Australian English copy, AU locale OG, `en_AU` declared
 
@@ -248,8 +249,9 @@ Centralised types live in `types/index.ts`.
 - Per-service 1200×630 landscape OG images are not produced. Service detail pages fall back to the 1080×1080 square. Once landscape variants exist, upgrade Twitter card to `summary_large_image` per service.
 - `sameAs` (X / LinkedIn) is intentionally absent. Add only after the handles are verified to exist.
 - Google Business Profile is not claimed. Required for Local SEO — see §14.9.
-- FAQ content per service is missing. Once written, emit `FAQPage` schema (slot reserved in `lib/seo/schema.ts`).
 - `AggregateRating` is intentionally absent. Do not add until at least 5 verifiable reviews exist.
+
+(FAQ content now exists for all four services and `FAQPage` is emitted server-side where present — `generateFAQSchema` returns `null` for empty arrays, so no empty stub ships.)
 
 **Phase 2 SEO scope** (active): Melbourne local SEO citations, GEO (generative engine optimisation), Google Business Profile claim, blog content programme. Governance rules in §14.
 
@@ -287,6 +289,9 @@ For any non-trivial change, follow this protocol:
 - **TBD** — Verified social handles for `sameAs` schema (@pixdyne, linkedin.com/company/pixdyne).
 - **2026-05-13** — SEO governance formalised in Section 14. Section 11 refreshed to current state (most of the previously-listed "known issues" were already resolved between 2026-05-08 and 2026-05-10). Long-term rules now cover NAP consistency, per-page metadata template, mandatory schema coverage by route, URL conventions, heading hierarchy, image SEO, keyword framework (target-customer aligned), performance budgets, local SEO checklist, GEO rules, blog content production, and audit cadence.
 - **2026-05-13** — Contact promoted from homepage sticky section to standalone `/contact` route. Driven by the new sitewide SiteFooter (which now owns NAP + legal links + copyright), making the homepage's `<ContactSection />` a duplication. All CTAs and nav links migrated from `#contact` / `/#contact` to `/contact`. ContactSection's own bottom legal/copyright strip removed — that responsibility now lives in SiteFooter only.
+- **2026-05-13** — Contact form wired to Resend. Notification email lands at info@pixdyne.com with `From: Pixdyne Contact <support@mail.pixdyne.com>` and `Reply-To` set to the form submitter so Gmail "Reply" goes directly to the lead. IP-granular sliding-window rate limit (5 requests / 10 min per IP) in `lib/rate-limit.ts` gates the route before the body is even parsed. In-memory `Map`, fine for low-traffic marketing site; swap for Upstash Redis if multi-instance state matters later.
+- **2026-05-13** — NAP single source of truth tightened. New `lib/data/business.ts` holds `BUSINESS` + `BUSINESS_FORMATTED`; schema.ts, both legal pages, SiteFooter, and ContactSection all import from there instead of hardcoding literals. Phone number (+61 410 510 751) added to the NAP contract — previously it was floating in two surfaces with no governance. §14.1 rewritten: any address/email/phone/ABN literal anywhere outside the constants file is now a truth-auditor block. §14.2 clarified to recognise file-based `opengraph-image.tsx` as the OG image source (Next.js auto-merges). Hero sr-only GEO prose adjusted: "businesses across Australia" → "businesses in Melbourne and across Australia" to keep the Melbourne anchor explicit. Service detail FAQ accordion: stable key + WebKit details-marker suppression for older iOS Safari. Root `opengraph-image.tsx` dropped `runtime = 'edge'` to align with the per-service generator (Vercel current guidance prefers Fluid Compute).
+- **2026-05-25** — SEO/GEO audit fixes shipped (commit `76acfd5`) and verified live. (1) **JSON-LD delivery fixed** — every route was injecting structured data client-side via `next/script` `<Script>`, leaving zero `<script type="application/ld+json">` tags in the server HTML (invisible to non-JS AI crawlers — the exact GEO audience). Converted all of `app/layout.tsx` + the 7 page files to plain `<script>` in Server Components. Verified in production: home (ProfessionalService + WebSite), `/services/[slug]` (+ Service + BreadcrumbList + FAQPage), `/work/[slug]` (+ CreativeWork + BreadcrumbList), `/blog/[slug]` (+ Article + BreadcrumbList), `/about` & `/contact` (+ BreadcrumbList). §11 corrected accordingly — schema had been listed as "in place" but was client-injected. (2) **Domain canonicalisation fixed** — Vercel primary domain flipped to apex `pixdyne.com`; `www.pixdyne.com` now **308**-redirects to apex (previously apex → www via **307**), aligning the served host with canonical tags, sitemap, and robots `Host`. (3) **Home keyword** — title changed `Pixdyne | Digital Alchemy` → `Pixdyne | Melbourne Technology Partner` (§14.2 primary cluster in title); hero kicker now surfaces "Melbourne Technology Partner" at first paint (§14.5/§14.10) while keeping the Digital Alchemy tagline and Est. 2018. (4) Doc drift reconciled: `/about` confirmed live (removed from §10 pending); FAQ content now exists for all four services and FAQPage ships (removed from §11 gaps).
 
 ---
 
@@ -296,21 +301,29 @@ SEO is a brand asset for this site, not a finishing layer. Every public page, sc
 
 ### 14.1 NAP Consistency (single source of truth)
 
-These four values are the canonical business identity. They appear in exactly four surfaces and must match byte-for-byte:
+Canonical business identity lives in **`lib/data/business.ts`** (`BUSINESS` and `BUSINESS_FORMATTED` exports). Every NAP-bearing surface imports from there — no exceptions, no inline duplicates.
+
+Canonical values:
 
 - **Name:** Pixdyne
 - **Address:** 294 Clayton Rd, Clayton VIC 3169, Australia
 - **Email:** info@pixdyne.com
+- **Phone:** +61 410 510 751 (display) / +61410510751 (`tel:`) / +61-410-510-751 (schema.org)
 - **ABN:** 96 690 116 584
+
+To change any field, edit `lib/data/business.ts` only. All consumers re-render automatically.
+
+Current consumers (kept here for audit purposes — not for editing):
 
 | Surface | File |
 |---|---|
 | Organisation schema | `lib/seo/schema.ts` → `generateOrganizationSchema()` |
 | Privacy policy | `app/legal/privacy/page.tsx` |
 | Terms of service | `app/legal/terms/page.tsx` |
-| Footer (when one exists) | TBD |
+| Site footer | `components/layout/SiteFooter.tsx` |
+| Contact page section | `components/sections/ContactSection.tsx` |
 
-If any field changes, update **all** surfaces in a single commit. No NAP value may be hardcoded outside these four files.
+**No NAP literal may be hardcoded outside `lib/data/business.ts`.** A grep for the address string, email string, phone string, or ABN string anywhere else (other than the governance files themselves — this CLAUDE.md and AGENTS.md) is a truth-auditor block.
 
 ### 14.2 Per-Page Metadata Template (mandatory)
 
@@ -319,7 +332,7 @@ Every new `page.tsx` (static route or `generateMetadata` for dynamic) must expor
 - `title` — ≤ 60 chars. Pattern: `"{Page intent} | Pixdyne"` or `"{Page intent} — {Qualifier}"`. The page's primary cluster keyword (see §14.7) must appear in the title.
 - `description` — ≤ 155 chars. One sentence: value proposition + location anchor + canonical service name where applicable.
 - `alternates.canonical` — absolute URL `https://pixdyne.com/...`, no trailing slash except root, lowercase.
-- `openGraph` — `title`, `description`, `url`, at least one `images` entry. `locale: 'en_AU'` is inherited from root layout.
+- `openGraph` — `title`, `description`, `url`. `images` is satisfied either by an explicit `images` entry on the metadata object **or** by an `app/.../opengraph-image.tsx` file co-located with the route (Next.js auto-merges the file-based image into `og:image`). `locale: 'en_AU'` is inherited from root layout.
 - `twitter.card` — `'summary_large_image'` when a 1200×630 landscape OG image exists for the page; `'summary'` when only the 1080×1080 square fallback is in use.
 
 Missing any of the above is a truth-auditor failure.

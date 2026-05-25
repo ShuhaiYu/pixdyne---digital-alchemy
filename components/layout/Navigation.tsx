@@ -1,9 +1,65 @@
 'use client';
 
+// Site-wide navigation.
+//   * Desktop (>= md): inline horizontal nav restored. Top-level items
+//     (Services, Work, About, Journal) sit inline in the bar; Services
+//     opens a hover/focus dropdown listing the four service/product detail
+//     pages. A single "Start Project" CTA routes to /contact (Contact is
+//     not duplicated as a text link). Home is omitted — the logo is home.
+//   * The bar is transparent on desktop with mix-blend-difference so the
+//     logo + inline links invert against whatever background scrolls
+//     beneath them. Warm-black/blur fallback on mobile.
+//   * The Services dropdown is rendered OUTSIDE the mix-blend bar (a fixed
+//     sibling positioned against the trigger's measured rect) — otherwise
+//     the blend mode would invert the panel and make it unreadable.
+//   * Mobile (< md): hamburger trigger opens the fullscreen overlay menu.
+//     The overlay is md:hidden so a stale isOpen after a mobile->desktop
+//     resize can never trap a desktop user.
+//   * Footer strip reads "Melbourne · Australia" (CLAUDE.md §6 rule 11).
+
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
+import { BUSINESS } from '@/lib/data/business';
+
+interface SubItem {
+  href: string;
+  label: string;
+  kicker: 'SERVICE' | 'PRODUCT';
+}
+
+interface MenuItem {
+  href: string;
+  label: string;
+  subItems?: SubItem[];
+}
+
+const SERVICE_SUBITEMS: SubItem[] = [
+  { href: '/services/web-development', label: 'Web Development', kicker: 'SERVICE' },
+  { href: '/services/system-development', label: 'System Development', kicker: 'SERVICE' },
+  { href: '/services/operations', label: 'Operations', kicker: 'SERVICE' },
+  { href: '/services/onlypixai', label: 'OnlyPixAI', kicker: 'PRODUCT' }
+];
+
+// Full IA for the mobile overlay (includes Home + Contact).
+const MENU_ITEMS: MenuItem[] = [
+  { href: '/', label: 'Home' },
+  { href: '/services', label: 'Services', subItems: SERVICE_SUBITEMS },
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Journal' },
+  { href: '/contact', label: 'Contact' }
+];
+
+// Desktop inline nav: Home is the logo, Contact is the CTA — so neither
+// is repeated here. Services carries the dropdown.
+const DESKTOP_ITEMS: MenuItem[] = [
+  { href: '/services', label: 'Services', subItems: SERVICE_SUBITEMS },
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Journal' }
+];
 
 export const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,6 +70,33 @@ export const Navigation: React.FC = () => {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
 
+  // --- Desktop Services dropdown ---
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [panelPos, setPanelPos] = useState<{ left: number; top: number } | null>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const measureServices = useCallback(() => {
+    const r = servicesRef.current?.getBoundingClientRect();
+    if (r) setPanelPos({ left: r.left, top: r.bottom + 10 });
+  }, []);
+
+  const openServices = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    measureServices();
+    setServicesOpen(true);
+  }, [measureServices]);
+
+  const scheduleCloseServices = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setServicesOpen(false), 140);
+  }, []);
+
+  const closeServicesNow = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(false);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -22,10 +105,20 @@ export const Navigation: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Focus management: move focus into menu when opened, back to trigger when closed
+  // Keep the dropdown anchored to the trigger as the bar height changes
+  // (scroll shrinks padding) or the viewport resizes.
+  useEffect(() => {
+    if (!servicesOpen) return;
+    window.addEventListener('resize', measureServices);
+    window.addEventListener('scroll', measureServices, { passive: true });
+    return () => {
+      window.removeEventListener('resize', measureServices);
+      window.removeEventListener('scroll', measureServices);
+    };
+  }, [servicesOpen, measureServices]);
+
   useEffect(() => {
     if (isOpen) {
-      // Small delay to let the transition start before focusing
       const timer = setTimeout(() => closeButtonRef.current?.focus(), 100);
       return () => clearTimeout(timer);
     }
@@ -33,42 +126,37 @@ export const Navigation: React.FC = () => {
 
   const closeMenu = useCallback(() => {
     setIsOpen(false);
-    // Return focus to the menu trigger button
     setTimeout(() => openButtonRef.current?.focus(), 100);
   }, []);
 
-  // Escape key closes the menu
+  // Close both the overlay and the desktop dropdown when the route changes.
   useEffect(() => {
-    if (!isOpen) return;
+    setIsOpen(false);
+    setServicesOpen(false);
+  }, [pathname]);
 
+  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        closeMenu();
-      }
+      if (e.key !== 'Escape') return;
+      if (isOpen) closeMenu();
+      if (servicesOpen) closeServicesNow();
     };
-
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, closeMenu]);
+  }, [isOpen, servicesOpen, closeMenu, closeServicesNow]);
 
-  // Focus trap within the open menu
   useEffect(() => {
     if (!isOpen || !menuRef.current) return;
-
     const handleTabTrap = (e: KeyboardEvent) => {
       if (e.key !== 'Tab') return;
-
       const menu = menuRef.current;
       if (!menu) return;
-
       const focusable = menu.querySelectorAll<HTMLElement>(
         'button, a, [tabindex]:not([tabindex="-1"])'
       );
       if (focusable.length === 0) return;
-
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-
       if (e.shiftKey && document.activeElement === first) {
         e.preventDefault();
         last.focus();
@@ -77,192 +165,249 @@ export const Navigation: React.FC = () => {
         first.focus();
       }
     };
-
     document.addEventListener('keydown', handleTabTrap);
     return () => document.removeEventListener('keydown', handleTabTrap);
   }, [isOpen]);
 
-  // Prevent body scroll when menu is open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isOpen]);
 
-  const scrollToSection = (id: string) => {
-    closeMenu();
-    if (pathname !== '/') {
-      window.location.href = `/#${id}`;
-    } else {
-      const element = document.getElementById(id);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      } else if (id === 'home') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
+  const isActiveRoute = (href: string): boolean => {
+    if (href === '/') return pathname === '/';
+    return pathname === href || pathname.startsWith(`${href}/`);
   };
-
-  // Items with `id` scroll to a same-page anchor on the homepage (or
-  // navigate back to /#<id> when on another route). Items with `href`
-  // use full Next.js routing — "Contact" is now a standalone /contact
-  // route, not a homepage anchor. "Home" is omitted from the inline
-  // nav because the logo on the left already routes there.
-  type MenuItem = { label: string; id?: string; href?: string };
-  const menuItems: MenuItem[] = [
-    { label: 'Services', id: 'services' },
-    { label: 'Work', href: '/work' },
-    { label: 'Approach', id: 'approach' },
-    { label: 'OnlyPixAI', id: 'onlypixai' },
-    // { label: 'Insights', id: 'insights' },
-    { label: 'Contact', href: '/contact' },
-  ];
 
   return (
     <>
       <nav
         aria-label="Main navigation"
-        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 text-white px-6 flex justify-between items-center bg-brand-black/60 backdrop-blur-sm ${scrolled ? 'py-4' : 'py-6'}`}
+        className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 text-brand-text px-6 flex justify-between items-center bg-brand-black/60 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:mix-blend-difference ${
+          scrolled ? 'py-4' : 'py-6'
+        }`}
       >
-        <Link href="/" className="flex items-center gap-4 group">
+        <Link href="/" className="flex items-center gap-4 group" aria-label="Pixdyne home">
           <img
-            // Initial state uses logo-400.png (dark mark), scrolled
-            // state swaps to logo.png (white mark). Backdrop is
-            // translucent dark in both states (per owner direction);
-            // the dark mark still reads acceptably through the 40%
-            // bleed-through and gives the top of the page a more
-            // editorial feel before the visitor scrolls.
-            src={scrolled ? '/logo-400.png' : '/logo-400.png'}
+            src="/logo-400.png"
             alt="Pixdyne"
-            className="w-10 h-10 object-contain transition-opacity duration-300"
+            className="w-10 h-10 object-contain"
           />
           <span className="text-xl font-bold tracking-widest hidden sm:block">PIXDYNE</span>
         </Link>
 
-        {/* Desktop: inline horizontal nav. The fullscreen overlay
-            menu is kept for mobile only — see md:hidden on the
-            hamburger trigger below. OnlyPixAI is a brand wordmark
-            (CLAUDE.md rule 5) and is exempted from the uppercase
-            transform that the other nav items use. */}
-        <div className="hidden md:flex items-center gap-5 lg:gap-7">
-          {menuItems.map((item) => {
-            const isCta = item.label === 'Contact';
-            const isBrand = item.id === 'onlypixai';
-            const ctaClass =
-              'inline-flex items-center gap-2 text-xs lg:text-sm uppercase tracking-widest bg-brand-yellow text-black font-bold py-2.5 px-4 lg:py-3 lg:px-5 hover:bg-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded-sm group cursor-pointer';
-            const linkClass = `text-xs lg:text-sm tracking-widest text-white/85 hover:text-brand-yellow-hover transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer ${isBrand ? '' : 'uppercase'}`;
+        <div className="flex items-center gap-8">
+          {/* Desktop: inline horizontal nav. */}
+          <div className="hidden md:flex items-center gap-7 lg:gap-9">
+            {DESKTOP_ITEMS.map((item) => {
+              const active = isActiveRoute(item.href);
+              const linkClass = `text-xs lg:text-sm uppercase tracking-widest transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded ${
+                active ? 'text-brand-yellow' : 'hover:text-brand-yellow-hover'
+              }`;
 
-            if (item.href) {
+              if (item.subItems) {
+                return (
+                  <div
+                    key={item.href}
+                    ref={servicesRef}
+                    className="relative flex items-center"
+                    onMouseEnter={openServices}
+                    onMouseLeave={scheduleCloseServices}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-1 ${linkClass}`}
+                      aria-haspopup="true"
+                      aria-expanded={servicesOpen}
+                      aria-current={active ? 'page' : undefined}
+                      onFocus={openServices}
+                    >
+                      {item.label}
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`}
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  </div>
+                );
+              }
+
               return (
                 <Link
-                  key={item.label}
+                  key={item.href}
                   href={item.href}
-                  className={isCta ? ctaClass : linkClass}
-                  aria-label={isCta ? 'Get in touch — open the contact page' : item.label}
+                  className={linkClass}
+                  aria-current={active ? 'page' : undefined}
                 >
                   {item.label}
-                  {isCta && (
-                    <ArrowRight
-                      size={14}
-                      className="group-hover:translate-x-1 transition-transform"
-                      aria-hidden="true"
-                    />
-                  )}
                 </Link>
               );
-            }
+            })}
+          </div>
 
-            return (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id!)}
-                className={linkClass}
-                aria-label={`Scroll to ${item.label} section`}
-              >
-                {item.label}
-              </button>
-            );
-          })}
+          {/* Persistent CTA — routes to /contact. */}
+          <Link
+            href="/contact"
+            className="hidden md:flex items-center gap-2 text-sm uppercase tracking-widest hover:text-brand-yellow-hover active:scale-[0.98] transition-all group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
+            aria-label="Start a project — open the contact page"
+          >
+            Start Project
+            <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+          </Link>
+
+          {/* Mobile: hamburger trigger for the fullscreen overlay. */}
+          <button
+            ref={openButtonRef}
+            onClick={() => setIsOpen(true)}
+            className="md:hidden flex items-center gap-2 group min-h-[44px] min-w-[44px] justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer"
+            aria-label="Open navigation menu"
+            aria-expanded={isOpen}
+            aria-controls="main-menu"
+          >
+            <span className="hidden sm:block text-xs uppercase tracking-[0.2em]">Menu</span>
+            <Menu size={24} className="group-hover:text-brand-yellow-hover transition-colors" />
+          </button>
         </div>
-
-        {/* Mobile: hamburger trigger for the fullscreen overlay below. */}
-        <button
-          ref={openButtonRef}
-          onClick={() => setIsOpen(true)}
-          className="md:hidden flex items-center gap-2 group min-h-[44px] min-w-[44px] justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer"
-          aria-label="Open navigation menu"
-          aria-expanded={isOpen}
-          aria-controls="main-menu"
-        >
-          <span className="hidden sm:block text-xs uppercase tracking-[0.2em]">Menu</span>
-          <Menu size={24} className="group-hover:text-brand-yellow-hover transition-colors" />
-        </button>
       </nav>
 
-      {/* Full Screen Menu Overlay (mobile only — desktop uses the inline
-          nav above). `md:hidden` guarantees the overlay is removed from
-          the desktop layout entirely, so a stale isOpen=true after a
-          mobile→desktop viewport resize cannot leave the user trapped. */}
+      {/* Desktop Services dropdown — fixed sibling OUTSIDE the mix-blend nav
+          so its solid background stays readable. Positioned against the
+          trigger's measured rect. Hidden on mobile (overlay covers IA). */}
+      {panelPos && (
+        <div
+          className={`hidden md:block fixed z-[65] transition-all duration-200 ${
+            servicesOpen
+              ? 'opacity-100 translate-y-0 visible'
+              : 'opacity-0 -translate-y-2 invisible pointer-events-none'
+          }`}
+          style={{ left: panelPos.left, top: panelPos.top }}
+          onMouseEnter={openServices}
+          onMouseLeave={scheduleCloseServices}
+          role="menu"
+          aria-label="Services"
+        >
+          <ul className="min-w-[280px] bg-brand-black border border-brand-yellow/20 rounded-md shadow-2xl shadow-black/40 py-2">
+            {SERVICE_SUBITEMS.map((sub) => {
+              const subActive = pathname === sub.href;
+              return (
+                <li key={sub.href} role="none">
+                  <Link
+                    href={sub.href}
+                    role="menuitem"
+                    onClick={closeServicesNow}
+                    className={`flex items-center gap-3 px-5 py-3 transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-yellow ${
+                      subActive ? 'bg-brand-yellow/10' : 'hover:bg-brand-white/[0.06]'
+                    }`}
+                    aria-current={subActive ? 'page' : undefined}
+                  >
+                    <span className="text-[10px] font-mono tracking-widest text-brand-yellow/70 w-14 shrink-0">
+                      {sub.kicker}
+                    </span>
+                    <span
+                      className={`text-sm uppercase tracking-widest ${
+                        subActive ? 'text-brand-yellow' : 'text-brand-text/85'
+                      }`}
+                    >
+                      {sub.label}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {/* Fullscreen menu overlay — mobile only. */}
       <div
         id="main-menu"
         ref={menuRef}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className={`md:hidden fixed inset-0 bg-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] ${isOpen ? 'translate-y-0 visible' : '-translate-y-full invisible'}`}
+        className={`md:hidden fixed inset-0 bg-brand-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] overflow-y-auto ${
+          isOpen ? 'translate-y-0 visible' : '-translate-y-full invisible'
+        }`}
         aria-hidden={!isOpen}
       >
         <button
           ref={closeButtonRef}
-          className="absolute top-6 right-6 text-white hover:text-brand-yellow-hover transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
+          className="absolute top-6 right-6 text-brand-text hover:text-brand-yellow-hover transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer z-10"
           onClick={closeMenu}
           aria-label="Close navigation menu"
         >
           <X size={32} />
         </button>
 
-        <div className="h-full flex flex-col justify-center items-center gap-4 sm:gap-6 md:gap-8 p-4" role="navigation" aria-label="Main menu links">
-          {menuItems.map((item) => {
-            // OnlyPixAI exempted from uppercase per CLAUDE.md rule 5.
-            const isBrand = item.id === 'onlypixai';
-            const baseClass = `text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic text-transparent hover:text-brand-yellow-hover hover:tracking-wide transition-all duration-300 stroke-text focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px] cursor-pointer ${isBrand ? '' : 'uppercase'}`;
-            const strokeStyle = { WebkitTextStroke: '1px white' };
-
-            if (item.href) {
-              return (
+        <nav
+          role="navigation"
+          aria-label="Main menu links"
+          className="min-h-screen flex flex-col justify-center items-center gap-3 sm:gap-5 md:gap-6 px-6 py-24"
+        >
+          {MENU_ITEMS.map((item) => {
+            const active = isActiveRoute(item.href);
+            return (
+              <div key={item.href} className="flex flex-col items-center">
                 <Link
-                  key={item.label}
                   href={item.href}
                   onClick={closeMenu}
-                  className={baseClass}
-                  style={strokeStyle}
+                  className={`text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic stroke-text uppercase tracking-tight transition-all duration-300 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded min-h-[44px] ${
+                    active
+                      ? 'text-brand-yellow hover:tracking-wide'
+                      : 'text-transparent hover:text-brand-yellow-hover hover:tracking-wide'
+                  }`}
                   aria-label={`Open ${item.label} page`}
+                  aria-current={active ? 'page' : undefined}
                 >
                   {item.label}
                 </Link>
-              );
-            }
 
-            return (
-              <button
-                key={item.id}
-                className={baseClass}
-                style={strokeStyle}
-                onClick={() => scrollToSection(item.id!)}
-                aria-label={`Navigate to ${item.label} section`}
-              >
-                {item.label}
-              </button>
+                {item.subItems && (
+                  <ul className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 max-w-2xl">
+                    {item.subItems.map((sub) => {
+                      const subActive = pathname === sub.href;
+                      return (
+                        <li key={sub.href} className="flex items-center gap-3">
+                          <span
+                            aria-hidden="true"
+                            className="text-[10px] font-mono tracking-widest text-brand-yellow/70"
+                          >
+                            {sub.kicker}
+                          </span>
+                          <Link
+                            href={sub.href}
+                            onClick={closeMenu}
+                            className={`text-xs sm:text-sm uppercase tracking-widest py-1 transition-colors ${
+                              subActive
+                                ? 'text-brand-yellow'
+                                : 'text-brand-text/75 hover:text-brand-yellow-hover'
+                            }`}
+                            aria-current={subActive ? 'page' : undefined}
+                          >
+                            {sub.label}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </div>
             );
           })}
-        </div>
+        </nav>
 
-        <div className="absolute bottom-10 w-full px-10 flex justify-between text-white/50 text-xs uppercase tracking-widest">
+        <div className="absolute bottom-10 w-full px-10 flex justify-between text-brand-text/50 text-xs uppercase tracking-widest">
           <span>Pixdyne © {new Date().getFullYear()}</span>
-          <span>Melbourne · Australia</span>
+          <span>
+            {BUSINESS.address.locality} · {BUSINESS.address.country}
+          </span>
         </div>
       </div>
     </>

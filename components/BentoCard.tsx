@@ -72,7 +72,7 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
           </div>
 
           {/* Project Name with Decrypt Effect */}
-          <h3 className={`font-playfair font-bold text-white mb-2 ${
+          <h3 className={`font-playfair font-bold text-brand-text mb-2 ${
             size === 'featured' ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'
           }`}>
             <DecryptedText
@@ -80,14 +80,14 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
               animateOn="hover"
               speed={30}
               maxIterations={8}
-              className="text-white"
-              encryptedClassName="text-white/60"
+              className="text-brand-text"
+              encryptedClassName="text-brand-text/60"
             />
           </h3>
 
           {/* Short Description - Only for Featured */}
           {size === 'featured' && caseStudy.shortDescription && (
-            <p className="text-white/70 text-sm md:text-base mb-4 line-clamp-2">
+            <p className="text-brand-text/70 text-sm md:text-base mb-4 line-clamp-2">
               {caseStudy.shortDescription}
             </p>
           )}
@@ -98,7 +98,7 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
               {caseStudy.stack.slice(0, size === 'featured' ? 4 : 3).map((tech) => (
                 <span
                   key={tech}
-                  className="px-2 py-1 text-xs rounded-md bg-white/10 text-white/80 backdrop-blur-sm"
+                  className="px-2 py-1 text-xs rounded-md bg-brand-text/10 text-brand-text/80 backdrop-blur-sm"
                 >
                   {tech}
                 </span>
@@ -109,7 +109,7 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
           {/* Year — optional. Renders only when the owner has supplied
               a go-live year for the project. */}
           {size !== 'featured' && caseStudy.year && (
-            <p className="text-white/50 text-xs mt-3">{caseStudy.year}</p>
+            <p className="text-brand-text/50 text-xs mt-3">{caseStudy.year}</p>
           )}
         </div>
 
@@ -120,7 +120,7 @@ export default function BentoCard({ caseStudy, className = '' }: BentoCardProps)
           whileHover={{ x: 0, opacity: 1 }}
         >
           <svg
-            className="w-6 h-6 text-white"
+            className="w-6 h-6 text-brand-text"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

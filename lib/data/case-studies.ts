@@ -38,7 +38,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'EPM Offroad — Multi-Brand Shopify Storefront',
     seoDescription:
       'A Shopify storefront for off-road and overland accessories carrying aFe Power, Baja Designs, Eibach, KC HiLites and more under one back office. Built by Pixdyne.',
-    img: '',
+    img: '/work/epm-offroad.webp',
     cardSize: 'small'
   },
   {
@@ -59,7 +59,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'Tyre Boys — Size-First Shopify Tyre Storefront',
     seoDescription:
       'A Shopify tyre storefront built around a size finder so customers narrow by fitment before brand. Multi-brand inventory, native promotions, restock notifications. Built by Pixdyne.',
-    img: '',
+    img: '/work/tyre-boys.webp',
     cardSize: 'small'
   },
   {
@@ -80,7 +80,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'Pet Daddy — Shopify Store + Grooming Booking',
     seoDescription:
       "A Shopify storefront for a Surrey Hills pet boutique, with grooming bookings running inside the same back office as retail. Built by Pixdyne.",
-    img: '',
+    img: '/work/pet-daddy.webp',
     cardSize: 'small'
   },
   {
@@ -101,7 +101,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'Peppy Planet — Shopify Party-Booking Storefront',
     seoDescription:
       'A Shopify storefront for a Bayswater indoor play venue that sells entry tickets, party-room bookings, and after-hours hire through one checkout. Built by Pixdyne.',
-    img: '',
+    img: '/work/peppy-planet.webp',
     cardSize: 'small'
   },
   {
@@ -122,9 +122,8 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: '4WD Interiors — Fitment Configurator + B2B Shopify Storefront',
     seoDescription:
       'A Shopify storefront for premium 4WD cargo systems, with a vehicle fitment configurator, ADR compliance docs, and a B2B distributor portal. Built by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true
+    img: '/work/4wd-interiors.webp',
+    cardSize: 'wide'
   },
 
   // ─── Marketing sites ────────────────────────────────────────────────
@@ -146,7 +145,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'Promod Group — Modular Construction Marketing Site',
     seoDescription:
       'A B2B marketing site for an Australian modular construction company, built and operated by Pixdyne. Rebuild currently in progress.',
-    img: '',
+    img: '/work/promod-group.webp',
     cardSize: 'small'
   },
   {
@@ -167,7 +166,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'Goodmood Studio — Bilingual Cross-Border Marketing Site',
     seoDescription:
       'A bilingual (EN/中) marketing site for a Melbourne marketing agency working the China–Australia bridge. Built by Pixdyne.',
-    img: '',
+    img: '/work/good-mood-studio.webp',
     cardSize: 'small'
   },
   {
@@ -188,7 +187,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'Insight Idea — Bilingual Immigration Consultancy Site',
     seoDescription:
       'A bilingual (EN/中) marketing site for an Australian immigration consultancy. Credentials and success narratives carry the social proof. Built by Pixdyne.',
-    img: '',
+    img: '/work/insight-idea.webp',
     cardSize: 'small'
   },
   {
@@ -209,33 +208,11 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'Open Mat — Chinese-Market Brand Agency Site',
     seoDescription:
       'A marketing site for a Chinese-market brand agency, shipped on a .cn domain with ICP filing and China-friendly asset delivery. Built by Pixdyne.',
-    img: '',
+    img: '/work/open-mat.webp',
     cardSize: 'small'
   },
 
   // ─── Custom systems (large projects) ───────────────────────────────
-  {
-    id: '10',
-    slug: 'australian-whisky-auctions',
-    name: 'Australian Whisky Auctions',
-    client: 'Australian Whisky Auctions',
-    category: 'Custom System',
-    liveUrl: 'https://www.australianwhiskyauctions.com.au/',
-    services: ['System Development'],
-    stack: ['Custom auction software', 'Age-verification compliance', 'Spirits logistics', 'Ongoing development'],
-    challenge:
-      "The secondary whisky market in Australia is significant but fragmented — sellers wanted a real auction surface rather than a fixed-price store, and buyers needed a credible bidding flow with the compliance overhead that liquor sales require. There is no off-the-shelf 'whisky auction' platform; Shopify and other commerce platforms model fixed prices, not time-bound bidding with submission windows. The system had to be built.",
-    solution:
-      "We built the auction platform from scratch — a bespoke system covering submission windows for sellers, time-bound auctions for buyers, live auction viewing, age-verification compliance with Australian liquor law, and delivery and insurance handling tailored for spirits. Over 70,000 lots have moved through the platform since launch. Pixdyne continues to operate and extend the system as the auction format evolves.",
-    shortDescription:
-      'Bespoke whisky auction platform — submission windows, age verification, spirits logistics.',
-    seoTitle: 'Australian Whisky Auctions — Bespoke Auction Platform',
-    seoDescription:
-      'A bespoke auction platform built for the Australian secondary whisky market. Submission windows, age verification, spirits logistics, 70,000+ lots. Built and operated by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true
-  },
   {
     id: '11',
     slug: 'austin-education',
@@ -254,7 +231,7 @@ export const caseStudies: CaseStudyItem[] = [
     seoTitle: 'Austin Education — Custom Student Portal + Bilingual Site',
     seoDescription:
       "A custom web platform combining the public site, a student portal (My Austin), trial booking, an ATAR calculator, and bilingual (EN/中) presentation for a multi-campus VCE / UCAT tutoring business. Built and operated by Pixdyne.",
-    img: '',
+    img: '/work/austin-education.webp',
     cardSize: 'featured',
     featured: true
   },

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { CaseStudyItem } from '@/types';
-import BentoCard from '@/components/BentoCard';
+import { WorkCard } from '@/components/work/WorkCard';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
@@ -122,22 +122,27 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
   }, []);
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-brand-black text-white">
-      {/* Header. Container width and horizontal padding scale match
-          TeamSection ("How we work") so every interior page shares
-          the same editorial gutter on wide displays. */}
-      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12 pt-32 pb-12 md:pb-16">
-        <div className="work-header border-b border-white/10 pb-10 md:pb-12">
-          <span className="text-brand-yellow text-xs font-mono tracking-[0.25em] uppercase mb-3 block">
-            Selected case studies
+    <main className="min-h-screen bg-brand-black text-brand-text">
+      {/* Header */}
+      <div className="pt-32 pb-12 px-4 md:px-12">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-brand-muted hover:text-brand-text transition-colors mb-8"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16l-4-4m0 0l4-4m-4 4h18" />
+          </svg>
+          Back to Home
+        </Link>
+
+        <div className="border-b border-white/20 pb-8">
+          <span className="text-brand-yellow text-xs font-mono tracking-wider mb-2 block">
+            SELECTED CASE STUDIES
           </span>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif italic leading-[1.02]">
-            Our Work
-          </h1>
-          <p className="text-white/70 text-lg md:text-xl max-w-3xl leading-relaxed mt-6">
-            Selected projects from Pixdyne. Websites, online stores, custom systems,
-            and the integrated platforms that combine them — built and operated
-            alongside our clients since 2018.
+          <h1 className="text-5xl md:text-7xl font-serif italic mb-4">Our Work</h1>
+          <p className="text-brand-muted text-lg max-w-2xl leading-relaxed">
+            Selected projects from Pixdyne — websites, custom systems, and ongoing
+            operations. Built and operated alongside our clients since 2018.
           </p>
         </div>
       </div>
@@ -149,17 +154,17 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
             <span className="text-brand-yellow text-xs font-mono tracking-widest uppercase block mb-3">
               Coming soon
             </span>
-            <h2 className="text-2xl md:text-3xl font-serif italic text-white mb-4 leading-tight">
+            <h2 className="text-2xl md:text-3xl font-serif italic text-brand-text mb-4 leading-tight">
               Real client work, on the way
             </h2>
-            <p className="text-white/60 text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto">
+            <p className="text-brand-muted text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto">
               We are putting together a set of case studies that fairly represent
               the work, the constraints, and the people involved. Until that is
               ready, we would rather show nothing than show filler.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow font-mono text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-black transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-brand-black transition-colors"
             >
               Talk to us in the meantime
               <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -167,93 +172,32 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
               </svg>
             </Link>
           </div>
-        </div>
-      ) : (
-        <>
-          {grouped.map((group, index) => (
-            <CategorySection
-              key={group.category}
-              label={group.label}
-              prose={group.prose}
-              items={group.items}
-              flagship={group.flagship}
-              isFirst={index === 0}
-              isLast={index === grouped.length - 1}
-            />
-          ))}
-        </>
-      )}
-
-      {/* Closing CTA. Same container so the divider line and inner
-          content all align on the same 7xl rail. */}
-      <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12 py-16 md:py-24 text-center">
-          <h2 className="text-3xl md:text-5xl font-serif italic mb-4">
-            Have a project in mind?
-          </h2>
-          <p className="text-white/60 mb-8 max-w-xl mx-auto leading-relaxed">
-            Send us a brief and we will come back with a scope, timeline, and quote.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-brand-yellow text-black font-medium rounded-full hover:bg-brand-yellow-hover transition-colors"
-          >
-            Start a Conversation
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </Link>
-        </div>
+        ) : (
+          // Masonry via CSS columns — cards keep their natural height, so
+          // screenshots show whole and the taller text-only cards stagger
+          // the waterfall. No JS layout engine, nothing to ship.
+          <div className="columns-1 gap-6 sm:columns-2 xl:columns-3 [column-fill:_balance]">
+            {caseStudies.map((project) => (
+              <div key={project.id} className="work-card mb-6 break-inside-avoid">
+                <WorkCard caseStudy={project} />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </main>
   );
 }
 
-// One category block — heading + prose + grid. Flagship groups (only
-// Integrated Platform for now) get a 2-col grid on lg so the cards
-// land bigger; other groups stay at 3-col.
-interface CategorySectionProps {
-  label: string;
-  prose: string;
-  items: CaseStudyItem[];
-  flagship?: boolean;
-  isFirst: boolean;
-  isLast: boolean;
-}
-
-function CategorySection({
-  label,
-  prose,
-  items,
-  flagship,
-  isFirst,
-  isLast
-}: CategorySectionProps) {
-  return (
-    <section
-      className={`work-group ${isFirst ? 'pt-4' : 'pt-16 md:pt-24 border-t border-white/10'} ${
-        isLast ? 'pb-16 md:pb-24' : 'pb-4'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12">
-        <div className="work-group-heading flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 md:mb-14">
-          <div>
-            <span className="text-brand-yellow text-xs font-mono tracking-[0.25em] uppercase mb-3 block">
-              {flagship ? 'Flagship' : 'Category'} · {items.length} {items.length === 1 ? 'project' : 'projects'}
-            </span>
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif italic leading-[1.05]">
-              {label}
-            </h2>
-          </div>
-          <p className="text-white/65 text-base md:text-lg max-w-md leading-relaxed">
-            {prose}
-          </p>
-        </div>
-
-        <div
-          className={`grid grid-cols-1 ${
-            flagship ? 'md:grid-cols-2' : 'md:grid-cols-2 lg:grid-cols-3'
-          } gap-6`}
+      {/* Contact CTA */}
+      <div className="border-t border-white/20 px-4 md:px-12 py-16 text-center">
+        <h2 className="text-3xl md:text-4xl font-serif italic mb-4">Have a project in mind?</h2>
+        <p className="text-brand-muted mb-8 max-w-xl mx-auto">
+          Send us a brief and we will come back with a scope, timeline, and quote.
+        </p>
+        <Link
+          href="/contact"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-brand-yellow text-brand-black font-medium rounded-full hover:bg-brand-yellow-hover transition-colors"
         >
           {items.map((project) => (
             <div key={project.id} className="work-card">

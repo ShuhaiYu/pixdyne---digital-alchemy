@@ -11,14 +11,9 @@ interface WorkDetailClientProps {
   work: CaseStudyItem;
 }
 
-// Editorial case-study detail surface.
-//   - max-w-7xl   for hero text, metadata strip, asymmetric body, closing CTA
-//   - max-w-5xl   for bottom-row figures (anything beyond the two body slots)
-//   - max-w-3xl   for hero lede + when no figure is paired with a narrative
-const CONTAINER_OUTER = 'max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12';
-const CONTAINER_GALLERY = 'max-w-5xl mx-auto w-full px-4 md:px-8 lg:px-12';
-
-type GalleryItem = NonNullable<CaseStudyItem['gallery']>[number];
+// Screenshots are 1440x900 viewport captures (16:10).
+const SHOT_W = 1440;
+const SHOT_H = 900;
 
 export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -42,136 +37,109 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
       const tl = gsap.timeline();
       if (hasHero) {
         tl.from('.hero-img', {
-          scale: 1.08,
+          scale: 1.06,
           opacity: 0,
           duration: 1.1,
           ease: 'power2.out'
         });
       }
       tl.from(
-        '.reveal',
-        { y: 32, opacity: 0, stagger: 0.08, duration: 0.7, ease: 'power3.out' },
-        hasHero ? '-=0.8' : 0
+        '.work-content',
+        { y: 40, opacity: 0, stagger: 0.1, duration: 0.8, ease: 'power3.out' },
+        hasHero ? '-=0.7' : 0
       );
     }, containerRef);
     return () => ctx.revert();
   }, [work, hasHero]);
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-brand-black text-white">
-      {/* Optional Pixdyne-shot hero image. Skipped for projects where
-          only smartmockup screenshots exist — those land inside the
-          body as inline gallery figures instead of pretending to be
-          full-bleed hero art. */}
-      {hasHero && (
-        <div className="h-[60vh] md:h-[75vh] w-full overflow-hidden relative">
-          <Image
-            src={work.img!}
-            alt={`${work.name} — ${work.category} project by Pixdyne`}
-            fill
-            className="hero-img object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-black via-brand-black/40 to-transparent" />
-        </div>
-      )}
+    <div ref={containerRef} className="min-h-screen bg-brand-black text-brand-text pb-20 pt-20">
+      {/* Sub-navigation. Back link points to the /work index. */}
+      <div className="w-full px-6 md:px-12 py-6">
+        <Link
+          href="/work"
+          className="flex w-fit items-center gap-2 text-sm font-mono text-brand-text hover:text-brand-yellow-hover transition-colors"
+        >
+          <ArrowLeft size={16} />
+          Back to Work
+        </Link>
+      </div>
 
-      {/* Hero / lede. Editorial type-led header. */}
-      <header className={`${CONTAINER_OUTER} pt-32 md:pt-36 pb-12 md:pb-16`}>
-        <span className="reveal block font-mono text-xs tracking-[0.25em] uppercase text-brand-yellow mb-6">
-          {work.category} · Case study
+      {/* Header. Text-first so the project, what it is, and the live link
+          are in first paint, never hidden behind the screenshot. */}
+      <header className="w-full px-6 md:px-12 pt-6 md:pt-10 pb-10 md:pb-14 border-b border-white/10">
+        <span className="work-content block text-brand-yellow font-mono text-xs md:text-sm tracking-widest uppercase mb-3">
+          {work.category}
         </span>
-
-        <h1 className="reveal font-serif italic text-white leading-[1.02] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+        <h1 className="work-content text-5xl md:text-7xl lg:text-8xl font-serif italic leading-[1.05] max-w-5xl">
           {work.name}
         </h1>
-
         {work.shortDescription && (
-          <p className="reveal mt-8 max-w-3xl text-lg md:text-xl text-white/70 leading-relaxed">
+          <p className="work-content mt-6 text-lg md:text-xl text-brand-text/70 max-w-3xl leading-relaxed">
             {work.shortDescription}
           </p>
         )}
+        {work.liveUrl && (
+          <a
+            href={work.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="work-content group mt-8 inline-flex items-center gap-2 rounded-full bg-brand-yellow px-6 py-3 text-sm font-medium text-brand-black transition-colors hover:bg-brand-yellow-hover"
+          >
+            Visit live site
+            <ArrowUpRight
+              size={16}
+              className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+            />
+          </a>
+        )}
       </header>
 
-      {/* Metadata strip. */}
-      <section className={`${CONTAINER_OUTER} pb-16 md:pb-24`}>
-        <dl className="reveal grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10 border-t border-white/10 pt-10">
-          <MetaRow label="Client" value={work.client} />
-
-          {work.stack && work.stack.length > 0 && (
-            <MetaRow label="Stack" value={work.stack.join(' · ')} />
-          )}
-
-          {work.liveUrl && (
-            <MetaRow
-              label="Visit"
-              value={
-                <a
-                  href={work.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-brand-yellow hover:text-white transition-colors"
-                >
-                  {liveDisplay}
-                  <ArrowUpRight size={14} strokeWidth={1.5} aria-hidden="true" />
-                </a>
-              }
+      {/* Full screenshot — shown whole at its natural 16:10 ratio, framed
+          on the warm surface. No object-cover, so neither side is clipped. */}
+      {hasHero && (
+        <div className="px-6 md:px-12 pt-10 md:pt-14">
+          <figure className="hero-img mx-auto max-w-6xl overflow-hidden rounded-xl border border-white/10 bg-brand-surface shadow-2xl shadow-black/40">
+            <Image
+              src={work.img!}
+              alt={`${work.name} — homepage, captured live`}
+              width={SHOT_W}
+              height={SHOT_H}
+              sizes="(max-width: 1152px) 100vw, 1152px"
+              className="h-auto w-full"
+              priority
             />
-          )}
+          </figure>
+        </div>
+      )}
 
-          {work.services && work.services.length > 0 && (
-            <MetaRow
-              label="Capability"
-              value={
-                <div className="flex flex-wrap gap-2">
-                  {work.services.map((svc) => {
-                    const slug = svc.toLowerCase().replace(/\s+/g, '-');
-                    return (
-                      <Link
-                        key={svc}
-                        href={`/services/${slug}`}
-                        className="inline-flex items-center gap-1.5 text-white hover:text-brand-yellow transition-colors"
-                      >
-                        {svc}
-                        <ArrowUpRight size={12} strokeWidth={1.5} aria-hidden="true" />
-                      </Link>
-                    );
-                  })}
-                </div>
-              }
-            />
-          )}
-        </dl>
-      </section>
-
-      {/* Body — asymmetric narrative + figure pairs. Each section uses
-          a 12-col grid: 7 cols of text + 5 cols of image, alternating
-          left/right between sections to create a zigzag editorial
-          rhythm. Falls back to a single-column prose width when no
-          figure is supplied for a section. */}
-      <div className="bg-brand-black border-t border-white/10">
-        {/* (01) Challenge — text left, image right */}
-        <section className={`${CONTAINER_OUTER} pt-20 md:pt-28`}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            <div className={figureForChallenge ? 'lg:col-span-7' : 'lg:col-span-12 max-w-3xl'}>
-              <NarrativeSection number="01" title="The challenge" body={work.challenge} />
+      {/* Content body */}
+      <div className="max-w-7xl mx-auto px-6 md:px-12 pt-12 md:pt-20 grid grid-cols-1 md:grid-cols-12 gap-12">
+        {/* Sidebar — Client, optional Year, working ground */}
+        <div className="work-content col-span-1 md:col-span-3">
+          <div className="flex flex-col gap-8 text-sm text-brand-muted">
+            <div>
+              <span className="block text-brand-text font-bold uppercase mb-1">Client</span>
+              {work.client}
             </div>
-            {figureForChallenge && (
-              <div className="lg:col-span-5 lg:pt-16">
-                <GalleryFigure shot={figureForChallenge} />
+
+            {work.year && (
+              <div>
+                <span className="block text-brand-text font-bold uppercase mb-1">Year</span>
+                {work.year}
               </div>
             )}
           </div>
         </section>
 
-        <div className="h-16 md:h-24" aria-hidden="true" />
-
-        {/* (02) Solution — image left, text right (reversed for rhythm) */}
-        <section className={`${CONTAINER_OUTER} pb-20 md:pb-28`}>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            {figureForSolution && (
-              <div className="lg:col-span-5 lg:pt-16 order-last lg:order-first">
-                <GalleryFigure shot={figureForSolution} />
+            <div>
+              <span className="block text-brand-text font-bold uppercase mb-1">Working ground</span>
+              <div className="flex flex-wrap gap-1 mt-1">
+                {work.stack.map((tech) => (
+                  <span key={tech} className="after:content-[',_'] last:after:content-['']">
+                    {tech}
+                  </span>
+                ))}
               </div>
             )}
             <div className={figureForSolution ? 'lg:col-span-7' : 'lg:col-span-12 max-w-3xl'}>
@@ -181,41 +149,61 @@ export const WorkDetailClient: React.FC<WorkDetailClientProps> = ({ work }) => {
         </section>
       </div>
 
-      {/* Bottom inline figures — anything left over after top/mid. */}
-      {galleryBottom.length > 0 && (
-        <section className="border-t border-white/10">
-          <div className={`${CONTAINER_GALLERY} py-20 md:py-28`}>
-            <div className="flex flex-col gap-12 md:gap-16">
-              {galleryBottom.map((shot, i) => (
-                <GalleryFigure key={i} shot={shot} />
-              ))}
-            </div>
+        {/* Main narrative — Challenge + Solution */}
+        <div className="col-span-1 md:col-span-9 flex flex-col gap-12">
+          <div className="work-content">
+            <h2 className="text-3xl font-bold mb-4">The Challenge</h2>
+            <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed whitespace-pre-line">
+              {work.challenge}
+            </p>
           </div>
         </section>
       )}
 
-      {/* Closing — large italic CTA to /work. */}
-      <footer className="border-t border-white/10">
-        <div className={`${CONTAINER_OUTER} py-20 md:py-28`}>
-          <span className="reveal block font-mono text-xs tracking-[0.25em] uppercase text-brand-yellow mb-6">
-            Keep going
-          </span>
-          <Link
-            href="/work"
-            className="reveal group inline-flex items-baseline gap-4 font-serif italic text-white/40 hover:text-brand-yellow transition-colors duration-300"
-          >
-            <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-none">
-              See more of the work
-            </span>
-            <ArrowUpRight
-              className="w-8 h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 self-center group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
-              strokeWidth={1.25}
-              aria-hidden="true"
-            />
-          </Link>
+          <div className="work-content">
+            <h2 className="text-3xl font-bold mb-4">The Solution</h2>
+            <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed whitespace-pre-line">
+              {work.solution}
+            </p>
+          </div>
+
+          {/* Related service back-link. Built only when work.services
+              is populated — links the case study to its parent service
+              detail page (CLAUDE.md §14 internal-link strategy). */}
+          {work.services && work.services.length > 0 && (
+            <div className="work-content mt-4 pt-8 border-t border-white/10">
+              <span className="block text-xs font-mono uppercase tracking-widest text-brand-muted mb-3">
+                Related capability
+              </span>
+              <div className="flex flex-wrap gap-3">
+                {work.services.map((svc) => {
+                  const slug = svc.toLowerCase().replace(/\s+/g, '-');
+                  return (
+                    <Link
+                      key={svc}
+                      href={`/services/${slug}`}
+                      className="inline-flex items-center gap-2 border border-white/20 px-4 py-2 text-sm font-mono uppercase tracking-widest hover:border-brand-yellow hover:text-brand-yellow transition-colors"
+                    >
+                      {svc}
+                      <ArrowUpRight size={14} aria-hidden="true" />
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
-      </footer>
-    </main>
+      </div>
+
+      <div className="work-content flex justify-center mt-24">
+        <Link
+          href="/work"
+          className="text-3xl md:text-5xl lg:text-6xl font-serif italic text-brand-text/30 hover:text-brand-text transition-colors duration-300 cursor-pointer"
+        >
+          See more work →
+        </Link>
+      </div>
+    </div>
   );
 };
 

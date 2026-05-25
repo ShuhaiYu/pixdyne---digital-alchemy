@@ -16,7 +16,15 @@ export const metadata: Metadata = {
     title: 'Contact | Pixdyne',
     description:
       'Talk to Pixdyne in Melbourne. Tell us about the workflow, system, or website you want built — we will come back with a scope, timeline, and quote.',
-    url: 'https://pixdyne.com/contact'
+    url: 'https://pixdyne.com/contact',
+    // Root file-based opengraph-image does not propagate to nested routes;
+    // reference the 1200×630 brand OG route so summary_large_image is valid.
+    images: [{
+      url: 'https://pixdyne.com/opengraph-image',
+      width: 1200,
+      height: 630,
+      alt: 'Pixdyne — Melbourne technology partner since 2018'
+    }]
   },
   twitter: {
     card: 'summary_large_image',

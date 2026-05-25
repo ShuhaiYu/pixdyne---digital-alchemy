@@ -4,7 +4,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { getAllBlogPosts } from '@/lib/data/blog';
 
 export const metadata: Metadata = {
-  title: 'Journal | Pixdyne',
+  title: 'Journal',
   description:
     'Notes on web development, technical SEO, and building digital products — from the Melbourne team that has shipped them since 2018.',
   openGraph: {

@@ -99,7 +99,10 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
               <h3 className="text-2xl font-bold mb-8">Pick a service, or take the bundle</h3>
               <div className="border-t border-white/10 mb-16">
                 {service.subServices.map((sub) => (
-                  <div key={sub.slug} className="border-b border-white/10 py-8 md:py-10">
+                  // id + scroll-mt let the homepage Capabilities rail deep-link
+                  // straight to a sub-service block (e.g. /services/operations
+                  // #managed-it) without the fixed nav clipping the heading.
+                  <div key={sub.slug} id={sub.slug} className="border-b border-white/10 py-8 md:py-10 scroll-mt-28">
                     <h4 className="text-2xl md:text-3xl font-serif italic text-brand-yellow mb-3">
                       {sub.title}
                     </h4>

@@ -5,9 +5,8 @@ import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { ArrowRight } from 'lucide-react';
-import { getAllServices } from '@/lib/data/services';
+import { getCapabilityCards } from '@/lib/data/services';
 import { brandRGB } from '@/lib/brand';
-import CountUp from '@/components/CountUp';
 import SpotlightCard from '@/components/SpotlightCard';
 
 if (typeof window !== 'undefined') {
@@ -32,13 +31,38 @@ export const ServicesSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const services = getAllServices();
+  const cards = getCapabilityCards();
   const isMobile = useIsMobile();
+  // Cards are sized to the exact pixel width of the scroll column rather than
+  // `66.67vw`. `vw` includes the scrollbar width while the column's `%` width
+  // does not, so a vw-sized card is a few px wider than its column — and
+  // because the snap divides the scroll distance into equal parts, that
+  // mismatch accumulates and pushes later cards left of the divider. Measuring
+  // the column keeps every snap stop flush. Re-measured on resize.
+  const [cardWidth, setCardWidth] = useState<number | null>(null);
+
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (isMobile) {
+      setCardWidth(null);
+      return;
+    }
+    const measure = () => {
+      const container = containerRef.current;
+      if (container) setCardWidth(container.offsetWidth);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [isMobile]);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
     // Skip horizontal scroll animation on mobile
     if (isMobile) return;
+    // Wait for the column measurement so card widths are final before
+    // ScrollTrigger reads list.scrollWidth.
+    if (cardWidth === null) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
@@ -52,7 +76,7 @@ export const ServicesSection: React.FC = () => {
       const scrollWidth = list.scrollWidth - container.offsetWidth;
 
       // Pin section and horizontally scroll the service list with snap
-      const numServices = services.length;
+      const numServices = cards.length;
 
       gsap.to(list, {
         x: -scrollWidth,
@@ -79,7 +103,7 @@ export const ServicesSection: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [isMobile]);
+  }, [isMobile, cardWidth]);
 
   return (
     <section
@@ -111,27 +135,22 @@ export const ServicesSection: React.FC = () => {
             ref={listRef}
             className={`${isMobile ? 'flex flex-col' : 'flex flex-row h-full'}`}
           >
-            {services.map((service, index) => {
-              const isProduct = service.tier === 'product';
-              // Show the top-right tag only when there is something
-              // informative to put there (a real price or the Product
-              // badge). Services without a published price intentionally
-              // render no tag rather than a dead "Get a quote" pseudo-button.
-              const passiveTag = isProduct ? 'Product' : service.price ?? null;
+            {cards.map((card, index) => {
               return (
                 <SpotlightCard
-                  key={service.id}
+                  key={card.id}
                   spotlightColor={`rgba(${brandRGB.yellow}, 0.15)`}
                   className={`service-item group flex-shrink-0 flex flex-col justify-center p-6 sm:p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer ${isMobile ? 'w-full min-h-[70vh]' : 'h-full'}`}
-                  style={isMobile ? undefined : { width: 'calc(66.67vw)' }}
+                  style={isMobile ? undefined : { width: cardWidth ? `${cardWidth}px` : 'calc(66.67vw)' }}
                 >
-                  {/* Card-wide click target sends the visitor to the detail
-                      page. The bottom-right CTA below sits at z-30 above
-                      this Link, so clicking the CTA goes to its own href. */}
+                  {/* Card-wide click target sends the visitor to the
+                      capability's page. The bottom-right CTA below sits at
+                      z-30 above this Link, so clicking the CTA goes to its
+                      own href. */}
                   <Link
-                    href={`/services/${service.slug}`}
+                    href={card.href}
                     className="absolute inset-0 z-20"
-                    aria-label={`View ${service.title} ${isProduct ? 'product' : 'service'}`}
+                    aria-label={`View ${card.title}`}
                   />
                   {/* Gradient glow decoration */}
                   <div className="absolute -top-20 -right-20 w-64 h-64 bg-brand-yellow/3 rounded-full blur-2xl pointer-events-none group-hover:bg-brand-yellow/5 transition-colors duration-700" />
@@ -139,68 +158,21 @@ export const ServicesSection: React.FC = () => {
                   {/* Content area */}
                   <div className="relative z-10">
                     {/* Title row */}
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-2 sm:gap-4 mb-4">
-                      <div className="flex items-baseline gap-3 sm:gap-6">
-                        <span className="text-xs font-mono text-brand-yellow">({service.number})</span>
-                        <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold uppercase tracking-tight text-brand-text group-hover:text-brand-yellow-hover transition-colors duration-300">
-                          {service.title}
-                        </h3>
-                      </div>
-                      {passiveTag && (
-                        <span
-                          className={`font-mono text-xs sm:text-sm px-2 sm:px-3 py-1.5 rounded transition-colors w-fit border ${isProduct ? 'border-brand-yellow/60 text-brand-yellow' : 'border-white/20 text-brand-text/60'}`}
-                          aria-hidden="true"
-                        >
-                          {passiveTag}
-                        </span>
-                      )}
+                    <div className="flex items-baseline gap-3 sm:gap-6 mb-4">
+                      <span className="text-xs font-mono text-brand-yellow">({card.number})</span>
+                      <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold uppercase tracking-tight text-brand-text group-hover:text-brand-yellow-hover transition-colors duration-300">
+                        {card.title}
+                      </h3>
                     </div>
 
                     {/* Description */}
                     <p className="text-sm sm:text-base md:text-lg text-brand-muted max-w-lg mb-6 sm:mb-8 ml-0 sm:ml-8 md:ml-12 group-hover:text-brand-text transition-colors">
-                      {service.description}
+                      {card.description}
                     </p>
-
-                    {/* Stats — render with em-dash placeholder when real numbers
-                        are not yet provided by the owner (CLAUDE.md §6). */}
-                    {/* <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-12 ml-0 sm:ml-8 md:ml-12 mb-6 sm:mb-8">
-                      <div>
-                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-text flex items-baseline">
-                          {service.stats?.projects !== undefined ? (
-                            <>
-                              <CountUp to={service.stats.projects} duration={2} className="tabular-nums" />
-                              <span className="text-brand-yellow">+</span>
-                            </>
-                          ) : (
-                            <span className="text-brand-muted">—</span>
-                          )}
-                        </div>
-                        <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Projects Delivered</div>
-                      </div>
-                      <div>
-                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-text flex items-baseline">
-                          {service.stats?.satisfaction !== undefined ? (
-                            <>
-                              <CountUp to={service.stats.satisfaction} duration={2} className="tabular-nums" />
-                              <span className="text-brand-yellow">%</span>
-                            </>
-                          ) : (
-                            <span className="text-brand-muted">—</span>
-                          )}
-                        </div>
-                        <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Client Satisfaction</div>
-                      </div>
-                      <div>
-                        <div className="text-xl sm:text-2xl md:text-3xl font-bold text-brand-text">
-                          {service.stats?.support ?? <span className="text-brand-muted">—</span>}
-                        </div>
-                        <div className="text-xs text-brand-muted uppercase tracking-wider mt-1">Support Available</div>
-                      </div>
-                    </div> */}
 
                     {/* Tags */}
                     <div className="flex flex-wrap gap-2 ml-0 sm:ml-8 md:ml-12 mb-4">
-                      {service.tags.map(tag => (
+                      {card.tags.map(tag => (
                         <span key={tag} className="text-xs uppercase border border-white/20 px-2 sm:px-3 py-1.5 rounded-full hover:border-brand-yellow/50 transition-colors">
                           {tag}
                         </span>
@@ -212,27 +184,25 @@ export const ServicesSection: React.FC = () => {
                   {/* Progress indicator (bottom-left) */}
                   <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-12 flex items-center gap-2">
                     <span className="text-xs font-mono text-brand-text/30">
-                      {String(index + 1).padStart(2, '0')} / {String(services.length).padStart(2, '0')}
+                      {String(index + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
                     </span>
                     <div className="w-16 h-[1px] bg-white/20">
                       <div
                         className="h-full bg-brand-yellow"
-                        style={{ width: `${((index + 1) / services.length) * 100}%` }}
+                        style={{ width: `${((index + 1) / cards.length) * 100}%` }}
                       />
                     </div>
                   </div>
 
                   {/* Primary CTA (bottom-right). z-30 sits above the
                       card-wide Link at z-20, so this captures its own
-                      click. Per owner direction, every card CTA now
-                      routes to the service detail page (including
-                      OnlyPixAI — its detail page hosts the external
-                      Visit OnlyPixAI button). The wording is unified
-                      as "Explore more". */}
+                      click. Wording is unified as "Explore more"; for the
+                      Operations sub-services (Managed IT, SEO & Content)
+                      the href deep-links into the Operations detail page. */}
                   <Link
-                    href={`/services/${service.slug}`}
+                    href={card.href}
                     className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-brand-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-brand-yellow-hover transition-colors pointer-events-auto"
-                    aria-label={`Explore ${service.title}`}
+                    aria-label={`Explore ${card.title}`}
                   >
                     Explore more
                     <ArrowRight size={14} aria-hidden="true" />

@@ -30,8 +30,8 @@ const pillars: ApproachPillar[] = [
   },
   {
     number: '02',
-    title: 'Plain-English engineering',
-    body: 'No jargon, no theatre. We explain what we are doing, why it costs what it costs, and what happens if things go wrong. You always know where things stand.'
+    title: 'English and Mandarin',
+    body: 'We work fluently in both English and Mandarin — across conversations, documentation, and ongoing support. Talk to us in whichever language fits your team best, and nothing gets lost in translation.'
   },
   {
     number: '03',

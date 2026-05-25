@@ -1,26 +1,26 @@
 'use client';
 
-// Site-wide navigation. Restores the original editorial design language:
-//   * Bar is barely there — transparent on desktop with mix-blend-difference
-//     so the logo + Menu trigger invert against whatever background scrolls
-//     beneath them. Warm-black/blur fallback on mobile where blend mode
-//     would fight the small viewport.
-//   * No inline desktop nav. The only persistent affordances are the
-//     hamburger and a single "Start Project" CTA.
-//   * Fullscreen overlay is the actual menu: stroke-text serif italic
-//     items, large, deliberately quiet. Service sub-items live inline
-//     beneath the Services parent so the overlay covers the full IA
-//     without a second-tier hover layer.
-//   * All items route to real pages — Services, Work, About, Journal,
-//     Contact, plus the four service / product detail pages. No homepage
-//     anchor scrolls.
-//   * Footer strip reads "Melbourne · Australia" (CLAUDE.md §6 rule 11
-//     replaces the original "SFO · NYC · LND" template residue).
+// Site-wide navigation.
+//   * Desktop (>= md): inline horizontal nav restored. Top-level items
+//     (Services, Work, About, Journal) sit inline in the bar; Services
+//     opens a hover/focus dropdown listing the four service/product detail
+//     pages. A single "Start Project" CTA routes to /contact (Contact is
+//     not duplicated as a text link). Home is omitted — the logo is home.
+//   * The bar is transparent on desktop with mix-blend-difference so the
+//     logo + inline links invert against whatever background scrolls
+//     beneath them. Warm-black/blur fallback on mobile.
+//   * The Services dropdown is rendered OUTSIDE the mix-blend bar (a fixed
+//     sibling positioned against the trigger's measured rect) — otherwise
+//     the blend mode would invert the panel and make it unreadable.
+//   * Mobile (< md): hamburger trigger opens the fullscreen overlay menu.
+//     The overlay is md:hidden so a stale isOpen after a mobile->desktop
+//     resize can never trap a desktop user.
+//   * Footer strip reads "Melbourne · Australia" (CLAUDE.md §6 rule 11).
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, ArrowRight } from 'lucide-react';
+import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import { BUSINESS } from '@/lib/data/business';
 
 interface SubItem {
@@ -35,22 +35,30 @@ interface MenuItem {
   subItems?: SubItem[];
 }
 
+const SERVICE_SUBITEMS: SubItem[] = [
+  { href: '/services/web-development', label: 'Web Development', kicker: 'SERVICE' },
+  { href: '/services/system-development', label: 'System Development', kicker: 'SERVICE' },
+  { href: '/services/operations', label: 'Operations', kicker: 'SERVICE' },
+  { href: '/services/onlypixai', label: 'OnlyPixAI', kicker: 'PRODUCT' }
+];
+
+// Full IA for the mobile overlay (includes Home + Contact).
 const MENU_ITEMS: MenuItem[] = [
   { href: '/', label: 'Home' },
-  {
-    href: '/services',
-    label: 'Services',
-    subItems: [
-      { href: '/services/web-development', label: 'Web Development', kicker: 'SERVICE' },
-      { href: '/services/system-development', label: 'System Development', kicker: 'SERVICE' },
-      { href: '/services/operations', label: 'Operations', kicker: 'SERVICE' },
-      { href: '/services/onlypixai', label: 'OnlyPixAI', kicker: 'PRODUCT' }
-    ]
-  },
+  { href: '/services', label: 'Services', subItems: SERVICE_SUBITEMS },
   { href: '/work', label: 'Work' },
   { href: '/about', label: 'About' },
   { href: '/blog', label: 'Journal' },
   { href: '/contact', label: 'Contact' }
+];
+
+// Desktop inline nav: Home is the logo, Contact is the CTA — so neither
+// is repeated here. Services carries the dropdown.
+const DESKTOP_ITEMS: MenuItem[] = [
+  { href: '/services', label: 'Services', subItems: SERVICE_SUBITEMS },
+  { href: '/work', label: 'Work' },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Journal' }
 ];
 
 export const Navigation: React.FC = () => {
@@ -62,6 +70,33 @@ export const Navigation: React.FC = () => {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const openButtonRef = useRef<HTMLButtonElement>(null);
 
+  // --- Desktop Services dropdown ---
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [panelPos, setPanelPos] = useState<{ left: number; top: number } | null>(null);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const measureServices = useCallback(() => {
+    const r = servicesRef.current?.getBoundingClientRect();
+    if (r) setPanelPos({ left: r.left, top: r.bottom + 10 });
+  }, []);
+
+  const openServices = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    measureServices();
+    setServicesOpen(true);
+  }, [measureServices]);
+
+  const scheduleCloseServices = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setServicesOpen(false), 140);
+  }, []);
+
+  const closeServicesNow = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(false);
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -69,6 +104,18 @@ export const Navigation: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Keep the dropdown anchored to the trigger as the bar height changes
+  // (scroll shrinks padding) or the viewport resizes.
+  useEffect(() => {
+    if (!servicesOpen) return;
+    window.addEventListener('resize', measureServices);
+    window.addEventListener('scroll', measureServices, { passive: true });
+    return () => {
+      window.removeEventListener('resize', measureServices);
+      window.removeEventListener('scroll', measureServices);
+    };
+  }, [servicesOpen, measureServices]);
 
   useEffect(() => {
     if (isOpen) {
@@ -82,20 +129,21 @@ export const Navigation: React.FC = () => {
     setTimeout(() => openButtonRef.current?.focus(), 100);
   }, []);
 
-  // Close overlay automatically when the route changes (clicking a link
-  // navigates but the overlay should never linger on the new page).
+  // Close both the overlay and the desktop dropdown when the route changes.
   useEffect(() => {
     setIsOpen(false);
+    setServicesOpen(false);
   }, [pathname]);
 
   useEffect(() => {
-    if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeMenu();
+      if (e.key !== 'Escape') return;
+      if (isOpen) closeMenu();
+      if (servicesOpen) closeServicesNow();
     };
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, closeMenu]);
+  }, [isOpen, servicesOpen, closeMenu, closeServicesNow]);
 
   useEffect(() => {
     if (!isOpen || !menuRef.current) return;
@@ -155,9 +203,56 @@ export const Navigation: React.FC = () => {
         </Link>
 
         <div className="flex items-center gap-8">
-          {/* Persistent CTA — the only inline desktop affordance besides
-              the hamburger. Routes to /contact (no longer a homepage
-              anchor scroll). */}
+          {/* Desktop: inline horizontal nav. */}
+          <div className="hidden md:flex items-center gap-7 lg:gap-9">
+            {DESKTOP_ITEMS.map((item) => {
+              const active = isActiveRoute(item.href);
+              const linkClass = `text-xs lg:text-sm uppercase tracking-widest transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-yellow rounded ${
+                active ? 'text-brand-yellow' : 'hover:text-brand-yellow-hover'
+              }`;
+
+              if (item.subItems) {
+                return (
+                  <div
+                    key={item.href}
+                    ref={servicesRef}
+                    className="relative flex items-center"
+                    onMouseEnter={openServices}
+                    onMouseLeave={scheduleCloseServices}
+                  >
+                    <Link
+                      href={item.href}
+                      className={`flex items-center gap-1 ${linkClass}`}
+                      aria-haspopup="true"
+                      aria-expanded={servicesOpen}
+                      aria-current={active ? 'page' : undefined}
+                      onFocus={openServices}
+                    >
+                      {item.label}
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-300 ${servicesOpen ? 'rotate-180' : ''}`}
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  </div>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={linkClass}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Persistent CTA — routes to /contact. */}
           <Link
             href="/contact"
             className="hidden md:flex items-center gap-2 text-sm uppercase tracking-widest hover:text-brand-yellow-hover active:scale-[0.98] transition-all group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded"
@@ -167,10 +262,11 @@ export const Navigation: React.FC = () => {
             <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
 
+          {/* Mobile: hamburger trigger for the fullscreen overlay. */}
           <button
             ref={openButtonRef}
             onClick={() => setIsOpen(true)}
-            className="flex items-center gap-2 group min-h-[44px] min-w-[44px] justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer"
+            className="md:hidden flex items-center gap-2 group min-h-[44px] min-w-[44px] justify-center focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-yellow rounded cursor-pointer"
             aria-label="Open navigation menu"
             aria-expanded={isOpen}
             aria-controls="main-menu"
@@ -181,16 +277,62 @@ export const Navigation: React.FC = () => {
         </div>
       </nav>
 
-      {/* Fullscreen menu overlay — the editorial moment. Sits above the
-          mix-blend nav so the X close button reads as text-brand-text on
-          warm-black, not blended. */}
+      {/* Desktop Services dropdown — fixed sibling OUTSIDE the mix-blend nav
+          so its solid background stays readable. Positioned against the
+          trigger's measured rect. Hidden on mobile (overlay covers IA). */}
+      {panelPos && (
+        <div
+          className={`hidden md:block fixed z-[65] transition-all duration-200 ${
+            servicesOpen
+              ? 'opacity-100 translate-y-0 visible'
+              : 'opacity-0 -translate-y-2 invisible pointer-events-none'
+          }`}
+          style={{ left: panelPos.left, top: panelPos.top }}
+          onMouseEnter={openServices}
+          onMouseLeave={scheduleCloseServices}
+          role="menu"
+          aria-label="Services"
+        >
+          <ul className="min-w-[280px] bg-brand-black border border-brand-yellow/20 rounded-md shadow-2xl shadow-black/40 py-2">
+            {SERVICE_SUBITEMS.map((sub) => {
+              const subActive = pathname === sub.href;
+              return (
+                <li key={sub.href} role="none">
+                  <Link
+                    href={sub.href}
+                    role="menuitem"
+                    onClick={closeServicesNow}
+                    className={`flex items-center gap-3 px-5 py-3 transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-yellow ${
+                      subActive ? 'bg-brand-yellow/10' : 'hover:bg-brand-white/[0.06]'
+                    }`}
+                    aria-current={subActive ? 'page' : undefined}
+                  >
+                    <span className="text-[10px] font-mono tracking-widest text-brand-yellow/70 w-14 shrink-0">
+                      {sub.kicker}
+                    </span>
+                    <span
+                      className={`text-sm uppercase tracking-widest ${
+                        subActive ? 'text-brand-yellow' : 'text-brand-text/85'
+                      }`}
+                    >
+                      {sub.label}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
+
+      {/* Fullscreen menu overlay — mobile only. */}
       <div
         id="main-menu"
         ref={menuRef}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation menu"
-        className={`fixed inset-0 bg-brand-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] overflow-y-auto ${
+        className={`md:hidden fixed inset-0 bg-brand-black z-[70] transition-transform duration-700 ease-[0.16,1,0.3,1] overflow-y-auto ${
           isOpen ? 'translate-y-0 visible' : '-translate-y-full invisible'
         }`}
         aria-hidden={!isOpen}

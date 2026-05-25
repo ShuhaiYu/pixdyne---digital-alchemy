@@ -58,6 +58,21 @@ export interface ServiceItem {
   faqs?: { question: string; answer: string }[];
 }
 
+// Lightweight view-model for the homepage Capabilities rail. It is derived
+// from ServiceItem data (see getCapabilityCards) rather than rendered from
+// the raw service list, because the rail shows a curated set of capabilities
+// — not every ServiceItem. Sub-services (Managed IT, SEO & Content) have no
+// standalone route, so each card carries its own `href` (which may include a
+// deep-link anchor into the Operations detail page).
+export interface CapabilityCard {
+  id: string;
+  number: string;
+  title: string;
+  description: string;
+  tags: string[];
+  href: string;
+}
+
 export interface CaseStudyItem {
   id: string;
   slug: string;
@@ -93,7 +108,10 @@ export interface TeamMember {
 export interface BlogPost {
   id: number;
   slug: string;
+  /** Human-readable display date, e.g. "MAY 18, 2026". */
   date: string;
+  /** ISO 8601 date (YYYY-MM-DD) used for schema.org datePublished/dateModified. */
+  datePublished?: string;
   category: string;
   title: string;
   excerpt: string;

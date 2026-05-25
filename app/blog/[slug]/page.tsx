@@ -34,10 +34,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://pixdyne.com/blog/${slug}`,
       publishedTime: post.date,
       authors: ['Pixdyne'],
+      // Per-post /og/blog/{slug}.jpg assets are not yet produced (CLAUDE.md
+      // §14.13) and 404'd, breaking the card. The root file-based
+      // opengraph-image does NOT propagate to nested routes, so reference the
+      // 1200×630 brand OG route explicitly until per-post images exist.
       images: [{
-        url: `/og/blog/${slug}.jpg`,
+        url: 'https://pixdyne.com/opengraph-image',
         width: 1200,
-        height: 630
+        height: 630,
+        alt: 'Pixdyne — Melbourne technology partner since 2018'
       }]
     },
     twitter: {

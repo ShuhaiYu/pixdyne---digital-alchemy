@@ -171,12 +171,16 @@ export function generateCaseStudySchema(work: CaseStudyItem) {
 }
 
 export function generateBlogPostSchema(post: BlogPost) {
+  // Prefer the ISO date for schema.org; fall back to the display string.
+  const isoDate = post.datePublished ?? post.date;
   return {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
-    datePublished: post.date,
+    image: 'https://pixdyne.com/opengraph-image',
+    datePublished: isoDate,
+    dateModified: isoDate,
     author: {
       '@type': 'Organization',
       name: 'Pixdyne'

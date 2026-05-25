@@ -1,4 +1,4 @@
-import { ServiceItem } from '@/types';
+import { ServiceItem, CapabilityCard } from '@/types';
 
 // Service architecture canonicalised in CLAUDE.md §5.
 // Three service lines (Web Development, System Development, Operations) plus
@@ -274,6 +274,64 @@ export const services: ServiceItem[] = [
 
 export function getAllServices(): ServiceItem[] {
   return services;
+}
+
+// Cards shown on the homepage Capabilities rail. This is deliberately NOT the
+// full service list:
+//   - OnlyPixAI (a product) is excluded — it already has its own dedicated
+//     homepage section and detail page, so listing it here too was triple
+//     exposure of the same product on one page.
+//   - Operations is surfaced through its two most client-legible sub-services
+//     (Managed IT, SEO & Content). Sub-services have no standalone route, so
+//     they deep-link into the Operations detail page via an anchor.
+// See CLAUDE.md §5 (service architecture) and §10 (business-owner vocabulary).
+export function getCapabilityCards(): CapabilityCard[] {
+  const web = getServiceBySlug('web-development');
+  const system = getServiceBySlug('system-development');
+  const operations = getServiceBySlug('operations');
+  const managedIt = operations?.subServices?.find((s) => s.slug === 'managed-it');
+  const seoContent = operations?.subServices?.find((s) => s.slug === 'seo-content');
+
+  if (!web || !system || !managedIt || !seoContent) {
+    throw new Error(
+      'getCapabilityCards: expected web-development, system-development, and the managed-it / seo-content sub-services to exist in services data.'
+    );
+  }
+
+  return [
+    {
+      id: web.id,
+      number: '01',
+      title: web.title,
+      description: web.description,
+      tags: web.tags,
+      href: `/services/${web.slug}`
+    },
+    {
+      id: system.id,
+      number: '02',
+      title: system.title,
+      description: system.description,
+      tags: system.tags,
+      href: `/services/${system.slug}`
+    },
+    {
+      id: 'managed-it',
+      number: '03',
+      title: managedIt.title,
+      description: managedIt.description,
+      tags: ['Hosting', 'SSL', 'Monitoring', 'Backups'],
+      href: '/services/operations#managed-it'
+    },
+    {
+      id: 'seo-content',
+      number: '04',
+      title: seoContent.title,
+      description: seoContent.description,
+      tags: ['SEO', 'Content', 'Analytics', 'Search Console'],
+      href: '/services/operations#seo-content'
+    }
+  ];
 }
 
 export function getServiceBySlug(slug: string): ServiceItem | undefined {

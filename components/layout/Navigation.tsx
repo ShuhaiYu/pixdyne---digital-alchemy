@@ -26,7 +26,6 @@ import { BUSINESS } from '@/lib/data/business';
 interface SubItem {
   href: string;
   label: string;
-  kicker: 'SERVICE' | 'PRODUCT';
 }
 
 interface MenuItem {
@@ -35,11 +34,16 @@ interface MenuItem {
   subItems?: SubItem[];
 }
 
+// Mirrors the homepage Capabilities rail exactly (see getCapabilityCards):
+// Web Development, System Development, Managed IT, SEO & Content. The
+// Operations bundle page and the OnlyPixAI product are intentionally not in
+// this dropdown — Operations is surfaced through its two standalone lines,
+// and OnlyPixAI lives in its own homepage section + footer.
 const SERVICE_SUBITEMS: SubItem[] = [
-  { href: '/services/web-development', label: 'Web Development', kicker: 'SERVICE' },
-  { href: '/services/system-development', label: 'System Development', kicker: 'SERVICE' },
-  { href: '/services/operations', label: 'Operations', kicker: 'SERVICE' },
-  { href: '/services/onlypixai', label: 'OnlyPixAI', kicker: 'PRODUCT' }
+  { href: '/services/web-development', label: 'Web Development' },
+  { href: '/services/system-development', label: 'System Development' },
+  { href: '/services/managed-it', label: 'Managed IT' },
+  { href: '/services/seo-content', label: 'SEO & Content' }
 ];
 
 // Full IA for the mobile overlay (includes Home + Contact).
@@ -293,7 +297,7 @@ export const Navigation: React.FC = () => {
           role="menu"
           aria-label="Services"
         >
-          <ul className="min-w-[280px] bg-brand-black border border-brand-yellow/20 rounded-md shadow-2xl shadow-black/40 py-2">
+          <ul className="min-w-[260px] bg-brand-black border border-brand-yellow/20 rounded-md shadow-2xl shadow-black/40 py-2">
             {SERVICE_SUBITEMS.map((sub) => {
               const subActive = pathname === sub.href;
               return (
@@ -302,21 +306,14 @@ export const Navigation: React.FC = () => {
                     href={sub.href}
                     role="menuitem"
                     onClick={closeServicesNow}
-                    className={`flex items-center gap-3 px-5 py-3 transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-yellow ${
-                      subActive ? 'bg-brand-yellow/10' : 'hover:bg-brand-white/[0.06]'
+                    className={`block px-5 py-3 text-sm uppercase tracking-widest transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-yellow ${
+                      subActive
+                        ? 'bg-brand-yellow/10 text-brand-yellow'
+                        : 'text-brand-text/85 hover:bg-brand-white/[0.06] hover:text-brand-yellow-hover'
                     }`}
                     aria-current={subActive ? 'page' : undefined}
                   >
-                    <span className="text-[10px] font-mono tracking-widest text-brand-yellow/70 w-14 shrink-0">
-                      {sub.kicker}
-                    </span>
-                    <span
-                      className={`text-sm uppercase tracking-widest ${
-                        subActive ? 'text-brand-yellow' : 'text-brand-text/85'
-                      }`}
-                    >
-                      {sub.label}
-                    </span>
+                    {sub.label}
                   </Link>
                 </li>
               );
@@ -374,13 +371,7 @@ export const Navigation: React.FC = () => {
                     {item.subItems.map((sub) => {
                       const subActive = pathname === sub.href;
                       return (
-                        <li key={sub.href} className="flex items-center gap-3">
-                          <span
-                            aria-hidden="true"
-                            className="text-[10px] font-mono tracking-widest text-brand-yellow/70"
-                          >
-                            {sub.kicker}
-                          </span>
+                        <li key={sub.href} className="flex items-center">
                           <Link
                             href={sub.href}
                             onClick={closeMenu}

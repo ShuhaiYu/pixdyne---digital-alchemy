@@ -154,6 +154,7 @@ export const services: ServiceItem[] = [
       {
         slug: 'managed-it',
         title: 'Managed IT',
+        detailHref: '/services/managed-it',
         description:
           'Hosting, SSL, monitoring, backups, and incident response for the sites and systems we have shipped — or for ones you have inherited.',
         features: [
@@ -167,6 +168,7 @@ export const services: ServiceItem[] = [
       {
         slug: 'seo-content',
         title: 'SEO & Content',
+        detailHref: '/services/seo-content',
         description:
           'Ongoing technical SEO and content production for steady, defensible growth. We maintain rankings rather than promising them.',
         features: [
@@ -219,6 +221,100 @@ export const services: ServiceItem[] = [
         question: 'Can we pick individual services, or do we have to take the full bundle?',
         answer:
           'Pick what you need. Managed IT, SEO and content, and DevOps each have their own scope. Some clients take only Managed IT, others take all three as a single retainer with a discount.'
+      }
+    ]
+  },
+  {
+    id: 'managed-it',
+    slug: 'managed-it',
+    number: '04',
+    title: 'Managed IT',
+    tier: 'service',
+    description:
+      'Hosting, SSL, monitoring, backups, and incident response — kept running for the sites and systems we ship or inherit.',
+    fullDescription:
+      'Managed IT from a Melbourne team: we host, secure, monitor, and back up the websites and systems your business runs on — and we respond when something breaks. It covers the sites and systems we have built, and ones you have inherited from a previous vendor. The goal is simple: your technology stays up, stays patched, and stays recoverable, without you having to think about it. Managed IT is part of our Operations bundle, available on its own or alongside SEO & Content and ongoing development.',
+    tags: [
+      'Hosting',
+      'SSL',
+      'DNS',
+      'Monitoring',
+      'Backups',
+      'Incident response'
+    ],
+    features: [
+      'Hosting and DNS',
+      'SSL and domain management',
+      'Uptime and security monitoring',
+      'Automated backups',
+      'Patching and updates',
+      'Incident response'
+    ],
+    seoTitle: 'Managed IT Melbourne — Hosting & Monitoring',
+    seoDescription:
+      'Managed IT from Pixdyne in Melbourne: hosting, SSL, uptime and security monitoring, automated backups, and incident response for your sites and systems.',
+    faqs: [
+      {
+        question: 'What is included in Managed IT?',
+        answer:
+          'Hosting, SSL and domain management, uptime and security monitoring, automated backups, patching, and incident response. We agree response targets in writing rather than advertising a 24/7 NOC we do not run.'
+      },
+      {
+        question: 'Can you manage a site or system you did not build?',
+        answer:
+          'Yes. A good share of Managed IT work starts with taking over a site or system built by someone else. We audit what is there, stabilise it, and operate it from there.'
+      },
+      {
+        question: 'Do you offer 24/7 support?',
+        answer:
+          'Not by default. Response targets are written into the retainer — usually next-business-day for routine work and around two-hour response for production-down incidents during AEST business hours. We do not advertise round-the-clock cover we cannot deliver.'
+      }
+    ]
+  },
+  {
+    id: 'seo-content',
+    slug: 'seo-content',
+    number: '05',
+    title: 'SEO & Content',
+    tier: 'service',
+    description:
+      'Ongoing technical SEO and content production for steady, defensible search growth. We maintain rankings, not promise them.',
+    fullDescription:
+      'SEO & Content is ongoing search work from a Melbourne team: technical SEO maintenance, on-page optimisation, content production, and local SEO — backed by a monthly Search Console and analytics report. We treat search as a retained discipline, not a one-off audit. We do not promise rankings; we earn them and hold them over time. SEO & Content is part of our Operations bundle, available on its own or alongside Managed IT and ongoing development.',
+    tags: [
+      'SEO',
+      'Content',
+      'On-page',
+      'Local SEO',
+      'Analytics',
+      'Search Console'
+    ],
+    features: [
+      'Technical SEO maintenance',
+      'On-page optimisation',
+      'Content production',
+      'Local SEO and Google Business Profile',
+      'Analytics and Search Console reporting',
+      'Monthly performance reporting'
+    ],
+    seoTitle: 'SEO & Content Melbourne — Ongoing Technical SEO',
+    seoDescription:
+      'Ongoing SEO and content from Pixdyne in Melbourne: technical SEO, on-page work, content production, local SEO, and monthly Search Console reporting.',
+    faqs: [
+      {
+        question: 'How does ongoing SEO work?',
+        answer:
+          'Technical SEO maintenance (Core Web Vitals, schema, internal linking), on-page optimisation, content production where you want it, and a monthly Search Console plus analytics report. We maintain and improve rankings over time rather than chasing a one-off spike.'
+      },
+      {
+        question: 'Do you guarantee first-page rankings?',
+        answer:
+          'No. Anyone who guarantees a ranking is guessing — search results are not ours to promise. We commit to the work that earns rankings, and to showing you the results in a monthly report.'
+      },
+      {
+        question: 'Do you write the content, or just optimise it?',
+        answer:
+          'Both. We produce content where you want us to, and optimise what you already have. Every piece supports a real search intent and links into the rest of your site.'
       }
     ]
   },
@@ -281,9 +377,11 @@ export function getAllServices(): ServiceItem[] {
 //   - OnlyPixAI (a product) is excluded — it already has its own dedicated
 //     homepage section and detail page, so listing it here too was triple
 //     exposure of the same product on one page.
-//   - Operations is surfaced through its two most client-legible sub-services
-//     (Managed IT, SEO & Content). Sub-services have no standalone route, so
-//     they deep-link into the Operations detail page via an anchor.
+//   - The Operations bundle page is excluded; instead the rail surfaces its
+//     two most client-legible lines — Managed IT and SEO & Content — which
+//     are now standalone service detail pages in their own right. Each card
+//     links straight to its page (no deep-link anchor).
+// The desktop nav Services dropdown mirrors these four cards exactly.
 // See CLAUDE.md §5 (service architecture) and §10 (business-owner vocabulary).
 export function getCapabilityCards(): CapabilityCard[] {
   const web = getServiceBySlug('web-development');
@@ -321,7 +419,7 @@ export function getCapabilityCards(): CapabilityCard[] {
       title: managedIt.title,
       description: managedIt.description,
       tags: ['Hosting', 'SSL', 'Monitoring', 'Backups'],
-      href: '/services/operations#managed-it'
+      href: '/services/managed-it'
     },
     {
       id: 'seo-content',
@@ -329,7 +427,7 @@ export function getCapabilityCards(): CapabilityCard[] {
       title: seoContent.title,
       description: seoContent.description,
       tags: ['SEO', 'Content', 'Analytics', 'Search Console'],
-      href: '/services/operations#seo-content'
+      href: '/services/seo-content'
     }
   ];
 }

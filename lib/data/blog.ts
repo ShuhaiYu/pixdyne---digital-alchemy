@@ -25,7 +25,7 @@ export const blogPosts: BlogPost[] = [
       </ul>
 
       <h2>How we approach SEO in Melbourne</h2>
-      <p>Good SEO is ongoing work, not a one-off audit. We treat it as a retained service: technical fixes, content that earns its rankings, and monthly reporting from Search Console and analytics so you can see what is actually moving. If that is the kind of partnership you are after, our <a href="/services/operations">Operations</a> service covers SEO and content for the businesses we work with across Melbourne and Australia.</p>
+      <p>Good SEO is ongoing work, not a one-off audit. We treat it as a retained service: technical fixes, content that earns its rankings, and monthly reporting from Search Console and analytics so you can see what is actually moving. If that is the kind of partnership you are after, our <a href="/services/seo-content">SEO &amp; Content</a> service is built for exactly this — ongoing search work for the businesses we partner with across Melbourne and Australia.</p>
     `,
     seoTitle: 'Keyword Stuffing Is Dead: Modern Technical SEO',
     seoDescription:

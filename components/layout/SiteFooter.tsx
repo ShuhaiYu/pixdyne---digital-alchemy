@@ -26,14 +26,17 @@ const TOP_NAV: { href: string; label: string }[] = [
   { href: '/contact', label: 'Contact' }
 ];
 
-// Service deep-links — the four service detail pages. Surfaced as a
-// secondary inline row so footer crawlers and visitors hunting a
-// specific service get a direct path without resurrecting a Capabilities
-// column.
+// Service deep-links — every service detail page (the footer is the one
+// surface that links all of them, so the two standalone Operations lines
+// get a crawlable internal link here too). Surfaced as a secondary inline
+// row so footer crawlers and visitors hunting a specific service get a
+// direct path without resurrecting a Capabilities column.
 const SERVICE_LINKS: { href: string; label: string }[] = [
   { href: '/services/web-development', label: 'Web Development' },
   { href: '/services/system-development', label: 'System Development' },
   { href: '/services/operations', label: 'Operations' },
+  { href: '/services/managed-it', label: 'Managed IT' },
+  { href: '/services/seo-content', label: 'SEO & Content' },
   { href: '/services/onlypixai', label: 'OnlyPixAI' }
 ];
 

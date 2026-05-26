@@ -1,279 +1,119 @@
 'use client';
 
-import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
-import { getAllCaseStudies } from '@/lib/data/case-studies';
-import BentoCard from '@/components/BentoCard';
+import { ArrowUpRight } from 'lucide-react';
+import { getHomepageHighlights } from '@/lib/data/case-studies';
+import { WorkCard } from '@/components/work/WorkCard';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
+// Bento layout span for each of the seven curated highlight cards.
+// Three rows total: 7+5 / 4+4+4 / 6+6. Tweak the array to reshuffle
+// without touching the rendering loop.
+const BENTO_SPANS = [
+  'md:col-span-7',
+  'md:col-span-5',
+  'md:col-span-4',
+  'md:col-span-4',
+  'md:col-span-4',
+  'md:col-span-6',
+  'md:col-span-6'
+];
+
+// Homepage "Selected work" rail. Renders the owner-curated set of
+// highlight projects exposed by getHomepageHighlights() — currently
+// the seven flagship cases — using the same WorkCard component the
+// /work index uses, so the visual vocabulary on home and /work stays
+// in lock-step.
 export const CaseStudySection: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-  const allCases = getAllCaseStudies();
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Empty state: case studies are pending the owner-provided historical
-  // project list. See CLAUDE.md §6 (rule 8).
-  const isEmpty = allCases.length === 0;
-
-  // Bento layout depends on a featured case + 5 small ones. Prefer entries
-  // marked `featured: true` for the featured slot — they carry the
-  // editorial signal that this is the case study worth landing on first.
-  // Falls back to the first entry when nothing is explicitly marked.
-  const featuredCase = !isEmpty
-    ? (allCases.find((c) => c.featured) ?? allCases[0])
-    : null;
-  const smallCases = !isEmpty
-    ? allCases.filter((c) => c !== featuredCase).slice(0, 5)
-    : [];
-
-  const spotlightRef = useRef<HTMLDivElement>(null);
-  const rafRef = useRef(0);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
-
-  useEffect(() => {
-    if (isMobile || isEmpty) return;
-
-    const grid = gridRef.current;
-    const spotlight = spotlightRef.current;
-    if (!grid || !spotlight) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      cancelAnimationFrame(rafRef.current);
-      rafRef.current = requestAnimationFrame(() => {
-        if (!gridRef.current || !spotlightRef.current) return;
-        const rect = gridRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        spotlightRef.current.style.background = `radial-gradient(300px circle at ${x}px ${y}px, rgba(200, 150, 42, 0.06), transparent 40%)`;
-      });
-    };
-
-    const handleEnter = () => { spotlight.style.opacity = '1'; };
-    const handleLeave = () => { spotlight.style.opacity = '0'; };
-
-    grid.addEventListener('mousemove', handleMouseMove);
-    grid.addEventListener('mouseenter', handleEnter);
-    grid.addEventListener('mouseleave', handleLeave);
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      grid.removeEventListener('mousemove', handleMouseMove);
-      grid.removeEventListener('mouseenter', handleEnter);
-      grid.removeEventListener('mouseleave', handleLeave);
-    };
-  }, [isMobile, isEmpty]);
+  const highlights = getHomepageHighlights();
+  const isEmpty = highlights.length === 0;
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const container = containerRef.current;
-    if (!container) return;
-
-    if (isMobile) {
-      const targets = container.querySelectorAll('.bento-card, .empty-card');
-      if (targets.length === 0) return;
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            gsap.from(targets, {
-              y: 40,
-              opacity: 0,
-              stagger: 0.08,
-              duration: 0.6,
-              ease: 'power3.out'
-            });
-            observer.unobserve(container);
-          }
-        },
-        { threshold: 0.1 }
-      );
-      observer.observe(container);
-      return () => observer.disconnect();
-    }
-
     const ctx = gsap.context(() => {
-      gsap.from('.bento-card, .empty-card', {
-        y: 40,
+      gsap.from('.home-work-header', {
+        y: 30,
         opacity: 0,
-        stagger: 0.08,
-        duration: 0.6,
+        duration: 0.8,
         ease: 'power3.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 70%'
-        }
+        scrollTrigger: { trigger: containerRef.current, start: 'top 75%' }
       });
+
+      const cards = gsap.utils.toArray<HTMLElement>('.home-work-card');
+      if (cards.length) {
+        gsap.from(cards, {
+          y: 40,
+          opacity: 0,
+          stagger: 0.07,
+          duration: 0.6,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: containerRef.current, start: 'top 70%' }
+        });
+      }
     }, containerRef);
+
     return () => ctx.revert();
-  }, [isMobile]);
+  }, []);
 
   return (
     <div
       ref={containerRef}
-      className="min-h-screen md:h-screen w-full p-3 pt-20 sm:p-4 sm:pt-16 md:p-6 md:pt-20 flex flex-col bg-brand-black overflow-hidden"
+      className="w-full min-h-screen bg-brand-black text-brand-text overflow-hidden"
     >
-      {/* Header */}
-      <div className="flex justify-between items-end mb-3 sm:mb-4 border-b border-white/20 pb-2 sm:pb-3 flex-shrink-0">
-        <div>
-          <span className="text-brand-yellow text-xs font-mono font-bold tracking-wider mb-1 block">
-            Work
-          </span>
-          <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif text-brand-text leading-tight">
-            Selected Works
-          </h2>
-        </div>
-        {!isEmpty && (
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12 pt-20 md:pt-24 pb-20 md:pb-28">
+        {/* Header — kicker + italic serif h2 + lede + "View all" link */}
+        <div className="home-work-header flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16 border-b border-white/10 pb-8 md:pb-10">
+          <div>
+            <span className="text-brand-yellow text-xs font-mono tracking-[0.25em] uppercase mb-3 block">
+              Selected work
+            </span>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic leading-[1.05]">
+              Work we&apos;re proud of
+            </h2>
+            <p className="text-brand-muted text-base md:text-lg max-w-2xl leading-relaxed mt-5">
+              A handful of flagship engagements — the ones where Pixdyne built
+              the customer-facing surface, the internal operating system, and
+              kept both running together over years.
+            </p>
+          </div>
           <Link
             href="/work"
-            className="text-xs uppercase tracking-wider hover:text-brand-yellow-hover transition-colors text-brand-text/75 flex items-center gap-2 group"
+            className="inline-flex items-center gap-2 self-start md:self-auto text-xs font-mono uppercase tracking-[0.2em] text-brand-text hover:text-brand-yellow transition-colors"
           >
-            View All
-            <svg
-              className="w-3 h-3 transform group-hover:translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
+            View all work
+            <ArrowUpRight size={14} aria-hidden="true" />
           </Link>
+        </div>
+
+        {/* Bento layout for the seven curated highlights. 12-col grid
+            with asymmetric col-spans so cards vary in width row by row,
+            keeping the rail visually alive (the /work index uses a
+            uniform 3-col grid; this surface is the deliberate counter-
+            point). Mobile collapses to a single column. */}
+        {isEmpty ? (
+          <div className="mx-auto max-w-md text-center border border-white/10 bg-white/[0.02] rounded-2xl p-8 text-brand-muted text-sm">
+            Highlight case studies are still being put together.
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+            {highlights.map((project, i) => (
+              <div key={project.id} className={`home-work-card ${BENTO_SPANS[i] ?? 'md:col-span-4'}`}>
+                <WorkCard caseStudy={project} />
+              </div>
+            ))}
+          </div>
         )}
       </div>
-
-      {isEmpty ? (
-        <div className="flex-1 flex items-center justify-center px-4 py-12">
-          <div className="empty-card max-w-2xl w-full text-center border border-white/10 bg-white/[0.02] rounded-2xl p-10 md:p-16">
-            <span className="text-brand-yellow text-xs font-mono tracking-widest uppercase block mb-3">
-              Coming soon
-            </span>
-            <h3 className="text-2xl md:text-3xl font-serif italic text-brand-text mb-4 leading-tight">
-              Real client work, on the way
-            </h3>
-            <p className="text-brand-muted text-sm md:text-base leading-relaxed mb-8 max-w-lg mx-auto">
-              We are putting together a set of case studies that fairly represent
-              the work, the constraints, and the people involved. Until that is
-              ready, we would rather show nothing than show filler.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-brand-yellow text-brand-yellow text-xs uppercase tracking-widest rounded-full hover:bg-brand-yellow hover:text-brand-black transition-colors"
-            >
-              Talk to us in the meantime
-              <svg
-                className="w-3 h-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      ) : (
-        <div
-          ref={gridRef}
-          className="relative flex-1 grid grid-cols-12 gap-2 sm:gap-3 md:gap-4 auto-rows-fr"
-          style={{ gridTemplateRows: 'repeat(3, minmax(100px, 1fr))' }}
-        >
-          {/* Global spotlight effect */}
-          <div
-            ref={spotlightRef}
-            className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-300"
-            style={{ opacity: 0 }}
-          />
-
-          {smallCases[0] && (
-            <div className="bento-card col-span-6 md:col-span-4 row-span-1">
-              <BentoCard caseStudy={{ ...smallCases[0], cardSize: 'small' }} className="h-full" />
-            </div>
-          )}
-          {smallCases[1] && (
-            <div className="bento-card col-span-6 md:col-span-4 row-span-1">
-              <BentoCard caseStudy={{ ...smallCases[1], cardSize: 'small' }} className="h-full" />
-            </div>
-          )}
-
-          {featuredCase && (
-            <div className="bento-card col-span-12 md:col-span-4 row-span-2 md:row-start-1">
-              <BentoCard
-                caseStudy={{ ...featuredCase, cardSize: 'featured' }}
-                className="h-full"
-              />
-            </div>
-          )}
-
-          {smallCases[2] && (
-            <div className="bento-card col-span-6 md:col-span-4 row-span-1">
-              <BentoCard caseStudy={{ ...smallCases[2], cardSize: 'small' }} className="h-full" />
-            </div>
-          )}
-          {smallCases[3] && (
-            <div className="bento-card col-span-6 md:col-span-4 row-span-1">
-              <BentoCard caseStudy={{ ...smallCases[3], cardSize: 'small' }} className="h-full" />
-            </div>
-          )}
-
-          {smallCases[4] && (
-            <div className="bento-card col-span-12 md:col-span-8 row-span-1">
-              <BentoCard caseStudy={{ ...smallCases[4], cardSize: 'wide' }} className="h-full" />
-            </div>
-          )}
-
-          <div className="bento-card col-span-12 md:col-span-4 row-span-1 hidden md:block">
-            <div className="h-full rounded-2xl bg-neutral-900/50 border border-white/10 flex items-center justify-center">
-              <Link
-                href="/work"
-                className="flex flex-col items-center gap-3 text-brand-muted hover:text-brand-yellow-hover transition-colors group"
-              >
-                <div className="w-12 h-12 rounded-full border border-current flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-brand-black transition-all">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </div>
-                <span className="text-xs uppercase tracking-wider">View All</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {!isEmpty && (
-        <div className="text-center pt-3 pb-1 flex-shrink-0 md:hidden">
-          <Link
-            href="/work"
-            className="inline-flex items-center gap-2 text-brand-muted hover:text-brand-yellow-hover transition-colors text-xs uppercase tracking-wider"
-          >
-            Explore all projects →
-          </Link>
-        </div>
-      )}
     </div>
   );
 };

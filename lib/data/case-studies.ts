@@ -773,8 +773,39 @@ export function getAllCaseStudies(): CaseStudyItem[] {
   return caseStudies;
 }
 
+// Stable sort: items with `featured: true` come first, the rest keep
+// their natural array order. Used by /work so flagship projects land
+// at the top of the masonry on first paint.
+export function getCaseStudiesFeaturedFirst(): CaseStudyItem[] {
+  return [...caseStudies].sort(
+    (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))
+  );
+}
+
 export function getFeaturedCaseStudies(limit: number = 8): CaseStudyItem[] {
   return caseStudies.slice(0, limit);
+}
+
+// Homepage highlights — an owner-curated, ordered list of slugs that
+// appear in the homepage "Selected work" section. Distinct from the
+// broader `featured` flag so the home rail can be more selective than
+// the full /work flagship set (e.g. whisky is featured on /work but
+// not surfaced on the home rail).
+const HOMEPAGE_HIGHLIGHT_SLUGS = [
+  '4wd-interiors',
+  'austin-education',
+  'cupcake-central',
+  'gameology',
+  'wincareer',
+  'accio-lms',
+  'online-education'
+];
+
+export function getHomepageHighlights(): CaseStudyItem[] {
+  return HOMEPAGE_HIGHLIGHT_SLUGS.flatMap((slug) => {
+    const match = caseStudies.find((c) => c.slug === slug);
+    return match ? [match] : [];
+  });
 }
 
 export function getCaseStudyBySlug(slug: string): CaseStudyItem | undefined {

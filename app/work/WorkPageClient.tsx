@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useLayoutEffect, useMemo } from 'react';
+import { useRef, useLayoutEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -15,59 +15,58 @@ interface WorkPageClientProps {
   caseStudies: CaseStudyItem[];
 }
 
-// Category metadata retained in case a grouped view is needed later;
-// the active layout below is a flat masonry of WorkCard tiles, so this
-// is currently unused but kept around for the next iteration.
-interface CategoryGroup {
-  category: string;
-  label: string;
-  prose: string;
-  flagship?: boolean;
-}
+// Capability filter. "All" surfaces every project; the four named tabs
+// filter the masonry to projects that carry that capability in their
+// `services` field. Tab labels match the canonical capability strings
+// (and the four /services detail pages).
+type CapabilityFilter = 'All' | 'Web Development' | 'System Development' | 'Managed IT' | 'SEO & Content';
 
-const CATEGORY_GROUPS: CategoryGroup[] = [
-  {
-    category: 'Integrated Platform',
-    label: 'Integrated Platforms',
-    prose:
-      'The flagship builds — a customer-facing storefront paired with the internal operating system that runs it. Two engines designed and built as one.',
-    flagship: true
-  },
-  {
-    category: 'E-commerce',
-    label: 'E-commerce',
-    prose:
-      'Online retail storefronts built to run cleanly day-to-day — payments, inventory, fulfilment, all in one back office.'
-  },
-  {
-    category: 'Marketing Site',
-    label: 'Marketing Sites',
-    prose:
-      'Marketing surfaces designed to convert research traffic into qualified enquiries — credibility, structure, and lead capture done with care.'
-  },
-  {
-    category: 'Custom System',
-    label: 'Custom Systems',
-    prose:
-      'Bespoke systems built for one specific operation, where the off-the-shelf option would have forced the business to bend around the software.'
-  }
+const CAPABILITY_TABS: CapabilityFilter[] = [
+  'All',
+  'Web Development',
+  'System Development',
+  'Managed IT',
+  'SEO & Content'
 ];
 
 export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isEmpty = caseStudies.length === 0;
 
-  // Pre-grouped slice — held in memo so reverting to a grouped layout is
-  // a one-line render change. Not currently consumed by the JSX.
-  const grouped = useMemo(() => {
-    return CATEGORY_GROUPS.map((group) => {
-      const items = caseStudies
-        .filter((c) => c.category === group.category)
-        .sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
-      return { ...group, items };
-    }).filter((group) => group.items.length > 0);
+  const [active, setActive] = useState<CapabilityFilter>('All');
+
+  // Visible set = filter by selected capability, then sort so featured
+  // projects land at the top of the masonry (the CSS columns engine
+  // fills top-to-bottom in DOM order).
+  const visible = useMemo(() => {
+    const filtered =
+      active === 'All'
+        ? caseStudies
+        : caseStudies.filter((c) => c.services?.includes(active));
+    return [...filtered].sort(
+      (a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured))
+    );
+  }, [active, caseStudies]);
+
+  // Count per tab — surfaced in the tab label so a filter that returns
+  // nothing is visible before the user clicks.
+  const counts = useMemo(() => {
+    const result: Record<CapabilityFilter, number> = {
+      All: caseStudies.length,
+      'Web Development': 0,
+      'System Development': 0,
+      'Managed IT': 0,
+      'SEO & Content': 0
+    };
+    for (const c of caseStudies) {
+      for (const svc of c.services ?? []) {
+        if (svc in result) {
+          result[svc as CapabilityFilter] += 1;
+        }
+      }
+    }
+    return result;
   }, [caseStudies]);
-  void grouped;
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
@@ -129,6 +128,48 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
         </div>
       </div>
 
+      {/* Capability filter — sits between the header and the masonry.
+          Five tabs (All + four service lines). Each tab carries its
+          count so empty results are visible before the click. */}
+      <div className="px-4 md:px-12 pb-10 md:pb-14">
+        <div
+          className="flex flex-wrap items-center gap-2 md:gap-3 border-b border-white/10 pb-6 md:pb-8"
+          role="tablist"
+          aria-label="Filter by capability"
+        >
+          {CAPABILITY_TABS.map((tab) => {
+            const isActive = active === tab;
+            return (
+              <button
+                key={tab}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActive(tab)}
+                className={
+                  'group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs uppercase tracking-[0.18em] transition-colors ' +
+                  (isActive
+                    ? 'border-brand-yellow bg-brand-yellow text-brand-black'
+                    : 'border-white/15 text-brand-muted hover:border-brand-yellow/50 hover:text-brand-text')
+                }
+              >
+                <span>{tab}</span>
+                <span
+                  className={
+                    'inline-flex items-center justify-center min-w-5 rounded-full px-1.5 text-[10px] ' +
+                    (isActive
+                      ? 'bg-brand-black/15 text-brand-black'
+                      : 'bg-white/5 text-brand-muted group-hover:bg-white/10')
+                  }
+                >
+                  {counts[tab]}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Empty state vs. masonry */}
       <div className="px-4 md:px-12 pb-24">
         {isEmpty ? (
@@ -159,13 +200,25 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
               </svg>
             </Link>
           </div>
+        ) : visible.length === 0 ? (
+          <div className="mx-auto max-w-md text-center border border-white/10 bg-white/[0.02] rounded-2xl p-8 mt-4 text-brand-muted text-sm">
+            No projects under <span className="text-brand-text font-medium">{active}</span> yet.
+            <button
+              type="button"
+              onClick={() => setActive('All')}
+              className="ml-2 text-brand-yellow hover:underline"
+            >
+              Show all
+            </button>
+          </div>
         ) : (
-          // Masonry via CSS columns — cards keep their natural height, so
-          // screenshots show whole and the taller text-only cards stagger
-          // the waterfall. No JS layout engine, nothing to ship.
-          <div className="columns-1 gap-6 sm:columns-2 xl:columns-3 [column-fill:_balance]">
-            {caseStudies.map((project) => (
-              <div key={project.id} className="work-card mb-6 break-inside-avoid">
+          // Uniform grid — every card lands the same size in its row.
+          // `auto-rows-fr` stretches each row to the tallest card so
+          // cards in the same row are visually flush. Featured-first
+          // sort still applies (DOM order).
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
+            {visible.map((project) => (
+              <div key={project.id} className="work-card">
                 <WorkCard caseStudy={project} />
               </div>
             ))}

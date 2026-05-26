@@ -7,9 +7,10 @@ interface WorkCardProps {
   caseStudy: CaseStudyItem;
 }
 
-// Screenshots are 1440x900 viewport captures (16:10). We hand next/image
-// the intrinsic ratio and let it render at natural height inside the
-// masonry column, so nothing is ever cropped.
+// Screenshots are 1440x900 (16:10). We give next/image the intrinsic
+// dimensions but render inside a fixed aspect-ratio frame, so cards
+// land the same image height across a row regardless of container
+// width. object-cover keeps the screenshot whole within the frame.
 const SHOT_W = 1440;
 const SHOT_H = 900;
 
@@ -21,29 +22,29 @@ export function WorkCard({ caseStudy }: WorkCardProps) {
   );
 }
 
-// Cards that have a real screenshot: the image leads, a compact caption
-// follows. The screenshot is shown whole — the crop the old fixed-height
-// grid forced is gone.
+// Card variant for projects that have a real captured screenshot.
+// h-full + flex-col so when the parent grid stretches the row, the
+// text block below the image fills the leftover space cleanly.
 function ImageCard({ caseStudy }: WorkCardProps) {
   return (
     <Link
       href={`/work/${caseStudy.slug}`}
-      className="group block overflow-hidden rounded-xl border border-white/10 bg-brand-surface transition-colors duration-300 hover:border-brand-yellow/40"
+      className="group flex h-full flex-col overflow-hidden rounded-xl border border-white/10 bg-brand-surface transition-colors duration-300 hover:border-brand-yellow/40"
     >
-      <div className="overflow-hidden">
+      <div className="aspect-[16/10] overflow-hidden">
         <Image
           src={caseStudy.img!}
           alt={`${caseStudy.name} — ${caseStudy.category} project by Pixdyne`}
           width={SHOT_W}
           height={SHOT_H}
           sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
-          className="h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
       </div>
 
-      <div className="flex items-start justify-between gap-4 p-5">
-        <div>
-          <h3 className="font-serif text-2xl italic leading-tight text-brand-text transition-colors duration-300 group-hover:text-brand-yellow">
+      <div className="flex flex-1 items-start justify-between gap-4 p-5">
+        <div className="min-w-0">
+          <h3 className="font-serif text-2xl italic leading-tight text-brand-text transition-colors duration-300 group-hover:text-brand-yellow line-clamp-1">
             {caseStudy.name}
           </h3>
           <p className="mt-2 text-xs uppercase tracking-[0.18em] text-brand-muted">
@@ -65,17 +66,16 @@ function ImageCard({ caseStudy }: WorkCardProps) {
   );
 }
 
-// Cards with no screenshot yet (the larger systems still being written up).
-// Rather than a flat placeholder tile, the project's initial is set as an
-// oversized serif watermark so typography carries the card. Reads as a
-// deliberate plate, not a missing image.
+// Card variant for projects without a screenshot yet. An oversized
+// serif monogram does the visual work in place of an image. h-full +
+// flex-col makes it work inside both uniform grids and bento layouts.
 function TextCard({ caseStudy }: WorkCardProps) {
   const monogram = caseStudy.name.charAt(0);
 
   return (
     <Link
       href={`/work/${caseStudy.slug}`}
-      className="group relative block overflow-hidden rounded-xl border border-white/10 bg-brand-surface p-6 transition-colors duration-300 hover:border-brand-yellow/40"
+      className="group relative flex h-full min-h-[280px] flex-col overflow-hidden rounded-xl border border-white/10 bg-brand-surface p-6 transition-colors duration-300 hover:border-brand-yellow/40"
     >
       <span
         aria-hidden="true"
@@ -92,12 +92,12 @@ function TextCard({ caseStudy }: WorkCardProps) {
         }}
       />
 
-      <div className="relative flex min-h-[248px] flex-col justify-between">
+      <div className="relative flex flex-1 flex-col justify-between">
         <p className="text-xs uppercase tracking-[0.18em] text-brand-yellow/80">
           {caseStudy.category}
         </p>
         <div>
-          <h3 className="font-serif text-3xl italic leading-tight text-brand-text transition-colors duration-300 group-hover:text-brand-yellow">
+          <h3 className="font-serif text-3xl italic leading-tight text-brand-text transition-colors duration-300 group-hover:text-brand-yellow line-clamp-2">
             {caseStudy.name}
           </h3>
           <div className="mt-4 flex flex-wrap gap-2">

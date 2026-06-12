@@ -3,6 +3,7 @@
 import React, { useRef, useLayoutEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
+import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { ArrowUpRight } from 'lucide-react';
 import { getHomepageHighlights } from '@/lib/data/case-studies';
@@ -37,6 +38,7 @@ export const CaseStudySection: React.FC = () => {
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+    if (prefersReducedMotion()) return; // CLAUDE.md §8
 
     gsap.registerPlugin(ScrollTrigger);
 

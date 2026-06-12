@@ -4,6 +4,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { usePathname } from 'next/navigation';
+import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 import { SectionProps } from '@/types';
 
 if (typeof window !== 'undefined') {
@@ -39,6 +40,9 @@ export const StickySection: React.FC<SectionProps> = ({
     if (typeof window === 'undefined') return;
     // Skip complex GSAP transitions on mobile - they cause jank and trigger issues
     if (isMobile) return;
+    // Respect reduced-motion: skip the layered sticky/scroll transitions so the
+    // sections fall back to normal vertical flow (CLAUDE.md §8).
+    if (prefersReducedMotion()) return;
 
     gsap.registerPlugin(ScrollTrigger);
 

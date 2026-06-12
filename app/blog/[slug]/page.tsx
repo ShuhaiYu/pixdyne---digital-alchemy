@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
-import { getBlogPostBySlug, getBlogSlugs } from '@/lib/data/blog';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { getBlogPostBySlug, getBlogSlugs, getAllBlogPosts } from '@/lib/data/blog';
 import { generateBlogPostSchema, generateBreadcrumbSchema } from '@/lib/seo/schema';
 
 interface Props {

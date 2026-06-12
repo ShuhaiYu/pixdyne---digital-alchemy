@@ -5,22 +5,30 @@ import { services } from '@/lib/data/services';
 import { generateBreadcrumbSchema } from '@/lib/seo/schema';
 
 export const metadata: Metadata = {
-  title: 'Services',
+  title: 'Melbourne IT Services',
   description:
-    'Web development, system development, and operations from a Melbourne team. Plus OnlyPixAI — our unified AI gateway product. Pick what fits how your team actually works.',
+    'Melbourne IT services from Pixdyne since 2018: web development, custom systems, operations, and the OnlyPixAI gateway. Pick what fits how your team works.',
   alternates: {
     canonical: 'https://pixdyne.com/services'
   },
   openGraph: {
-    title: 'Services | Pixdyne',
+    title: 'Melbourne IT Services | Pixdyne',
     description:
-      'Web development, system development, operations, and OnlyPixAI from a Melbourne team. Pick what fits how your team actually works.',
-    url: 'https://pixdyne.com/services'
+      'Melbourne IT services from Pixdyne — web development, custom systems, operations, and OnlyPixAI. Pick what fits how your team actually works.',
+    url: 'https://pixdyne.com/services',
+    // Root file-based opengraph-image does not propagate to nested routes;
+    // reference the 1200×630 brand OG route so summary_large_image is valid.
+    images: [{
+      url: 'https://pixdyne.com/opengraph-image',
+      width: 1200,
+      height: 630,
+      alt: 'Pixdyne — Melbourne technology partner since 2018'
+    }]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Services | Pixdyne',
-    description: 'Web, custom systems, ongoing operations, and OnlyPixAI from Melbourne.'
+    title: 'Melbourne IT Services | Pixdyne',
+    description: 'Melbourne IT services from Pixdyne — web, custom systems, operations, and OnlyPixAI.'
   }
 };
 
@@ -51,12 +59,13 @@ export default function ServicesIndexPage() {
                 Services
               </span>
               <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-serif italic leading-[0.95] text-brand-text mb-10">
-                What we deliver.
+                Melbourne IT services, in full.
               </h1>
               <p className="text-lg md:text-xl lg:text-2xl text-brand-muted leading-relaxed max-w-3xl">
-                Three service lines and one flagship product. We pick the
-                platform that fits how your team will run it after launch,
-                not whatever is easiest to build.
+                Pixdyne delivers IT services for businesses in Melbourne and
+                across Australia — three service lines and one flagship
+                product. We pick the platform that fits how your team will run
+                it after launch, not whatever is easiest to build.
               </p>
             </header>
 

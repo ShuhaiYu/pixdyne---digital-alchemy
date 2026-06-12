@@ -2,12 +2,14 @@
 
 import React, { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 
 export const HeroSection: React.FC = () => {
   const sloganRef = useRef<HTMLHeadingElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
+    if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       const tl = gsap.timeline();
       // Line-level entrance rather than per-character. Per-char inline-block

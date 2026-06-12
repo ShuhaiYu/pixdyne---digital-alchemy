@@ -4,6 +4,7 @@ import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
+import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 import { ArrowRight } from 'lucide-react';
 import { getCapabilityCards } from '@/lib/data/services';
 import { brandRGB } from '@/lib/brand';
@@ -38,6 +39,9 @@ export const ServicesSection: React.FC = () => {
     if (typeof window === 'undefined') return;
     // Skip horizontal scroll animation on mobile
     if (isMobile) return;
+    // Respect reduced-motion: skip the pinned horizontal-scroll animation so
+    // the section falls back to normal vertical flow (CLAUDE.md §8).
+    if (prefersReducedMotion()) return;
 
     gsap.registerPlugin(ScrollTrigger);
 

@@ -202,7 +202,8 @@ Current routes:
 
 ```
 /                        Homepage (sticky-scroll, no contact section)
-/services/[slug]         Service detail (dynamic; no /services index page yet)
+/services                Services index — "Melbourne IT services" hub (live)
+/services/[slug]         Service detail (dynamic)
 /work                    Case studies index
 /work/[slug]             Case study detail
 /blog                    Blog index

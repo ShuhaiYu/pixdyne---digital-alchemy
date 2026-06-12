@@ -2,6 +2,7 @@
 
 import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import gsap from 'gsap';
+import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import SplitText from '@/components/SplitText';
 import AnimatedContent from '@/components/AnimatedContent';
@@ -39,6 +40,7 @@ export const ProcessSection: React.FC = () => {
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+    if (prefersReducedMotion()) return; // CLAUDE.md §8
 
     const section = sectionRef.current;
     const cards = cardsRef.current.filter(Boolean);

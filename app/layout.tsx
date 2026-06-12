@@ -95,6 +95,12 @@ export const metadata: Metadata = {
   },
   // TBD: add `verification.google` once Google Search Console verification
   // code is issued. Shipping the placeholder string fails verification.
+  verification: {
+    // Bing Webmaster Tools site ownership (renders <meta name="msvalidate.01" />).
+    other: {
+      'msvalidate.01': 'FB87D11B62AD64E224F0C43B751744FC'
+    }
+  },
   alternates: {
     canonical: 'https://pixdyne.com'
   }

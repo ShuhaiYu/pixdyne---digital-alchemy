@@ -15,17 +15,30 @@ const SHOT_W = 1440;
 const SHOT_H = 900;
 
 export function WorkCard({ caseStudy }: WorkCardProps) {
-  return caseStudy.img ? (
-    <ImageCard caseStudy={caseStudy} />
+  // Card thumbnail source: a dedicated hero image when one exists,
+  // otherwise the first gallery screenshot. Most projects ship only a
+  // gallery (img: ''), so without this fallback they'd wrongly render
+  // as the textual monogram card despite having real screenshots.
+  // next/image optimises the source on demand, so the large PNG
+  // originals reach the client as resized webp/avif, not at full weight.
+  const cardImage = caseStudy.img?.trim() || caseStudy.gallery?.[0]?.src;
+
+  return cardImage ? (
+    <ImageCard caseStudy={caseStudy} image={cardImage} />
   ) : (
     <TextCard caseStudy={caseStudy} />
   );
 }
 
+interface ImageCardProps {
+  caseStudy: CaseStudyItem;
+  image: string;
+}
+
 // Card variant for projects that have a real captured screenshot.
 // h-full + flex-col so when the parent grid stretches the row, the
 // text block below the image fills the leftover space cleanly.
-function ImageCard({ caseStudy }: WorkCardProps) {
+function ImageCard({ caseStudy, image }: ImageCardProps) {
   return (
     <Link
       href={`/work/${caseStudy.slug}`}
@@ -33,7 +46,7 @@ function ImageCard({ caseStudy }: WorkCardProps) {
     >
       <div className="aspect-[16/10] overflow-hidden">
         <Image
-          src={caseStudy.img!}
+          src={image}
           alt={`${caseStudy.name} — ${caseStudy.category} project by Pixdyne`}
           width={SHOT_W}
           height={SHOT_H}

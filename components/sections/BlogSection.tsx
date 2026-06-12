@@ -3,6 +3,7 @@
 import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import Link from 'next/link';
 import gsap from 'gsap';
+import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { getAllBlogPosts } from '@/lib/data/blog';
@@ -22,6 +23,7 @@ export const BlogSection: React.FC = () => {
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+    if (prefersReducedMotion()) return; // CLAUDE.md §8
 
     const section = sectionRef.current;
     if (!section) return;

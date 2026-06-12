@@ -8,6 +8,7 @@
 
 import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import gsap from 'gsap';
+import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import SpotlightCard from '@/components/SpotlightCard';
 import Aurora from '@/components/Aurora';
@@ -55,6 +56,7 @@ export const TeamSection: React.FC = () => {
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
+    if (prefersReducedMotion()) return; // CLAUDE.md §8
 
     const section = sectionRef.current;
     if (!section) return;

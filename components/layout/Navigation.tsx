@@ -3,8 +3,9 @@
 // Site-wide navigation.
 //   * Desktop (>= md): inline horizontal nav restored. Top-level items
 //     (Services, Work, About, Journal) sit inline in the bar; Services
-//     opens a hover/focus dropdown listing the four service/product detail
-//     pages. A single "Start Project" CTA routes to /contact (Contact is
+//     opens a hover/focus dropdown listing the four service detail pages
+//     plus the OnlyPixAI product (tagged, divided off at the bottom). A
+//     single "Start Project" CTA routes to /contact (Contact is
 //     not duplicated as a text link). Home is omitted — the logo is home.
 //   * The bar is transparent on desktop with mix-blend-difference so the
 //     logo + inline links invert against whatever background scrolls
@@ -26,6 +27,10 @@ import { BUSINESS } from '@/lib/data/business';
 interface SubItem {
   href: string;
   label: string;
+  // Optional category badge (e.g. 'Product'). Used to set the OnlyPixAI
+  // entry apart from the four service lines and to render a divider
+  // above it in the dropdown.
+  tag?: string;
 }
 
 interface MenuItem {
@@ -34,16 +39,20 @@ interface MenuItem {
   subItems?: SubItem[];
 }
 
-// Mirrors the homepage Capabilities rail exactly (see getCapabilityCards):
-// Web Development, System Development, Managed IT, SEO & Content. The
-// Operations bundle page and the OnlyPixAI product are intentionally not in
-// this dropdown — Operations is surfaced through its two standalone lines,
-// and OnlyPixAI lives in its own homepage section + footer.
+// Four service lines (mirroring the homepage Capabilities rail / see
+// getCapabilityCards) plus the OnlyPixAI product as a distinct, tagged
+// entry at the bottom. The Operations bundle page stays out of the
+// dropdown — it's surfaced through its two standalone lines. OnlyPixAI
+// carries a 'Product' badge and a divider so it reads as a different
+// category from the services. Its menu label is the descriptive "AI
+// Gateway" entry point; the destination page is the OnlyPixAI product
+// itself (the product name is fixed — see CLAUDE.md §6 rule 5).
 const SERVICE_SUBITEMS: SubItem[] = [
   { href: '/services/web-development', label: 'Web Development' },
   { href: '/services/system-development', label: 'System Development' },
   { href: '/services/managed-it', label: 'Managed IT' },
-  { href: '/services/seo-content', label: 'SEO & Content' }
+  { href: '/services/seo-content', label: 'SEO & Content' },
+  { href: '/services/onlypixai', label: 'AI Gateway', tag: 'Product' }
 ];
 
 // Full IA for the mobile overlay (includes Home + Contact).
@@ -301,19 +310,30 @@ export const Navigation: React.FC = () => {
             {SERVICE_SUBITEMS.map((sub) => {
               const subActive = pathname === sub.href;
               return (
-                <li key={sub.href} role="none">
+                <li
+                  key={sub.href}
+                  role="none"
+                  // Tagged entries (the OnlyPixAI product) are divided off
+                  // from the service lines above them.
+                  className={sub.tag ? 'mt-2 border-t border-white/10 pt-2' : ''}
+                >
                   <Link
                     href={sub.href}
                     role="menuitem"
                     onClick={closeServicesNow}
-                    className={`block px-5 py-3 text-sm uppercase tracking-widest transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-yellow ${
+                    className={`flex items-center justify-between gap-3 px-5 py-3 text-sm uppercase tracking-widest transition-colors focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand-yellow ${
                       subActive
                         ? 'bg-brand-yellow/10 text-brand-yellow'
                         : 'text-brand-text/85 hover:bg-brand-white/[0.06] hover:text-brand-yellow-hover'
                     }`}
                     aria-current={subActive ? 'page' : undefined}
                   >
-                    {sub.label}
+                    <span>{sub.label}</span>
+                    {sub.tag && (
+                      <span className="text-[10px] tracking-[0.18em] text-brand-yellow/80 border border-brand-yellow/30 rounded-full px-2 py-0.5">
+                        {sub.tag}
+                      </span>
+                    )}
                   </Link>
                 </li>
               );
@@ -375,7 +395,7 @@ export const Navigation: React.FC = () => {
                           <Link
                             href={sub.href}
                             onClick={closeMenu}
-                            className={`text-xs sm:text-sm uppercase tracking-widest py-1 transition-colors ${
+                            className={`inline-flex items-center gap-1.5 text-xs sm:text-sm uppercase tracking-widest py-1 transition-colors ${
                               subActive
                                 ? 'text-brand-yellow'
                                 : 'text-brand-text/75 hover:text-brand-yellow-hover'
@@ -383,6 +403,11 @@ export const Navigation: React.FC = () => {
                             aria-current={subActive ? 'page' : undefined}
                           >
                             {sub.label}
+                            {sub.tag && (
+                              <span className="text-[9px] tracking-[0.16em] text-brand-yellow/80 border border-brand-yellow/30 rounded-full px-1.5 py-0.5">
+                                {sub.tag}
+                              </span>
+                            )}
                           </Link>
                         </li>
                       );

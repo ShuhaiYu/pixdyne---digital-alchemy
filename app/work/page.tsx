@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { Suspense } from 'react';
 import { getAllCaseStudies } from '@/lib/data/case-studies';
 import { generateCollectionPageSchema } from '@/lib/seo/schema';
 import WorkPageClient from './WorkPageClient';
@@ -45,7 +46,11 @@ export default function WorkPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
       />
-      <WorkPageClient caseStudies={caseStudies} />
+      {/* Suspense boundary required by useSearchParams (capability deep
+          link) so the static shell isn't de-opted to client rendering. */}
+      <Suspense fallback={null}>
+        <WorkPageClient caseStudies={caseStudies} />
+      </Suspense>
     </>
   );
 }

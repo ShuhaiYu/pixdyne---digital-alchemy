@@ -1,7 +1,8 @@
 'use client';
 
-import { useRef, useLayoutEffect, useMemo, useState } from 'react';
+import { useRef, useLayoutEffect, useMemo, useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { CaseStudyItem } from '@/types';
@@ -29,11 +30,49 @@ const CAPABILITY_TABS: CapabilityFilter[] = [
   'SEO & Content'
 ];
 
+// Narrow an arbitrary query string to a known capability tab. Anything
+// that isn't one of the five tabs (including a missing param) falls back
+// to 'All', so a hand-edited or stale URL never lands the page in a
+// broken filter state.
+function resolveCapability(value: string | null): CapabilityFilter {
+  return value && (CAPABILITY_TABS as string[]).includes(value)
+    ? (value as CapabilityFilter)
+    : 'All';
+}
+
 export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const isEmpty = caseStudies.length === 0;
 
-  const [active, setActive] = useState<CapabilityFilter>('All');
+  // Deep-link support: the /services capability pages link here with
+  // `?capability=<service title>` so the masonry opens pre-filtered to
+  // that service's work. The param is the single source of truth — the
+  // tabs write it back via router.replace, so the URL stays shareable
+  // and the browser back button restores the previous filter.
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const capabilityParam = searchParams.get('capability');
+
+  const [active, setActive] = useState<CapabilityFilter>(() =>
+    resolveCapability(capabilityParam)
+  );
+
+  // Keep the active tab in sync when the param changes underneath us
+  // (back/forward navigation, or arriving from a different service page
+  // without a full remount).
+  useEffect(() => {
+    setActive(resolveCapability(capabilityParam));
+  }, [capabilityParam]);
+
+  const handleSelect = (tab: CapabilityFilter) => {
+    setActive(tab);
+    const params = new URLSearchParams();
+    if (tab !== 'All') params.set('capability', tab);
+    const qs = params.toString();
+    // scroll: false — flipping a filter should not yank the viewport.
+    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+  };
 
   // Visible set = filter by selected capability, then sort so featured
   // projects land at the top of the masonry (the CSS columns engine
@@ -145,7 +184,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
                 type="button"
                 role="tab"
                 aria-selected={isActive}
-                onClick={() => setActive(tab)}
+                onClick={() => handleSelect(tab)}
                 className={
                   'group inline-flex items-center gap-2 rounded-full border px-4 py-2 text-xs uppercase tracking-[0.18em] transition-colors ' +
                   (isActive
@@ -205,7 +244,7 @@ export default function WorkPageClient({ caseStudies }: WorkPageClientProps) {
             No projects under <span className="text-brand-text font-medium">{active}</span> yet.
             <button
               type="button"
-              onClick={() => setActive('All')}
+              onClick={() => handleSelect('All')}
               className="ml-2 text-brand-yellow hover:underline"
             >
               Show all

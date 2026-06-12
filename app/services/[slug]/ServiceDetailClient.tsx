@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useLayoutEffect, useRef } from 'react';
+import Link from 'next/link';
 import gsap from 'gsap';
 import { ArrowLeft, ArrowUpRight, ArrowRight, Check, Plus } from 'lucide-react';
 import { ServiceItem } from '@/types';
@@ -9,9 +10,28 @@ interface ServiceDetailClientProps {
   service: ServiceItem;
 }
 
+// Service titles that map 1:1 to a /work capability filter tab. The four
+// standalone capability pages link to their filtered case studies via
+// /work?capability=<title>; the Operations bundle and the OnlyPixAI
+// product have no matching filter, so they get no "related work" link.
+// Keep these strings in sync with CAPABILITY_TABS in WorkPageClient.
+const WORK_CAPABILITY_TITLES = [
+  'Web Development',
+  'System Development',
+  'Managed IT',
+  'SEO & Content'
+] as const;
+
 export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ service }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isProduct = service.tier === 'product';
+
+  // Non-null only for the four services that have a matching /work filter.
+  const workCapability = (WORK_CAPABILITY_TITLES as readonly string[]).includes(
+    service.title
+  )
+    ? service.title
+    : null;
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -209,6 +229,32 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                 </span>
               ))}
             </div>
+
+            {/* Related work — deep-links into /work pre-filtered to this
+                service's capability. Only the four capability-mapped
+                services render it (workCapability is null for the
+                Operations bundle and the OnlyPixAI product). */}
+            {workCapability && (
+              <div className="border-t border-white/10 pt-8 mb-8">
+                <h4 className="text-xs text-brand-muted uppercase tracking-widest mb-4">
+                  Related work
+                </h4>
+                <Link
+                  href={`/work?capability=${encodeURIComponent(workCapability)}`}
+                  className="group flex items-center justify-between gap-3 text-sm text-brand-text hover:text-brand-yellow-hover transition-colors cursor-pointer"
+                  aria-label={`See ${service.title} projects in our work`}
+                >
+                  <span>
+                    See {service.title} projects
+                  </span>
+                  <ArrowRight
+                    size={16}
+                    className="flex-shrink-0 text-brand-yellow group-hover:translate-x-1 transition-transform"
+                    aria-hidden="true"
+                  />
+                </Link>
+              </div>
+            )}
 
             <div className="border-t border-white/10 pt-8">
               {isProduct && service.externalUrl ? (

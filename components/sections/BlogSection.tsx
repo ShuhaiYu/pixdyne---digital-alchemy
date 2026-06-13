@@ -14,7 +14,9 @@ if (typeof window !== 'undefined') {
 
 export const BlogSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const posts = getAllBlogPosts();
+  // Homepage Journal teases only the four most recent posts; the fifth row is a
+  // "more" entry into /blog rather than a real article (CLAUDE.md §10 IA).
+  const posts = getAllBlogPosts().slice(0, 4);
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -105,11 +107,15 @@ export const BlogSection: React.FC = () => {
             </div>
           </Link>
         ))}
-      </div>
 
-      <div className="md:hidden mt-8 text-center">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-sm font-bold border-b border-black pb-1">
-          VIEW ALL ARTICLES <ArrowUpRight size={16} />
+        <Link
+          href="/blog"
+          aria-label="View all journal articles"
+          className="blog-row group flex items-center justify-center gap-3 py-6 sm:py-8 md:py-10 border-b border-brand-black/20 cursor-pointer hover:bg-brand-black/[0.03] transition-colors"
+        >
+          <span className="font-serif text-2xl sm:text-3xl leading-none text-brand-muted group-hover:text-brand-yellow-hover transition-colors duration-300" aria-hidden="true">···</span>
+          <span className="font-mono text-xs font-bold uppercase tracking-widest group-hover:text-brand-yellow-hover transition-colors">More articles</span>
+          <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
         </Link>
       </div>
     </div>

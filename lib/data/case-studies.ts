@@ -19,91 +19,6 @@ import { CaseStudyItem } from '@/types';
 // land.
 
 export const caseStudies: CaseStudyItem[] = [
-  // ─── E-commerce ─────────────────────────────────────────────────────
-  {
-    id: '01',
-    slug: 'epm-offroad',
-    name: 'EPM Offroad',
-    client: 'EPM Offroad',
-    category: 'E-commerce',
-    liveUrl: 'https://www.epmoffroad.com/',
-    services: ['Web Development'],
-    stack: ['Shopify', 'Multi-brand catalogue', 'Aftermarket automotive'],
-    challenge:
-      "EPM Offroad sells aftermarket off-road and overland accessories — heavy, fitment-sensitive parts spread across brands customers search for by name. They needed a storefront that could carry several distinct brand catalogues (aFe Power, Baja Designs, Eibach, KC HiLites among others) without making the site feel like a wholesaler's spreadsheet.",
-    solution:
-      "We built the storefront on Shopify so the team has one back office for inventory, payments, and shipping across brands. Product taxonomy is structured around vehicle category and component — lift kits, lighting, intakes — so a RAM TRX owner lands on the right shelf without scrolling past everything else first. Promotions, returns, and free-shipping rules are wired into Shopify natively rather than bolted on as add-on apps that drift out of date.",
-    shortDescription:
-      'Shopify storefront carrying multiple off-road brands under one back office.',
-    seoTitle: 'EPM Offroad — Multi-Brand Shopify Storefront',
-    seoDescription:
-      'A Shopify storefront for off-road and overland accessories carrying aFe Power, Baja Designs, Eibach, KC HiLites and more under one back office. Built by Pixdyne.',
-    img: '/work/epm-offroad.webp',
-    cardSize: 'small'
-  },
-  {
-    id: '02',
-    slug: 'tyre-boys',
-    name: 'Tyre Boys',
-    client: 'Tyre Boys',
-    category: 'E-commerce',
-    liveUrl: 'https://www.tyreboys.com/',
-    services: ['Web Development'],
-    stack: ['Shopify', 'Tyre size finder', 'Multi-brand inventory'],
-    challenge:
-      "Tyre Boys is a Springvale tyre retailer that sells across multiple brands and dozens of sizes. The challenge in tyre e-commerce is matching — customers don't buy 'a tyre', they buy a specific size and load rating for a specific vehicle. The site had to make finding the right tyre feel obvious rather than overwhelming.",
-    solution:
-      "We built the storefront on Shopify with a size finder up front, so the visitor narrows by size before they see brands. The catalogue spans seven brands — Dunlop, Goodyear, Kumho, Pirelli and others — under one checkout, with promotional bundles like 'Buy 3, Get 1 Free' wired into Shopify's native discount logic. A back-in-stock notification system handles the long tail of less common sizes without manual customer chasing.",
-    shortDescription:
-      'Shopify storefront with a size-first tyre finder across seven brands.',
-    seoTitle: 'Tyre Boys — Size-First Shopify Tyre Storefront',
-    seoDescription:
-      'A Shopify tyre storefront built around a size finder so customers narrow by fitment before brand. Multi-brand inventory, native promotions, restock notifications. Built by Pixdyne.',
-    img: '/work/tyre-boys.webp',
-    cardSize: 'small'
-  },
-  {
-    id: '03',
-    slug: 'pet-daddy',
-    name: 'Pet Daddy',
-    client: 'Pet Daddy',
-    category: 'E-commerce',
-    liveUrl: 'https://www.petdaddy.com.au/',
-    services: ['Web Development'],
-    stack: ['Shopify', 'Grooming booking', 'Retail + service'],
-    challenge:
-      "Pet Daddy runs a Surrey Hills pet boutique with both physical retail and a grooming service. They needed an online store that could carry premium pet supplies across dog and cat categories, while also surfacing the grooming booking flow without making it feel like a bolted-on second business.",
-    solution:
-      "We built the storefront on Shopify and structured the catalogue across roughly fifteen primary categories — food, treats, health, bedding, accessories — for both dog and cat audiences. Grooming bookings live inside the same Shopify back office, so the team isn't reconciling two systems. Comparison and wishlist tools sit on top for customers who want to research before adding to cart.",
-    shortDescription:
-      'Shopify storefront for a Melbourne pet boutique with integrated grooming booking.',
-    seoTitle: 'Pet Daddy — Shopify Store + Grooming Booking',
-    seoDescription:
-      "A Shopify storefront for a Surrey Hills pet boutique, with grooming bookings running inside the same back office as retail. Built by Pixdyne.",
-    img: '/work/pet-daddy.webp',
-    cardSize: 'small'
-  },
-  {
-    id: '04',
-    slug: 'peppy-planet',
-    name: 'Peppy Planet',
-    client: 'Peppy Planet',
-    category: 'E-commerce',
-    liveUrl: 'https://www.peppyplanet.com.au/',
-    services: ['Web Development'],
-    stack: ['Shopify', 'Booking flow', 'Venue hire'],
-    challenge:
-      "Peppy Planet runs an indoor play venue in Bayswater where weekend birthday parties drive most of the revenue. They needed a public site that could sell ticketed entry, party-room bookings, and after-hours venue hire through one checkout — without forcing parents through a separate booking system to pay.",
-    solution:
-      "We built the storefront on Shopify so the team can run the venue from one back office rather than learning new software for every channel. Entry tickets, party packages, and after-hours hire are each modelled as Shopify products with scheduling, so a parent can compare dates and pay in a single flow. Downloadable party invitations and an email list for booking access sit on top of the same store.",
-    shortDescription:
-      'Shopify storefront that sells entry, parties, and venue hire through one checkout.',
-    seoTitle: 'Peppy Planet — Shopify Party-Booking Storefront',
-    seoDescription:
-      'A Shopify storefront for a Bayswater indoor play venue that sells entry tickets, party-room bookings, and after-hours hire through one checkout. Built by Pixdyne.',
-    img: '/work/peppy-planet.webp',
-    cardSize: 'small'
-  },
   {
     id: '05',
     slug: '4wd-interiors',
@@ -128,27 +43,6 @@ export const caseStudies: CaseStudyItem[] = [
   },
 
   // ─── Marketing sites ────────────────────────────────────────────────
-  {
-    id: '06',
-    slug: 'promod-group',
-    name: 'Promod Group',
-    client: 'Promod Group',
-    category: 'Marketing Site',
-    liveUrl: 'https://www.promodgroup.com.au/',
-    services: ['Managed IT'],
-    stack: ['Custom CMS', 'B2B marketing site', 'Rebuild in progress'],
-    challenge:
-      "Promod Group is an Australian modular construction company supplying prefabricated buildings to residential, education, healthcare, and infrastructure clients. The audience is institutional — government agencies, developers, large investors — so the site has to read as a credible long-term partner, not as a marketing brochure.",
-    solution:
-      "The current site runs on a lightweight custom CMS we built and operate, focused on the company values, capabilities, and the Probotics automation product line rather than a transactional catalogue. We are currently rebuilding the site to better reflect the company's domestic-manufacturing positioning and to integrate the project portfolio more deeply. The rebuild keeps the Pixdyne stack and editorial structure — the team only has to learn one CMS over the lifetime of the engagement.",
-    shortDescription:
-      'B2B marketing site for an Australian modular construction company — rebuild underway.',
-    seoTitle: 'Promod Group — Modular Construction Marketing Site',
-    seoDescription:
-      'A B2B marketing site for an Australian modular construction company, built and operated by Pixdyne. Rebuild currently in progress.',
-    img: '/work/promod-group.webp',
-    cardSize: 'small'
-  },
   {
     id: '07',
     slug: 'good-mood-studio',
@@ -792,6 +686,112 @@ export const caseStudies: CaseStudyItem[] = [
       { src: '/projects/Floo_OrderMgmt.png', caption: 'Order management', alt: 'Floo order management portal' },
       { src: '/projects/Floo_Report.png', caption: 'Reporting', alt: 'Floo analytics and reporting page' }
     ]
+  },
+  // ─── E-commerce storefronts ─────────────────────────────────────
+  {
+    id: '01',
+    slug: 'epm-offroad',
+    name: 'EPM Offroad',
+    client: 'EPM Offroad',
+    category: 'E-commerce',
+    liveUrl: 'https://www.epmoffroad.com/',
+    services: ['Web Development'],
+    stack: ['Shopify', 'Multi-brand catalogue', 'Aftermarket automotive'],
+    challenge:
+      "EPM Offroad sells aftermarket off-road and overland accessories — heavy, fitment-sensitive parts spread across brands customers search for by name. They needed a storefront that could carry several distinct brand catalogues (aFe Power, Baja Designs, Eibach, KC HiLites among others) without making the site feel like a wholesaler's spreadsheet.",
+    solution:
+      "We built the storefront on Shopify so the team has one back office for inventory, payments, and shipping across brands. Product taxonomy is structured around vehicle category and component — lift kits, lighting, intakes — so a RAM TRX owner lands on the right shelf without scrolling past everything else first. Promotions, returns, and free-shipping rules are wired into Shopify natively rather than bolted on as add-on apps that drift out of date.",
+    shortDescription:
+      'Shopify storefront carrying multiple off-road brands under one back office.',
+    seoTitle: 'EPM Offroad — Multi-Brand Shopify Storefront',
+    seoDescription:
+      'A Shopify storefront for off-road and overland accessories carrying aFe Power, Baja Designs, Eibach, KC HiLites and more under one back office. Built by Pixdyne.',
+    img: '/work/epm-offroad.webp',
+    cardSize: 'small'
+  },
+  {
+    id: '02',
+    slug: 'tyre-boys',
+    name: 'Tyre Boys',
+    client: 'Tyre Boys',
+    category: 'E-commerce',
+    liveUrl: 'https://www.tyreboys.com/',
+    services: ['Web Development'],
+    stack: ['Shopify', 'Tyre size finder', 'Multi-brand inventory'],
+    challenge:
+      "Tyre Boys is a Springvale tyre retailer that sells across multiple brands and dozens of sizes. The challenge in tyre e-commerce is matching — customers don't buy 'a tyre', they buy a specific size and load rating for a specific vehicle. The site had to make finding the right tyre feel obvious rather than overwhelming.",
+    solution:
+      "We built the storefront on Shopify with a size finder up front, so the visitor narrows by size before they see brands. The catalogue spans seven brands — Dunlop, Goodyear, Kumho, Pirelli and others — under one checkout, with promotional bundles like 'Buy 3, Get 1 Free' wired into Shopify's native discount logic. A back-in-stock notification system handles the long tail of less common sizes without manual customer chasing.",
+    shortDescription:
+      'Shopify storefront with a size-first tyre finder across seven brands.',
+    seoTitle: 'Tyre Boys — Size-First Shopify Tyre Storefront',
+    seoDescription:
+      'A Shopify tyre storefront built around a size finder so customers narrow by fitment before brand. Multi-brand inventory, native promotions, restock notifications. Built by Pixdyne.',
+    img: '/work/tyre-boys.webp',
+    cardSize: 'small'
+  },
+  {
+    id: '03',
+    slug: 'pet-daddy',
+    name: 'Pet Daddy',
+    client: 'Pet Daddy',
+    category: 'E-commerce',
+    liveUrl: 'https://www.petdaddy.com.au/',
+    services: ['Web Development'],
+    stack: ['Shopify', 'Grooming booking', 'Retail + service'],
+    challenge:
+      "Pet Daddy runs a Surrey Hills pet boutique with both physical retail and a grooming service. They needed an online store that could carry premium pet supplies across dog and cat categories, while also surfacing the grooming booking flow without making it feel like a bolted-on second business.",
+    solution:
+      "We built the storefront on Shopify and structured the catalogue across roughly fifteen primary categories — food, treats, health, bedding, accessories — for both dog and cat audiences. Grooming bookings live inside the same Shopify back office, so the team isn't reconciling two systems. Comparison and wishlist tools sit on top for customers who want to research before adding to cart.",
+    shortDescription:
+      'Shopify storefront for a Melbourne pet boutique with integrated grooming booking.',
+    seoTitle: 'Pet Daddy — Shopify Store + Grooming Booking',
+    seoDescription:
+      "A Shopify storefront for a Surrey Hills pet boutique, with grooming bookings running inside the same back office as retail. Built by Pixdyne.",
+    img: '/work/pet-daddy.webp',
+    cardSize: 'small'
+  },
+  {
+    id: '04',
+    slug: 'peppy-planet',
+    name: 'Peppy Planet',
+    client: 'Peppy Planet',
+    category: 'E-commerce',
+    liveUrl: 'https://www.peppyplanet.com.au/',
+    services: ['Web Development'],
+    stack: ['Shopify', 'Booking flow', 'Venue hire'],
+    challenge:
+      "Peppy Planet runs an indoor play venue in Bayswater where weekend birthday parties drive most of the revenue. They needed a public site that could sell ticketed entry, party-room bookings, and after-hours venue hire through one checkout — without forcing parents through a separate booking system to pay.",
+    solution:
+      "We built the storefront on Shopify so the team can run the venue from one back office rather than learning new software for every channel. Entry tickets, party packages, and after-hours hire are each modelled as Shopify products with scheduling, so a parent can compare dates and pay in a single flow. Downloadable party invitations and an email list for booking access sit on top of the same store.",
+    shortDescription:
+      'Shopify storefront that sells entry, parties, and venue hire through one checkout.',
+    seoTitle: 'Peppy Planet — Shopify Party-Booking Storefront',
+    seoDescription:
+      'A Shopify storefront for a Bayswater indoor play venue that sells entry tickets, party-room bookings, and after-hours hire through one checkout. Built by Pixdyne.',
+    img: '/work/peppy-planet.webp',
+    cardSize: 'small'
+  },
+  {
+    id: '06',
+    slug: 'promod-group',
+    name: 'Promod Group',
+    client: 'Promod Group',
+    category: 'Marketing Site',
+    liveUrl: 'https://www.promodgroup.com.au/',
+    services: ['Managed IT'],
+    stack: ['Custom CMS', 'B2B marketing site', 'Rebuild in progress'],
+    challenge:
+      "Promod Group is an Australian modular construction company supplying prefabricated buildings to residential, education, healthcare, and infrastructure clients. The audience is institutional — government agencies, developers, large investors — so the site has to read as a credible long-term partner, not as a marketing brochure.",
+    solution:
+      "The current site runs on a lightweight custom CMS we built and operate, focused on the company values, capabilities, and the Probotics automation product line rather than a transactional catalogue. We are currently rebuilding the site to better reflect the company's domestic-manufacturing positioning and to integrate the project portfolio more deeply. The rebuild keeps the Pixdyne stack and editorial structure — the team only has to learn one CMS over the lifetime of the engagement.",
+    shortDescription:
+      'B2B marketing site for an Australian modular construction company — rebuild underway.',
+    seoTitle: 'Promod Group — Modular Construction Marketing Site',
+    seoDescription:
+      'A B2B marketing site for an Australian modular construction company, built and operated by Pixdyne. Rebuild currently in progress.',
+    img: '/work/promod-group.webp',
+    cardSize: 'small'
   },
   // ────────── Historical projects (formerly under Zeta Digital,
   //            attributed to Pixdyne per owner direction 2026-05-13) ──────────

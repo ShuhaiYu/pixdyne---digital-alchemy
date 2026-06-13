@@ -229,6 +229,10 @@ export const OnlyPixAISection: React.FC = () => {
                       <img
                         src={logo.src}
                         alt={logo.alt}
+                        width={48}
+                        height={48}
+                        loading="lazy"
+                        decoding="async"
                         className="w-full h-full object-contain"
                       />
                     </div>

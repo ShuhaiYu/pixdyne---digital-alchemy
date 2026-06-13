@@ -20,6 +20,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ArrowRight, ChevronDown } from 'lucide-react';
 import { BUSINESS } from '@/lib/data/business';
@@ -207,9 +208,12 @@ export const Navigation: React.FC = () => {
         }`}
       >
         <Link href="/" className="flex items-center gap-4 group" aria-label="Pixdyne home">
-          <img
+          <Image
             src="/logo-400.png"
             alt="Pixdyne"
+            width={40}
+            height={40}
+            priority
             className="w-10 h-10 object-contain"
           />
           <span className="text-xl font-bold tracking-widest hidden sm:block">PIXDYNE</span>

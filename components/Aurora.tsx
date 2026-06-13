@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Renderer, Program, Mesh, Color, Triangle } from 'ogl';
+import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 
 const VERT = `#version 300 es
 in vec2 position;
@@ -155,10 +156,23 @@ export default function Aurora(props: AuroraProps) {
       delete geometry.attributes.uv;
     }
 
-    const colorStopsArray = colorStops.map(hex => {
-      const c = new Color(hex);
-      return [c.r, c.g, c.b];
-    });
+    // Convert colour-stop hex strings to RGB triples, memoised on the
+    // stop list itself. The render loop previously rebuilt three Color
+    // objects every frame (60×/s per instance), churning the GC; now it
+    // only recomputes when the colorStops prop actually changes.
+    let lastColorKey = '';
+    let cachedStops: number[][] = [];
+    const resolveStops = (hexes: string[]): number[][] => {
+      const key = hexes.join('|');
+      if (key !== lastColorKey) {
+        lastColorKey = key;
+        cachedStops = hexes.map((hex) => {
+          const c = new Color(hex);
+          return [c.r, c.g, c.b];
+        });
+      }
+      return cachedStops;
+    };
 
     program = new Program(gl, {
       vertex: VERT,
@@ -166,7 +180,7 @@ export default function Aurora(props: AuroraProps) {
       uniforms: {
         uTime: { value: 0 },
         uAmplitude: { value: amplitude },
-        uColorStops: { value: colorStopsArray },
+        uColorStops: { value: resolveStops(colorStops) },
         uResolution: { value: [ctn.offsetWidth, ctn.offsetHeight] },
         uBlend: { value: blend }
       }
@@ -175,28 +189,66 @@ export default function Aurora(props: AuroraProps) {
     const mesh = new Mesh(gl, { geometry, program });
     ctn.appendChild(gl.canvas);
 
-    let animateId = 0;
-    const update = (t: number) => {
-      animateId = requestAnimationFrame(update);
+    const renderFrame = (t: number) => {
+      if (!program) return;
       const { time = t * 0.01, speed = 1.0 } = propsRef.current;
-      if (program) {
-        program.uniforms.uTime.value = time * speed * 0.1;
-        program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
-        program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
-        const stops = propsRef.current.colorStops ?? colorStops;
-        program.uniforms.uColorStops.value = stops.map((hex: string) => {
-          const c = new Color(hex);
-          return [c.r, c.g, c.b];
-        });
-        renderer.render({ scene: mesh });
-      }
+      program.uniforms.uTime.value = time * speed * 0.1;
+      program.uniforms.uAmplitude.value = propsRef.current.amplitude ?? 1.0;
+      program.uniforms.uBlend.value = propsRef.current.blend ?? blend;
+      program.uniforms.uColorStops.value = resolveStops(
+        propsRef.current.colorStops ?? colorStops
+      );
+      renderer.render({ scene: mesh });
     };
-    animateId = requestAnimationFrame(update);
+
+    let animateId = 0;
+    let running = false;
+    const loop = (t: number) => {
+      animateId = requestAnimationFrame(loop);
+      renderFrame(t);
+    };
+    const startLoop = () => {
+      if (running) return;
+      running = true;
+      animateId = requestAnimationFrame(loop);
+    };
+    const stopLoop = () => {
+      running = false;
+      cancelAnimationFrame(animateId);
+    };
 
     resize();
 
+    // prefers-reduced-motion: paint a single static frame and never start
+    // the loop. WebGL bypasses the CSS media query, so it is checked in JS
+    // here exactly like the GSAP sections do (CLAUDE.md §8).
+    const reduceMotion = prefersReducedMotion();
+
+    let observer: IntersectionObserver | null = null;
+    if (reduceMotion) {
+      renderFrame(0);
+    } else if (typeof IntersectionObserver !== 'undefined') {
+      // Visibility guard: only spend GPU/main-thread time while the canvas
+      // is on screen. Both Aurora instances sit well below the fold;
+      // without this each ran a 60fps WebGL loop from first paint even when
+      // the user never scrolled to them — a major contributor to Total
+      // Blocking Time and long main-thread tasks.
+      observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.some((e) => e.isIntersecting);
+          if (visible) startLoop();
+          else stopLoop();
+        },
+        { threshold: 0 }
+      );
+      observer.observe(ctn);
+    } else {
+      startLoop();
+    }
+
     return () => {
-      cancelAnimationFrame(animateId);
+      stopLoop();
+      observer?.disconnect();
       window.removeEventListener('resize', resize);
       if (ctn && gl.canvas.parentNode === ctn) {
         ctn.removeChild(gl.canvas);

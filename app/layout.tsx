@@ -93,8 +93,10 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-  // TBD: add `verification.google` once Google Search Console verification
-  // code is issued. Shipping the placeholder string fails verification.
+  // Google Search Console ownership is verified at the DNS layer (a
+  // `google-site-verification=…` TXT record on pixdyne.com), which covers
+  // the apex + www "Domain" property. No `verification.google` meta tag is
+  // needed — do not add one; the DNS record is the single source of truth.
   verification: {
     // Bing Webmaster Tools site ownership (renders <meta name="msvalidate.01" />).
     other: {

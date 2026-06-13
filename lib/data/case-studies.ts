@@ -633,7 +633,7 @@ export const caseStudies: CaseStudyItem[] = [
     id: '29',
     slug: 'online-education',
     name: 'Online Education Platform',
-    client: 'Online Education',
+    client: 'To Future',
     category: 'Custom System',
     services: ['System Development', 'Managed IT', 'SEO & Content'],
     stack: ['Custom e-learning platform', 'Facial-recognition login', 'Live classes', 'Three-portal architecture'],

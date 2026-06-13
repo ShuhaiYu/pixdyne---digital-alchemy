@@ -608,6 +608,56 @@ export const caseStudies: CaseStudyItem[] = [
     ]
   },
   {
+    id: '31',
+    slug: 'lexcord',
+    name: 'Lexcord Lawyers',
+    client: 'Lexcord Lawyers',
+    category: 'Marketing Site',
+    liveUrl: 'https://lexcord.com.au/',
+    services: ['Web Development'],
+    stack: ['Custom web platform', 'Bilingual (EN/中)', 'Seven practice areas'],
+    challenge:
+      "Lexcord Lawyers is a Melbourne law firm covering seven practice areas — property and conveyancing, commercial, wills and estates, intellectual property, criminal law, notary public, and migration. Legal clients research carefully and judge a firm on clarity and credibility long before they pick up the phone. The site had to present a full general practice without reading like a directory, and speak to both English- and Chinese-speaking clients across Australia.",
+    solution:
+      "We built a bilingual custom web platform where every page renders in English or Chinese with the same editorial structure on both sides. Each of the seven practice areas has its own dedicated page, so a prospect lands on the matter they actually need rather than a generic services list. A confidential consultation booking flow is the conversion event, with phone and email surfaced in the page chrome rather than buried. The tone is calm and plain-spoken — clarity over legal jargon — matching how the firm describes its own advice.",
+    shortDescription:
+      'Bilingual custom site for a Melbourne law firm — seven practice areas, consultation-led, clarity over jargon.',
+    seoTitle: 'Lexcord Lawyers — Bilingual Melbourne Law Firm Site',
+    seoDescription:
+      'A bilingual (EN/中) custom website for a Melbourne law firm spanning seven practice areas, with consultation-led contact. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/Lexcord_Home.png', caption: 'Homepage', alt: 'Lexcord Lawyers homepage hero' },
+      { src: '/projects/Lexcord_Expertise.png', caption: 'Practice areas', alt: 'Lexcord Lawyers expertise page listing seven practice areas' }
+    ]
+  },
+  {
+    id: '32',
+    slug: 'as-academy',
+    name: 'AS Academy',
+    client: 'AS Academy',
+    category: 'Marketing Site',
+    liveUrl: 'https://www.asacademy.com.cn/',
+    services: ['Web Development'],
+    stack: ['Custom web platform', 'Bilingual (EN/中)', '.cn + Australia market'],
+    challenge:
+      "AS Academy delivers one-stop holistic education for young people — Brazilian Jiu-Jitsu, combat-derived sports fitness, coding and robotics, and arts — partnering with schools and families across Shanghai and Melbourne. The offering spans several distinct programme lines and two markets, and the site ships on a .cn domain, which carries ICP-filing and China-market hosting constraints. It had to read credibly to international schools and parents, in both English and Chinese.",
+    solution:
+      "We built a bilingual custom site (English and Chinese) on infrastructure that works inside the Chinese market — ICP filing accounted for and assets served reliably inside the mainland. Four programme lines (Brazilian Jiu-Jitsu, CombatFit Sports, coding and robotics, and arts) each get their own clear section, so a school or parent finds the right programme without wading through the rest. School-partnership credentials and coach safeguarding are surfaced up front, because trust is the conversion event in youth education.",
+    shortDescription:
+      'Bilingual youth-education site on a .cn domain — four programme lines, school-partnership and safeguarding credentials up front.',
+    seoTitle: 'AS Academy — Bilingual Youth Education Site',
+    seoDescription:
+      'A bilingual (EN/中) website on a .cn domain for a youth holistic-education provider spanning Brazilian Jiu-Jitsu, sports, coding, and arts across Shanghai and Melbourne. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/ASAcademy_Home.png', caption: 'Homepage', alt: 'AS Academy homepage hero — one-stop holistic education for youth' },
+      { src: '/projects/ASAcademy_Programmes.png', caption: 'Programmes', alt: 'AS Academy programme cards including Brazilian Jiu-Jitsu' }
+    ]
+  },
+  {
     id: '26',
     slug: 'sunsill',
     name: 'Sunsill',

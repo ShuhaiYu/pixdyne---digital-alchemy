@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import { Suspense } from 'react';
 import { getAllCaseStudies } from '@/lib/data/case-studies';
-import { generateCollectionPageSchema } from '@/lib/seo/schema';
+import { generateCollectionPageSchema, generateBreadcrumbSchema } from '@/lib/seo/schema';
 import WorkPageClient from './WorkPageClient';
 
 export const metadata: Metadata = {
@@ -39,12 +39,22 @@ export default function WorkPage() {
     }))
   });
 
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://pixdyne.com' },
+    { name: 'Work', url: 'https://pixdyne.com/work' }
+  ]);
+
   return (
     <>
       <script
         id="work-collection-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <script
+        id="work-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {/* Suspense boundary required by useSearchParams (capability deep
           link) so the static shell isn't de-opted to client rendering. */}

@@ -114,7 +114,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en-AU" className={`${playfair.variable} ${spaceGrotesk.variable}`}>
       <head>
         <script
           id="organization-schema"

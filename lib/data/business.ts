@@ -8,6 +8,11 @@
 
 export const BUSINESS = {
   name: 'Pixdyne',
+  // Registered legal entity name (confirmed 2026-06-18, GBP claimed).
+  // Surfaced as schema.org `legalName` to disambiguate the trading name
+  // ("Pixdyne") from the registered company for Knowledge Panel / AI entity
+  // resolution. Keep aligned with the Google Business Profile listing.
+  legalName: 'Pixdyne Pty Ltd',
   abn: '96 690 116 584',
   email: 'info@pixdyne.com',
   phone: {
@@ -25,7 +30,23 @@ export const BUSINESS = {
     postalCode: '3169',
     country: 'Australia',
     // ISO 3166-1 alpha-2. Used by PostalAddress.addressCountry.
-    countryCode: 'AU'
+    countryCode: 'AU',
+    // GeoCoordinates of the GBP map pin (294 Clayton Rd). Sourced from the
+    // owner-provided Google Maps place link, 2026-06-18. Used by
+    // ProfessionalService.geo.
+    lat: -37.9254886,
+    lng: 145.119953
+  },
+  // Verified external profiles for schema.org `sameAs` (entity disambiguation).
+  // Google Business Profile share URL, owner-provided 2026-06-18. Add verified
+  // @pixdyne (X) / linkedin.com/company/pixdyne here once confirmed.
+  sameAs: ['https://share.google/KUOToBcnB5z1nN1wE'],
+  // Business hours matching the GBP listing (owner-confirmed 2026-06-18):
+  // Monday–Friday, 09:00–17:00 AEST. Used by openingHoursSpecification.
+  hours: {
+    days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '17:00'
   }
 } as const;
 

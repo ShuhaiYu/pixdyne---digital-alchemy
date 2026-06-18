@@ -60,7 +60,7 @@ export default async function ServicePage({ params }: Props) {
 
   const breadcrumbs = [
     { name: 'Home', url: 'https://pixdyne.com' },
-    { name: 'Services', url: 'https://pixdyne.com/#services' },
+    { name: 'Services', url: 'https://pixdyne.com/services' },
     { name: service.title, url: `https://pixdyne.com/services/${slug}` }
   ];
 

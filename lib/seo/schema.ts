@@ -29,6 +29,7 @@ export function generateOrganizationSchema() {
     '@type': 'ProfessionalService',
     '@id': 'https://pixdyne.com/#organization',
     name: BUSINESS.name,
+    legalName: BUSINESS.legalName,
     url: 'https://pixdyne.com',
     // Schema-facing logo: solid-background variant so the mark stays
     // visible on Google's white search-result panel. The transparent
@@ -63,12 +64,32 @@ export function generateOrganizationSchema() {
       availableLanguage: ['English']
     },
     areaServed: [
+      { '@type': 'City', name: 'Clayton' },
       { '@type': 'City', name: 'Melbourne' },
       { '@type': 'AdministrativeArea', name: 'Victoria' },
       { '@type': 'Country', name: 'Australia' }
-    ]
-    // TBD: sameAs (verified social handles), priceRange, openingHoursSpecification,
-    // aggregateRating — all pending owner confirmation. Do not invent.
+    ],
+    // GeoCoordinates of the GBP map pin — pins the entity to the map in the
+    // Knowledge Panel instead of relying on postal-address geocoding.
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: BUSINESS.address.lat,
+      longitude: BUSINESS.address.lng
+    },
+    // Business hours matching the GBP listing (Mon–Fri 09:00–17:00).
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [...BUSINESS.hours.days],
+        opens: BUSINESS.hours.opens,
+        closes: BUSINESS.hours.closes
+      }
+    ],
+    // Links the on-page entity to the Google Business Profile listing — one
+    // of the strongest local-SEO entity-disambiguation signals.
+    sameAs: [...BUSINESS.sameAs]
+    // TBD (do not invent): add verified @pixdyne (X) / LinkedIn to sameAs once
+    // confirmed; priceRange + aggregateRating pending owner / 5+ reviews.
   };
 }
 
@@ -112,7 +133,8 @@ export function generateServiceSchema(service: ServiceItem) {
     serviceType: service.title,
     areaServed: [
       { '@type': 'City', name: 'Melbourne' },
-      { '@type': 'AdministrativeArea', name: 'Victoria' }
+      { '@type': 'AdministrativeArea', name: 'Victoria' },
+      { '@type': 'Country', name: 'Australia' }
     ]
   };
 
@@ -153,16 +175,25 @@ export function generateFAQSchema(
 }
 
 export function generateCaseStudySchema(work: CaseStudyItem) {
+  // `url` resolves the CreativeWork node to its canonical page so
+  // structured-data consumers can tie the schema to the case study.
+  // `dateCreated` is only emitted when a year exists (years are
+  // intentionally omitted for most entries); a bare 4-digit year is
+  // normalised to an ISO date for consistent extraction.
+  const isoYear =
+    work.year && /^\d{4}$/.test(work.year) ? `${work.year}-01-01` : work.year;
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     name: work.name,
+    url: `https://pixdyne.com/work/${work.slug}`,
     description: work.challenge,
     creator: {
       '@type': 'Organization',
+      '@id': 'https://pixdyne.com/#organization',
       name: 'Pixdyne'
     },
-    dateCreated: work.year,
+    ...(isoYear ? { dateCreated: isoYear } : {}),
     about: {
       '@type': 'Thing',
       name: work.category

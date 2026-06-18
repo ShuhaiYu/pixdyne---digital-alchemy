@@ -13,22 +13,24 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Bento layout span for each of the seven curated highlight cards.
-// Three rows total: 7+5 / 4+4+4 / 6+6. Tweak the array to reshuffle
-// without touching the rendering loop.
+// Bento layout span for each of the eight curated highlight cards.
+// Four rows of two with alternating widths (7+5 / 5+7 / 6+6 / 7+5) so the
+// rail stays editorial rather than a uniform grid. Tweak the array to
+// reshuffle without touching the rendering loop.
 const BENTO_SPANS = [
   'md:col-span-7',
   'md:col-span-5',
-  'md:col-span-4',
-  'md:col-span-4',
-  'md:col-span-4',
+  'md:col-span-5',
+  'md:col-span-7',
   'md:col-span-6',
-  'md:col-span-6'
+  'md:col-span-6',
+  'md:col-span-7',
+  'md:col-span-5'
 ];
 
 // Homepage "Selected work" rail. Renders the owner-curated set of
 // highlight projects exposed by getHomepageHighlights() — currently
-// the seven flagship cases — using the same WorkCard component the
+// the eight flagship cases — using the same WorkCard component the
 // /work index uses, so the visual vocabulary on home and /work stays
 // in lock-step.
 export const CaseStudySection: React.FC = () => {
@@ -97,7 +99,7 @@ export const CaseStudySection: React.FC = () => {
           </Link>
         </div>
 
-        {/* Bento layout for the seven curated highlights. 12-col grid
+        {/* Bento layout for the eight curated highlights. 12-col grid
             with asymmetric col-spans so cards vary in width row by row,
             keeping the rail visually alive (the /work index uses a
             uniform 3-col grid; this surface is the deliberate counter-

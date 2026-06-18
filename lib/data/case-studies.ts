@@ -814,11 +814,12 @@ export function getFeaturedCaseStudies(limit: number = 8): CaseStudyItem[] {
 const HOMEPAGE_HIGHLIGHT_SLUGS = [
   '4wd-interiors',
   'austin-education',
-  'cupcake-central',
   'gameology',
-  'wincareer',
-  'accio-lms',
-  'online-education'
+  'good-mood-studio',
+  'insight-idea',
+  'open-mat',
+  'cupcake-central',
+  'wincareer'
 ];
 
 export function getHomepageHighlights(): CaseStudyItem[] {

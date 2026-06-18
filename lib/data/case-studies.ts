@@ -41,8 +41,55 @@ export const caseStudies: CaseStudyItem[] = [
     cardSize: 'featured',
     featured: true
   },
-
-  // ─── Marketing sites ────────────────────────────────────────────────
+  {
+    id: '11',
+    slug: 'austin-education',
+    name: 'Austin Education',
+    client: 'Austin Education',
+    category: 'Integrated Platform',
+    liveUrl: 'https://www.austineducation.com.au/',
+    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
+    stack: ['Custom web platform', 'Student portal', 'Trial booking', 'ATAR calculator', 'Bilingual (EN/中)'],
+    challenge:
+      "Austin Education runs K-12 tutoring across VCE, UCAT, and selective school prep — seven campuses across Victoria and Adelaide, with hundreds of concurrent students and a track record going back to 2013. A site at that scale stops being a marketing brochure and starts being an operating system: trial lesson booking, a student portal for homework and webinars, ATAR calculation tooling, a multi-campus catalogue, and bilingual presentation for the Chinese-speaking parent audience.",
+    solution:
+      "We built the public-facing site and the supporting student portal ('My Austin') as a single custom web platform, so a student logging in to do homework lives in the same system as the parent comparing course schedules. Trial lesson booking is wired into back-office scheduling rather than living as an isolated form. An ATAR calculator helps prospective students assess fit before booking. The site renders fully in English and Chinese, matching the bilingual reality of the parent audience. Pixdyne operates the platform on an ongoing basis as the school adds campuses and courses.",
+    shortDescription:
+      'Public site + student portal for a multi-campus tutoring business, bilingual and operated end-to-end.',
+    seoTitle: 'Austin Education — Custom Student Portal + Bilingual Site',
+    seoDescription:
+      "A custom web platform combining the public site, a student portal (My Austin), trial booking, an ATAR calculator, and bilingual (EN/中) presentation for a multi-campus VCE / UCAT tutoring business. Built and operated by Pixdyne.",
+    img: '/work/austin-education.webp',
+    cardSize: 'featured',
+    featured: true
+  },
+  {
+    id: '14',
+    slug: 'gameology',
+    name: 'Gameology',
+    client: 'Gameology',
+    category: 'Integrated Platform',
+    liveUrl: 'https://www.gameology.com.au/',
+    services: ['Web Development', 'System Development', 'SEO & Content'],
+    stack: ['Custom e-commerce', 'Multi-thousand SKU', 'Real-time chat'],
+    challenge:
+      "Gameology is a gaming retail warehouse selling board games, trading cards, collectibles, and novelties — described as the largest gaming warehouse in Australia. The catalogue is the value, but it is also the navigation problem: a board game customer wants different filters and shelves than a TCG collector, and both want to browse without choking on irrelevant categories.",
+    solution:
+      "We built a fully responsive e-commerce site with category-segmented navigation per game type, so a board-game shopper and a trading-card collector both land in the right corner of the catalogue. A dynamic customer review system carries the trust signal that matters in a hobbyist market, and real-time chat support handles the long-tail product questions that hobbyists ask. The site scales to thousands of SKUs without the filters degrading.",
+    shortDescription:
+      'Custom e-commerce for the largest gaming warehouse in Australia — thousands of SKUs across board games, TCG, and collectibles.',
+    seoTitle: 'Gameology — Australia\'s Largest Gaming Warehouse E-commerce',
+    seoDescription:
+      'Custom e-commerce site for Gameology, the largest gaming warehouse in Australia — thousands of SKUs, category-segmented browsing, real-time chat. Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/Gameology_Home.png', caption: 'Homepage', alt: 'Gameology e-commerce homepage' },
+      { src: '/projects/Gameology_Category.png', caption: 'Category browsing', alt: 'Gameology product category page with game selection' },
+      { src: '/projects/Gameology_Checkout.png', caption: 'Cart and checkout', alt: 'Gameology shopping cart and checkout interface' }
+    ]
+  },
   {
     id: '07',
     slug: 'good-mood-studio',
@@ -106,30 +153,6 @@ export const caseStudies: CaseStudyItem[] = [
     img: '/work/open-mat.webp',
     cardSize: 'small'
   },
-
-  // ─── Custom systems (large projects) ───────────────────────────────
-  {
-    id: '11',
-    slug: 'austin-education',
-    name: 'Austin Education',
-    client: 'Austin Education',
-    category: 'Integrated Platform',
-    liveUrl: 'https://www.austineducation.com.au/',
-    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
-    stack: ['Custom web platform', 'Student portal', 'Trial booking', 'ATAR calculator', 'Bilingual (EN/中)'],
-    challenge:
-      "Austin Education runs K-12 tutoring across VCE, UCAT, and selective school prep — seven campuses across Victoria and Adelaide, with hundreds of concurrent students and a track record going back to 2013. A site at that scale stops being a marketing brochure and starts being an operating system: trial lesson booking, a student portal for homework and webinars, ATAR calculation tooling, a multi-campus catalogue, and bilingual presentation for the Chinese-speaking parent audience.",
-    solution:
-      "We built the public-facing site and the supporting student portal ('My Austin') as a single custom web platform, so a student logging in to do homework lives in the same system as the parent comparing course schedules. Trial lesson booking is wired into back-office scheduling rather than living as an isolated form. An ATAR calculator helps prospective students assess fit before booking. The site renders fully in English and Chinese, matching the bilingual reality of the parent audience. Pixdyne operates the platform on an ongoing basis as the school adds campuses and courses.",
-    shortDescription:
-      'Public site + student portal for a multi-campus tutoring business, bilingual and operated end-to-end.',
-    seoTitle: 'Austin Education — Custom Student Portal + Bilingual Site',
-    seoDescription:
-      "A custom web platform combining the public site, a student portal (My Austin), trial booking, an ATAR calculator, and bilingual (EN/中) presentation for a multi-campus VCE / UCAT tutoring business. Built and operated by Pixdyne.",
-    img: '/work/austin-education.webp',
-    cardSize: 'featured',
-    featured: true
-  },
   {
     id: '12',
     slug: 'cupcake-central',
@@ -155,6 +178,33 @@ export const caseStudies: CaseStudyItem[] = [
       { src: '/projects/Cupcake_Central_Home.png', caption: 'Homepage', alt: 'Cupcake Central homepage' },
       { src: '/projects/Cupcake_Central_Category.png', caption: 'Category and filters', alt: 'Cupcake Central product category with cupcakes, cakes, cookies' },
       { src: '/projects/Cupcake_Central_Checkout.png', caption: 'Cart and checkout', alt: 'Cupcake Central shopping cart and checkout with payment' }
+    ]
+  },
+  {
+    id: '25',
+    slug: 'wincareer',
+    name: 'WinCareer',
+    client: 'WinCareer',
+    category: 'Integrated Platform',
+    liveUrl: 'https://wincareer.com.au/',
+    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
+    stack: ['Custom multi-tenant platform', 'Multi-country', 'ACCA / CFA / CPA content tracks'],
+    challenge:
+      "WinCareer is a financial and accounting education institution offering ACCA, CFA, and CPA certifications to over 100,000 learners across Australia, China, the UK, and Southeast Asia. Different certifications, different jurisdictions, different content depths — but the learner experience has to feel like one platform, not four bolted-together ones.",
+    solution:
+      "We built a custom responsive platform with course category pages organised by certification, video lectures, sample tests, chapter materials, and sub-navigation anchors that let learners explore the offering without re-routing through search. The architecture supports separate content tracks per certification while keeping one consistent learner experience across markets. Part of an ongoing engagement with the same client.",
+    shortDescription:
+      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications.',
+    seoTitle: 'WinCareer — Multi-Country Finance & Accounting Education Platform',
+    seoDescription:
+      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications in Australia, China, the UK, and Southeast Asia. Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/WinCareer_Home.png', caption: 'Homepage', alt: 'WinCareer homepage on desktop' },
+      { src: '/projects/WinCareer_About.png', caption: 'About', alt: 'WinCareer about-us page on desktop' },
+      { src: '/projects/WinCareer_Responsive.png', caption: 'Responsive across devices', alt: 'WinCareer responsive design across desktop, tablet, and mobile' }
     ]
   },
   {
@@ -193,33 +243,6 @@ export const caseStudies: CaseStudyItem[] = [
         caption: 'About and Instagram',
         alt: 'Muscle City about page with embedded Instagram feed'
       }
-    ]
-  },
-  {
-    id: '14',
-    slug: 'gameology',
-    name: 'Gameology',
-    client: 'Gameology',
-    category: 'Integrated Platform',
-    liveUrl: 'https://www.gameology.com.au/',
-    services: ['Web Development', 'System Development', 'SEO & Content'],
-    stack: ['Custom e-commerce', 'Multi-thousand SKU', 'Real-time chat'],
-    challenge:
-      "Gameology is a gaming retail warehouse selling board games, trading cards, collectibles, and novelties — described as the largest gaming warehouse in Australia. The catalogue is the value, but it is also the navigation problem: a board game customer wants different filters and shelves than a TCG collector, and both want to browse without choking on irrelevant categories.",
-    solution:
-      "We built a fully responsive e-commerce site with category-segmented navigation per game type, so a board-game shopper and a trading-card collector both land in the right corner of the catalogue. A dynamic customer review system carries the trust signal that matters in a hobbyist market, and real-time chat support handles the long-tail product questions that hobbyists ask. The site scales to thousands of SKUs without the filters degrading.",
-    shortDescription:
-      'Custom e-commerce for the largest gaming warehouse in Australia — thousands of SKUs across board games, TCG, and collectibles.',
-    seoTitle: 'Gameology — Australia\'s Largest Gaming Warehouse E-commerce',
-    seoDescription:
-      'Custom e-commerce site for Gameology, the largest gaming warehouse in Australia — thousands of SKUs, category-segmented browsing, real-time chat. Built by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true,
-    gallery: [
-      { src: '/projects/Gameology_Home.png', caption: 'Homepage', alt: 'Gameology e-commerce homepage' },
-      { src: '/projects/Gameology_Category.png', caption: 'Category browsing', alt: 'Gameology product category page with game selection' },
-      { src: '/projects/Gameology_Checkout.png', caption: 'Cart and checkout', alt: 'Gameology shopping cart and checkout interface' }
     ]
   },
   {
@@ -475,33 +498,6 @@ export const caseStudies: CaseStudyItem[] = [
     ]
   },
   {
-    id: '25',
-    slug: 'wincareer',
-    name: 'WinCareer',
-    client: 'WinCareer',
-    category: 'Integrated Platform',
-    liveUrl: 'https://wincareer.com.au/',
-    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
-    stack: ['Custom multi-tenant platform', 'Multi-country', 'ACCA / CFA / CPA content tracks'],
-    challenge:
-      "WinCareer is a financial and accounting education institution offering ACCA, CFA, and CPA certifications to over 100,000 learners across Australia, China, the UK, and Southeast Asia. Different certifications, different jurisdictions, different content depths — but the learner experience has to feel like one platform, not four bolted-together ones.",
-    solution:
-      "We built a custom responsive platform with course category pages organised by certification, video lectures, sample tests, chapter materials, and sub-navigation anchors that let learners explore the offering without re-routing through search. The architecture supports separate content tracks per certification while keeping one consistent learner experience across markets. Part of an ongoing engagement with the same client.",
-    shortDescription:
-      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications.',
-    seoTitle: 'WinCareer — Multi-Country Finance & Accounting Education Platform',
-    seoDescription:
-      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications in Australia, China, the UK, and Southeast Asia. Built by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true,
-    gallery: [
-      { src: '/projects/WinCareer_Home.png', caption: 'Homepage', alt: 'WinCareer homepage on desktop' },
-      { src: '/projects/WinCareer_About.png', caption: 'About', alt: 'WinCareer about-us page on desktop' },
-      { src: '/projects/WinCareer_Responsive.png', caption: 'Responsive across devices', alt: 'WinCareer responsive design across desktop, tablet, and mobile' }
-    ]
-  },
-  {
     id: '31',
     slug: 'lexcord',
     name: 'Lexcord Lawyers',
@@ -687,7 +683,6 @@ export const caseStudies: CaseStudyItem[] = [
       { src: '/projects/Floo_Report.png', caption: 'Reporting', alt: 'Floo analytics and reporting page' }
     ]
   },
-  // ─── E-commerce storefronts ─────────────────────────────────────
   {
     id: '01',
     slug: 'epm-offroad',
@@ -793,8 +788,6 @@ export const caseStudies: CaseStudyItem[] = [
     img: '/work/promod-group.webp',
     cardSize: 'small'
   },
-  // ────────── Historical projects (formerly under Zeta Digital,
-  //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
 ];
 
 export function getAllCaseStudies(): CaseStudyItem[] {

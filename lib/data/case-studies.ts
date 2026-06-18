@@ -154,6 +154,63 @@ export const caseStudies: CaseStudyItem[] = [
     cardSize: 'small'
   },
   {
+    id: '28',
+    slug: 'accio-lms',
+    name: 'Accio LMS',
+    client: 'To Future',
+    category: 'Custom System',
+    liveUrl: 'https://accio.tofuture.org/',
+    services: ['System Development', 'Managed IT'],
+    stack: ['Custom LMS', 'Multi-portal (management / academic / student / lecturer / sales)', 'Role-based permissions'],
+    challenge:
+      "Accio is a learning management system built for educational institutions and tutoring operations that need control beyond what off-the-shelf platforms offer. The requirement spans course and class management, student and lecturer portals, enrolment, timetabling, e-commerce for class sales, group-buying modules, and reporting — all in one system, with role-based access so each user only sees what they should.",
+    solution:
+      "We built Accio from the ground up as a custom LMS with five separate portals (management, academic, student, lecturer, sales), role-based permissions, and third-party add-on support. Each user type sees only the workflows that belong to them, so the academic team isn't drowning in commercial controls and the sales team isn't navigating grade books. The system runs as the academic and commercial backbone for institutions using it. Part of an ongoing engagement with the same client.",
+    shortDescription:
+      'Custom LMS with five role-based portals (management / academic / student / lecturer / sales) for educational institutions.',
+    seoTitle: 'Accio LMS — Custom Multi-Portal Learning Management System',
+    seoDescription:
+      'A custom LMS with five role-based portals (management, academic, student, lecturer, sales), enrolment, timetabling, and class e-commerce, built for educational institutions. Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/Accio_LMS_Dashboard.png', caption: 'Dashboard', alt: 'Accio LMS dashboard control panel' },
+      { src: '/projects/Accio_LMS_Groups.png', caption: 'Group management', alt: 'Accio LMS group management portal' },
+      { src: '/projects/Accio_LMS_Students.png', caption: 'Student management', alt: 'Accio LMS student management interface' },
+      { src: '/projects/Accio_LMS_Timetable.png', caption: 'Timetable', alt: 'Accio LMS timetable view' }
+    ]
+  },
+  {
+    id: '29',
+    slug: 'online-education',
+    name: 'Online Education Platform',
+    client: 'To Future',
+    category: 'Custom System',
+    services: ['System Development', 'Managed IT', 'SEO & Content'],
+    stack: ['Custom e-learning platform', 'Facial-recognition login', 'Live classes', 'Three-portal architecture'],
+    challenge:
+      "Online education for professional certification needs more than video hosting. Identity verification matters because you are certifying a real person. Live interaction matters because questions can't wait until after class. Exam infrastructure matters because practice tests are part of the value the student is paying for. Off-the-shelf video platforms cover none of this together.",
+    solution:
+      "We built a custom web application with three distinct user portals (student, instructor, admin) and facial-recognition login for student identity. Live classes run alongside pre-recorded video lectures with downloadable materials, automated video syncing, and real-time note-taking layered on top of the lecture stream. Administrators manage everything — lectures, classes, exam papers, advertisements — from one back office, while students access recordings, live sessions, and instructor support through one dashboard. Part of an ongoing engagement with the same client.",
+    shortDescription:
+      'Custom e-learning platform with facial-recognition login, live classes, and a three-portal architecture for professional certification programs.',
+    seoTitle: 'Online Education — Custom E-Learning Platform with Biometric Auth',
+    seoDescription:
+      'A custom e-learning platform with facial-recognition login, live classes, video lectures, exam infrastructure, and a three-portal architecture (student / instructor / admin). Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/Online_Education_Dashboard.png', caption: 'Student dashboard', alt: 'Online Education student portal dashboard' },
+      { src: '/projects/Online_Education_ACCA.png', caption: 'Course landing', alt: 'Online Education ACCA course landing page for prospective students' },
+      { src: '/projects/Online_Education_Video.png', caption: 'Video lecture', alt: 'Online Education video lecture interface' },
+      { src: '/projects/Online_Education_Exam.png', caption: 'Practice exam', alt: 'Online Education practice examination interface' },
+      { src: '/projects/Online_Education_ClassMgmt.png', caption: 'Class management', alt: 'Online Education class management admin tool' },
+      { src: '/projects/Online_Education_VideoMgmt.png', caption: 'Video management', alt: 'Online Education backend video upload and management' }
+    ]
+  },
+  {
     id: '12',
     slug: 'cupcake-central',
     name: 'Cupcake Central',
@@ -595,63 +652,6 @@ export const caseStudies: CaseStudyItem[] = [
       { src: '/projects/GMT_Tools_Home.png', caption: 'Homepage', alt: 'GMT Tools Technic homepage' },
       { src: '/projects/GMT_Tools_Products.png', caption: 'Product catalogue', alt: 'GMT Tools Technic products catalogue page' },
       { src: '/projects/GMT_Tools_Detail.png', caption: 'Product detail', alt: 'GMT Tools Technic product detail page with shipping and GST' }
-    ]
-  },
-  {
-    id: '28',
-    slug: 'accio-lms',
-    name: 'Accio LMS',
-    client: 'Accio',
-    category: 'Custom System',
-    liveUrl: 'https://accio.tofuture.org/',
-    services: ['System Development', 'Managed IT'],
-    stack: ['Custom LMS', 'Multi-portal (management / academic / student / lecturer / sales)', 'Role-based permissions'],
-    challenge:
-      "Accio is a learning management system built for educational institutions and tutoring operations that need control beyond what off-the-shelf platforms offer. The requirement spans course and class management, student and lecturer portals, enrolment, timetabling, e-commerce for class sales, group-buying modules, and reporting — all in one system, with role-based access so each user only sees what they should.",
-    solution:
-      "We built Accio from the ground up as a custom LMS with five separate portals (management, academic, student, lecturer, sales), role-based permissions, and third-party add-on support. Each user type sees only the workflows that belong to them, so the academic team isn't drowning in commercial controls and the sales team isn't navigating grade books. The system runs as the academic and commercial backbone for institutions using it. Part of an ongoing engagement with the same client.",
-    shortDescription:
-      'Custom LMS with five role-based portals (management / academic / student / lecturer / sales) for educational institutions.',
-    seoTitle: 'Accio LMS — Custom Multi-Portal Learning Management System',
-    seoDescription:
-      'A custom LMS with five role-based portals (management, academic, student, lecturer, sales), enrolment, timetabling, and class e-commerce, built for educational institutions. Built by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true,
-    gallery: [
-      { src: '/projects/Accio_LMS_Dashboard.png', caption: 'Dashboard', alt: 'Accio LMS dashboard control panel' },
-      { src: '/projects/Accio_LMS_Groups.png', caption: 'Group management', alt: 'Accio LMS group management portal' },
-      { src: '/projects/Accio_LMS_Students.png', caption: 'Student management', alt: 'Accio LMS student management interface' },
-      { src: '/projects/Accio_LMS_Timetable.png', caption: 'Timetable', alt: 'Accio LMS timetable view' }
-    ]
-  },
-  {
-    id: '29',
-    slug: 'online-education',
-    name: 'Online Education Platform',
-    client: 'To Future',
-    category: 'Custom System',
-    services: ['System Development', 'Managed IT', 'SEO & Content'],
-    stack: ['Custom e-learning platform', 'Facial-recognition login', 'Live classes', 'Three-portal architecture'],
-    challenge:
-      "Online education for professional certification needs more than video hosting. Identity verification matters because you are certifying a real person. Live interaction matters because questions can't wait until after class. Exam infrastructure matters because practice tests are part of the value the student is paying for. Off-the-shelf video platforms cover none of this together.",
-    solution:
-      "We built a custom web application with three distinct user portals (student, instructor, admin) and facial-recognition login for student identity. Live classes run alongside pre-recorded video lectures with downloadable materials, automated video syncing, and real-time note-taking layered on top of the lecture stream. Administrators manage everything — lectures, classes, exam papers, advertisements — from one back office, while students access recordings, live sessions, and instructor support through one dashboard. Part of an ongoing engagement with the same client.",
-    shortDescription:
-      'Custom e-learning platform with facial-recognition login, live classes, and a three-portal architecture for professional certification programs.',
-    seoTitle: 'Online Education — Custom E-Learning Platform with Biometric Auth',
-    seoDescription:
-      'A custom e-learning platform with facial-recognition login, live classes, video lectures, exam infrastructure, and a three-portal architecture (student / instructor / admin). Built by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true,
-    gallery: [
-      { src: '/projects/Online_Education_Dashboard.png', caption: 'Student dashboard', alt: 'Online Education student portal dashboard' },
-      { src: '/projects/Online_Education_ACCA.png', caption: 'Course landing', alt: 'Online Education ACCA course landing page for prospective students' },
-      { src: '/projects/Online_Education_Video.png', caption: 'Video lecture', alt: 'Online Education video lecture interface' },
-      { src: '/projects/Online_Education_Exam.png', caption: 'Practice exam', alt: 'Online Education practice examination interface' },
-      { src: '/projects/Online_Education_ClassMgmt.png', caption: 'Class management', alt: 'Online Education class management admin tool' },
-      { src: '/projects/Online_Education_VideoMgmt.png', caption: 'Video management', alt: 'Online Education backend video upload and management' }
     ]
   },
   {

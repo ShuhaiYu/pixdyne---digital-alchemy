@@ -13,20 +13,25 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// Bento layout span for each of the eight curated highlight cards.
-// Four rows of two with alternating widths (7+5 / 5+7 / 6+6 / 7+5) so the
-// rail stays editorial rather than a uniform grid. Tweak the array to
-// reshuffle without touching the rendering loop.
+// Bento spans for the eight curated highlight cards. The first two are
+// the hero pair — full-width on mobile, an asymmetric 7+5 on desktop —
+// and read large. The remaining six are compact: a 2-up grid on mobile,
+// 3-up (4+4+4) on desktop. The size contrast is what gives the rail its
+// editorial, staggered rhythm. Index >= 2 also renders the card compact
+// (smaller heading, no description) — see CARD spans + the `compact` prop.
 const BENTO_SPANS = [
-  'md:col-span-7',
-  'md:col-span-5',
-  'md:col-span-5',
-  'md:col-span-7',
-  'md:col-span-6',
-  'md:col-span-6',
-  'md:col-span-7',
-  'md:col-span-5'
+  'col-span-2 md:col-span-7',
+  'col-span-2 md:col-span-5',
+  'col-span-1 md:col-span-4',
+  'col-span-1 md:col-span-4',
+  'col-span-1 md:col-span-4',
+  'col-span-1 md:col-span-4',
+  'col-span-1 md:col-span-4',
+  'col-span-1 md:col-span-4'
 ];
+
+// Cards from this index onward use the compact WorkCard treatment.
+const COMPACT_FROM = 2;
 
 // Homepage "Selected work" rail. Renders the owner-curated set of
 // highlight projects exposed by getHomepageHighlights() — currently
@@ -74,7 +79,7 @@ export const CaseStudySection: React.FC = () => {
       ref={containerRef}
       className="w-full min-h-screen bg-brand-black text-brand-text overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12 pt-20 md:pt-24 pb-20 md:pb-28">
+      <div className="max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12 pt-20 md:pt-24 pb-12 md:pb-16">
         {/* Header — kicker + italic serif h2 + lede + "View all" link */}
         <div className="home-work-header flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16 border-b border-white/10 pb-8 md:pb-10">
           <div>
@@ -99,20 +104,23 @@ export const CaseStudySection: React.FC = () => {
           </Link>
         </div>
 
-        {/* Bento layout for the eight curated highlights. 12-col grid
-            with asymmetric col-spans so cards vary in width row by row,
-            keeping the rail visually alive (the /work index uses a
-            uniform 3-col grid; this surface is the deliberate counter-
-            point). Mobile collapses to a single column. */}
+        {/* Bento layout for the eight curated highlights. Two hero cards
+            up top (large), then a compact grid for the rest. Mobile is a
+            2-col grid (hero pair spans both columns) so the rail stays
+            dense and scrollable on a phone rather than eight tall stacked
+            cards; desktop is the 12-col bento. */}
         {isEmpty ? (
           <div className="mx-auto max-w-md text-center border border-white/10 bg-white/[0.02] rounded-2xl p-8 text-brand-muted text-sm">
             Highlight case studies are still being put together.
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-12 gap-3 sm:gap-4 md:gap-6 items-start">
             {highlights.map((project, i) => (
-              <div key={project.id} className={`home-work-card ${BENTO_SPANS[i] ?? 'md:col-span-4'}`}>
-                <WorkCard caseStudy={project} />
+              <div
+                key={project.id}
+                className={`home-work-card ${BENTO_SPANS[i] ?? 'col-span-1 md:col-span-4'}`}
+              >
+                <WorkCard caseStudy={project} compact={i >= COMPACT_FROM} />
               </div>
             ))}
           </div>

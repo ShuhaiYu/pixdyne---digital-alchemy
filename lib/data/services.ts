@@ -278,11 +278,13 @@ export const services: ServiceItem[] = [
     title: 'SEO & Content',
     tier: 'service',
     description:
-      'Ongoing technical SEO and content production for steady, defensible search growth. We maintain rankings, not promise them.',
+      'Ongoing technical SEO, content, and AI-search optimisation for steady, defensible visibility across Google and AI search. We maintain rankings, not promise them.',
     fullDescription:
-      'SEO & Content is ongoing search work from a Melbourne team: technical SEO maintenance, on-page optimisation, content production, and local SEO — backed by a monthly Search Console and analytics report. We treat search as a retained discipline, not a one-off audit. We do not promise rankings; we earn them and hold them over time. SEO & Content is part of our Operations bundle, available on its own or alongside Managed IT and ongoing development.',
+      "SEO & Content is ongoing search work from a Melbourne team: technical SEO maintenance, on-page optimisation, content production, local SEO, and generative engine optimisation (GEO) — structuring your site and content so AI search engines like ChatGPT, Perplexity, and Google's AI Overviews can find, understand, and cite your business, not just traditional Google results — all backed by a monthly Search Console and analytics report. We treat search as a retained discipline, not a one-off audit. We do not promise rankings; we earn them and hold them over time. SEO & Content is part of our Operations bundle, available on its own or alongside Managed IT and ongoing development.",
     tags: [
       'SEO',
+      'GEO',
+      'AI Search',
       'Content',
       'On-page',
       'Local SEO',
@@ -294,12 +296,13 @@ export const services: ServiceItem[] = [
       'On-page optimisation',
       'Content production',
       'Local SEO and Google Business Profile',
+      'Generative engine optimisation (AI search visibility)',
       'Analytics and Search Console reporting',
       'Monthly performance reporting'
     ],
-    seoTitle: 'SEO & Content Melbourne — Ongoing Technical SEO',
+    seoTitle: 'SEO & Content Melbourne — SEO, GEO & AI Search',
     seoDescription:
-      'Ongoing SEO and content from Pixdyne in Melbourne: technical SEO, on-page work, content production, local SEO, and monthly Search Console reporting.',
+      "Ongoing SEO, content, and AI-search optimisation (GEO) from Pixdyne in Melbourne — technical SEO, on-page, local SEO, and monthly Search Console reporting.",
     faqs: [
       {
         question: 'How does ongoing SEO work?',
@@ -315,6 +318,11 @@ export const services: ServiceItem[] = [
         question: 'Do you write the content, or just optimise it?',
         answer:
           'Both. We produce content where you want us to, and optimise what you already have. Every piece supports a real search intent and links into the rest of your site.'
+      },
+      {
+        question: 'Do you optimise for AI search like ChatGPT and Google AI Overviews?',
+        answer:
+          "Yes — that is generative engine optimisation (GEO). We structure your site and content with clear factual answers, structured data, and quotable copy so AI search engines like ChatGPT, Perplexity, and Google's AI Overviews can find, understand, and cite your business, not just rank you in traditional Google results."
       }
     ]
   },

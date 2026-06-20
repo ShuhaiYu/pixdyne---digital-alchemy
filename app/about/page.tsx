@@ -36,6 +36,18 @@ export default function AboutPage() {
     { name: 'About', url: 'https://pixdyne.com/about' }
   ];
 
+  // AboutPage links this page to the already-declared Organization entity
+  // so search and AI engines resolve it as the canonical "about the company"
+  // surface rather than an anonymous page (CLAUDE.md §14.10 GEO).
+  const aboutPageSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    url: 'https://pixdyne.com/about',
+    name: 'About Pixdyne',
+    isPartOf: { '@id': 'https://pixdyne.com/#website' },
+    mainEntity: { '@id': 'https://pixdyne.com/#organization' }
+  };
+
   return (
     <>
       <script
@@ -44,6 +56,11 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(generateBreadcrumbSchema(breadcrumbs))
         }}
+      />
+      <script
+        id="aboutpage-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutPageSchema) }}
       />
       <div className="pt-32 md:pt-40 bg-brand-black text-brand-text min-h-screen">
         <AboutSection />

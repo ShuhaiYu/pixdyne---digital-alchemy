@@ -5,6 +5,10 @@ import { CaseStudyItem } from '@/types';
 
 interface WorkCardProps {
   caseStudy: CaseStudyItem;
+  // Compact treatment for secondary cards in a bento layout: smaller
+  // heading, tighter padding, description hidden. Default false so the
+  // /work index grid keeps its full-detail cards.
+  compact?: boolean;
 }
 
 // Screenshots are 1440x900 (16:10). We give next/image the intrinsic
@@ -14,7 +18,7 @@ interface WorkCardProps {
 const SHOT_W = 1440;
 const SHOT_H = 900;
 
-export function WorkCard({ caseStudy }: WorkCardProps) {
+export function WorkCard({ caseStudy, compact = false }: WorkCardProps) {
   // Card thumbnail source: a dedicated hero image when one exists,
   // otherwise the first gallery screenshot. Most projects ship only a
   // gallery (img: ''), so without this fallback they'd wrongly render
@@ -24,21 +28,22 @@ export function WorkCard({ caseStudy }: WorkCardProps) {
   const cardImage = caseStudy.img?.trim() || caseStudy.gallery?.[0]?.src;
 
   return cardImage ? (
-    <ImageCard caseStudy={caseStudy} image={cardImage} />
+    <ImageCard caseStudy={caseStudy} image={cardImage} compact={compact} />
   ) : (
-    <TextCard caseStudy={caseStudy} />
+    <TextCard caseStudy={caseStudy} compact={compact} />
   );
 }
 
 interface ImageCardProps {
   caseStudy: CaseStudyItem;
   image: string;
+  compact?: boolean;
 }
 
 // Card variant for projects that have a real captured screenshot.
 // h-full + flex-col so when the parent grid stretches the row, the
 // text block below the image fills the leftover space cleanly.
-function ImageCard({ caseStudy, image }: ImageCardProps) {
+function ImageCard({ caseStudy, image, compact = false }: ImageCardProps) {
   return (
     <Link
       href={`/work/${caseStudy.slug}`}
@@ -50,27 +55,37 @@ function ImageCard({ caseStudy, image }: ImageCardProps) {
           alt={`${caseStudy.name} — ${caseStudy.category} project by Pixdyne`}
           width={SHOT_W}
           height={SHOT_H}
-          sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+          sizes={
+            compact
+              ? '(max-width: 640px) 50vw, (max-width: 1280px) 33vw, 25vw'
+              : '(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 40vw'
+          }
           className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
         />
       </div>
 
-      <div className="flex flex-1 items-start justify-between gap-4 p-5">
+      <div
+        className={`flex flex-1 items-start justify-between gap-3 ${compact ? 'p-3 sm:p-4' : 'p-5'}`}
+      >
         <div className="min-w-0">
-          <h3 className="font-serif text-2xl italic leading-tight text-brand-text transition-colors duration-300 group-hover:text-brand-yellow line-clamp-1">
+          <h3
+            className={`font-serif italic leading-tight text-brand-text transition-colors duration-300 group-hover:text-brand-yellow line-clamp-1 ${compact ? 'text-lg sm:text-xl' : 'text-2xl'}`}
+          >
             {caseStudy.name}
           </h3>
-          <p className="mt-2 text-xs uppercase tracking-[0.18em] text-brand-muted">
+          <p
+            className={`uppercase tracking-[0.18em] text-brand-muted ${compact ? 'mt-1 text-[10px] sm:text-xs' : 'mt-2 text-xs'}`}
+          >
             {caseStudy.category}
           </p>
-          {caseStudy.shortDescription && (
+          {!compact && caseStudy.shortDescription && (
             <p className="mt-3 text-sm leading-relaxed text-brand-muted line-clamp-2">
               {caseStudy.shortDescription}
             </p>
           )}
         </div>
         <ArrowUpRight
-          size={18}
+          size={compact ? 16 : 18}
           aria-hidden="true"
           className="mt-1 shrink-0 text-brand-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-brand-yellow"
         />

@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { getAllBlogPosts } from '@/lib/data/blog';
+import { generateCollectionPageSchema, generateBreadcrumbSchema } from '@/lib/seo/schema';
 
 export const metadata: Metadata = {
   title: 'Journal',
@@ -27,8 +28,35 @@ export const metadata: Metadata = {
 export default function BlogPage() {
   const posts = getAllBlogPosts();
 
+  const collectionSchema = generateCollectionPageSchema({
+    url: 'https://pixdyne.com/blog',
+    name: 'Journal — Pixdyne',
+    description:
+      'Notes on web development, technical SEO, and building digital products from the Pixdyne team in Melbourne.',
+    items: posts.map((post) => ({
+      name: post.title,
+      url: `https://pixdyne.com/blog/${post.slug}`
+    }))
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema([
+    { name: 'Home', url: 'https://pixdyne.com' },
+    { name: 'Journal', url: 'https://pixdyne.com/blog' }
+  ]);
+
   return (
-    <div className="min-h-screen bg-brand-white text-brand-black pt-24 pb-20 px-6 md:px-12">
+    <>
+      <script
+        id="blog-collection-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionSchema) }}
+      />
+      <script
+        id="blog-breadcrumb-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+      <div className="min-h-screen bg-brand-white text-brand-black pt-24 pb-20 px-6 md:px-12">
       <div className="max-w-4xl mx-auto">
         {/* Back Link */}
         <Link
@@ -91,6 +119,7 @@ export default function BlogPage() {
           </p>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

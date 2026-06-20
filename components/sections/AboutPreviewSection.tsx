@@ -9,7 +9,7 @@ import Link from 'next/link';
 export const AboutPreviewSection: React.FC = () => {
   return (
     <section
-      className="w-full px-6 md:px-12 py-24 md:py-32 lg:py-40 max-w-7xl mx-auto"
+      className="w-full px-6 md:px-12 pt-12 md:pt-16 lg:pt-20 pb-24 md:pb-32 lg:pb-40 max-w-7xl mx-auto"
       aria-label="About Pixdyne preview"
     >
       <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-12 lg:gap-20 items-end">

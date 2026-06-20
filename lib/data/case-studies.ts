@@ -19,91 +19,6 @@ import { CaseStudyItem } from '@/types';
 // land.
 
 export const caseStudies: CaseStudyItem[] = [
-  // ─── E-commerce ─────────────────────────────────────────────────────
-  {
-    id: '01',
-    slug: 'epm-offroad',
-    name: 'EPM Offroad',
-    client: 'EPM Offroad',
-    category: 'E-commerce',
-    liveUrl: 'https://www.epmoffroad.com/',
-    services: ['Web Development'],
-    stack: ['Shopify', 'Multi-brand catalogue', 'Aftermarket automotive'],
-    challenge:
-      "EPM Offroad sells aftermarket off-road and overland accessories — heavy, fitment-sensitive parts spread across brands customers search for by name. They needed a storefront that could carry several distinct brand catalogues (aFe Power, Baja Designs, Eibach, KC HiLites among others) without making the site feel like a wholesaler's spreadsheet.",
-    solution:
-      "We built the storefront on Shopify so the team has one back office for inventory, payments, and shipping across brands. Product taxonomy is structured around vehicle category and component — lift kits, lighting, intakes — so a RAM TRX owner lands on the right shelf without scrolling past everything else first. Promotions, returns, and free-shipping rules are wired into Shopify natively rather than bolted on as add-on apps that drift out of date.",
-    shortDescription:
-      'Shopify storefront carrying multiple off-road brands under one back office.',
-    seoTitle: 'EPM Offroad — Multi-Brand Shopify Storefront',
-    seoDescription:
-      'A Shopify storefront for off-road and overland accessories carrying aFe Power, Baja Designs, Eibach, KC HiLites and more under one back office. Built by Pixdyne.',
-    img: '/work/epm-offroad.webp',
-    cardSize: 'small'
-  },
-  {
-    id: '02',
-    slug: 'tyre-boys',
-    name: 'Tyre Boys',
-    client: 'Tyre Boys',
-    category: 'E-commerce',
-    liveUrl: 'https://www.tyreboys.com/',
-    services: ['Web Development'],
-    stack: ['Shopify', 'Tyre size finder', 'Multi-brand inventory'],
-    challenge:
-      "Tyre Boys is a Springvale tyre retailer that sells across multiple brands and dozens of sizes. The challenge in tyre e-commerce is matching — customers don't buy 'a tyre', they buy a specific size and load rating for a specific vehicle. The site had to make finding the right tyre feel obvious rather than overwhelming.",
-    solution:
-      "We built the storefront on Shopify with a size finder up front, so the visitor narrows by size before they see brands. The catalogue spans seven brands — Dunlop, Goodyear, Kumho, Pirelli and others — under one checkout, with promotional bundles like 'Buy 3, Get 1 Free' wired into Shopify's native discount logic. A back-in-stock notification system handles the long tail of less common sizes without manual customer chasing.",
-    shortDescription:
-      'Shopify storefront with a size-first tyre finder across seven brands.',
-    seoTitle: 'Tyre Boys — Size-First Shopify Tyre Storefront',
-    seoDescription:
-      'A Shopify tyre storefront built around a size finder so customers narrow by fitment before brand. Multi-brand inventory, native promotions, restock notifications. Built by Pixdyne.',
-    img: '/work/tyre-boys.webp',
-    cardSize: 'small'
-  },
-  {
-    id: '03',
-    slug: 'pet-daddy',
-    name: 'Pet Daddy',
-    client: 'Pet Daddy',
-    category: 'E-commerce',
-    liveUrl: 'https://www.petdaddy.com.au/',
-    services: ['Web Development'],
-    stack: ['Shopify', 'Grooming booking', 'Retail + service'],
-    challenge:
-      "Pet Daddy runs a Surrey Hills pet boutique with both physical retail and a grooming service. They needed an online store that could carry premium pet supplies across dog and cat categories, while also surfacing the grooming booking flow without making it feel like a bolted-on second business.",
-    solution:
-      "We built the storefront on Shopify and structured the catalogue across roughly fifteen primary categories — food, treats, health, bedding, accessories — for both dog and cat audiences. Grooming bookings live inside the same Shopify back office, so the team isn't reconciling two systems. Comparison and wishlist tools sit on top for customers who want to research before adding to cart.",
-    shortDescription:
-      'Shopify storefront for a Melbourne pet boutique with integrated grooming booking.',
-    seoTitle: 'Pet Daddy — Shopify Store + Grooming Booking',
-    seoDescription:
-      "A Shopify storefront for a Surrey Hills pet boutique, with grooming bookings running inside the same back office as retail. Built by Pixdyne.",
-    img: '/work/pet-daddy.webp',
-    cardSize: 'small'
-  },
-  {
-    id: '04',
-    slug: 'peppy-planet',
-    name: 'Peppy Planet',
-    client: 'Peppy Planet',
-    category: 'E-commerce',
-    liveUrl: 'https://www.peppyplanet.com.au/',
-    services: ['Web Development'],
-    stack: ['Shopify', 'Booking flow', 'Venue hire'],
-    challenge:
-      "Peppy Planet runs an indoor play venue in Bayswater where weekend birthday parties drive most of the revenue. They needed a public site that could sell ticketed entry, party-room bookings, and after-hours venue hire through one checkout — without forcing parents through a separate booking system to pay.",
-    solution:
-      "We built the storefront on Shopify so the team can run the venue from one back office rather than learning new software for every channel. Entry tickets, party packages, and after-hours hire are each modelled as Shopify products with scheduling, so a parent can compare dates and pay in a single flow. Downloadable party invitations and an email list for booking access sit on top of the same store.",
-    shortDescription:
-      'Shopify storefront that sells entry, parties, and venue hire through one checkout.',
-    seoTitle: 'Peppy Planet — Shopify Party-Booking Storefront',
-    seoDescription:
-      'A Shopify storefront for a Bayswater indoor play venue that sells entry tickets, party-room bookings, and after-hours hire through one checkout. Built by Pixdyne.',
-    img: '/work/peppy-planet.webp',
-    cardSize: 'small'
-  },
   {
     id: '05',
     slug: '4wd-interiors',
@@ -126,28 +41,54 @@ export const caseStudies: CaseStudyItem[] = [
     cardSize: 'featured',
     featured: true
   },
-
-  // ─── Marketing sites ────────────────────────────────────────────────
   {
-    id: '06',
-    slug: 'promod-group',
-    name: 'Promod Group',
-    client: 'Promod Group',
-    category: 'Marketing Site',
-    liveUrl: 'https://www.promodgroup.com.au/',
-    services: ['Managed IT'],
-    stack: ['Custom CMS', 'B2B marketing site', 'Rebuild in progress'],
+    id: '11',
+    slug: 'austin-education',
+    name: 'Austin Education',
+    client: 'Austin Education',
+    category: 'Integrated Platform',
+    liveUrl: 'https://www.austineducation.com.au/',
+    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
+    stack: ['Custom web platform', 'Student portal', 'Trial booking', 'ATAR calculator', 'Bilingual (EN/中)'],
     challenge:
-      "Promod Group is an Australian modular construction company supplying prefabricated buildings to residential, education, healthcare, and infrastructure clients. The audience is institutional — government agencies, developers, large investors — so the site has to read as a credible long-term partner, not as a marketing brochure.",
+      "Austin Education runs K-12 tutoring across VCE, UCAT, and selective school prep — seven campuses across Victoria and Adelaide, with hundreds of concurrent students and a track record going back to 2013. A site at that scale stops being a marketing brochure and starts being an operating system: trial lesson booking, a student portal for homework and webinars, ATAR calculation tooling, a multi-campus catalogue, and bilingual presentation for the Chinese-speaking parent audience.",
     solution:
-      "The current site runs on a lightweight custom CMS we built and operate, focused on the company values, capabilities, and the Probotics automation product line rather than a transactional catalogue. We are currently rebuilding the site to better reflect the company's domestic-manufacturing positioning and to integrate the project portfolio more deeply. The rebuild keeps the Pixdyne stack and editorial structure — the team only has to learn one CMS over the lifetime of the engagement.",
+      "We built the public-facing site and the supporting student portal ('My Austin') as a single custom web platform, so a student logging in to do homework lives in the same system as the parent comparing course schedules. Trial lesson booking is wired into back-office scheduling rather than living as an isolated form. An ATAR calculator helps prospective students assess fit before booking. The site renders fully in English and Chinese, matching the bilingual reality of the parent audience. Pixdyne operates the platform on an ongoing basis as the school adds campuses and courses.",
     shortDescription:
-      'B2B marketing site for an Australian modular construction company — rebuild underway.',
-    seoTitle: 'Promod Group — Modular Construction Marketing Site',
+      'Public site + student portal for a multi-campus tutoring business, bilingual and operated end-to-end.',
+    seoTitle: 'Austin Education — Custom Student Portal + Bilingual Site',
     seoDescription:
-      'A B2B marketing site for an Australian modular construction company, built and operated by Pixdyne. Rebuild currently in progress.',
-    img: '/work/promod-group.webp',
-    cardSize: 'small'
+      "A custom web platform combining the public site, a student portal (My Austin), trial booking, an ATAR calculator, and bilingual (EN/中) presentation for a multi-campus VCE / UCAT tutoring business. Built and operated by Pixdyne.",
+    img: '/work/austin-education.webp',
+    cardSize: 'featured',
+    featured: true
+  },
+  {
+    id: '14',
+    slug: 'gameology',
+    name: 'Gameology',
+    client: 'Gameology',
+    category: 'Integrated Platform',
+    liveUrl: 'https://www.gameology.com.au/',
+    services: ['Web Development', 'System Development', 'SEO & Content'],
+    stack: ['Custom e-commerce', 'Multi-thousand SKU', 'Real-time chat'],
+    challenge:
+      "Gameology is a gaming retail warehouse selling board games, trading cards, collectibles, and novelties — described as the largest gaming warehouse in Australia. The catalogue is the value, but it is also the navigation problem: a board game customer wants different filters and shelves than a TCG collector, and both want to browse without choking on irrelevant categories.",
+    solution:
+      "We built a fully responsive e-commerce site with category-segmented navigation per game type, so a board-game shopper and a trading-card collector both land in the right corner of the catalogue. A dynamic customer review system carries the trust signal that matters in a hobbyist market, and real-time chat support handles the long-tail product questions that hobbyists ask. The site scales to thousands of SKUs without the filters degrading.",
+    shortDescription:
+      'Custom e-commerce for the largest gaming warehouse in Australia — thousands of SKUs across board games, TCG, and collectibles.',
+    seoTitle: 'Gameology — Australia\'s Largest Gaming Warehouse E-commerce',
+    seoDescription:
+      'Custom e-commerce site for Gameology, the largest gaming warehouse in Australia — thousands of SKUs, category-segmented browsing, real-time chat. Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/Gameology_Home.png', caption: 'Homepage', alt: 'Gameology e-commerce homepage' },
+      { src: '/projects/Gameology_Category.png', caption: 'Category browsing', alt: 'Gameology product category page with game selection' },
+      { src: '/projects/Gameology_Checkout.png', caption: 'Cart and checkout', alt: 'Gameology shopping cart and checkout interface' }
+    ]
   },
   {
     id: '07',
@@ -212,29 +153,62 @@ export const caseStudies: CaseStudyItem[] = [
     img: '/work/open-mat.webp',
     cardSize: 'small'
   },
-
-  // ─── Custom systems (large projects) ───────────────────────────────
   {
-    id: '11',
-    slug: 'austin-education',
-    name: 'Austin Education',
-    client: 'Austin Education',
-    category: 'Integrated Platform',
-    liveUrl: 'https://www.austineducation.com.au/',
-    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
-    stack: ['Custom web platform', 'Student portal', 'Trial booking', 'ATAR calculator', 'Bilingual (EN/中)'],
+    id: '28',
+    slug: 'accio-lms',
+    name: 'Accio LMS',
+    client: 'To Future',
+    category: 'Custom System',
+    liveUrl: 'https://accio.tofuture.org/',
+    services: ['System Development', 'Managed IT'],
+    stack: ['Custom LMS', 'Multi-portal (management / academic / student / lecturer / sales)', 'Role-based permissions'],
     challenge:
-      "Austin Education runs K-12 tutoring across VCE, UCAT, and selective school prep — seven campuses across Victoria and Adelaide, with hundreds of concurrent students and a track record going back to 2013. A site at that scale stops being a marketing brochure and starts being an operating system: trial lesson booking, a student portal for homework and webinars, ATAR calculation tooling, a multi-campus catalogue, and bilingual presentation for the Chinese-speaking parent audience.",
+      "Accio is a learning management system built for educational institutions and tutoring operations that need control beyond what off-the-shelf platforms offer. The requirement spans course and class management, student and lecturer portals, enrolment, timetabling, e-commerce for class sales, group-buying modules, and reporting — all in one system, with role-based access so each user only sees what they should.",
     solution:
-      "We built the public-facing site and the supporting student portal ('My Austin') as a single custom web platform, so a student logging in to do homework lives in the same system as the parent comparing course schedules. Trial lesson booking is wired into back-office scheduling rather than living as an isolated form. An ATAR calculator helps prospective students assess fit before booking. The site renders fully in English and Chinese, matching the bilingual reality of the parent audience. Pixdyne operates the platform on an ongoing basis as the school adds campuses and courses.",
+      "We built Accio from the ground up as a custom LMS with five separate portals (management, academic, student, lecturer, sales), role-based permissions, and third-party add-on support. Each user type sees only the workflows that belong to them, so the academic team isn't drowning in commercial controls and the sales team isn't navigating grade books. The system runs as the academic and commercial backbone for institutions using it. Part of an ongoing engagement with the same client.",
     shortDescription:
-      'Public site + student portal for a multi-campus tutoring business, bilingual and operated end-to-end.',
-    seoTitle: 'Austin Education — Custom Student Portal + Bilingual Site',
+      'Custom LMS with five role-based portals (management / academic / student / lecturer / sales) for educational institutions.',
+    seoTitle: 'Accio LMS — Custom Multi-Portal Learning Management System',
     seoDescription:
-      "A custom web platform combining the public site, a student portal (My Austin), trial booking, an ATAR calculator, and bilingual (EN/中) presentation for a multi-campus VCE / UCAT tutoring business. Built and operated by Pixdyne.",
-    img: '/work/austin-education.webp',
+      'A custom LMS with five role-based portals (management, academic, student, lecturer, sales), enrolment, timetabling, and class e-commerce, built for educational institutions. Built by Pixdyne.',
+    img: '',
     cardSize: 'featured',
-    featured: true
+    featured: true,
+    gallery: [
+      { src: '/projects/Accio_LMS_Dashboard.png', caption: 'Dashboard', alt: 'Accio LMS dashboard control panel' },
+      { src: '/projects/Accio_LMS_Groups.png', caption: 'Group management', alt: 'Accio LMS group management portal' },
+      { src: '/projects/Accio_LMS_Students.png', caption: 'Student management', alt: 'Accio LMS student management interface' },
+      { src: '/projects/Accio_LMS_Timetable.png', caption: 'Timetable', alt: 'Accio LMS timetable view' }
+    ]
+  },
+  {
+    id: '29',
+    slug: 'online-education',
+    name: 'Online Education Platform',
+    client: 'To Future',
+    category: 'Custom System',
+    services: ['System Development', 'Managed IT', 'SEO & Content'],
+    stack: ['Custom e-learning platform', 'Facial-recognition login', 'Live classes', 'Three-portal architecture'],
+    challenge:
+      "Online education for professional certification needs more than video hosting. Identity verification matters because you are certifying a real person. Live interaction matters because questions can't wait until after class. Exam infrastructure matters because practice tests are part of the value the student is paying for. Off-the-shelf video platforms cover none of this together.",
+    solution:
+      "We built a custom web application with three distinct user portals (student, instructor, admin) and facial-recognition login for student identity. Live classes run alongside pre-recorded video lectures with downloadable materials, automated video syncing, and real-time note-taking layered on top of the lecture stream. Administrators manage everything — lectures, classes, exam papers, advertisements — from one back office, while students access recordings, live sessions, and instructor support through one dashboard. Part of an ongoing engagement with the same client.",
+    shortDescription:
+      'Custom e-learning platform with facial-recognition login, live classes, and a three-portal architecture for professional certification programs.',
+    seoTitle: 'Online Education — Custom E-Learning Platform with Biometric Auth',
+    seoDescription:
+      'A custom e-learning platform with facial-recognition login, live classes, video lectures, exam infrastructure, and a three-portal architecture (student / instructor / admin). Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/Online_Education_Dashboard.png', caption: 'Student dashboard', alt: 'Online Education student portal dashboard' },
+      { src: '/projects/Online_Education_ACCA.png', caption: 'Course landing', alt: 'Online Education ACCA course landing page for prospective students' },
+      { src: '/projects/Online_Education_Video.png', caption: 'Video lecture', alt: 'Online Education video lecture interface' },
+      { src: '/projects/Online_Education_Exam.png', caption: 'Practice exam', alt: 'Online Education practice examination interface' },
+      { src: '/projects/Online_Education_ClassMgmt.png', caption: 'Class management', alt: 'Online Education class management admin tool' },
+      { src: '/projects/Online_Education_VideoMgmt.png', caption: 'Video management', alt: 'Online Education backend video upload and management' }
+    ]
   },
   {
     id: '12',
@@ -261,6 +235,33 @@ export const caseStudies: CaseStudyItem[] = [
       { src: '/projects/Cupcake_Central_Home.png', caption: 'Homepage', alt: 'Cupcake Central homepage' },
       { src: '/projects/Cupcake_Central_Category.png', caption: 'Category and filters', alt: 'Cupcake Central product category with cupcakes, cakes, cookies' },
       { src: '/projects/Cupcake_Central_Checkout.png', caption: 'Cart and checkout', alt: 'Cupcake Central shopping cart and checkout with payment' }
+    ]
+  },
+  {
+    id: '25',
+    slug: 'wincareer',
+    name: 'WinCareer',
+    client: 'WinCareer',
+    category: 'Integrated Platform',
+    liveUrl: 'https://wincareer.com.au/',
+    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
+    stack: ['Custom multi-tenant platform', 'Multi-country', 'ACCA / CFA / CPA content tracks'],
+    challenge:
+      "WinCareer is a financial and accounting education institution offering ACCA, CFA, and CPA certifications to over 100,000 learners across Australia, China, the UK, and Southeast Asia. Different certifications, different jurisdictions, different content depths — but the learner experience has to feel like one platform, not four bolted-together ones.",
+    solution:
+      "We built a custom responsive platform with course category pages organised by certification, video lectures, sample tests, chapter materials, and sub-navigation anchors that let learners explore the offering without re-routing through search. The architecture supports separate content tracks per certification while keeping one consistent learner experience across markets. Part of an ongoing engagement with the same client.",
+    shortDescription:
+      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications.',
+    seoTitle: 'WinCareer — Multi-Country Finance & Accounting Education Platform',
+    seoDescription:
+      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications in Australia, China, the UK, and Southeast Asia. Built by Pixdyne.',
+    img: '',
+    cardSize: 'featured',
+    featured: true,
+    gallery: [
+      { src: '/projects/WinCareer_Home.png', caption: 'Homepage', alt: 'WinCareer homepage on desktop' },
+      { src: '/projects/WinCareer_About.png', caption: 'About', alt: 'WinCareer about-us page on desktop' },
+      { src: '/projects/WinCareer_Responsive.png', caption: 'Responsive across devices', alt: 'WinCareer responsive design across desktop, tablet, and mobile' }
     ]
   },
   {
@@ -299,33 +300,6 @@ export const caseStudies: CaseStudyItem[] = [
         caption: 'About and Instagram',
         alt: 'Muscle City about page with embedded Instagram feed'
       }
-    ]
-  },
-  {
-    id: '14',
-    slug: 'gameology',
-    name: 'Gameology',
-    client: 'Gameology',
-    category: 'Integrated Platform',
-    liveUrl: 'https://www.gameology.com.au/',
-    services: ['Web Development', 'System Development', 'SEO & Content'],
-    stack: ['Custom e-commerce', 'Multi-thousand SKU', 'Real-time chat'],
-    challenge:
-      "Gameology is a gaming retail warehouse selling board games, trading cards, collectibles, and novelties — described as the largest gaming warehouse in Australia. The catalogue is the value, but it is also the navigation problem: a board game customer wants different filters and shelves than a TCG collector, and both want to browse without choking on irrelevant categories.",
-    solution:
-      "We built a fully responsive e-commerce site with category-segmented navigation per game type, so a board-game shopper and a trading-card collector both land in the right corner of the catalogue. A dynamic customer review system carries the trust signal that matters in a hobbyist market, and real-time chat support handles the long-tail product questions that hobbyists ask. The site scales to thousands of SKUs without the filters degrading.",
-    shortDescription:
-      'Custom e-commerce for the largest gaming warehouse in Australia — thousands of SKUs across board games, TCG, and collectibles.',
-    seoTitle: 'Gameology — Australia\'s Largest Gaming Warehouse E-commerce',
-    seoDescription:
-      'Custom e-commerce site for Gameology, the largest gaming warehouse in Australia — thousands of SKUs, category-segmented browsing, real-time chat. Built by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true,
-    gallery: [
-      { src: '/projects/Gameology_Home.png', caption: 'Homepage', alt: 'Gameology e-commerce homepage' },
-      { src: '/projects/Gameology_Category.png', caption: 'Category browsing', alt: 'Gameology product category page with game selection' },
-      { src: '/projects/Gameology_Checkout.png', caption: 'Cart and checkout', alt: 'Gameology shopping cart and checkout interface' }
     ]
   },
   {
@@ -581,30 +555,53 @@ export const caseStudies: CaseStudyItem[] = [
     ]
   },
   {
-    id: '25',
-    slug: 'wincareer',
-    name: 'WinCareer',
-    client: 'WinCareer',
-    category: 'Integrated Platform',
-    liveUrl: 'https://wincareer.com.au/',
-    services: ['Web Development', 'System Development', 'Managed IT', 'SEO & Content'],
-    stack: ['Custom multi-tenant platform', 'Multi-country', 'ACCA / CFA / CPA content tracks'],
+    id: '31',
+    slug: 'lexcord',
+    name: 'Lexcord Lawyers',
+    client: 'Lexcord Lawyers',
+    category: 'Marketing Site',
+    liveUrl: 'https://lexcord.com.au/',
+    services: ['Web Development'],
+    stack: ['Custom web platform', 'Bilingual (EN/中)', 'Seven practice areas'],
     challenge:
-      "WinCareer is a financial and accounting education institution offering ACCA, CFA, and CPA certifications to over 100,000 learners across Australia, China, the UK, and Southeast Asia. Different certifications, different jurisdictions, different content depths — but the learner experience has to feel like one platform, not four bolted-together ones.",
+      "Lexcord Lawyers is a Melbourne law firm covering seven practice areas — property and conveyancing, commercial, wills and estates, intellectual property, criminal law, notary public, and migration. Legal clients research carefully and judge a firm on clarity and credibility long before they pick up the phone. The site had to present a full general practice without reading like a directory, and speak to both English- and Chinese-speaking clients across Australia.",
     solution:
-      "We built a custom responsive platform with course category pages organised by certification, video lectures, sample tests, chapter materials, and sub-navigation anchors that let learners explore the offering without re-routing through search. The architecture supports separate content tracks per certification while keeping one consistent learner experience across markets. Part of an ongoing engagement with the same client.",
+      "We built a bilingual custom web platform where every page renders in English or Chinese with the same editorial structure on both sides. Each of the seven practice areas has its own dedicated page, so a prospect lands on the matter they actually need rather than a generic services list. A confidential consultation booking flow is the conversion event, with phone and email surfaced in the page chrome rather than buried. The tone is calm and plain-spoken — clarity over legal jargon — matching how the firm describes its own advice.",
     shortDescription:
-      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications.',
-    seoTitle: 'WinCareer — Multi-Country Finance & Accounting Education Platform',
+      'Bilingual custom site for a Melbourne law firm — seven practice areas, consultation-led, clarity over jargon.',
+    seoTitle: 'Lexcord Lawyers — Bilingual Melbourne Law Firm Site',
     seoDescription:
-      'Custom multi-country education platform serving 100,000+ learners across ACCA, CFA, and CPA certifications in Australia, China, the UK, and Southeast Asia. Built by Pixdyne.',
+      'A bilingual (EN/中) custom website for a Melbourne law firm spanning seven practice areas, with consultation-led contact. Built by Pixdyne.',
     img: '',
-    cardSize: 'featured',
-    featured: true,
+    cardSize: 'small',
     gallery: [
-      { src: '/projects/WinCareer_Home.png', caption: 'Homepage', alt: 'WinCareer homepage on desktop' },
-      { src: '/projects/WinCareer_About.png', caption: 'About', alt: 'WinCareer about-us page on desktop' },
-      { src: '/projects/WinCareer_Responsive.png', caption: 'Responsive across devices', alt: 'WinCareer responsive design across desktop, tablet, and mobile' }
+      { src: '/projects/Lexcord_Home.png', caption: 'Homepage', alt: 'Lexcord Lawyers homepage hero' },
+      { src: '/projects/Lexcord_Expertise.png', caption: 'Practice areas', alt: 'Lexcord Lawyers expertise page listing seven practice areas' }
+    ]
+  },
+  {
+    id: '32',
+    slug: 'as-academy',
+    name: 'AS Academy',
+    client: 'AS Academy',
+    category: 'Marketing Site',
+    liveUrl: 'https://www.asacademy.com.cn/',
+    services: ['Web Development'],
+    stack: ['Custom web platform', 'Bilingual (EN/中)', '.cn + Australia market'],
+    challenge:
+      "AS Academy delivers one-stop holistic education for young people — Brazilian Jiu-Jitsu, combat-derived sports fitness, coding and robotics, and arts — partnering with schools and families across Shanghai and Melbourne. The offering spans several distinct programme lines and two markets, and the site ships on a .cn domain, which carries ICP-filing and China-market hosting constraints. It had to read credibly to international schools and parents, in both English and Chinese.",
+    solution:
+      "We built a bilingual custom site (English and Chinese) on infrastructure that works inside the Chinese market — ICP filing accounted for and assets served reliably inside the mainland. Four programme lines (Brazilian Jiu-Jitsu, CombatFit Sports, coding and robotics, and arts) each get their own clear section, so a school or parent finds the right programme without wading through the rest. School-partnership credentials and coach safeguarding are surfaced up front, because trust is the conversion event in youth education.",
+    shortDescription:
+      'Bilingual youth-education site on a .cn domain — four programme lines, school-partnership and safeguarding credentials up front.',
+    seoTitle: 'AS Academy — Bilingual Youth Education Site',
+    seoDescription:
+      'A bilingual (EN/中) website on a .cn domain for a youth holistic-education provider spanning Brazilian Jiu-Jitsu, sports, coding, and arts across Shanghai and Melbourne. Built by Pixdyne.',
+    img: '',
+    cardSize: 'small',
+    gallery: [
+      { src: '/projects/ASAcademy_Home.png', caption: 'Homepage', alt: 'AS Academy homepage hero — one-stop holistic education for youth' },
+      { src: '/projects/ASAcademy_Programmes.png', caption: 'Programmes', alt: 'AS Academy programme cards including Brazilian Jiu-Jitsu' }
     ]
   },
   {
@@ -658,63 +655,6 @@ export const caseStudies: CaseStudyItem[] = [
     ]
   },
   {
-    id: '28',
-    slug: 'accio-lms',
-    name: 'Accio LMS',
-    client: 'Accio',
-    category: 'Custom System',
-    liveUrl: 'https://accio.tofuture.org/',
-    services: ['System Development', 'Managed IT'],
-    stack: ['Custom LMS', 'Multi-portal (management / academic / student / lecturer / sales)', 'Role-based permissions'],
-    challenge:
-      "Accio is a learning management system built for educational institutions and tutoring operations that need control beyond what off-the-shelf platforms offer. The requirement spans course and class management, student and lecturer portals, enrolment, timetabling, e-commerce for class sales, group-buying modules, and reporting — all in one system, with role-based access so each user only sees what they should.",
-    solution:
-      "We built Accio from the ground up as a custom LMS with five separate portals (management, academic, student, lecturer, sales), role-based permissions, and third-party add-on support. Each user type sees only the workflows that belong to them, so the academic team isn't drowning in commercial controls and the sales team isn't navigating grade books. The system runs as the academic and commercial backbone for institutions using it. Part of an ongoing engagement with the same client.",
-    shortDescription:
-      'Custom LMS with five role-based portals (management / academic / student / lecturer / sales) for educational institutions.',
-    seoTitle: 'Accio LMS — Custom Multi-Portal Learning Management System',
-    seoDescription:
-      'A custom LMS with five role-based portals (management, academic, student, lecturer, sales), enrolment, timetabling, and class e-commerce, built for educational institutions. Built by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true,
-    gallery: [
-      { src: '/projects/Accio_LMS_Dashboard.png', caption: 'Dashboard', alt: 'Accio LMS dashboard control panel' },
-      { src: '/projects/Accio_LMS_Groups.png', caption: 'Group management', alt: 'Accio LMS group management portal' },
-      { src: '/projects/Accio_LMS_Students.png', caption: 'Student management', alt: 'Accio LMS student management interface' },
-      { src: '/projects/Accio_LMS_Timetable.png', caption: 'Timetable', alt: 'Accio LMS timetable view' }
-    ]
-  },
-  {
-    id: '29',
-    slug: 'online-education',
-    name: 'Online Education Platform',
-    client: 'Online Education',
-    category: 'Custom System',
-    services: ['System Development', 'Managed IT', 'SEO & Content'],
-    stack: ['Custom e-learning platform', 'Facial-recognition login', 'Live classes', 'Three-portal architecture'],
-    challenge:
-      "Online education for professional certification needs more than video hosting. Identity verification matters because you are certifying a real person. Live interaction matters because questions can't wait until after class. Exam infrastructure matters because practice tests are part of the value the student is paying for. Off-the-shelf video platforms cover none of this together.",
-    solution:
-      "We built a custom web application with three distinct user portals (student, instructor, admin) and facial-recognition login for student identity. Live classes run alongside pre-recorded video lectures with downloadable materials, automated video syncing, and real-time note-taking layered on top of the lecture stream. Administrators manage everything — lectures, classes, exam papers, advertisements — from one back office, while students access recordings, live sessions, and instructor support through one dashboard. Part of an ongoing engagement with the same client.",
-    shortDescription:
-      'Custom e-learning platform with facial-recognition login, live classes, and a three-portal architecture for professional certification programs.',
-    seoTitle: 'Online Education — Custom E-Learning Platform with Biometric Auth',
-    seoDescription:
-      'A custom e-learning platform with facial-recognition login, live classes, video lectures, exam infrastructure, and a three-portal architecture (student / instructor / admin). Built by Pixdyne.',
-    img: '',
-    cardSize: 'featured',
-    featured: true,
-    gallery: [
-      { src: '/projects/Online_Education_Dashboard.png', caption: 'Student dashboard', alt: 'Online Education student portal dashboard' },
-      { src: '/projects/Online_Education_ACCA.png', caption: 'Course landing', alt: 'Online Education ACCA course landing page for prospective students' },
-      { src: '/projects/Online_Education_Video.png', caption: 'Video lecture', alt: 'Online Education video lecture interface' },
-      { src: '/projects/Online_Education_Exam.png', caption: 'Practice exam', alt: 'Online Education practice examination interface' },
-      { src: '/projects/Online_Education_ClassMgmt.png', caption: 'Class management', alt: 'Online Education class management admin tool' },
-      { src: '/projects/Online_Education_VideoMgmt.png', caption: 'Video management', alt: 'Online Education backend video upload and management' }
-    ]
-  },
-  {
     id: '30',
     slug: 'floo',
     name: 'Floo',
@@ -743,8 +683,111 @@ export const caseStudies: CaseStudyItem[] = [
       { src: '/projects/Floo_Report.png', caption: 'Reporting', alt: 'Floo analytics and reporting page' }
     ]
   },
-  // ────────── Historical projects (formerly under Zeta Digital,
-  //            attributed to Pixdyne per owner direction 2026-05-13) ──────────
+  {
+    id: '01',
+    slug: 'epm-offroad',
+    name: 'EPM Offroad',
+    client: 'EPM Offroad',
+    category: 'E-commerce',
+    liveUrl: 'https://www.epmoffroad.com/',
+    services: ['Web Development'],
+    stack: ['Shopify', 'Multi-brand catalogue', 'Aftermarket automotive'],
+    challenge:
+      "EPM Offroad sells aftermarket off-road and overland accessories — heavy, fitment-sensitive parts spread across brands customers search for by name. They needed a storefront that could carry several distinct brand catalogues (aFe Power, Baja Designs, Eibach, KC HiLites among others) without making the site feel like a wholesaler's spreadsheet.",
+    solution:
+      "We built the storefront on Shopify so the team has one back office for inventory, payments, and shipping across brands. Product taxonomy is structured around vehicle category and component — lift kits, lighting, intakes — so a RAM TRX owner lands on the right shelf without scrolling past everything else first. Promotions, returns, and free-shipping rules are wired into Shopify natively rather than bolted on as add-on apps that drift out of date.",
+    shortDescription:
+      'Shopify storefront carrying multiple off-road brands under one back office.',
+    seoTitle: 'EPM Offroad — Multi-Brand Shopify Storefront',
+    seoDescription:
+      'A Shopify storefront for off-road and overland accessories carrying aFe Power, Baja Designs, Eibach, KC HiLites and more under one back office. Built by Pixdyne.',
+    img: '/work/epm-offroad.webp',
+    cardSize: 'small'
+  },
+  {
+    id: '02',
+    slug: 'tyre-boys',
+    name: 'Tyre Boys',
+    client: 'Tyre Boys',
+    category: 'E-commerce',
+    liveUrl: 'https://www.tyreboys.com/',
+    services: ['Web Development'],
+    stack: ['Shopify', 'Tyre size finder', 'Multi-brand inventory'],
+    challenge:
+      "Tyre Boys is a Springvale tyre retailer that sells across multiple brands and dozens of sizes. The challenge in tyre e-commerce is matching — customers don't buy 'a tyre', they buy a specific size and load rating for a specific vehicle. The site had to make finding the right tyre feel obvious rather than overwhelming.",
+    solution:
+      "We built the storefront on Shopify with a size finder up front, so the visitor narrows by size before they see brands. The catalogue spans seven brands — Dunlop, Goodyear, Kumho, Pirelli and others — under one checkout, with promotional bundles like 'Buy 3, Get 1 Free' wired into Shopify's native discount logic. A back-in-stock notification system handles the long tail of less common sizes without manual customer chasing.",
+    shortDescription:
+      'Shopify storefront with a size-first tyre finder across seven brands.',
+    seoTitle: 'Tyre Boys — Size-First Shopify Tyre Storefront',
+    seoDescription:
+      'A Shopify tyre storefront built around a size finder so customers narrow by fitment before brand. Multi-brand inventory, native promotions, restock notifications. Built by Pixdyne.',
+    img: '/work/tyre-boys.webp',
+    cardSize: 'small'
+  },
+  {
+    id: '03',
+    slug: 'pet-daddy',
+    name: 'Pet Daddy',
+    client: 'Pet Daddy',
+    category: 'E-commerce',
+    liveUrl: 'https://www.petdaddy.com.au/',
+    services: ['Web Development'],
+    stack: ['Shopify', 'Grooming booking', 'Retail + service'],
+    challenge:
+      "Pet Daddy runs a Surrey Hills pet boutique with both physical retail and a grooming service. They needed an online store that could carry premium pet supplies across dog and cat categories, while also surfacing the grooming booking flow without making it feel like a bolted-on second business.",
+    solution:
+      "We built the storefront on Shopify and structured the catalogue across roughly fifteen primary categories — food, treats, health, bedding, accessories — for both dog and cat audiences. Grooming bookings live inside the same Shopify back office, so the team isn't reconciling two systems. Comparison and wishlist tools sit on top for customers who want to research before adding to cart.",
+    shortDescription:
+      'Shopify storefront for a Melbourne pet boutique with integrated grooming booking.',
+    seoTitle: 'Pet Daddy — Shopify Store + Grooming Booking',
+    seoDescription:
+      "A Shopify storefront for a Surrey Hills pet boutique, with grooming bookings running inside the same back office as retail. Built by Pixdyne.",
+    img: '/work/pet-daddy.webp',
+    cardSize: 'small'
+  },
+  {
+    id: '04',
+    slug: 'peppy-planet',
+    name: 'Peppy Planet',
+    client: 'Peppy Planet',
+    category: 'E-commerce',
+    liveUrl: 'https://www.peppyplanet.com.au/',
+    services: ['Web Development'],
+    stack: ['Shopify', 'Booking flow', 'Venue hire'],
+    challenge:
+      "Peppy Planet runs an indoor play venue in Bayswater where weekend birthday parties drive most of the revenue. They needed a public site that could sell ticketed entry, party-room bookings, and after-hours venue hire through one checkout — without forcing parents through a separate booking system to pay.",
+    solution:
+      "We built the storefront on Shopify so the team can run the venue from one back office rather than learning new software for every channel. Entry tickets, party packages, and after-hours hire are each modelled as Shopify products with scheduling, so a parent can compare dates and pay in a single flow. Downloadable party invitations and an email list for booking access sit on top of the same store.",
+    shortDescription:
+      'Shopify storefront that sells entry, parties, and venue hire through one checkout.',
+    seoTitle: 'Peppy Planet — Shopify Party-Booking Storefront',
+    seoDescription:
+      'A Shopify storefront for a Bayswater indoor play venue that sells entry tickets, party-room bookings, and after-hours hire through one checkout. Built by Pixdyne.',
+    img: '/work/peppy-planet.webp',
+    cardSize: 'small'
+  },
+  {
+    id: '06',
+    slug: 'promod-group',
+    name: 'Promod Group',
+    client: 'Promod Group',
+    category: 'Marketing Site',
+    liveUrl: 'https://www.promodgroup.com.au/',
+    services: ['Managed IT'],
+    stack: ['Custom CMS', 'B2B marketing site', 'Rebuild in progress'],
+    challenge:
+      "Promod Group is an Australian modular construction company supplying prefabricated buildings to residential, education, healthcare, and infrastructure clients. The audience is institutional — government agencies, developers, large investors — so the site has to read as a credible long-term partner, not as a marketing brochure.",
+    solution:
+      "The current site runs on a lightweight custom CMS we built and operate, focused on the company values, capabilities, and the Probotics automation product line rather than a transactional catalogue. We are currently rebuilding the site to better reflect the company's domestic-manufacturing positioning and to integrate the project portfolio more deeply. The rebuild keeps the Pixdyne stack and editorial structure — the team only has to learn one CMS over the lifetime of the engagement.",
+    shortDescription:
+      'B2B marketing site for an Australian modular construction company — rebuild underway.',
+    seoTitle: 'Promod Group — Modular Construction Marketing Site',
+    seoDescription:
+      'A B2B marketing site for an Australian modular construction company, built and operated by Pixdyne. Rebuild currently in progress.',
+    img: '/work/promod-group.webp',
+    cardSize: 'small'
+  },
 ];
 
 export function getAllCaseStudies(): CaseStudyItem[] {
@@ -771,11 +814,12 @@ export function getFeaturedCaseStudies(limit: number = 8): CaseStudyItem[] {
 const HOMEPAGE_HIGHLIGHT_SLUGS = [
   '4wd-interiors',
   'austin-education',
-  'cupcake-central',
   'gameology',
-  'wincareer',
-  'accio-lms',
-  'online-education'
+  'good-mood-studio',
+  'insight-idea',
+  'open-mat',
+  'cupcake-central',
+  'wincareer'
 ];
 
 export function getHomepageHighlights(): CaseStudyItem[] {

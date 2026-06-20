@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Playfair_Display, Space_Grotesk } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema';
 import { Navigation } from '@/components/layout/Navigation';
 import { SiteFooter } from '@/components/layout/SiteFooter';
@@ -114,7 +115,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en-AU" className={`${playfair.variable} ${spaceGrotesk.variable}`}>
       <head>
         <script
           id="organization-schema"
@@ -143,6 +144,7 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+        <Analytics />
       </body>
     </html>
   );

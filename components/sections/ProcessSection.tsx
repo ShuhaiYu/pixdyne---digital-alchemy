@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import { prefersReducedMotion } from '@/lib/animation/reduced-motion';
 import ScrollTrigger from 'gsap/ScrollTrigger';
@@ -32,11 +32,6 @@ export const ProcessSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
   const pathRef = useRef<SVGPathElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
-  }, []);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
@@ -47,18 +42,24 @@ export const ProcessSection: React.FC = () => {
     const path = pathRef.current;
     if (!section || cards.length === 0) return;
 
-    if (isMobile) {
+    // Decide the branch from matchMedia, not the isMobile *state* (which is
+    // false on the first client paint) — otherwise the desktop chaos
+    // animation briefly runs on a mobile first render and stamps rotated
+    // transforms onto cards that now live in a clean grid.
+    const mobile = window.matchMedia('(max-width: 767px)').matches;
+
+    if (mobile) {
       // On mobile, use IntersectionObserver for reliable triggering
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            // Animate cards
+            // Mobile cards live in a clean 2-col grid — reveal straight to
+            // y:0, not to the desktop chaos offset.
             cards.forEach((card, i) => {
-              const transform = chaosTransforms[i];
               gsap.fromTo(card,
                 { y: 60, opacity: 0, scale: 0.9 },
                 {
-                  y: transform.y,
+                  y: 0,
                   opacity: 1,
                   scale: 1,
                   duration: 0.8,
@@ -142,7 +143,10 @@ export const ProcessSection: React.FC = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [isMobile]);
+    // Runs once on mount: matchMedia inside picks the correct branch, and the
+    // reveal is one-shot (observer unobserves / ScrollTrigger once:true), so no
+    // re-run on viewport change is needed.
+  }, []);
 
   return (
     <div
@@ -165,10 +169,6 @@ export const ProcessSection: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 w-full max-w-6xl my-8 sm:my-12 relative z-10">
         {/* Left - heading area */}
         <div className="flex flex-col justify-center">
-          <AnimatedContent distance={30} duration={0.6}>
-            <span className="text-brand-yellow font-mono text-sm font-bold uppercase tracking-wider mb-4 block">Process</span>
-          </AnimatedContent>
-
           <div className="mb-6 sm:mb-8">
             <SplitText
               text="Calculated"
@@ -216,11 +216,14 @@ export const ProcessSection: React.FC = () => {
           </AnimatedContent>
         </div>
 
-        {/* Right - chaos card grid */}
-        <div className="relative h-[320px] sm:h-[380px] md:h-[450px] lg:h-[500px]">
-          {/* SVG connecting line */}
+        {/* Right - phase cards. Mobile: a clean 2-col grid (no overlap).
+            From md up: the absolutely-positioned "chaos" collage, where each
+            card reads its scattered top/left/rotation from CSS custom props
+            applied only at the md: breakpoint. */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 md:block md:relative md:h-[450px] lg:h-[500px]">
+          {/* SVG connecting line — only meaningful for the desktop collage. */}
           <svg
-            className="absolute inset-0 w-full h-full pointer-events-none z-0"
+            className="hidden md:block absolute inset-0 w-full h-full pointer-events-none z-0"
             viewBox="0 0 400 500"
             preserveAspectRatio="xMidYMid meet"
           >
@@ -253,13 +256,22 @@ export const ProcessSection: React.FC = () => {
               <div
                 key={i}
                 ref={(node) => { cardsRef.current[i] = node; }}
-                className="absolute w-[44%] sm:w-[43%] md:w-[42%] aspect-square bg-brand-black text-brand-text p-3 sm:p-4 md:p-6 flex flex-col justify-between cursor-pointer transition-all duration-500 ease-out group hover:z-20"
+                className="relative w-full aspect-square bg-brand-black text-brand-text p-4 md:p-6 flex flex-col justify-between cursor-pointer transition-all duration-500 ease-out group hover:z-20 md:absolute md:w-[42%] md:[top:var(--card-top)] md:[left:var(--card-left)] md:[transform:rotate(var(--card-rot))_translate(var(--card-x),var(--card-y))]"
                 style={{
-                  top: pos.top,
-                  left: pos.left,
-                  transform: `rotate(${chaosTransforms[i].rotate}deg) translate(${chaosTransforms[i].x}px, ${chaosTransforms[i].y}px)`,
-                }}
+                  // Consumed only by the md: arbitrary-property classes above,
+                  // so on mobile the card stays in normal grid flow with no
+                  // offset or rotation; the desktop collage reads these vars.
+                  ['--card-top']: pos.top,
+                  ['--card-left']: pos.left,
+                  ['--card-rot']: `${chaosTransforms[i].rotate}deg`,
+                  ['--card-x']: `${chaosTransforms[i].x}px`,
+                  ['--card-y']: `${chaosTransforms[i].y}px`,
+                } as React.CSSProperties}
                 onMouseEnter={(e) => {
+                  // Touch devices fire mouseenter/leave on tap; the leave
+                  // handler would rotate a grid card into the desktop chaos
+                  // transform. Skip the hover choreography where hover is absent.
+                  if (window.matchMedia('(hover: none)').matches) return;
                   gsap.to(e.currentTarget, {
                     rotation: 0,
                     x: 0,
@@ -271,6 +283,7 @@ export const ProcessSection: React.FC = () => {
                   });
                 }}
                 onMouseLeave={(e) => {
+                  if (window.matchMedia('(hover: none)').matches) return;
                   const transform = chaosTransforms[i];
                   gsap.to(e.currentTarget, {
                     rotation: transform.rotate,

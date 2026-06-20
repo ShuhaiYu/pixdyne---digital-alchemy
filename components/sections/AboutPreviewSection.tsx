@@ -12,9 +12,6 @@ export const AboutPreviewSection: React.FC = () => {
       className="w-full px-6 md:px-12 py-24 md:py-32 lg:py-40 max-w-7xl mx-auto"
       aria-label="About Pixdyne preview"
     >
-      <span className="text-brand-yellow font-mono text-xs sm:text-sm font-bold uppercase tracking-widest block mb-8">
-        About
-      </span>
       <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1fr] gap-12 lg:gap-20 items-end">
         <div>
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic leading-[1.05] text-brand-text mb-8">

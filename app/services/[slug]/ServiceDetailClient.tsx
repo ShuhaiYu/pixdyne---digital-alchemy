@@ -66,7 +66,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <span className="text-brand-yellow font-mono text-xs tracking-widest block mb-2">{protocolLabel}_{service.number}</span>
-            <h1 className="text-6xl md:text-8xl font-serif italic text-brand-text">{service.title}</h1>
+            <h1 className="text-[2.5rem] sm:text-6xl md:text-8xl font-serif italic text-brand-text text-balance leading-[1.05]">{service.title}</h1>
           </div>
           {tagLabel && (
             <div className="font-mono text-xl md:text-2xl text-brand-yellow">

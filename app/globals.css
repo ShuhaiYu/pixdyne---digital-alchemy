@@ -103,28 +103,34 @@ body {
   display: none;
 }
 
-/* Platform marquee — monochrome grey-tinted default, source brand
+/* Platform marquee — uniform white silhouette by default, source brand
    colour on hover.
-   The earlier silhouette used `brightness(0) invert(1)`, which first
-   collapsed every pixel to pure black and then inverted the lot to
-   pure white. Because every pixel became the same colour at step 1,
-   any internal differentiation (Shopify's white "S" inside the green
-   bag, Salesforce's white type inside the blue cloud, Xero's white
-   "X" inside the blue disc) was lost — the marks ended up as
-   featureless silhouettes.
-   The current filter is `grayscale(1) brightness(1.2)`: saturation
-   is removed but per-pixel luminance is preserved, so a coloured
-   shape with a white fill inside it now reads as a mid-grey shape
-   with a white fill inside it. The brightness multiplier lifts the
-   darker logos so they still stand out on the warm-gold-tinted
-   marquee strip; pure-white pixels stay clamped at white. On hover,
-   the filter is removed and the source brand colour reveals.
-   The `.logo-tile` wrapper rendered via LogoLoop's `renderItem` prop
-   is still in use so that hover events reach the image (the LogoLoop
-   default <img> sets pointer-events:none). */
+   These platform marks span the full luminance range. Some are pure-black
+   marks (OpenAI, Cloudflare's wordmark, WooCommerce's type, WordPress);
+   others are colour shapes with opaque white inner detail (Shopify's "S",
+   Salesforce's wordmark, Xero's "X"). No single grayscale/brightness pass
+   keeps all of them legible on the warm-gold strip: `brightness()` is
+   multiplicative, so it cannot lift a pure-black mark off a dark band. The
+   previous `grayscale(1) brightness(1.2)` therefore left the black marks
+   nearly invisible — and on touch that was permanent, because there is no
+   hover to reveal their colour. (An earlier revision used this silhouette,
+   moved to grayscale to keep inner detail, then inherited the black-mark
+   contrast bug; this returns to the silhouette with that trade-off made
+   deliberately.)
+   `brightness(0) invert(1)` flattens every opaque pixel to white, so EVERY
+   mark reads at full contrast regardless of source colour — the same
+   treatment the OnlyPixAI orbit uses, so the two logo surfaces now read
+   consistently. The cost is that the few white-detail marks lose that detail
+   at rest (Shopify's bag without its "S"); at 36–48px those cut-outs barely
+   register, and an always-visible silhouette beats an invisible logo. Hover
+   restores the full-colour, fully-detailed mark for pointer users; touch
+   users keep the always-legible silhouette.
+   The `.logo-tile` wrapper rendered via LogoLoop's `renderItem` prop is still
+   in use so that hover events reach the image (the LogoLoop default <img>
+   sets pointer-events:none). */
 .platform-marquee .logo-tile img {
-  filter: grayscale(1) brightness(1.2);
-  opacity: 0.9;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
   transition: filter 0.35s ease, opacity 0.35s ease;
 }
 .platform-marquee .logo-tile:hover img {
@@ -132,8 +138,8 @@ body {
   opacity: 1;
 }
 .platform-marquee--secondary .logo-tile img {
-  filter: grayscale(1) brightness(1.2);
-  opacity: 0.9;
+  filter: brightness(0) invert(1);
+  opacity: 0.85;
   transition: filter 0.35s ease, opacity 0.35s ease;
 }
 .platform-marquee--secondary .logo-tile:hover img {

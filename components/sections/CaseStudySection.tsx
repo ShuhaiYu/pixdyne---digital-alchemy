@@ -73,12 +73,9 @@ export const CaseStudySection: React.FC = () => {
       className="w-full min-h-screen bg-brand-black text-brand-text overflow-hidden"
     >
       <div className="max-w-7xl mx-auto w-full px-4 md:px-8 lg:px-12 pt-20 md:pt-24 pb-20 md:pb-28">
-        {/* Header — kicker + italic serif h2 + lede + "View all" link */}
+        {/* Header — italic serif h2 + lede + "View all" link */}
         <div className="home-work-header flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16 border-b border-white/10 pb-8 md:pb-10">
           <div>
-            <span className="text-brand-yellow text-xs font-mono tracking-[0.25em] uppercase mb-3 block">
-              Selected work
-            </span>
             <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic leading-[1.05]">
               Work we&apos;re proud of
             </h2>

@@ -128,10 +128,7 @@ export const TeamSection: React.FC = () => {
       <div className="relative z-10 px-4 pt-20 pb-12 sm:pt-16 sm:pb-16 md:px-8 md:py-20 lg:px-12 lg:py-24 max-w-7xl mx-auto w-full">
         <div className="approach-header flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-16 border-b border-white/10 pb-4 sm:pb-6">
           <div>
-            <span className="font-mono text-xs font-bold text-brand-yellow tracking-widest uppercase">
-              Approach
-            </span>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-serif italic leading-tight mt-2">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-serif italic leading-tight">
               How we work
             </h2>
           </div>

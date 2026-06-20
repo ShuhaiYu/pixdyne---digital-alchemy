@@ -37,8 +37,13 @@ export const ServicesSection: React.FC = () => {
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
-    // Skip horizontal scroll animation on mobile
-    if (isMobile) return;
+    // Skip the pinned horizontal-scroll animation on mobile. Gate on
+    // matchMedia rather than the isMobile *state* — the state is false on the
+    // first client render, so gating on it would set the pin up and tear it
+    // down on every mobile load. Layout itself is CSS-breakpoint driven in the
+    // markup below, so the mobile branch needs no JS at all here. The
+    // [isMobile] dep still re-runs this effect when the viewport crosses 768px.
+    if (window.matchMedia('(max-width: 767px)').matches) return;
     // Respect reduced-motion: skip the pinned horizontal-scroll animation so
     // the section falls back to normal vertical flow (CLAUDE.md §8).
     if (prefersReducedMotion()) return;
@@ -96,12 +101,12 @@ export const ServicesSection: React.FC = () => {
       ref={sectionRef}
       id="services"
       aria-label="Services"
-      className={`relative w-full bg-brand-black text-brand-text ${isMobile ? 'min-h-screen h-auto overflow-visible' : 'h-screen overflow-hidden'}`}
+      className="relative w-full bg-brand-black text-brand-text min-h-screen overflow-visible md:h-screen md:overflow-hidden"
       style={{ zIndex: 20 }}
     >
-      <div className={`w-full ${isMobile ? 'flex flex-col' : 'h-full flex flex-row'}`}>
+      <div className="w-full flex flex-col md:h-full md:flex-row">
         {/* Left - heading area */}
-        <div className={`w-full ${isMobile ? 'p-6 pt-24 pb-8' : 'md:w-1/3 h-full pt-28 p-12'} border-b md:border-b-0 md:border-r border-white/20 flex flex-col justify-between flex-shrink-0`}>
+        <div className="w-full p-6 pt-24 pb-8 md:w-1/3 md:h-full md:p-12 md:pt-28 border-b md:border-b-0 md:border-r border-white/20 flex flex-col justify-between flex-shrink-0">
           <div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif italic leading-tight mb-4 md:mb-6">Capabilities</h2>
             <p className="font-sans text-sm text-brand-muted max-w-xs leading-relaxed">
@@ -112,22 +117,23 @@ export const ServicesSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Right - service list */}
+        {/* Right - service list. On mobile the list stacks vertically (each
+            card full-width, natural height); from md up it becomes the
+            horizontal GSAP-pinned rail. */}
         <div
           ref={containerRef}
-          className={`w-full ${isMobile ? 'flex-1' : 'md:w-2/3 h-full overflow-hidden'}`}
+          className="w-full md:w-2/3 md:h-full md:overflow-hidden"
         >
           <div
             ref={listRef}
-            className={`${isMobile ? 'flex flex-col' : 'flex flex-row h-full'}`}
+            className="flex flex-col md:flex-row md:h-full"
           >
             {cards.map((card, index) => {
               return (
                 <SpotlightCard
                   key={card.id}
                   spotlightColor={`rgba(${brandRGB.yellow}, 0.15)`}
-                  className={`service-item group flex-shrink-0 flex flex-col justify-center p-6 sm:p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer ${isMobile ? 'w-full min-h-[70vh]' : 'h-full'}`}
-                  style={isMobile ? undefined : { width: 'calc(66.67vw)' }}
+                  className="service-item group flex-shrink-0 flex flex-col justify-start md:justify-center p-6 sm:p-8 md:p-12 border-b md:border-b-0 md:border-r border-white/20 hover:bg-white/5 transition-colors cursor-pointer w-full md:h-full md:w-[66.67vw]"
                 >
                   {/* Card-wide click target sends the visitor to the
                       capability's page. The bottom-right CTA below sits at
@@ -167,32 +173,38 @@ export const ServicesSection: React.FC = () => {
 
                   </div>
 
-                  {/* Progress indicator (bottom-left) */}
-                  <div className="absolute bottom-6 sm:bottom-8 left-6 sm:left-12 flex items-center gap-2">
-                    <span className="text-xs font-mono text-brand-text/30">
-                      {String(index + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
-                    </span>
-                    <div className="w-16 h-[1px] bg-white/20">
-                      <div
-                        className="h-full bg-brand-yellow"
-                        style={{ width: `${((index + 1) / cards.length) * 100}%` }}
-                      />
+                  {/* Footer: progress (left) + primary CTA (right).
+                      Mobile: an in-flow row beneath the content, lifted to
+                      z-30 so it sits above the card-wide Link (z-20) and stays
+                      tappable. From md up the two halves return to their
+                      absolute bottom corners for the horizontal rail. */}
+                  <div className="relative z-30 mt-8 flex items-center justify-between gap-4 md:mt-0 md:static">
+                    {/* Progress indicator */}
+                    <div className="flex items-center gap-2 md:absolute md:bottom-8 md:left-12">
+                      <span className="text-xs font-mono text-brand-text/30">
+                        {String(index + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
+                      </span>
+                      <div className="w-16 h-[1px] bg-white/20">
+                        <div
+                          className="h-full bg-brand-yellow"
+                          style={{ width: `${((index + 1) / cards.length) * 100}%` }}
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Primary CTA (bottom-right). z-30 sits above the
-                      card-wide Link at z-20, so this captures its own
-                      click. Wording is unified as "Explore more"; for the
-                      Operations sub-services (Managed IT, SEO & Content)
-                      the href deep-links into the Operations detail page. */}
-                  <Link
-                    href={card.href}
-                    className="absolute bottom-6 sm:bottom-8 right-6 sm:right-12 z-30 inline-flex items-center gap-2 bg-brand-yellow text-brand-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-brand-yellow-hover transition-colors pointer-events-auto"
-                    aria-label={`Explore ${card.title}`}
-                  >
-                    Explore more
-                    <ArrowRight size={14} aria-hidden="true" />
-                  </Link>
+                    {/* Primary CTA. z-30 keeps it above the card-wide Link
+                        (z-20) on every breakpoint. Wording unified as "Explore
+                        more"; the Operations sub-services (Managed IT, SEO &
+                        Content) deep-link into the Operations detail page. */}
+                    <Link
+                      href={card.href}
+                      className="z-30 inline-flex items-center gap-2 bg-brand-yellow text-brand-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-brand-yellow-hover transition-colors pointer-events-auto md:absolute md:bottom-8 md:right-12"
+                      aria-label={`Explore ${card.title}`}
+                    >
+                      Explore more
+                      <ArrowRight size={14} aria-hidden="true" />
+                    </Link>
+                  </div>
                 </SpotlightCard>
               );
             })}

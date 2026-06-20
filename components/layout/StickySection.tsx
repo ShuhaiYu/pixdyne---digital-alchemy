@@ -38,8 +38,12 @@ export const StickySection: React.FC<SectionProps> = ({
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
-    // Skip complex GSAP transitions on mobile - they cause jank and trigger issues
-    if (isMobile) return;
+    // Skip the complex GSAP transitions on mobile — they cause jank and
+    // trigger issues. Gate on matchMedia, not the isMobile *state* (false on
+    // first paint), so the transitions are never set up then immediately torn
+    // down on a mobile load. The [isMobile] dep still re-runs this on resize
+    // across the breakpoint.
+    if (window.matchMedia('(max-width: 767px)').matches) return;
     // Respect reduced-motion: skip the layered sticky/scroll transitions so the
     // sections fall back to normal vertical flow (CLAUDE.md §8).
     if (prefersReducedMotion()) return;
@@ -119,13 +123,14 @@ export const StickySection: React.FC<SectionProps> = ({
         className={`${pinnable ? 'relative' : 'sticky top-0'} w-full overflow-hidden ${fitContent ? '' : 'min-h-dvh'}`}
         style={{ zIndex }}
       >
-        {/* peekBackground sits outside clipPath, revealed as mask-diagonal expands */}
-        {/* On mobile, hide peekBackground since mask-diagonal is disabled */}
-        {!isMobile && (
-          <div className="absolute inset-0 z-0">
-            {peekBackground}
-          </div>
-        )}
+        {/* peekBackground sits outside clipPath, revealed as mask-diagonal
+            expands. Hidden on mobile via CSS (the mask-diagonal transition is
+            disabled there, so the inner content fully covers it anyway) —
+            using `hidden md:block` rather than the isMobile state keeps the
+            first render correct with no hydration swap. */}
+        <div className="hidden md:block absolute inset-0 z-0">
+          {peekBackground}
+        </div>
 
         {/* Inner container - clipPath applied here */}
         <div

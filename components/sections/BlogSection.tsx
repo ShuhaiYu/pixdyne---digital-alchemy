@@ -72,7 +72,6 @@ export const BlogSection: React.FC = () => {
     <div ref={sectionRef} className="h-full w-full flex flex-col p-4 pt-20 sm:p-6 sm:pt-24 md:p-8 md:pt-24 lg:p-12 lg:pt-28 bg-brand-white text-black">
       <div className="flex justify-between items-end mb-8 sm:mb-12 md:mb-16">
         <div>
-          <span className="text-brand-yellow font-mono text-xs font-bold uppercase tracking-widest mb-1 sm:mb-2 block">Blog</span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-serif italic leading-tight">Journal</h2>
         </div>
         <Link href="/blog" className="hidden md:flex items-center gap-2 text-sm font-bold border-b border-black pb-1 hover:text-brand-yellow-hover hover:border-brand-yellow-hover transition-colors">

@@ -8,6 +8,7 @@ import { AuditData, CheckResult, DimensionData, FixItem, PageTableData, ScanEven
 import { auditQuerySchema } from '@/lib/seo-audit/schema';
 import { assertPublicHost } from '@/lib/seo-audit/ssrf';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
+import { checkBotId } from 'botid/server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -1187,6 +1188,13 @@ async function performAudit(domain: string, emit?: (e: ScanEvent) => void): Prom
 }
 
 export async function GET(req: NextRequest) {
+  // Block automated clients (scripted/headless abuse) before doing any work.
+  // In local dev checkBotId() returns a human verdict, so this no-ops locally.
+  const bot = await checkBotId();
+  if (bot.isBot) {
+    return NextResponse.json({ error: 'Automated access is not allowed.' }, { status: 403 });
+  }
+
   const ip = getClientIp(req);
   const limit = rateLimit(`seo-audit:${ip}`, { windowMs: RATE_LIMIT_WINDOW_MS, max: RATE_LIMIT_MAX });
   if (!limit.allowed) {

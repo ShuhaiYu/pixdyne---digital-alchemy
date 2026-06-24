@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next'
+import { withBotId } from 'botid/next/config'
 
 const nextConfig: NextConfig = {
   // @react-pdf/renderer (and its fontkit dependency) must run unbundled in
@@ -27,4 +28,6 @@ const nextConfig: NextConfig = {
   },
 }
 
-export default nextConfig
+// withBotId sets up the BotID proxy rewrites that power the client SDK +
+// checkBotId() classification on the Free SEO Audit endpoints.
+export default withBotId(nextConfig)

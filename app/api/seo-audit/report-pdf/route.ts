@@ -4,6 +4,7 @@ import { Resend } from 'resend';
 import { ReportDocument } from '@/lib/seo-audit/ReportPdf';
 import { reportPdfSchema } from '@/lib/seo-audit/schema';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
+import { checkBotId } from 'botid/server';
 import { BUSINESS } from '@/lib/data/business';
 
 export const runtime = 'nodejs';
@@ -107,6 +108,11 @@ async function forwardLeadWebhook(lead: Lead): Promise<void> {
 }
 
 export async function POST(req: NextRequest) {
+  const bot = await checkBotId();
+  if (bot.isBot) {
+    return NextResponse.json({ error: 'Automated access is not allowed.' }, { status: 403 });
+  }
+
   const ip = getClientIp(req);
   const limit = rateLimit(`seo-audit-pdf:${ip}`, { windowMs: RATE_LIMIT_WINDOW_MS, max: RATE_LIMIT_MAX });
   if (!limit.allowed) {

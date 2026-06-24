@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next';
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/schema';
 import { Navigation } from '@/components/layout/Navigation';
 import { SiteFooter } from '@/components/layout/SiteFooter';
+import { BotIdClient } from 'botid/client';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -130,6 +131,16 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(generateWebSiteSchema())
           }}
+        />
+        {/* Vercel BotID — only the Free SEO Audit endpoints are protected
+            (browser-triggered, expensive crawl + PDF). The client SDK attaches
+            classification headers to these requests; the routes verify with
+            checkBotId(). All other traffic / content pages are unaffected. */}
+        <BotIdClient
+          protect={[
+            { path: '/api/seo-audit', method: 'GET' },
+            { path: '/api/seo-audit/report-pdf', method: 'POST' },
+          ]}
         />
       </head>
       <body className="font-sans antialiased">

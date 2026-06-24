@@ -1,13 +1,18 @@
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { Resend } from 'resend';
 import { getClientIp, rateLimit } from '@/lib/rate-limit';
 import { BUSINESS } from '@/lib/data/business';
 
-interface ContactFormData {
-  name: string;
-  email: string;
-  message: string;
-}
+// Schema-based validation at the system boundary (workspace coding-style rule)
+// — trims and bounds every field in one place instead of hand-rolled regex.
+const contactSchema = z.object({
+  name: z.string().trim().min(1).max(100),
+  email: z.string().trim().email().max(254),
+  message: z.string().trim().min(1).max(5000),
+});
+
+type ContactFormData = z.infer<typeof contactSchema>;
 
 // Notification email recipient. Uses the canonical business email from
 // §14.1's single source of truth — never hardcode this address here.
@@ -84,26 +89,10 @@ export async function POST(request: Request) {
       );
     }
 
-    const data = (await request.json()) as Partial<ContactFormData>;
-
-    if (!data.name || !data.email || !data.message) {
+    const parsed = contactSchema.safeParse(await request.json());
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.email)) {
-      return NextResponse.json(
-        { error: 'Invalid email format' },
-        { status: 400 }
-      );
-    }
-
-    if (data.name.length > 100 || data.email.length > 254 || data.message.length > 5000) {
-      return NextResponse.json(
-        { error: 'Field length exceeded' },
+        { error: 'Invalid form data' },
         { status: 400 }
       );
     }
@@ -117,11 +106,8 @@ export async function POST(request: Request) {
       );
     }
 
-    const payload: ContactFormData = {
-      name: data.name.trim(),
-      email: data.email.trim(),
-      message: data.message.trim()
-    };
+    // Already trimmed + bounded by the schema above.
+    const payload: ContactFormData = parsed.data;
 
     const resend = new Resend(apiKey);
     const { subject, text, html } = buildEmail(payload);

@@ -56,12 +56,19 @@ export function rateLimit(key: string, options: RateLimitOptions): RateLimitResu
 }
 
 export function getClientIp(request: Request): string {
+  // Prefer x-real-ip: on Vercel this is the true peer IP set by the platform and
+  // cannot be spoofed by the client. The LEFT-most x-forwarded-for value is
+  // client-supplied (the platform appends the real IP to the right), so keying a
+  // rate limit on it would let an attacker rotate it to evade the per-IP cap.
+  const realIp = request.headers.get('x-real-ip')?.trim();
+  if (realIp) return realIp;
+
+  // Off-Vercel fallback: take the RIGHT-most x-forwarded-for entry (the hop
+  // closest to us / hardest for the client to forge), not the left-most.
   const forwardedFor = request.headers.get('x-forwarded-for');
   if (forwardedFor) {
-    const first = forwardedFor.split(',')[0]?.trim();
-    if (first) return first;
+    const parts = forwardedFor.split(',').map((s) => s.trim()).filter(Boolean);
+    if (parts.length) return parts[parts.length - 1];
   }
-  const realIp = request.headers.get('x-real-ip');
-  if (realIp) return realIp.trim();
   return 'unknown';
 }

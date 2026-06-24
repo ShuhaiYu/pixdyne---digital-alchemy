@@ -34,16 +34,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://pixdyne.com/blog/${slug}`,
       publishedTime: post.date,
       authors: ['Pixdyne'],
-      // Per-post /og/blog/{slug}.jpg assets are not yet produced (CLAUDE.md
-      // §14.13) and 404'd, breaking the card. The root file-based
-      // opengraph-image does NOT propagate to nested routes, so reference the
-      // 1200×630 brand OG route explicitly until per-post images exist.
-      images: [{
-        url: 'https://pixdyne.com/opengraph-image',
-        width: 1200,
-        height: 630,
-        alt: 'Pixdyne — Melbourne technology partner since 2018'
-      }]
+      // og:image is supplied automatically by the colocated
+      // app/blog/[slug]/opengraph-image.tsx (the per-post generated cover),
+      // which Next.js merges into this metadata — no manual images array needed.
     },
     twitter: {
       card: 'summary_large_image',
@@ -113,8 +106,23 @@ export default async function BlogPostPage({ params }: Props) {
             </p>
           </header>
 
+          {/* Generated brand cover, served by the colocated opengraph-image
+              route so one PNG is the hero here and the social card. Hand-rolled
+              <img> with explicit dimensions per CLAUDE.md §14.6 (no CLS); the
+              source is already an optimised 1200×630 PNG, so it skips next/image
+              re-encoding. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={`/blog/${slug}/opengraph-image`}
+            width={1200}
+            height={630}
+            alt={`${post.title} — Pixdyne, Melbourne`}
+            fetchPriority="high"
+            className="w-full h-auto rounded-lg border border-brand-black/10 mb-12"
+          />
+
           <div
-            className="prose prose-lg max-w-[65ch] prose-headings:font-serif prose-headings:italic prose-a:text-brand-yellow prose-a:no-underline hover:prose-a:underline"
+            className="prose prose-lg max-w-[65ch] prose-headings:font-serif prose-headings:italic prose-a:text-brand-yellow prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg prose-img:border prose-img:border-brand-black/10 prose-figure:my-10"
             dangerouslySetInnerHTML={{ __html: post.content || '' }}
           />
 

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   /* Brand palette — dark gold on warm black, not generic yellow on sterile black */
@@ -297,6 +298,25 @@ select:focus-visible,
   outline: 2px solid var(--color-brand-yellow);
   outline-offset: 2px;
   border-radius: 2px;
+}
+
+/* Blog article body — Tailwind Typography (@plugin above) is brand-tuned here so
+   the rendered post HTML (h2/h3/ul/li/p/blockquote/links) matches the warm
+   editorial look instead of the plugin's default cool-grey palette. The heading
+   font/italic and link colour are set as prose-* utilities on the container in
+   app/blog/[slug]/page.tsx; these variables fill in body, bullets, and rules. */
+.prose {
+  --tw-prose-body: color-mix(in srgb, var(--color-brand-black) 86%, var(--color-brand-white));
+  --tw-prose-headings: var(--color-brand-black);
+  --tw-prose-lead: color-mix(in srgb, var(--color-brand-black) 70%, var(--color-brand-white));
+  --tw-prose-bold: var(--color-brand-black);
+  --tw-prose-counters: var(--color-brand-muted);
+  --tw-prose-bullets: var(--color-brand-yellow);
+  --tw-prose-hr: color-mix(in srgb, var(--color-brand-black) 12%, transparent);
+  --tw-prose-quotes: var(--color-brand-black);
+  --tw-prose-quote-borders: var(--color-brand-yellow);
+  --tw-prose-captions: var(--color-brand-muted);
+  --tw-prose-links: var(--color-brand-yellow);
 }
 
 /* Remove default outline when using mouse */

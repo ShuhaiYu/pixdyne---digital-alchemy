@@ -84,28 +84,39 @@ export default function BlogPage() {
             <Link
               key={post.id}
               href={`/blog/${post.slug}`}
-              className="group flex flex-col md:flex-row items-baseline py-8 md:py-12 border-b border-brand-black/20 cursor-pointer hover:bg-brand-black/[0.03] transition-colors -mx-4 px-4"
+              className="group flex flex-col md:flex-row md:items-center gap-5 md:gap-8 py-8 border-b border-brand-black/20 cursor-pointer hover:bg-brand-black/[0.03] transition-colors -mx-4 px-4"
             >
-              <div className="w-full md:w-1/4 mb-4 md:mb-0">
-                <span className="font-mono text-xs text-brand-muted block mb-1">{post.date}</span>
-                <span className="font-mono text-xs text-brand-yellow border border-brand-yellow/30 px-2 py-0.5 rounded">
-                  {post.category}
-                </span>
-              </div>
+              {/* Generated brand cover thumbnail (same PNG as the post hero +
+                  social card). Lazy below the fold; explicit ratio avoids CLS. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`/blog/${post.slug}/opengraph-image`}
+                width={1200}
+                height={630}
+                alt={`${post.title} — Pixdyne, Melbourne`}
+                loading="lazy"
+                className="w-full md:w-64 md:shrink-0 h-auto aspect-[1200/630] object-cover rounded-lg border border-brand-black/10"
+              />
 
-              <div className="w-full md:w-1/2 mb-4 md:mb-0">
-                <h2 className="text-2xl md:text-4xl font-serif group-hover:text-brand-yellow-hover transition-colors duration-300">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="font-mono text-xs text-brand-muted">{post.date}</span>
+                  <span className="font-mono text-xs text-brand-yellow border border-brand-yellow/30 px-2 py-0.5 rounded">
+                    {post.category}
+                  </span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-serif group-hover:text-brand-yellow-hover transition-colors duration-300">
                   {post.title}
                 </h2>
-                <p className="mt-2 text-brand-muted text-sm line-clamp-2">
+                <p className="mt-2 text-brand-muted text-sm line-clamp-2 max-w-2xl">
                   {post.excerpt}
                 </p>
-              </div>
-
-              <div className="w-full md:w-1/4 flex justify-between md:justify-end items-center gap-4">
-                <span className="text-xs font-sans text-brand-muted">{post.readTime}</span>
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-brand-black/20 flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-brand-black transition-all transform group-hover:-rotate-45">
-                  <ArrowRight size={16} />
+                <div className="mt-4 flex items-center gap-3 text-brand-muted">
+                  <span className="text-xs font-sans uppercase tracking-wider">{post.readTime}</span>
+                  <ArrowRight
+                    size={16}
+                    className="text-brand-yellow group-hover:translate-x-1 transition-transform"
+                  />
                 </div>
               </div>
             </Link>

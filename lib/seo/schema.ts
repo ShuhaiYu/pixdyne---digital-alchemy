@@ -209,7 +209,8 @@ export function generateBlogPostSchema(post: BlogPost) {
     '@type': 'Article',
     headline: post.title,
     description: post.excerpt,
-    image: 'https://pixdyne.com/opengraph-image',
+    // Per-post generated cover (app/blog/[slug]/opengraph-image.tsx).
+    image: `https://pixdyne.com/blog/${post.slug}/opengraph-image`,
     datePublished: isoDate,
     dateModified: isoDate,
     author: {

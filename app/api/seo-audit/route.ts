@@ -664,6 +664,20 @@ const makeImpact = (s: number) => (s < 50 ? 'High impact' : s < 75 ? 'Medium imp
 const pathOf = (u: string) => { try { return new URL(u).pathname || '/'; } catch { return u; } };
 const pct = (a: number, b: number) => (b > 0 ? Math.round((a / b) * 100) : 0);
 
+// A business marked up as a LocalBusiness subtype (ProfessionalService, Store,
+// Restaurant, *Business, …) IS an organization entity — recognise the common
+// subtypes, not just the literal 'Organization'/'LocalBusiness' base types,
+// otherwise well-structured sites get a false "no Organization schema".
+const ORG_SCHEMA_TYPES = new Set([
+  'Organization', 'LocalBusiness', 'ProfessionalService', 'Corporation', 'OnlineStore',
+  'Store', 'Restaurant', 'FoodEstablishment', 'CafeOrCoffeeShop', 'MedicalOrganization',
+  'Dentist', 'Physician', 'EducationalOrganization', 'School', 'CollegeOrUniversity',
+  'LegalService', 'Attorney', 'FinancialService', 'RealEstateAgent', 'GeneralContractor',
+  'LodgingBusiness', 'Hotel', 'TravelAgency', 'NGO', 'GovernmentOrganization',
+  'NewsMediaOrganization', 'SportsOrganization',
+]);
+const isOrgType = (t: string) => ORG_SCHEMA_TYPES.has(t) || /Business$/.test(t);
+
 // ---------------------------------------------------------------------------
 // Route
 // ---------------------------------------------------------------------------
@@ -921,7 +935,7 @@ async function performAudit(domain: string, emit?: (e: ScanEvent) => void): Prom
 
     // ----- Structured data -----
     const allTypes = new Set(okPages.flatMap(p => p.jsonLdTypes));
-    const hasOrg = allTypes.has('Organization') || allTypes.has('LocalBusiness');
+    const hasOrg = [...allTypes].some(isOrgType);
     const productPages = okPages.filter(p => p.productLike);
     const productNoSchema = productPages.filter(p => !p.jsonLdTypes.includes('Product'));
     const anyFaq = okPages.some(p => p.jsonLdTypes.includes('FAQPage'));
@@ -1053,7 +1067,10 @@ async function performAudit(domain: string, emit?: (e: ScanEvent) => void): Prom
     };
 
     // ----- Extractability (GEO) -----
-    const csrPages = okPages.filter(p => p.textRatio < 0.08 || p.textLength < 250);
+    // CSR = (almost) no text in the RAW HTML. Use an absolute text floor, not a
+    // text/HTML ratio — animation- and framework-heavy pages can have a low
+    // ratio (lots of markup) while still server-rendering plenty of real text.
+    const csrPages = okPages.filter(p => p.textLength < 250);
     const avgSemantic = okPages.reduce((a, p) => a + p.semanticCount, 0) / reachable;
     const listPages = okPages.filter(p => p.hasListOrTable).length;
     const badHeadingPages = okPages.filter(p => !p.headingOk);

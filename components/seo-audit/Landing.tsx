@@ -13,7 +13,8 @@ export default function Landing({ domain, onRunAudit }: LandingProps) {
 
   function handleRun() {
     const v = (inputRef.current?.value || '').trim().replace(/^https?:\/\//i, '').replace(/\/+$/, '');
-    onRunAudit(v || domain);
+    if (!v) { inputRef.current?.focus(); return; } // require the visitor to enter a domain
+    onRunAudit(v);
   }
 
   function handleKeyDown(e: React.KeyboardEvent) {

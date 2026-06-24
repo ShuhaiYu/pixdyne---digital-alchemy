@@ -17,11 +17,10 @@ import Report from '@/components/seo-audit/Report';
 import DimensionDetail from '@/components/seo-audit/DimensionDetail';
 import { Screen, AuditData } from '@/lib/seo-audit/types';
 
-const FALLBACK_DOMAIN = 'lumen-roasters.com';
-
 export default function SeoAuditClient() {
   const [screen, setScreen] = useState<Screen>('landing');
-  const [domain, setDomain] = useState(FALLBACK_DOMAIN);
+  // No pre-filled placeholder domain — the visitor must enter their own site.
+  const [domain, setDomain] = useState('');
   const [dimId, setDimId] = useState('onpage');
   const [auditData, setAuditData] = useState<AuditData | null>(null);
 
@@ -31,7 +30,8 @@ export default function SeoAuditClient() {
   }, []);
 
   const handleRunAudit = useCallback((d: string) => {
-    const cleanDomain = d || FALLBACK_DOMAIN;
+    const cleanDomain = d.trim();
+    if (!cleanDomain) return; // require the visitor to enter their own domain
     setDomain(cleanDomain);
     setAuditData(null);
     // The Scanning screen streams the real audit and reports back the data.

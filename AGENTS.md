@@ -193,6 +193,13 @@ If the audit fails, do **not** silently fix and commit. Report the violations an
 
 ## 3. Brand Voice Rules (basic version — open for revision)
 
+> **Blog voice (updated 2026-06-24):** the earlier blog posts were too flat. The
+> expanded, livelier blog-writing guidance now lives in [`references/`](./references/)
+> (`voice.md`, `humour.md`, `opinions.md`, `stats.md`, `stories.md`). The rules below
+> still hold for **truthfulness and identity**; the **tonal** restraint has been
+> loosened in favour of a real voice — personality, wit, opinions, stories, and
+> well-placed energy are encouraged.
+
 ### 3.1 Tone
 
 - **Confident, not boastful.** State what we do and what we have done. Do not claim "best", "leading", "premier", "world-class".
@@ -273,7 +280,7 @@ If the audit fails, do **not** silently fix and commit. Report the violations an
 - **Australian English** spelling (organise, optimise, colour, behaviour) — site is targeting AU.
 - Sentence case for headings; Title Case only for proper nouns and brand names.
 - Em dashes for breaks in thought (`—`), Oxford commas in lists.
-- No exclamation marks in body copy.
+- Exclamation marks: allowed, sparingly — use one only where a line genuinely earns it, never as a crutch. (Updated 2026-06-24: the earlier blanket ban is lifted in favour of the livelier blog voice. See `references/voice.md` and `references/humour.md`.)
 
 ---
 

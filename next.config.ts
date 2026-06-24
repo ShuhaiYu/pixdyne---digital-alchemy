@@ -1,6 +1,10 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  // @react-pdf/renderer (and its fontkit dependency) must run unbundled in
+  // the Node server runtime — used by the Free SEO Audit PDF export route
+  // (app/api/seo-audit/report-pdf). Without this, the build fails to bundle it.
+  serverExternalPackages: ['@react-pdf/renderer'],
   images: {
     remotePatterns: [
       {

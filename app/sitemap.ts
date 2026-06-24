@@ -67,6 +67,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${baseUrl}/free-seo-audit`,
+      lastModified: buildTime,
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/legal/privacy`,
       lastModified: new Date(LEGAL_LAST_UPDATED_ISO),
       changeFrequency: 'yearly',

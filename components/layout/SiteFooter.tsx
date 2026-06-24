@@ -37,7 +37,10 @@ const SERVICE_LINKS: { href: string; label: string }[] = [
   { href: '/services/operations', label: 'Operations' },
   { href: '/services/managed-it', label: 'Managed IT' },
   { href: '/services/seo-content', label: 'SEO & Content' },
-  { href: '/services/onlypixai', label: 'OnlyPixAI' }
+  { href: '/services/onlypixai', label: 'OnlyPixAI' },
+  // Free tool, not a service detail page — placed here as the SEO funnel
+  // surface so it gets one crawlable internal link (footer-only by design).
+  { href: '/free-seo-audit', label: 'Free SEO Audit' }
 ];
 
 export const SiteFooter: React.FC = () => {

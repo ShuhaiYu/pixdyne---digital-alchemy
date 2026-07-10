@@ -81,19 +81,14 @@ export const SiteFooter: React.FC = () => {
               {BUSINESS.address.postalCode}
             </p>
             <p className="text-brand-text">{BUSINESS.address.country}</p>
-            {/* py-1 lifts each link above the 24px WCAG minimum touch
-                target and spaces the two apart (a11y audit 2026-07-10) */}
+            {/* py-1 lifts the link above the 24px WCAG minimum touch
+                target (a11y audit 2026-07-10). No phone link: phone
+                contact removed by owner decision 2026-07-10. */}
             <a
               href={`mailto:${BUSINESS.email}`}
               className="hover:text-brand-yellow-hover transition-colors block mt-4 py-1 text-brand-text"
             >
               {BUSINESS.email}
-            </a>
-            <a
-              href={`tel:${BUSINESS.phone.tel}`}
-              className="hover:text-brand-yellow-hover transition-colors block py-1 text-brand-text"
-            >
-              {BUSINESS.phone.display}
             </a>
             {/* Full-strength brand-muted: the /70 variant was 3.1:1 on the
                 dark footer and failed WCAG 4.5:1 (a11y audit 2026-07-10) */}

@@ -33,7 +33,7 @@ function buildLlmsTxt(): string {
     '',
     `> ${BUSINESS.name} is a Melbourne-based long-term technology partner. Since 2018 we have built and operated websites, custom systems, and ongoing operations for businesses in Melbourne and across Australia — and we bring real AI capability into the businesses we partner with.`,
     '',
-    `${BUSINESS.name} (${BUSINESS_FORMATTED.abnLabel}) operates from ${BUSINESS_FORMATTED.addressLine}. Contact: ${BUSINESS.email} or ${BUSINESS.phone.display}.`,
+    `${BUSINESS.name} (${BUSINESS_FORMATTED.abnLabel}) operates from ${BUSINESS_FORMATTED.addressLine}. Contact: ${BUSINESS.email}.`,
     '',
     '## Services',
     '',

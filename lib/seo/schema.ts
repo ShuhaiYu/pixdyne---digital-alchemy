@@ -52,12 +52,11 @@ export function generateOrganizationSchema() {
       postalCode: BUSINESS.address.postalCode,
       addressCountry: BUSINESS.address.countryCode
     },
-    // telephone is also surfaced at the top level for LocalBusiness
-    // consumers that read it there instead of from contactPoint.
-    telephone: BUSINESS.phone.schema,
+    // No telephone: phone contact removed from all public surfaces by
+    // owner decision 2026-07-10 (CLAUDE.md §13). Email is the single
+    // published contact channel.
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: BUSINESS.phone.schema,
       contactType: 'customer service',
       email: BUSINESS.email,
       areaServed: 'AU',

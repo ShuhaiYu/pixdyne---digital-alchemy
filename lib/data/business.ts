@@ -2,9 +2,13 @@
 // here — Organization schema, legal pages, footer, contact page.
 //
 // CLAUDE.md §14.1: this file is the single source of truth for business
-// name, address, email, phone, and ABN. To change any field, edit it
+// name, address, email, and ABN. To change any field, edit it
 // here only — every consumer reads from these constants. Never hardcode
 // the same literal anywhere else.
+//
+// Phone: removed from all public surfaces by owner decision 2026-07-10
+// (see CLAUDE.md §13). Do not re-add a phone field or publish a phone
+// number anywhere without explicit owner approval.
 
 export const BUSINESS = {
   name: 'Pixdyne',
@@ -15,14 +19,6 @@ export const BUSINESS = {
   legalName: 'Pixdyne Pty Ltd',
   abn: '96 690 116 584',
   email: 'info@pixdyne.com',
-  phone: {
-    // UI display form (spaces). Used by SiteFooter, ContactSection.
-    display: '+61 410 510 751',
-    // E.164 with no separators. Used by tel: hrefs.
-    tel: '+61410510751',
-    // schema.org canonical form (dashes). Used by ContactPoint.telephone.
-    schema: '+61-410-510-751'
-  },
   address: {
     street: '294 Clayton Rd',
     locality: 'Clayton',

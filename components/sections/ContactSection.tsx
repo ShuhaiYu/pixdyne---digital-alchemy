@@ -66,7 +66,7 @@ export const ContactSection: React.FC = () => {
 
         {/* Body — two columns with weight balance. Left: form (the
             primary call to action on this page). Right: direct contact
-            info for visitors who prefer email or phone. Reversed from
+            info for visitors who prefer email. Reversed from
             the previous layout so the form is now the dominant column
             and lives on the left under the heading, matching the H1's
             left alignment. */}
@@ -190,9 +190,10 @@ export const ContactSection: React.FC = () => {
           </form>
 
           {/* Right — direct contact options, secondary to the form but
-              given enough weight that visitors who prefer email or
-              phone have a clear path. Editorial typography: serif
-              italic small labels above each block. */}
+              given enough weight that visitors who prefer email have a
+              clear path. Editorial typography: serif italic small labels
+              above each block. Phone contact removed by owner decision
+              2026-07-10. */}
           <aside className="flex flex-col gap-10 lg:gap-12 lg:border-l lg:border-white/10 lg:pl-12">
             <div>
               <h2 className="font-serif italic text-brand-yellow text-2xl md:text-3xl mb-4">
@@ -203,12 +204,6 @@ export const ContactSection: React.FC = () => {
                 className="block text-base md:text-lg text-brand-text hover:text-brand-yellow-hover transition-colors"
               >
                 {BUSINESS.email}
-              </a>
-              <a
-                href={`tel:${BUSINESS.phone.tel}`}
-                className="block text-base md:text-lg text-brand-text hover:text-brand-yellow-hover transition-colors mt-1"
-              >
-                {BUSINESS.phone.display}
               </a>
             </div>
 

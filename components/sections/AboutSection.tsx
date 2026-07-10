@@ -133,7 +133,7 @@ export const AboutSection: React.FC = () => {
               it does not.
             </p>
             <p className="text-base md:text-lg text-brand-text/85 leading-relaxed">
-              Email and phone reach us during AEST business hours. Out-of-hours
+              Email reaches us during AEST business hours. Out-of-hours
               messages land in the same inbox.
             </p>
           </div>

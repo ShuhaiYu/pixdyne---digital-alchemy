@@ -181,7 +181,9 @@ export const ServicesSection: React.FC = () => {
                   <div className="relative z-30 mt-8 flex items-center justify-between gap-4 md:mt-0 md:static">
                     {/* Progress indicator */}
                     <div className="flex items-center gap-2 md:absolute md:bottom-8 md:left-12">
-                      <span className="text-xs font-mono text-brand-text/30">
+                      {/* /60 keeps the label quiet while clearing WCAG 4.5:1
+                          on the dark card (a11y audit 2026-07-10) */}
+                      <span className="text-xs font-mono text-brand-text/60">
                         {String(index + 1).padStart(2, '0')} / {String(cards.length).padStart(2, '0')}
                       </span>
                       <div className="w-16 h-[1px] bg-white/20">
@@ -199,7 +201,9 @@ export const ServicesSection: React.FC = () => {
                     <Link
                       href={card.href}
                       className="z-30 inline-flex items-center gap-2 bg-brand-yellow text-brand-black font-bold text-xs uppercase tracking-widest py-3 px-5 hover:bg-brand-yellow-hover transition-colors pointer-events-auto md:absolute md:bottom-8 md:right-12"
-                      aria-label={`Explore ${card.title}`}
+                      // Accessible name must contain the visible label
+                      // ("Explore more") per WCAG 2.5.3 label-in-name.
+                      aria-label={`Explore more — ${card.title}`}
                     >
                       Explore more
                       <ArrowRight size={14} aria-hidden="true" />

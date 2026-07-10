@@ -8,6 +8,24 @@ export const metadata: Metadata = {
   description: `Terms of service for ${BUSINESS.name} (${BUSINESS_FORMATTED.abnLabel}). Governing law: Victoria, Australia.`,
   alternates: {
     canonical: 'https://pixdyne.com/legal/terms'
+  },
+  openGraph: {
+    title: 'Terms of Service | Pixdyne',
+    description: `Terms of service for ${BUSINESS.name}. Governing law: Victoria, Australia.`,
+    url: 'https://pixdyne.com/legal/terms',
+    // Root file-based opengraph-image does not propagate to nested routes;
+    // reference the 1200×630 brand OG route so summary_large_image is valid.
+    images: [{
+      url: 'https://pixdyne.com/opengraph-image',
+      width: 1200,
+      height: 630,
+      alt: 'Pixdyne — Melbourne technology partner since 2018'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Terms of Service | Pixdyne',
+    description: `Terms of service for ${BUSINESS.name}. Governing law: Victoria, Australia.`
   }
 };
 

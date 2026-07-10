@@ -32,10 +32,11 @@ const logos = [
   { src: '/logos/salesforce.svg', alt: 'Salesforce' },
   { src: '/logos/xero.svg', alt: 'Xero' },
   { src: '/logos/myob.svg', alt: 'MYOB' },
-  // Infrastructure
+  // Infrastructure. Cloudflare removed 2026-07-10: it is on the §6 rule 10
+  // engineer-vocabulary avoid-list (the SVG stays in /public/logos if the
+  // owner ever wants it back).
   { src: '/logos/aws.svg', alt: 'Amazon Web Services' },
   { src: '/logos/googlecloud.svg', alt: 'Google Cloud' },
-  { src: '/logos/cloudflare.svg', alt: 'Cloudflare' },
   // AI providers (working ground for OnlyPixAI and AI delivery work)
   { src: '/logos/openai.svg', alt: 'OpenAI' },
   { src: '/logos/claude.svg', alt: 'Claude' },

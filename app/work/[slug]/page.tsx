@@ -24,12 +24,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  // og:image: use the case-study hero when one exists, otherwise let
-  // the route inherit the site-wide opengraph-image at root. Don't
-  // emit a blank images entry — that ships an empty meta tag.
+  // og:image: use the case-study hero when one exists. The root file-based
+  // opengraph-image does NOT propagate to nested routes (CLAUDE.md §13,
+  // 2026-05-25), so pages without a hero must reference the 1200×630 brand
+  // OG route explicitly — otherwise they ship no og:image at all while
+  // declaring a summary_large_image Twitter card.
   const ogImages = work.img
     ? [{ url: work.img, width: 1200, height: 630 }]
-    : undefined;
+    : [{
+        url: 'https://pixdyne.com/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: 'Pixdyne — Melbourne technology partner since 2018'
+      }];
 
   return {
     title: work.seoTitle || `${work.name} - Case Study`,
@@ -38,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       title: `${work.name} | Pixdyne Case Study`,
       description: work.challenge,
       url: `https://pixdyne.com/work/${slug}`,
-      ...(ogImages ? { images: ogImages } : {})
+      images: ogImages
     },
     twitter: {
       card: 'summary_large_image',

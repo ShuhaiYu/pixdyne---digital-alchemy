@@ -6,6 +6,7 @@
 export const brand = {
   yellow: '#C8962A',
   yellowHover: '#D4A83A',
+  yellowDeep: '#8A6510',
   black: '#0B0A08',
   surface: '#151311',
   white: '#F5F2ED',

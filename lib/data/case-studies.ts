@@ -569,7 +569,7 @@ export const caseStudies: CaseStudyItem[] = [
       "We built a bilingual custom web platform where every page renders in English or Chinese with the same editorial structure on both sides. Each of the seven practice areas has its own dedicated page, so a prospect lands on the matter they actually need rather than a generic services list. A confidential consultation booking flow is the conversion event, with phone and email surfaced in the page chrome rather than buried. The tone is calm and plain-spoken — clarity over legal jargon — matching how the firm describes its own advice.",
     shortDescription:
       'Bilingual custom site for a Melbourne law firm — seven practice areas, consultation-led, clarity over jargon.',
-    seoTitle: 'Lexcord Lawyers — Bilingual Melbourne Law Firm Site',
+    seoTitle: 'Lexcord Lawyers — Bilingual Melbourne Law Firm',
     seoDescription:
       'A bilingual (EN/中) custom website for a Melbourne law firm spanning seven practice areas, with consultation-led contact. Built by Pixdyne.',
     img: '',
@@ -613,7 +613,7 @@ export const caseStudies: CaseStudyItem[] = [
     services: ['Web Development'],
     stack: ['WordPress', 'VR virtual inspection', 'Property portfolio'],
     challenge:
-      "Sunsill Property Management runs small-to-medium residential projects across Melbourne. The portfolio is the sales pitch — but most clients can't visit every site in person, and photos alone don't carry the spatial sense of a property. Buyers walk away unsure whether the property is right because they couldn't feel the rooms.",
+      "Sunsill Property Management runs residential projects across Melbourne. The portfolio is the sales pitch — but most clients can't visit every site in person, and photos alone don't carry the spatial sense of a property. Buyers walk away unsure whether the property is right because they couldn't feel the rooms.",
     solution:
       "We built a WordPress portfolio site with integrated VR virtual inspection per project, working across desktop, tablet, and mobile. Minimalist UI in light colours keeps focus on the project visuals rather than competing with them. Clients evaluate properties in 3D before deciding whether to schedule a physical visit, which both saves them time and qualifies the appointments that do happen.",
     shortDescription:

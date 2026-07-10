@@ -84,12 +84,18 @@ export const BlogSection: React.FC = () => {
           <Link
             key={post.id}
             href={`/blog/${post.slug}`}
-            aria-label={`Read article: ${post.title}`}
+            // No aria-label: the row's own text (date, category, title,
+            // read time) is the accessible name. A "Read article:" label
+            // failed WCAG 2.5.3 label-in-name because it dropped the
+            // visible row text.
             className="blog-row group flex flex-col lg:flex-row lg:items-baseline py-6 sm:py-8 md:py-10 lg:py-12 border-b border-brand-black/20 cursor-pointer hover:bg-brand-black/[0.03] transition-colors"
           >
             <div className="w-full lg:w-1/4 mb-3 sm:mb-4 lg:mb-0">
-              <span className="font-mono text-xs text-brand-muted block mb-1">{post.date}</span>
-              <span className="font-mono text-xs text-brand-yellow border border-brand-yellow/30 px-2 py-0.5 rounded">{post.category}</span>
+              {/* This section sits on bg-brand-white: brand-muted (3.3:1)
+                  and brand-yellow (2.4:1) both fail WCAG here, hence
+                  black/70 + the light-surface yellow-deep token. */}
+              <span className="font-mono text-xs text-brand-black/70 block mb-1">{post.date}</span>
+              <span className="font-mono text-xs text-brand-yellow-deep border border-brand-yellow-deep/40 px-2 py-0.5 rounded">{post.category}</span>
             </div>
 
             <div className="w-full lg:w-1/2 mb-3 sm:mb-4 lg:mb-0">
@@ -99,7 +105,7 @@ export const BlogSection: React.FC = () => {
             </div>
 
             <div className="w-full lg:w-1/4 flex justify-between lg:justify-end items-center gap-4">
-              <span className="text-xs font-sans text-brand-muted">{post.readTime}</span>
+              <span className="text-xs font-sans text-brand-black/70">{post.readTime}</span>
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-brand-black/20 flex items-center justify-center group-hover:bg-brand-yellow-hover group-hover:border-brand-yellow-hover group-hover:text-brand-black transition-all transform group-hover:-rotate-45" aria-hidden="true">
                 <ArrowRight size={16} />
               </div>
@@ -109,7 +115,8 @@ export const BlogSection: React.FC = () => {
 
         <Link
           href="/blog"
-          aria-label="View all journal articles"
+          // No aria-label: "More articles" (the visible text) is the
+          // accessible name — WCAG 2.5.3 label-in-name.
           className="blog-row group flex items-center justify-center gap-3 py-6 sm:py-8 md:py-10 border-b border-brand-black/20 cursor-pointer hover:bg-brand-black/[0.03] transition-colors"
         >
           <span className="font-serif text-2xl sm:text-3xl leading-none text-brand-muted group-hover:text-brand-yellow-hover transition-colors duration-300" aria-hidden="true">···</span>

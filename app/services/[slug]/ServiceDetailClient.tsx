@@ -78,7 +78,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-24">
         <div className="detail-anim col-span-1 md:col-span-2">
-          <h3 className="text-2xl font-bold mb-6">The Approach</h3>
+          <h2 className="text-2xl font-bold mb-6">The Approach</h2>
           <p className="text-lg md:text-xl text-brand-text/85 leading-relaxed mb-16">
             {service.fullDescription}
           </p>
@@ -90,7 +90,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                   two-column list with gold checkmarks — no boxes, no
                   fills, less weight, so the eye moves on to the next
                   block instead of stalling on a card grid. */}
-              <h3 className="text-2xl font-bold mb-6">{isProduct ? 'About this product' : 'What we deliver'}</h3>
+              <h2 className="text-2xl font-bold mb-6">{isProduct ? 'About this product' : 'What we deliver'}</h2>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-3 mb-20">
                 {service.features.map((feat) => (
                   <li key={feat} className="flex items-start gap-3 text-base text-brand-text/90">
@@ -116,7 +116,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                   inline feature row separated by middots. Hairline
                   dividers replace the boxes so the section reads as a
                   catalogue, not a stack of cards. */}
-              <h3 className="text-2xl font-bold mb-8">Pick a service, or take the bundle</h3>
+              <h2 className="text-2xl font-bold mb-8">Pick a service, or take the bundle</h2>
               <div className="border-t border-white/10 mb-16">
                 {service.subServices.map((sub) => (
                   // id + scroll-mt keep the in-page anchor (e.g.
@@ -125,9 +125,9 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                   // have standalone detail pages — sub.detailHref renders a
                   // "View full service" link straight to them.
                   <div key={sub.slug} id={sub.slug} className="border-b border-white/10 py-8 md:py-10 scroll-mt-28">
-                    <h4 className="text-2xl md:text-3xl font-serif italic text-brand-yellow mb-3">
+                    <h3 className="text-2xl md:text-3xl font-serif italic text-brand-yellow mb-3">
                       {sub.title}
-                    </h4>
+                    </h3>
                     <p className="text-base text-brand-text/85 leading-relaxed mb-4 max-w-2xl">
                       {sub.description}
                     </p>
@@ -169,7 +169,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                   surface this as a SERP rich result. Keep visible Q/A
                   in sync with the schema — divergence is a truth-
                   auditor block. */}
-              <h3 id="faq" className="text-2xl font-bold mb-8">Frequently asked</h3>
+              <h2 id="faq" className="text-2xl font-bold mb-8">Frequently asked</h2>
               <div className="border-t border-white/10 mb-12">
                 {service.faqs.map((faq) => {
                   // Per-question deep-link anchor. Built by lowercasing
@@ -219,9 +219,9 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
 
         <div className="detail-anim col-span-1">
           <div className="bg-brand-surface p-8 border border-white/10 sticky top-32">
-            <h4 className="text-xs text-brand-muted uppercase tracking-widest mb-6">
+            <h3 className="text-xs text-brand-muted uppercase tracking-widest mb-6">
               {isProduct ? 'Tags' : 'Technologies'}
-            </h4>
+            </h3>
             <div className="flex flex-wrap gap-2 mb-12">
               {service.tags.map(tag => (
                 <span key={tag} className="border border-white/20 px-3 py-1 rounded-full text-xs uppercase hover:bg-brand-white hover:text-brand-black transition-colors cursor-default">
@@ -236,9 +236,9 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                 Operations bundle and the OnlyPixAI product). */}
             {workCapability && (
               <div className="border-t border-white/10 pt-8 mb-8">
-                <h4 className="text-xs text-brand-muted uppercase tracking-widest mb-4">
+                <h3 className="text-xs text-brand-muted uppercase tracking-widest mb-4">
                   Related work
-                </h4>
+                </h3>
                 <Link
                   href={`/work?capability=${encodeURIComponent(workCapability)}`}
                   className="group flex items-center justify-between gap-3 text-sm text-brand-text hover:text-brand-yellow-hover transition-colors cursor-pointer"
@@ -259,7 +259,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
             <div className="border-t border-white/10 pt-8">
               {isProduct && service.externalUrl ? (
                 <>
-                  <h4 className="text-xl font-bold mb-4">See it live</h4>
+                  <h3 className="text-xl font-bold mb-4">See it live</h3>
                   <p className="text-sm text-brand-muted mb-6">
                     OnlyPixAI runs in production. Visit to see how Pixdyne delivers AI to end users.
                   </p>
@@ -275,7 +275,7 @@ export const ServiceDetailClient: React.FC<ServiceDetailClientProps> = ({ servic
                 </>
               ) : (
                 <>
-                  <h4 className="text-xl font-bold mb-4">Talk to us</h4>
+                  <h3 className="text-xl font-bold mb-4">Talk to us</h3>
                   <p className="text-sm text-brand-muted mb-6">
                     Send us a brief and we will come back with a scope, timeline, and quote.
                   </p>

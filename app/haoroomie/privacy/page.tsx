@@ -8,6 +8,24 @@ export const metadata: Metadata = {
   description: `How ${BUSINESS.name} (${BUSINESS_FORMATTED.abnLabel}) collects, uses, and protects personal information in the Hao Roomie / 好室友 expense-splitting app.`,
   alternates: {
     canonical: 'https://pixdyne.com/haoroomie/privacy'
+  },
+  openGraph: {
+    title: 'Hao Roomie — Privacy Policy | Pixdyne',
+    description: `How ${BUSINESS.name} handles personal information in the Hao Roomie / 好室友 expense-splitting app.`,
+    url: 'https://pixdyne.com/haoroomie/privacy',
+    // Root file-based opengraph-image does not propagate to nested routes;
+    // reference the 1200×630 brand OG route so summary_large_image is valid.
+    images: [{
+      url: 'https://pixdyne.com/opengraph-image',
+      width: 1200,
+      height: 630,
+      alt: 'Pixdyne — Melbourne technology partner since 2018'
+    }]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Hao Roomie — Privacy Policy | Pixdyne',
+    description: `How ${BUSINESS.name} handles personal information in the Hao Roomie app.`
   }
 };
 

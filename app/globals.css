@@ -11,6 +11,9 @@
   --color-brand-text: #E8E4DD;           /* Warm cream — primary text on dark */
   --color-brand-muted: #8A847B;          /* Warm gray — secondary text */
   --color-brand-light: #E5E0D8;          /* Warm light gray — alternate light bg */
+  --color-brand-yellow-deep: #8A6510;    /* Deep gold — accent text on LIGHT surfaces
+                                            only (brand-yellow is 2.4:1 on brand-white,
+                                            fails WCAG; this clears 4.5:1) */
 
   /* Status colors — warm-tinted to stay in palette family. Standard
      blue-shifted reds and pure greens clash with the warm gold +

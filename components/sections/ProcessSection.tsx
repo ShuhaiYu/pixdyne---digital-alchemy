@@ -301,7 +301,9 @@ export const ProcessSection: React.FC = () => {
                   <span className="text-[10px] sm:text-xs font-mono text-brand-yellow border border-brand-yellow/30 px-1.5 sm:px-2 py-1">
                     {step.time}
                   </span>
-                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-text/10 group-hover:text-brand-yellow/30 transition-colors">
+                  {/* Ghost number stays subdued but clears WCAG 3:1 for
+                      large bold text on brand-black (a11y audit 2026-07-10) */}
+                  <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-text/45 group-hover:text-brand-yellow/60 transition-colors">
                     {String(i + 1).padStart(2, '0')}
                   </span>
                 </div>
@@ -311,7 +313,7 @@ export const ProcessSection: React.FC = () => {
                   <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold block mb-1 group-hover:text-brand-yellow-hover transition-colors">
                     {step.label}
                   </span>
-                  <span className="text-xs text-brand-text/50 font-mono">
+                  <span className="text-xs text-brand-text/60 font-mono">
                     {step.desc}
                   </span>
                 </div>

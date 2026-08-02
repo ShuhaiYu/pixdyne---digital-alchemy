@@ -48,10 +48,16 @@ const pillars: ApproachPillar[] = [
 
 export const TeamSection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  // Three-state rather than a boolean: `antialias` is baked into the WebGL
+  // context at creation, so rendering Aurora before the viewport is known
+  // would build a desktop context on mobile and immediately tear it down to
+  // rebuild it. 'unknown' holds Aurora back for the one frame it takes to
+  // resolve, which is free — it is a decorative 10%-opacity backdrop.
+  const [viewport, setViewport] = useState<'unknown' | 'mobile' | 'desktop'>('unknown');
+  const isMobile = viewport === 'mobile';
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    setViewport(window.matchMedia('(max-width: 767px)').matches ? 'mobile' : 'desktop');
   }, []);
 
   useLayoutEffect(() => {
@@ -114,13 +120,18 @@ export const TeamSection: React.FC = () => {
       ref={sectionRef}
       className="w-full min-h-screen flex flex-col justify-center relative bg-brand-surface text-brand-text overflow-x-hidden overflow-y-visible"
     >
-      {!isMobile && (
+      {/* Aurora renders at every breakpoint. Its own IntersectionObserver
+          already parks the render loop while off-screen, and the context is
+          dpr-1, so the mobile cost is bounded — the only extra saving worth
+          taking there is MSAA, which is imperceptible behind 10% opacity. */}
+      {viewport !== 'unknown' && (
         <div className="absolute inset-0 z-0 opacity-10">
           <Aurora
             colorStops={['#C8962A', '#9B6B3E', '#E8E4DD']}
-            speed={0.3}
-            amplitude={0.8}
+            speed={isMobile ? 0.2 : 0.3}
+            amplitude={isMobile ? 0.6 : 0.8}
             blend={0.4}
+            antialias={!isMobile}
           />
         </div>
       )}
@@ -132,8 +143,8 @@ export const TeamSection: React.FC = () => {
               How we work
             </h2>
           </div>
-          <div className="hidden md:block text-right mt-4 md:mt-0">
-            <p className="font-sans text-sm max-w-xs text-brand-muted leading-relaxed">
+          <div className="text-left md:text-right mt-4 md:mt-0">
+            <p className="font-sans text-sm max-w-none md:max-w-xs text-brand-muted leading-relaxed">
               Since 2018, we have helped growing companies automate workflows,
               replace manual operations, and scale on tools their teams can
               actually keep using.

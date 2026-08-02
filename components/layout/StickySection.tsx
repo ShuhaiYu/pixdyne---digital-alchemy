@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useLayoutEffect, useState, useEffect } from 'react';
+import React, { useRef, useLayoutEffect } from 'react';
 import gsap from 'gsap';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { usePathname } from 'next/navigation';
@@ -27,23 +27,17 @@ export const StickySection: React.FC<SectionProps> = ({
   const innerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return;
-    // Skip the complex GSAP transitions on mobile — they cause jank and
-    // trigger issues. Gate on matchMedia, not the isMobile *state* (false on
-    // first paint), so the transitions are never set up then immediately torn
-    // down on a mobile load. The [isMobile] dep still re-runs this on resize
-    // across the breakpoint.
-    if (window.matchMedia('(max-width: 767px)').matches) return;
+    // The layered scroll transitions now run on mobile too. They were
+    // previously skipped below 768px for jank reasons, but all three
+    // animate only compositor-friendly properties (transform via `scale`,
+    // `clipPath`, `opacity`, and a `filter` on the parallax branch), which
+    // modern mobile GPUs handle fine. The expensive mobile offender was
+    // never this — it was the pinned horizontal rail in ServicesSection,
+    // which stays desktop-only.
+    //
     // Respect reduced-motion: skip the layered sticky/scroll transitions so the
     // sections fall back to normal vertical flow (CLAUDE.md §8).
     if (prefersReducedMotion()) return;
@@ -111,7 +105,7 @@ export const StickySection: React.FC<SectionProps> = ({
     ScrollTrigger.refresh();
 
     return () => ctx.revert();
-  }, [transitionType, pathname, peekBackground, isMobile]);
+  }, [transitionType, pathname, peekBackground]);
 
   // Use special layout when peekBackground is provided
   if (peekBackground) {
@@ -124,11 +118,12 @@ export const StickySection: React.FC<SectionProps> = ({
         style={{ zIndex }}
       >
         {/* peekBackground sits outside clipPath, revealed as mask-diagonal
-            expands. Hidden on mobile via CSS (the mask-diagonal transition is
-            disabled there, so the inner content fully covers it anyway) —
-            using `hidden md:block` rather than the isMobile state keeps the
-            first render correct with no hydration swap. */}
-        <div className="hidden md:block absolute inset-0 z-0">
+            expands. Rendered at every breakpoint — the mask-diagonal
+            transition now runs on mobile too, and without this layer the
+            expanding clip would reveal blank page instead of the dark
+            backdrop. Plain CSS with no isMobile state keeps the first render
+            correct with no hydration swap. */}
+        <div className="absolute inset-0 z-0">
           {peekBackground}
         </div>
 

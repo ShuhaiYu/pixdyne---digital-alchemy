@@ -45,17 +45,22 @@ const orbitLogos: OrbitLogo[] = [
 
 export const OnlyPixAISection: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  // See TeamSection for why this is three-state: Aurora's `antialias` is
+  // baked into the GL context at creation, so it must not render until the
+  // viewport is resolved, or mobile builds a desktop context then rebuilds.
+  const [viewport, setViewport] = useState<'unknown' | 'mobile' | 'desktop'>('unknown');
+  const isMobile = viewport === 'mobile';
   // Synchronises hover highlight between an orbit tile and its name
   // in the legend below. Setting an index from either surface lights
   // up both. Keyboard focus on the legend buttons also sets it.
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const mq = window.matchMedia('(max-width: 767px)');
+    const check = () => setViewport(mq.matches ? 'mobile' : 'desktop');
     check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
+    mq.addEventListener('change', check);
+    return () => mq.removeEventListener('change', check);
   }, []);
 
   useLayoutEffect(() => {
@@ -117,14 +122,17 @@ export const OnlyPixAISection: React.FC = () => {
       className="relative w-full min-h-screen flex items-center bg-brand-black text-brand-text overflow-hidden"
     >
       {/* Aurora glow — gold + indigo + steel, evoking multi-model AI without
-          looking like a generic gradient. Hidden on mobile to save GPU. */}
-      {!isMobile && (
+          looking like a generic gradient. Renders at every breakpoint; the
+          component parks its own render loop while off-screen, and mobile
+          drops MSAA plus a little speed/amplitude. */}
+      {viewport !== 'unknown' && (
         <div className="absolute inset-0 z-0 opacity-20 pointer-events-none">
           <Aurora
             colorStops={['#C8962A', '#5C4DDD', '#1B71B5']}
-            speed={0.3}
-            amplitude={0.9}
+            speed={isMobile ? 0.2 : 0.3}
+            amplitude={isMobile ? 0.7 : 0.9}
             blend={0.5}
+            antialias={!isMobile}
           />
         </div>
       )}

@@ -114,10 +114,23 @@ interface AuroraProps {
   blend?: number;
   time?: number;
   speed?: number;
+  /**
+   * MSAA on the WebGL context. Costs real fill-rate on mobile GPUs for a
+   * effect that is already a soft gradient blur — callers render this
+   * behind content at low opacity, where the aliasing MSAA fixes is not
+   * perceptible. Pass `false` below the md breakpoint. Defaults to true so
+   * existing desktop call sites are unchanged.
+   */
+  antialias?: boolean;
 }
 
 export default function Aurora(props: AuroraProps) {
-  const { colorStops = ['#5227FF', '#7cff67', '#5227FF'], amplitude = 1.0, blend = 0.5 } = props;
+  const {
+    colorStops = ['#5227FF', '#7cff67', '#5227FF'],
+    amplitude = 1.0,
+    blend = 0.5,
+    antialias = true
+  } = props;
   const propsRef = useRef<AuroraProps>(props);
   propsRef.current = props;
 
@@ -130,7 +143,7 @@ export default function Aurora(props: AuroraProps) {
     const renderer = new Renderer({
       alpha: true,
       premultipliedAlpha: true,
-      antialias: true
+      antialias
     });
     const gl = renderer.gl;
     gl.clearColor(0, 0, 0, 0);
@@ -255,7 +268,9 @@ export default function Aurora(props: AuroraProps) {
       }
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, [amplitude]);
+    // antialias is baked into the GL context at creation, so a change to it
+    // must tear the renderer down and rebuild — hence a dep, not a ref read.
+  }, [amplitude, antialias]);
 
   return <div ref={ctnDom} className="w-full h-full" />;
 }

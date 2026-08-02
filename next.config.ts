@@ -15,6 +15,21 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        // The worker script must never be held in the HTTP cache, or a
+        // deploy that changes sw.js cannot reach clients still holding the
+        // old copy. `Service-Worker-Allowed` keeps the scope at the site
+        // root, which is where it is registered from.
+        source: '/sw.js',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+          { key: 'Service-Worker-Allowed', value: '/' },
+        ],
+      },
+    ]
+  },
   async redirects() {
     return [
       // Blog post renamed to drop the engineer-only stack name from the slug

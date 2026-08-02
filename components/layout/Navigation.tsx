@@ -206,6 +206,16 @@ export const Navigation: React.FC = () => {
         className={`fixed top-0 left-0 w-full z-[60] transition-all duration-300 text-brand-text px-6 flex justify-between items-center bg-brand-black/60 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none md:mix-blend-difference ${
           scrolled ? 'py-4' : 'py-6'
         }`}
+        // Installed as a PWA the layout runs edge-to-edge (viewportFit
+        // 'cover' + apple statusBarStyle 'black-translucent'), so this fixed
+        // bar would otherwise sit under the status bar / notch. Set inline
+        // rather than as a `pt-*` utility because Tailwind's emitted order
+        // between `py-*` and `pt-*` is not guaranteed by class order here.
+        // In a normal browser tab the inset resolves to 0, leaving the
+        // existing spacing untouched.
+        style={{
+          paddingTop: `calc(${scrolled ? '1rem' : '1.5rem'} + env(safe-area-inset-top))`,
+        }}
       >
         <Link href="/" className="flex items-center gap-4 group" aria-label="Pixdyne home">
           <Image

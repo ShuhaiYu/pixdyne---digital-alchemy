@@ -5,6 +5,7 @@ import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/seo/sch
 import { Navigation } from '@/components/layout/Navigation';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { BotIdClient } from 'botid/client';
+import { ServiceWorkerRegistrar } from '@/components/pwa/ServiceWorkerRegistrar';
 import './globals.css';
 
 export const viewport: Viewport = {
@@ -60,7 +61,29 @@ export const metadata: Metadata = {
       { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
-  manifest: '/site.webmanifest',
+  // `manifest:` is deliberately absent — app/manifest.ts is a file-based
+  // metadata route, so Next.js emits <link rel="manifest"> pointing at
+  // /manifest.webmanifest on its own. Declaring it here as well would
+  // render the tag twice (and the old /site.webmanifest no longer exists).
+  //
+  // Installed-app presentation on iOS. Safari reads these rather than the
+  // manifest for "Add to Home Screen" on older iOS; 16.4+ also honours the
+  // manifest, and the two agree by construction (title == short_name).
+  // `black-translucent` lets content run under the status bar — the nav
+  // compensates with env(safe-area-inset-top) padding, which resolves to 0
+  // in normal browser tabs, so this changes nothing outside standalone mode.
+  appleWebApp: {
+    capable: true,
+    title: 'Pixdyne',
+    statusBarStyle: 'black-translucent',
+  },
+  other: {
+    // Next.js emits the standardised `mobile-web-app-capable` for
+    // appleWebApp.capable. Safari only learned that spelling in iOS 17.4,
+    // and reads `display: standalone` from the manifest from 16.4. This
+    // legacy alias is what covers iOS below 16.4, where neither applies.
+    'apple-mobile-web-app-capable': 'yes',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_AU',
@@ -156,6 +179,7 @@ export default function RootLayout({
         </main>
         <SiteFooter />
         <Analytics />
+        <ServiceWorkerRegistrar />
       </body>
     </html>
   );

@@ -50,13 +50,22 @@ export default function HaoRoomiePrivacyPage() {
           Effective date:{' '}
           <time dateTime={lastUpdatedISO}>{lastUpdatedHuman.toUpperCase()}</time>
         </p>
-        <p className="text-sm text-brand-black/85 mb-12">
+        <p className="text-sm text-brand-black/85 mb-6">
           Provider: <strong>{BUSINESS.name}</strong> ({BUSINESS_FORMATTED.abnLabel}, Australia) ·
           Contact: {BUSINESS.email}
         </p>
+        <p className="text-sm text-brand-black/85 mb-12">
+          Need help using the app? See the{' '}
+          <Link
+            href="/haoroomie/support"
+            className="underline underline-offset-2 hover:text-brand-black"
+          >
+            Hao Roomie support page
+          </Link>
+          .
+        </p>
 
         <div className="prose prose-lg">
-          {/* ── English ───────────────────────────────────────────── */}
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">1. What we collect</h2>
           <ul className="list-disc pl-6 mb-8 text-brand-black/85 space-y-2">
             <li>
@@ -132,53 +141,6 @@ export default function HaoRoomiePrivacyPage() {
             We may update this policy; material changes will be noted in-app or on this page with a new
             effective date.
           </p>
-
-          {/* ── 中文 ──────────────────────────────────────────────── */}
-          <div className="mt-16 pt-8 border-t border-brand-black/10" />
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">1. 我们收集什么</h2>
-          <ul className="list-disc pl-6 mb-8 text-brand-black/85 space-y-2">
-            <li><strong>账户:</strong> 你用于登录的标识——邮箱或手机号,或 Apple / Google 账号标识——以及你设置的昵称和头像颜色。</li>
-            <li><strong>账本数据:</strong> 你记录的开销(金额、分类、备注、日期、参与人)、账本成员关系、邀请、结算记录。</li>
-            <li><strong>小票图片</strong> <em>(可选 —— Pro 功能,免费版不含):</em> 使用拍小票识别时,你拍摄或选择的照片。</li>
-            <li><strong>订阅状态</strong> <em>(Pro):</em> 你是否拥有有效的「Pixdyne Pro」订阅(我们不接收也不存储你的银行卡信息)。</li>
-          </ul>
-
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">2. 我们如何使用</h2>
-          <ul className="list-disc pl-6 mb-8 text-brand-black/85 space-y-2">
-            <li>提供应用功能:存储账本,在你的多设备间及你邀请进账本的室友间同步,计算余额与结算。</li>
-            <li><strong>拍小票识别</strong> <em>(Pro 功能,免费版不含):</em> 小票图片会发送给我们的 AI 处理方以提取字段(商家、金额、日期、分类)。我们不会用你的数据训练 AI 模型。</li>
-            <li>管理订阅与提供客户支持。</li>
-          </ul>
-
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">3. 谁会处理你的数据(子处理方)</h2>
-          <ul className="list-disc pl-6 mb-8 text-brand-black/85 space-y-2">
-            <li><strong>Supabase</strong> —— 数据库、认证、文件存储,部署于新加坡(ap-southeast-1)。</li>
-            <li><strong>Google(Gemini API)</strong> <em>(Pro 功能,免费版不含)</em> —— 对你提交的小票图片做 OCR 识别。</li>
-            <li><strong>RevenueCat</strong> <em>(Pro)</em> —— 订阅管理。</li>
-            <li><strong>Apple / Google</strong> —— 登录(若你选择)与应用内购买。</li>
-          </ul>
-          <p className="mb-8 text-brand-black/85">我们<strong>不</strong>出售你的个人数据,也不用于广告。</p>
-
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">4. 应用内的可见范围</h2>
-          <p className="mb-8 text-brand-black/85">
-            开销与结算数据对你加入或创建的账本的其他成员可见。你的账户联系方式(邮箱/手机号)不会展示给其他成员。
-          </p>
-
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">5. 保留与删除</h2>
-          <p className="mb-8 text-brand-black/85">
-            账户存续期间我们会保留你的数据。出于财务完整性,删除的账本记录采用软删除(保留但隐藏),不会立即抹除。如需删除账户及相关数据,请联系 {BUSINESS.email},我们将在 30 天内处理。
-          </p>
-
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">6. 你的权利</h2>
-          <p className="mb-8 text-brand-black/85">
-            你可以在应用内访问并导出账本。视所在地区(如 GDPR / 中国《个人信息保护法》/ CCPA / 澳大利亚隐私法),你可能享有访问、更正、删除数据的权利——联系我们行使。
-          </p>
-
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">7. 未成年人</h2>
-          <p className="mb-8 text-brand-black/85">本应用不面向 16 岁以下的未成年人,我们不会有意收集其数据。</p>
-
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-4">8. 变更</h2>
-          <p className="mb-8 text-brand-black/85">我们可能更新本政策;重大变更会在应用内或本页以新的生效日期标注。</p>
         </div>
 
         <div className="mt-12 pt-8 border-t border-brand-black/10">

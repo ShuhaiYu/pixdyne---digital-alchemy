@@ -41,7 +41,7 @@ interface FaqGroup {
   readonly items: readonly FaqItem[];
 }
 
-const FAQ_EN: readonly FaqGroup[] = [
+const FAQ_GROUPS: readonly FaqGroup[] = [
   {
     heading: 'Wi-Fi transfer',
     items: [
@@ -135,118 +135,6 @@ const FAQ_EN: readonly FaqGroup[] = [
   }
 ];
 
-const FAQ_ZH: readonly FaqGroup[] = [
-  {
-    heading: 'Wi-Fi 传书',
-    items: [
-      {
-        q: '手机上显示的地址，电脑打不开。',
-        a: [
-          '两台设备必须连同一个 Wi-Fi。手机用蜂窝数据、电脑用 Wi-Fi 是互相看不见的。用手机开热点给电脑连也可以。',
-          '很多公司、学校、酒店和公共网络开了客户端隔离，设备之间无法互通。这个 App 层面无解：换家里的网络，或者手机开热点让电脑连上来。',
-          '确认 iOS 弹出的「本地网络」权限你点了允许。如果拒绝了，去 iOS 设置 → PixComic → 本地网络 打开。',
-          '地址要完整输入，包括 http:// 和 :8080 端口。有些浏览器会把它当成搜索词 —— 输完整再回车。'
-        ]
-      },
-      {
-        q: '切到别的 App 或锁屏，传输就断了。',
-        a: [
-          '这是 iOS 挂起了 App，属于正常。离开后传输还会继续约 25 秒，然后暂停。回到 App 会从断点自动接着传，不用重来。传大文件时把传书页留在前台就行。'
-        ]
-      },
-      {
-        q: '大文件传到一半失败了。',
-        a: ['再拖一次就行。PixComic 会认出这个文件，从上次传到的字节继续，不会从头再来。']
-      }
-    ]
-  },
-  {
-    heading: '文件与格式',
-    items: [
-      {
-        q: '.cbr 打不开。',
-        a: [
-          '不支持分卷压缩包。如果文件名类似 book.part1.rar，那它只是一套里的一片。先在电脑上合并成单个 .rar 或 .cbz。',
-          '不支持加密压缩包。先去掉密码。'
-        ]
-      },
-      {
-        q: '文件名乱码，或者页面顺序不对。',
-        a: [
-          'PixComic 会自动识别 Shift-JIS、GBK、EUC-KR、CP437 文件名，并按自然顺序排页（第 2 页排在第 10 页前面）。如果某个压缩包仍然不对，把它发给我们 —— 那是我们想看到的 bug。'
-        ]
-      },
-      {
-        q: '传完之后书架里没有东西。',
-        a: ['检查格式。PixComic 支持 CBZ、ZIP、CBR、RAR、PDF 和图片文件夹；不支持 7z、EPUB、MOBI。']
-      }
-    ]
-  },
-  {
-    heading: '阅读',
-    items: [
-      {
-        q: '找不到工具栏，或者不知道怎么回书架。',
-        a: [
-          '点屏幕正中间。左右两侧是翻页，中间那条会唤出工具栏，里面有返回按钮、进度滑块和缩略图总览。每次打开一本书时工具栏也会自动出现两秒。',
-          '想改哪块区域负责什么，去 设置 → 阅读界面 → 点击翻页区域。'
-        ]
-      },
-      {
-        q: '翻页方向反了。',
-        a: [
-          '那是阅读方向。日漫从右往左，欧美漫画从左往右。全局改在 设置 → 默认阅读方向；只改某一本，在阅读器里点 ⋯ 菜单。'
-        ]
-      },
-      {
-        q: '两页挤在一起了，或者跨页被切成两屏。',
-        a: [
-          '横屏时 PixComic 会把两页合成印刷的跨页。如果对齐差了一页，去设置里切换「封面单独成页」—— 就是它决定从哪一页开始配对的。'
-        ]
-      }
-    ]
-  },
-  {
-    heading: '购买',
-    items: [
-      {
-        q: '付了钱但广告还在。',
-        a: ['打开 设置 → 打赏那一行 → 恢复购买（在那个页面左上角）。确认你登录的是当初付款的那个 Apple ID。']
-      },
-      {
-        q: '换了新手机。',
-        a: [
-          '购买跟着 Apple ID 走。装上 PixComic，进打赏页点恢复购买即可。漫画本身不会自动同步 —— 用 Wi-Fi 传书传过去，或者恢复 iCloud / 访达备份。'
-        ]
-      }
-    ]
-  }
-];
-
-function FaqSection({ groups }: { groups: readonly FaqGroup[] }) {
-  return (
-    <>
-      {groups.map((group) => (
-        <section key={group.heading} className="mb-12">
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-6 pb-3 border-b border-brand-black/15">
-            {group.heading}
-          </h2>
-          {group.items.map((item) => (
-            <div key={item.q} className="mb-8">
-              <h3 className="font-bold text-base mb-3 text-brand-black">{item.q}</h3>
-              {item.a.map((paragraph) => (
-                <p key={paragraph} className="mb-3 text-brand-black/85">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          ))}
-        </section>
-      ))}
-    </>
-  );
-}
-
 export default function PixComicSupportPage() {
   return (
     <div className="min-h-screen bg-brand-white text-brand-black p-8 md:p-24">
@@ -272,7 +160,23 @@ export default function PixComicSupportPage() {
           .
         </p>
 
-        <FaqSection groups={FAQ_EN} />
+        {FAQ_GROUPS.map((group) => (
+          <section key={group.heading} className="mb-12">
+            <h2 className="font-bold uppercase tracking-widest text-sm mb-6 pb-3 border-b border-brand-black/15">
+              {group.heading}
+            </h2>
+            {group.items.map((item) => (
+              <div key={item.q} className="mb-8">
+                <h3 className="font-bold text-base mb-3 text-brand-black">{item.q}</h3>
+                {item.a.map((paragraph) => (
+                  <p key={paragraph} className="mb-3 text-brand-black/85">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+            ))}
+          </section>
+        ))}
 
         <section className="mb-12">
           <h2 className="font-bold uppercase tracking-widest text-sm mb-6 pb-3 border-b border-brand-black/15">
@@ -299,41 +203,6 @@ export default function PixComicSupportPage() {
               contact form
             </Link>
             .
-          </p>
-        </section>
-
-        {/* ── 中文 ──────────────────────────────────────────────── */}
-        <div className="mt-16 pt-8 border-t border-brand-black/10" />
-        <p className="text-xs uppercase tracking-widest text-brand-muted mb-6">简体中文</p>
-        <p className="text-brand-black/85 mb-12">遇到问题？大部分都是下面这几种。</p>
-
-        <FaqSection groups={FAQ_ZH} />
-
-        <section className="mb-12">
-          <h2 className="font-bold uppercase tracking-widest text-sm mb-6 pb-3 border-b border-brand-black/15">
-            还是不行？
-          </h2>
-          <p className="mb-4 text-brand-black/85">
-            发邮件到{' '}
-            <a
-              href={`mailto:${BUSINESS.email}`}
-              className="underline underline-offset-2 hover:text-brand-black"
-            >
-              {BUSINESS.email}
-            </a>
-            ，请附上：
-          </p>
-          <ul className="list-disc pl-6 mb-6 text-brand-black/85 space-y-2">
-            <li>设备型号和 iOS 版本</li>
-            <li>出问题时你在做什么</li>
-            <li>如果是某个文件的问题，方便的话把文件一起发来</li>
-          </ul>
-          <p className="mb-8 text-brand-black/85">
-            每一封我们都会看。也可以用
-            <Link href="/contact" className="underline underline-offset-2 hover:text-brand-black">
-              联系表单
-            </Link>
-            。
           </p>
         </section>
 

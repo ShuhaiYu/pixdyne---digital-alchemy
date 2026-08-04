@@ -60,13 +60,6 @@ const AD_DATA_ROWS = [
   }
 ] as const;
 
-const AD_DATA_ROWS_ZH = [
-  { data: '设备标识符（含广告标识符）', why: '投放和衡量广告', tracking: '你允许的话，是' },
-  { data: '广告数据（展示了哪些广告、是否被点击）', why: '投放和衡量广告', tracking: '你允许的话，是' },
-  { data: '产品交互（App 打开次数、使用时长）', why: '广告投放与分析', tracking: '否' },
-  { data: '粗略位置（由 IP 推断，城市级）', why: '投放地区相关的广告', tracking: '你允许的话，是' }
-] as const;
-
 const headingClass = 'font-bold uppercase tracking-widest text-sm mb-4';
 const paraClass = 'mb-8 text-brand-black/85';
 const listClass = 'list-disc pl-6 mb-8 text-brand-black/85 space-y-2';
@@ -74,19 +67,13 @@ const listClass = 'list-disc pl-6 mb-8 text-brand-black/85 space-y-2';
 // lives on organic search — nofollow keeps link equity from leaking out.
 const linkClass = 'underline underline-offset-2 hover:text-brand-black';
 
-function AdDataTable({
-  rows,
-  headers
-}: {
-  rows: readonly { data: string; why: string; tracking: string }[];
-  headers: readonly [string, string, string];
-}) {
+function AdDataTable() {
   return (
     <div className="overflow-x-auto mb-8">
       <table className="w-full text-sm text-left border-collapse">
         <thead>
           <tr className="border-b border-brand-black/20">
-            {headers.map((header) => (
+            {['Data', 'Why', 'Used to track you?'].map((header) => (
               <th key={header} className="py-3 pr-4 font-bold uppercase tracking-wider text-xs">
                 {header}
               </th>
@@ -94,7 +81,7 @@ function AdDataTable({
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
+          {AD_DATA_ROWS.map((row) => (
             <tr key={row.data} className="border-b border-brand-black/10 align-top">
               <td className="py-3 pr-4 text-brand-black/85">{row.data}</td>
               <td className="py-3 pr-4 text-brand-black/85">{row.why}</td>
@@ -138,7 +125,6 @@ export default function PixComicPrivacyPage() {
         </p>
 
         <div className="prose prose-lg">
-          {/* ── English ───────────────────────────────────────────── */}
           <h2 className={headingClass}>The short version</h2>
           <p className={paraClass}>
             PixComic reads comic files that are already on your device. It has no accounts, no cloud,
@@ -181,7 +167,7 @@ export default function PixComicPrivacyPage() {
             The free version shows advertisements supplied by <strong>Google AdMob</strong>. To do
             that, the Google Mobile Ads SDK may collect:
           </p>
-          <AdDataTable rows={AD_DATA_ROWS} headers={['Data', 'Why', 'Used to track you?']} />
+          <AdDataTable />
           <p className={paraClass}>
             This data is collected by Google, not by us. We never see it in a form that identifies
             you. Google&rsquo;s handling of it is governed by the{' '}
@@ -280,144 +266,6 @@ export default function PixComicPrivacyPage() {
               {BUSINESS.email}
             </a>
             <br />
-            {BUSINESS_FORMATTED.addressLine}
-          </p>
-
-          {/* ── 中文 ──────────────────────────────────────────────── */}
-          <div className="mt-16 pt-8 border-t border-brand-black/10" />
-          <p className="text-xs uppercase tracking-widest text-brand-muted mb-6">简体中文</p>
-
-          <h2 className={headingClass}>一句话的版本</h2>
-          <p className={paraClass}>
-            PixComic 只读取你设备上已有的漫画文件。没有账号、没有云端，我们没有任何服务器。
-            <strong>我们收不到你的文件、阅读记录，也收不到任何关于你如何使用这个 App 的信息。</strong>
-            唯一会收到数据的公司是 Google，且仅用于在免费版里展示广告。
-          </p>
-
-          <h2 className={headingClass}>永远留在你设备上的东西</h2>
-          <p className={paraClass}>你放进 PixComic 的一切都留在你的 iPhone 或 iPad 上：</p>
-          <ul className={listClass}>
-            <li>你导入的漫画压缩包</li>
-            <li>阅读进度、书签、书名、标签、封面</li>
-            <li>全部设置，包括主题和阅读方向</li>
-          </ul>
-          <p className={paraClass}>
-            这些数据不会传输到任何地方。它们保存在 App 自己的存储空间里，删除 App 即一并删除。
-            如果你开了 iCloud 备份，漫画可能会被包含在你自己的 Apple 备份里 —— 那是你和 Apple
-            之间的事，我们无法访问。
-          </p>
-
-          <h2 className={headingClass}>关于 Wi-Fi 传书</h2>
-          <p className={paraClass}>
-            当你在 App 里开启「传书」时，PixComic 会<strong>在你的设备上</strong>启动一个小型网页服务器，
-            只有同一局域网内的电脑能访问。文件从你的电脑直接传到你的设备。
-          </p>
-          <ul className={listClass}>
-            <li>不经过我们或任何第三方的服务器</li>
-            <li>该服务器无法从公网访问</li>
-            <li>你关闭它、或 iOS 挂起 App 时，它就停止</li>
-            <li>你可以要求输入 4 位 PIN 码才允许传输</li>
-          </ul>
-
-          <h2 className={headingClass}>广告（仅免费版）</h2>
-          <p className={paraClass}>
-            免费版展示由 <strong>Google AdMob</strong> 提供的广告。为此，Google Mobile Ads SDK
-            可能收集：
-          </p>
-          <AdDataTable rows={AD_DATA_ROWS_ZH} headers={['数据', '用途', '是否用于跟踪']} />
-          <p className={paraClass}>
-            这些数据由 Google 收集，不经过我们。我们看不到任何能识别你身份的形式。Google
-            对这些数据的处理适用{' '}
-            <a
-              href="https://policies.google.com/privacy?hl=zh-CN"
-              className={linkClass}
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-            >
-              Google 隐私权政策
-            </a>{' '}
-            和{' '}
-            <a
-              href="https://policies.google.com/technologies/ads?hl=zh-CN"
-              className={linkClass}
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-            >
-              Google 广告政策
-            </a>
-            。
-          </p>
-          <p className="mb-4 text-brand-black/85"><strong>你可以怎么控制：</strong></p>
-          <ul className={listClass}>
-            <li>
-              iOS 会询问是否允许 PixComic 跨 App 和网站跟踪你。
-              <strong>拒绝不会影响 App 的任何功能</strong> —— 所有功能照常，广告照常展示，只是相关性降低。
-            </li>
-            <li>
-              如果你在欧洲经济区、英国或瑞士，加载广告前会先出现同意书。之后可以随时从
-              <strong>设置 → 关于 → 广告隐私选项</strong>重新打开。
-            </li>
-            <li>
-              <strong>打赏一次即永久去除广告。</strong>之后广告 SDK 根本不会启动：不弹同意书、不收集数据、不发任何网络请求。
-            </li>
-          </ul>
-
-          <h2 className={headingClass}>关于购买</h2>
-          <p className={paraClass}>
-            去除广告的一次性「支持者」购买完全由 Apple 通过 App Store 处理。
-            <strong>我们收不到你的姓名、支付信息或 Apple ID。</strong>Apple 只告诉 App
-            这笔购买是否存在，App 据此隐藏广告。Apple 如何处理该交易见{' '}
-            <a
-              href="https://www.apple.com/legal/privacy/"
-              className={linkClass}
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-            >
-              Apple 隐私政策
-            </a>
-            。
-          </p>
-
-          <h2 className={headingClass}>关于儿童</h2>
-          <p className={paraClass}>
-            PixComic 并非面向儿童。由于你可以导入任意文件，本 App 分级为 17+。我们不会有意收集儿童的信息。
-          </p>
-
-          <h2 className={headingClass}>你的权利</h2>
-          <p className={paraClass}>
-            由于我们不持有你的任何个人数据，我们这边没有可供访问、更正或删除的内容。
-            对于 Google 为广告收集的数据，请使用{' '}
-            <a
-              href="https://myadcenter.google.com/"
-              className={linkClass}
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-            >
-              Google 我的广告中心
-            </a>{' '}
-            或直接联系 Google。
-          </p>
-          <p className={paraClass}>
-            如果你位于欧洲经济区/英国、澳大利亚、加利福尼亚或其他有特定隐私权利的地区，
-            这些权利针对的是作为广告数据控制者的 Google。作为 App 开发者，我们能确认的只有这个页面上写的：我们什么都不收集。
-          </p>
-
-          <h2 className={headingClass}>政策变更</h2>
-          <p className={paraClass}>
-            本政策如果变更，我们会更新顶部的日期，并在 App 的版本更新说明里注明。重大变更会在 App 内明确提示。
-          </p>
-
-          <h2 className={headingClass}>联系方式</h2>
-          <p className={paraClass}>
-            <strong>{BUSINESS.legalName}</strong>
-            <br />
-            邮箱：
-            <a href={`mailto:${BUSINESS.email}`} className={linkClass}>
-              {BUSINESS.email}
-            </a>
-            <br />
-            {/* Registered-entity address is deliberately not translated —
-                it is the legal address of record (CLAUDE.md §14.1). */}
             {BUSINESS_FORMATTED.addressLine}
           </p>
         </div>

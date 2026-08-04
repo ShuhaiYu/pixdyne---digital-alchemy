@@ -203,6 +203,7 @@ Current routes:
 
 ```
 /                        Homepage (sticky-scroll, no contact section)
+/about                   About page
 /services                Services index — "Melbourne IT services" hub (live)
 /services/[slug]         Service detail (dynamic)
 /work                    Case studies index
@@ -210,10 +211,23 @@ Current routes:
 /blog                    Blog index
 /blog/[slug]             Blog post
 /contact                 Contact form + Pixdyne contact details
+/free-seo-audit          Free SEO/GEO audit tool
 /legal/privacy
 /legal/terms
+/offline                 Service-worker offline fallback (noindex, not in sitemap)
+
+App store-compliance surfaces (see §15) — reachable, but absent from
+navigation and sitemap:
+/apps                    App policy + support hub (noindex, follow)
+/pixcomic/privacy        PixComic privacy policy
+/pixcomic/support        PixComic support FAQ
+/haoroomie/privacy       Hao Roomie privacy policy
+/haoroomie/support       Hao Roomie support FAQ
+
 /api/contact             Contact form endpoint
-/robots.ts, /sitemap.ts
+/api/seo-audit           Audit crawler (+ /report-pdf)
+/api/blog-image          Generated in-article pull-quote images
+/llms.txt, /robots.ts, /sitemap.ts, /manifest.ts
 ```
 
 **Component organisation:**
@@ -314,6 +328,7 @@ For any non-trivial change, follow this protocol:
 - **2026-07-10** — **SEO/GEO + accessibility audit fixes.** Full-site audit first (Lighthouse mobile: SEO 100 / Best Practices 100 / A11y 92; all 15 routes 200; www/http → apex 308; OAI-SearchBot/GPTBot/ClaudeBot/PerplexityBot/Bingbot/Googlebot all 200 — no CDN blocking; lab LCP 552ms / CLS 0.00). Fixes shipped: (1) **`/work/[slug]` og:image** — 21 of 31 case studies have `img: ''` and shipped NO og:image while declaring `summary_large_image`; the `generateMetadata` comment wrongly assumed the root file-based opengraph-image propagates to nested routes (it does not — same trap as 2026-05-25 /about + /contact). Now falls back explicitly to the 1200×630 `/opengraph-image` route. (2) **Legal + haoroomie privacy pages** gained full §14.2 `openGraph`/`twitter` blocks (their `og:url` previously fell back to the homepage, mismatching their canonicals). (3) **Service detail heading hierarchy** (§14.5) — h1→h3 skip fixed: section heads h3→h2, sub-service titles h4→h3, sidebar heads h4→h3; visual classes unchanged. (4) **WCAG contrast** — ServicesSection progress label `text-brand-text/30`→`/60`; ProcessSection ghost number `/10`→`/45` (hover `yellow/30`→`yellow/60`) and step desc `/50`→`/60`; BlogSection (light `bg-brand-white`) date/read-time `brand-muted`→`brand-black/70` and category chip `brand-yellow`→new token **`--color-brand-yellow-deep: #8A6510`** (deep gold for light surfaces only, ≥4.5:1 on brand-white; mirrored in `lib/brand.ts`, documented in §8). (5) **WCAG 2.5.3 label-in-name** — ServicesSection CTA aria-label now contains the visible "Explore more"; BlogSection row + "More articles" aria-labels removed (visible text is the accessible name). (6) **Touch targets** — SiteFooter mailto/tel links gained `py-1` (≥24px). (7) **§6 compliance** — Cloudflare logo removed from the platform marquee (rule 10 avoid-list; SVG kept in `/public/logos`); Sunsill "small-to-medium residential projects"→"residential projects" (rule 9); lexcord `seoTitle` shortened under 60 chars. Remaining owner-side items unchanged (§14.13): GSC sitemap submit/reindex, Apple Business Connect, Bing Places, directory citations, review acquisition. PSI API note: the shared no-key quota 429s — set `PAGESPEED_API_KEY` for real CWV in the audit tool.
 - **2026-07-10** — **Phone contact removed from all public surfaces** (owner request). The `phone` field was deleted from `lib/data/business.ts` so TypeScript flags any future consumer. Removed from: SiteFooter tel link, ContactSection tel link ("Or write to us" is now email-only), AboutSection copy ("Email and phone reach us…" → "Email reaches us…"), `ProfessionalService` schema (top-level `telephone` + `ContactPoint.telephone`; the ContactPoint itself stays, email-only), and `llms.txt` (contact line now email-only). §14.1 canonical values now state "Phone: none published"; the NAP contract is Name / Address / Email / ABN. The retired number (+61 410 510 751) appearing anywhere in app/, components/, or lib/ is a truth-auditor block. **Owner-side follow-up:** the Google Business Profile still lists the phone number — decide whether to remove it there too; the site schema no longer emitting `telephone` does not conflict with GBP (absence ≠ mismatch), but citations built later (§14.9) must be created without a phone so NAP stays consistent.
 - **2026-08-02** — **Mobile motion restored (selectively) + full PWA installability.** (1) **The site's signature effects were never broken on mobile — they were switched off in code.** Every `<768px` visitor got a plain vertical stack because `StickySection` returned early on `matchMedia('(max-width: 767px)')`, killing all three layered transitions (`parallax` brightness/scale, `mask-diagonal` clipPath reveal, `pixel-glitch` opacity), while its `peekBackground` layer was `hidden md:block` and both `Aurora` instances were gated behind `{!isMobile && …}`. Measured before/after on an iPhone 13 viewport: `<canvas>` count 0 → 2. The transitions now run at every breakpoint (they animate only compositor-friendly properties); the reduced-motion guard is untouched. (2) **Deliberately still desktop-only** — do not "fix" these: the **ServicesSection pinned horizontal rail** (owner decision — a scroll-jacking horizontal pin fights native touch scrolling) and the **ProcessSection SVG connector** (its path is hard-coded to the desktop collage's `viewBox 0 0 400 500` coordinates; mobile uses a clean 2-col grid, so the curve would connect nothing. Note the mobile branch in that effect still animates `pathRef` — dead code against a `hidden` element, harmless). (3) **Aurora** gained an `antialias` prop (MSAA is baked into the GL context at creation, so it is a `useEffect` dep, not a ref read); mobile passes `false` plus lower speed/amplitude. Both call sites now gate render on a **three-state** `viewport` (`'unknown' | 'mobile' | 'desktop'`) rather than a boolean — a boolean defaults to `false` on first paint, which would build a desktop GL context on mobile and immediately tear it down to rebuild. `StickySection`'s own `isMobile` state was deleted as dead code. (4) **PWA**: `public/site.webmanifest` (stale — still said "Digital Alchemy", `theme_color: #eab308` which is not the brand gold, `#000000` background, no `start_url`/`scope`/`id`) replaced by **`app/manifest.ts`**, sourced from `lib/brand.ts` + `lib/data/business.ts`. **`app/layout.tsx` must NOT declare `manifest:`** — the file-based metadata route injects `<link rel="manifest">` itself, and declaring both emits the tag twice. `appleWebApp` added; Next.js emits the standardised `mobile-web-app-capable`, so the legacy `apple-mobile-web-app-capable` is added via `metadata.other` to cover iOS < 16.4. `statusBarStyle: 'black-translucent'` is paired with an inline `env(safe-area-inset-top)` padding on the fixed `Navigation` (inline, not a `pt-*` utility, because Tailwind's emitted `py-*`/`pt-*` order is not guaranteed by class order; resolves to 0 in browser tabs, so zero visual change outside standalone mode). New **`/icon-maskable`** route renders the logo at 280px on opaque brand-black — Android masks to the centre 80% (a 409.6px circle at 512, whose inscribed square is ~290px), and the existing edge-to-edge-on-transparency icon would lose its corners and show the launcher through. (5) **Service worker** (`public/sw.js`, registered by `components/pwa/ServiceWorkerRegistrar.tsx` on `load`, production only) is deliberately conservative because this is an SEO-led site: navigations are **network-first** (a publish is visible immediately), `/_next/static/*` is cache-first (content-hashed, immutable), other same-origin GETs are stale-while-revalidate, and `/api/*` + `/.well-known/*` + cross-origin + non-GET are **never touched** — verified 0 API entries cached. `/offline` is the precached fallback (noindex, absent from sitemap). **Bump `VERSION` in sw.js on any change to it** — `activate` deletes every `pixdyne-*` cache not in the current set. `next.config.ts` serves `/sw.js` with `Cache-Control: max-age=0, must-revalidate`. Verified on a production build: manifest/meta/icon correct, SW registered at scope `/`, offline fallback renders for unvisited routes while visited routes still open, `tsc` + `build` green. Chrome's *automatic* install prompt requires the SW fetch handler (menu install has not required one since Chrome 108/112); the only local console 404 is `/_vercel/insights/script.js`, which exists solely on Vercel.
+- **2026-08-04** — **App store-compliance surfaces shipped for two unreleased in-house apps** (PixComic, Hao Roomie). Neither app is on the App Store yet; the pages exist so Apple App Review and Google AdMob have reachable policy/support URLs to verify against. Owner instruction was explicitly "don't put them anywhere prominent — reachable and verifiable is enough", so **none of these routes appear in `Navigation`, `SiteFooter`, or `sitemap.ts`**. (1) **`public/app-ads.txt`** now declares `google.com, pub-6330113427891443, DIRECT, f08c47fec0942fa0`. The publisher ID was derived from the owner-supplied AdMob app ID `ca-app-pub-6330113427891443~5011240363` (the digits between `pub-` and `~`); `f08c47fec0942fa0` is Google's fixed IAB TAG certification-authority ID and is identical for every publisher. Verified served at `/app-ads.txt` as `text/plain; charset=UTF-8`. **The store listing's developer-website field must resolve to the apex** — `www` 308s to apex and Google follows it, but the apex avoids a needless hop. (2) **New routes**: `/pixcomic/privacy`, `/pixcomic/support`, `/haoroomie/support`, and `/apps` (a hub listing every app's policy + support links, rendered from the new `lib/data/apps.ts`). `/apps` is the only one carrying `robots: { index: false, follow: true }` — `follow: true` is deliberate so crawlers still reach the policy pages, which must stay reachable for review. The policy/support pages themselves are **not** noindex (they are ordinary legal surfaces, same as `/haoroomie/privacy`); they are simply absent from the sitemap. (3) **`/haoroomie/privacy` was not touched** (still effective 2026-06-07). (4) All four pages are bilingual (English + 简体中文) and follow the existing `/haoroomie/privacy` layout; NAP comes from `lib/data/business.ts` per §14.1, with the registered address deliberately left untranslated in the Chinese sections since it is the legal address of record. (5) Governance for these surfaces is now §15. Verified: `tsc` + `build` green (86 prerendered pages), all six app routes 200, `/apps` emits `noindex, follow`, canonicals correct, and `grep -cE 'pixcomic|haoroomie|/apps'` against the built sitemap returns **0**.
 
 ---
 
@@ -344,6 +359,7 @@ Current consumers (kept here for audit purposes — not for editing):
 | Terms of service | `app/legal/terms/page.tsx` |
 | Site footer | `components/layout/SiteFooter.tsx` |
 | Contact page section | `components/sections/ContactSection.tsx` |
+| App compliance pages (§15) | `app/apps/page.tsx`, `app/pixcomic/{privacy,support}/page.tsx`, `app/haoroomie/{privacy,support}/page.tsx` |
 
 **No NAP literal may be hardcoded outside `lib/data/business.ts`.** A grep for the address string, email string, or ABN string anywhere else (other than the governance files themselves — this CLAUDE.md and AGENTS.md) is a truth-auditor block. The retired phone number (+61 410 510 751 in any format) appearing **anywhere** in app/, components/, or lib/ is likewise a block — it is no longer published at all.
 
@@ -500,3 +516,49 @@ AI search engines (Perplexity, ChatGPT search, Gemini) and LLM crawlers favour c
 - `<!-- TBD: FAQ content per service detail page — unlocks FAQPage schema -->`
 - `<!-- TBD: Real client review acquisition strategy — minimum 5 verified reviews before any AggregateRating schema -->`
 - `<!-- TBD: Blog topic plan and editorial calendar — drives §14.11 cadence -->`
+
+---
+
+## 15. App Store-Compliance Surfaces
+
+Pixdyne publishes its own mobile apps. Apple App Review requires a reachable **privacy-policy URL** (and a **support URL** on the store listing); Google AdMob requires **`/app-ads.txt`** at the apex root. Those pages live on this site because it owns the brand domain — but they are **compliance destinations, not marketing pages**, and are governed separately from everything in §14.
+
+### 15.1 Current surfaces
+
+| App | Privacy | Support |
+|---|---|---|
+| PixComic (iPhone · iPad) | `/pixcomic/privacy` | `/pixcomic/support` |
+| Hao Roomie · 好室友 (iPhone · Android) | `/haoroomie/privacy` | `/haoroomie/support` |
+| — | `/apps` (hub listing both) | — |
+
+App metadata is registered in **`lib/data/apps.ts`**; `/apps` renders from that array, so adding a third app is a one-entry change plus two new page files.
+
+### 15.2 Hard rules
+
+1. **Never add these routes to `sitemap.ts`, `Navigation`, or `SiteFooter`.** Owner decision 2026-08-04: reachable and verifiable, not prominent. `/apps` is the single internal entry point.
+2. **`/apps` is `robots: { index: false, follow: true }`.** `follow: true` is load-bearing — crawlers must still be able to reach the policy pages. The policy and support pages themselves are **not** noindex; they are ordinary legal surfaces.
+3. **Do not add App Store / Play Store links until the listings are actually live.** Both apps are unreleased as of 2026-08-04 (§6 rule 8 — visible placeholders over fabricated content).
+4. **A privacy page must stay in lockstep with the app's `PrivacyInfo.xcprivacy` and its App Store privacy nutrition labels.** Apple cross-checks all three; editing one without the others is an App Review rejection. The disclosure tables in `/pixcomic/privacy` are the web copy of those labels — changing a row is a three-place change.
+5. **Support-page answers must be traceable to shipped behaviour.** Never write a UI walkthrough ("tap Settings → …") that has not been confirmed against the actual build. An inaccurate support page is worse than a short one. `/haoroomie/support` is deliberately narrow for this reason — every answer restates something already published in `/haoroomie/privacy`.
+6. **NAP comes from `lib/data/business.ts`** like everywhere else (§14.1). The registered address stays untranslated in Chinese sections — it is the legal address of record.
+7. **Only `info@pixdyne.com`** (§6 rule 11e). Do not invent a `support@` mailbox for the apps.
+8. **External legal links** (Google/Apple policies) are clickable — App Review expects it — but carry `rel="nofollow noopener noreferrer"` so link equity does not leak.
+
+### 15.3 app-ads.txt
+
+`public/app-ads.txt` declares authorised sellers for the apps' ad inventory:
+
+```
+google.com, pub-6330113427891443, DIRECT, f08c47fec0942fa0
+```
+
+- The publisher ID is derived from the AdMob **app ID** `ca-app-pub-6330113427891443~5011240363` — it is the digits between `pub-` and `~`.
+- `f08c47fec0942fa0` is Google's fixed IAB TAG certification-authority ID. It is the same for every publisher worldwide. **Never change it.**
+- The file must be served from the **apex root**, `https://pixdyne.com/app-ads.txt`. Google reads the developer-website field on the store listing, strips it to the root domain, and fetches from there. `www` 308s to apex and Google follows the redirect, but **declare the apex on the store listing** to avoid the hop.
+- One file covers every app under the same AdMob account. Adding an app does not require a new line unless it uses a different publisher or a resale partner.
+
+Verify after any deploy that touches it:
+
+```bash
+curl -sI https://pixdyne.com/app-ads.txt   # 200, content-type: text/plain
+```

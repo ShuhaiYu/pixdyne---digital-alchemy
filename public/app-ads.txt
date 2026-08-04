@@ -1,0 +1,19 @@
+# app-ads.txt — IAB Tech Lab authorised sellers declaration for Pixdyne mobile apps.
+#
+# Served from https://pixdyne.com/app-ads.txt (apex, root path — required).
+# Google's crawler reads the "Developer Website" / "Marketing URL" field on the
+# App Store and Play Store listing, strips it to the root domain, and fetches
+# /app-ads.txt from there. The URL declared on each store listing must therefore
+# resolve to pixdyne.com — www.pixdyne.com 308-redirects to apex, which Google
+# follows, but declaring the apex directly avoids a needless hop.
+#
+# Publisher ID pub-6330113427891443 is derived from the AdMob app ID
+# ca-app-pub-6330113427891443~5011240363 (the digits between "pub-" and "~").
+# f08c47fec0942fa0 is Google's fixed certification authority ID in the IAB TAG
+# registry — it is the same for every publisher and must not be changed.
+#
+# Verify after deploy:
+#   curl -sI https://pixdyne.com/app-ads.txt      # 200, content-type: text/plain
+#   curl -sI https://www.pixdyne.com/app-ads.txt  # 308 to apex is fine
+
+google.com, pub-6330113427891443, DIRECT, f08c47fec0942fa0

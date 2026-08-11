@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 // Must stay in lockstep with PrivacyInfo.xcprivacy in the PixComic Xcode
 // project and with the App Store privacy nutrition labels. Apple cross-checks
 // all three; changing one without the others is an App Review rejection.
-const lastUpdatedISO = '2026-08-06';
+const lastUpdatedISO = '2026-08-11';
 const lastUpdatedHuman = 'August 2026';
 
 // Google AdMob SDK collection disclosure. Transcribed category for category
@@ -273,29 +273,7 @@ export default function PixComicPrivacyPage() {
               at all</strong> — the advertising SDK is not started. You can reopen the form any time
               from <strong>Settings → About → Ad privacy options</strong>.
             </li>
-            <li>
-              <strong>Tipping once removes ads permanently.</strong> From that moment there are no
-              further ad requests, and from the next launch onwards the advertising SDK is not
-              initialised at all: no consent prompt, no data collection, no network requests.
-            </li>
           </ul>
-
-          <h2 className={headingClass}>Purchases</h2>
-          <p className={paraClass}>
-            The one-off &ldquo;supporter&rdquo; purchase that removes ads is processed entirely by
-            Apple through the App Store. <strong>We never receive your name, payment details or
-            Apple ID.</strong> Apple tells the app only whether the purchase exists, so the app knows
-            to hide the ads. See{' '}
-            <a
-              href="https://www.apple.com/legal/privacy/"
-              className={linkClass}
-              rel="nofollow noopener noreferrer"
-              target="_blank"
-            >
-              Apple&rsquo;s Privacy Policy
-            </a>{' '}
-            for how Apple handles that transaction.
-          </p>
 
           <h2 className={headingClass}>Children</h2>
           <p className={paraClass}>
@@ -353,7 +331,7 @@ export default function PixComicPrivacyPage() {
         <div id="zh" lang="zh-Hans" className="mt-20 pt-12 border-t-2 border-brand-black/20 scroll-mt-28">
           <h2 className="text-3xl md:text-5xl font-serif italic mb-6">隐私政策</h2>
           <p className="text-xs uppercase tracking-wider text-brand-muted mb-2">
-            最后更新：<time dateTime={lastUpdatedISO}>2026 年 8 月 6 日</time>
+            最后更新：<time dateTime={lastUpdatedISO}>2026 年 8 月 11 日</time>
           </p>
           <p className="text-sm text-brand-black/85 mb-12">
             PixComic 由 <strong>{BUSINESS.legalName}</strong>（{BUSINESS_FORMATTED.abnLabel}，
@@ -436,27 +414,7 @@ export default function PixComicPrivacyPage() {
                 ——广告 SDK 不会启动。同意书之后可以随时从{' '}
                 <strong>设置 → 关于 → 广告隐私选项</strong> 重新打开。
               </li>
-              <li>
-                <strong>打赏一次即永久去除广告。</strong>打赏之后不再发任何广告请求；
-                从下次启动开始，广告 SDK 完全不再初始化：不弹同意书、不收集数据、不发任何网络请求。
-              </li>
             </ul>
-
-            <h3 className={headingClass}>关于购买</h3>
-            <p className={paraClass}>
-              去除广告的一次性「支持者」购买完全由 Apple 通过 App Store 处理。
-              <strong>我们收不到你的姓名、支付信息或 Apple ID。</strong>Apple
-              只告诉 App 这笔购买是否存在，App 据此隐藏广告。Apple 如何处理该交易见{' '}
-              <a
-                href="https://www.apple.com/legal/privacy/"
-                className={linkClass}
-                rel="nofollow noopener noreferrer"
-                target="_blank"
-              >
-                Apple 隐私政策
-              </a>
-              。
-            </p>
 
             <h3 className={headingClass}>关于儿童</h3>
             <p className={paraClass}>

@@ -6,14 +6,14 @@ import { BUSINESS, BUSINESS_FORMATTED } from '@/lib/data/business';
 export const metadata: Metadata = {
   title: 'PixComic — Support',
   description:
-    'Help for PixComic, the comic reader for iPhone and iPad: Wi-Fi transfer troubleshooting, supported file formats, reading controls, and restoring purchases.',
+    'Help for PixComic, the comic reader for iPhone and iPad: Wi-Fi transfer troubleshooting, supported file formats, and reading controls.',
   alternates: {
     canonical: 'https://pixdyne.com/pixcomic/support'
   },
   openGraph: {
     title: 'PixComic — Support | Pixdyne',
     description:
-      'Help for PixComic: Wi-Fi transfer, supported formats, reading controls, and restoring purchases.',
+      'Help for PixComic: Wi-Fi transfer, supported formats, and reading controls.',
     url: 'https://pixdyne.com/pixcomic/support',
     // Root file-based opengraph-image does not propagate to nested routes;
     // reference the 1200×630 brand OG route so summary_large_image is valid.
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'PixComic — Support | Pixdyne',
-    description: 'Help for PixComic: Wi-Fi transfer, formats, reading controls, and purchases.'
+    description: 'Help for PixComic: Wi-Fi transfer, formats, and reading controls.'
   }
 };
 
@@ -255,35 +255,6 @@ const FAQ_GROUPS: readonly FaqGroup[] = [
           {
             en: 'Split wide pages (off by default) cuts one wide scan into two screens, which is how you read a printed spread on a portrait phone. If a single image is being sliced in half and you did not want that, this is the one to switch off.',
             zh: '「拆分宽页」（默认关）把一张横向的大图切成两屏，这是竖屏手机上看印刷跨页的方式。如果一张完整的图被无缘无故切成两半，要关的是它。'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    heading: { en: 'Purchases', zh: '购买' },
-    items: [
-      {
-        q: {
-          en: 'I paid but the ads are still there.',
-          zh: '付了钱但广告还在。'
-        },
-        a: [
-          {
-            en: 'Open Settings → the tip row → Restore purchases (top left of that screen). Make sure you are signed in with the same Apple ID you used to pay.',
-            zh: '打开 设置 → 打赏那一行 → 恢复购买（在那个页面左上角）。确认你登录的是当初付款的那个 Apple ID。'
-          }
-        ]
-      },
-      {
-        q: {
-          en: 'I have a new phone.',
-          zh: '换了新手机。'
-        },
-        a: [
-          {
-            en: 'The purchase follows your Apple ID. Install PixComic, open the tip screen and tap Restore purchases. Your comics themselves do not transfer automatically — move them over with the Wi-Fi transfer feature, or restore an iCloud/Finder backup.',
-            zh: '购买跟着 Apple ID 走。装上 PixComic，进打赏页点「恢复购买」即可。漫画本身不会自动同步——用 Wi-Fi 传书传过去，或者恢复 iCloud / 访达备份。'
           }
         ]
       }

@@ -184,7 +184,10 @@ export const ProcessSection: React.FC = () => {
             <SplitText
               text="Chaos."
               tag="h2"
-              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-brand-yellow leading-none"
+              // brand-yellow-deep, not brand-yellow: this heading sits on
+              // bg-brand-white, where #C8962A is only 2.4:1 and fails WCAG
+              // even at display size. See CLAUDE.md §8.
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif italic text-brand-yellow-deep leading-none"
               textAlign="left"
               splitType="chars"
               delay={40}

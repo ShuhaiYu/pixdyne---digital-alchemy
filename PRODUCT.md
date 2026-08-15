@@ -1,5 +1,14 @@
 # Pixdyne Design Context
 
+> ⚠️ **STALE — historical context only. Do not design from this file.**
+>
+> No other document references it, and it now contradicts the codebase in three places:
+> Three.js (the repo uses `ogl`), the bronze secondary accent "for team member
+> differentiation" (that role died with `CLAUDE.md` §6 rule 1), and the "Small-to-medium
+> businesses" framing (§6 rule 9 bans size-based targeting from client-facing copy).
+>
+> The authority on the visual system is **`CLAUDE.md` §8** and **`app/globals.css`**.
+
 ## Target Audience
 Small-to-medium businesses and startups in Melbourne and globally seeking premium digital services (web dev, app dev, SEO, IT support).
 

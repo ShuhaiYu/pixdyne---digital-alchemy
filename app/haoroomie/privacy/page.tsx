@@ -29,8 +29,8 @@ export const metadata: Metadata = {
   }
 };
 
-const lastUpdatedISO = '2026-06-07';
-const lastUpdatedHuman = 'June 2026';
+const lastUpdatedISO = '2026-08-17';
+const lastUpdatedHuman = 'August 2026';
 
 export default function HaoRoomiePrivacyPage() {
   return (
@@ -74,15 +74,27 @@ export default function HaoRoomiePrivacyPage() {
             </li>
             <li>
               <strong>Ledger data:</strong> expenses you record (amount, category, note, date, who is
-              included), household membership, invites, and settlements.
+              included), comments you post on an expense, household and member names, invites, and
+              settlements.
             </li>
             <li>
-              <strong>Receipt images</strong> <em>(optional — Pro feature, not in the free version):</em>{' '}
+              <strong>Receipt images</strong> <em>(optional — Pro):</em>{' '}
               when you use receipt scanning, the photo you capture or select.
             </li>
             <li>
               <strong>Subscription status</strong> <em>(Pro):</em> whether you have an active
               &ldquo;Pixdyne Pro&rdquo; subscription (we do not receive or store your payment card details).
+            </li>
+            <li>
+              <strong>Push notification token</strong> <em>(optional):</em> if you turn notifications on, a
+              device push token used solely to deliver the alerts you enabled. You can turn this off in your
+              device or in-app settings.
+            </li>
+            <li>
+              <strong>Diagnostics (crash &amp; error reports):</strong> when the app crashes or hits an
+              error, technical details — device model, operating-system and app version, and a stack trace —
+              together with your account identifier. These reports never include your email, name, or ledger
+              contents.
             </li>
           </ul>
 
@@ -93,9 +105,18 @@ export default function HaoRoomiePrivacyPage() {
               invite to a household, and compute balances and settlements.
             </li>
             <li>
-              <strong>Receipt scanning</strong> <em>(Pro feature, not in the free version):</em> the receipt
+              <strong>Receipt scanning</strong> <em>(Pro):</em> the receipt
               image is sent to our AI processor to extract fields (merchant, amount, date, category). We do
               not use your data to train AI models.
+            </li>
+            <li>
+              <strong>Push notifications</strong> <em>(optional):</em> to send the alerts you opt into — a
+              roommate adds an expense, a settle-up is due, a transfer is marked paid, someone comments on an
+              expense, or someone joins your household.
+            </li>
+            <li>
+              <strong>Diagnostics:</strong> to detect, diagnose, and fix crashes and errors and improve
+              stability.
             </li>
             <li>To manage your subscription and provide customer support.</li>
           </ul>
@@ -103,9 +124,11 @@ export default function HaoRoomiePrivacyPage() {
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">3. Who processes your data (sub-processors)</h2>
           <ul className="list-disc pl-6 mb-8 text-brand-black/85 space-y-2">
             <li><strong>Supabase</strong> — database, authentication, file storage, hosted in Singapore (ap-southeast-1).</li>
-            <li><strong>Google (Gemini API)</strong> <em>(Pro feature, not in the free version)</em> — receipt OCR processing of images you submit.</li>
+            <li><strong>Google (Gemini API)</strong> <em>(Pro)</em> — receipt OCR processing of images you submit.</li>
             <li><strong>RevenueCat</strong> <em>(Pro)</em> — subscription management.</li>
-            <li><strong>Apple / Google</strong> — sign-in (if you choose those methods) and in-app purchases.</li>
+            <li><strong>Sentry</strong> — crash and error diagnostics.</li>
+            <li><strong>Expo</strong> — push-notification delivery (routed through Apple / Google push services).</li>
+            <li><strong>Apple / Google</strong> — sign-in (if you choose those methods), in-app purchases, and push-notification delivery.</li>
           </ul>
           <p className="mb-8 text-brand-black/85">
             We do <strong>not</strong> sell your personal data or share it for advertising.
@@ -113,8 +136,9 @@ export default function HaoRoomiePrivacyPage() {
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">4. Sharing within the app</h2>
           <p className="mb-8 text-brand-black/85">
-            Expense and settlement data is visible to the other members of a household you join or create.
-            Your personal account contact (email / phone) is not shown to other members.
+            Expenses, comments, and settlement data are visible to the other members of a household you join
+            or create — a household is closed: only people you invite can see or post anything in it. Your
+            personal account contact (email / phone) is not shown to other members.
           </p>
 
           <h2 className="font-bold uppercase tracking-widest text-sm mb-4">5. Retention &amp; deletion</h2>
